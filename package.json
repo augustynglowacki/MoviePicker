@@ -22,13 +22,26 @@
     "@types/react-test-renderer": "^16.9.2",
     "babel-jest": "^26.6.3",
     "eslint": "^7.14.0",
+    "husky": "^4.3.8",
     "jest": "^26.6.3",
+    "lint-staged": "^11.0.0",
     "metro-react-native-babel-preset": "^0.64.0",
     "react-test-renderer": "17.0.1",
     "typescript": "^3.8.3"
   },
   "resolutions": {
     "@types/react": "^17"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   },
   "jest": {
     "preset": "react-native",
