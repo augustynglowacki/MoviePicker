@@ -13,7 +13,6 @@ export const styles = StyleSheet.create({
     paddingVertical: 50,
     marginTop: '120%',
   },
-
   titles: {
     marginBottom: 120,
     padding: 20,

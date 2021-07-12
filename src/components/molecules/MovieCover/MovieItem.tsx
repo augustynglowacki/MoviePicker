@@ -1,16 +1,17 @@
 import React from 'react';
 import {Text, View, ImageBackground} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {styles} from './MovieItem.styles';
+import {styles} from './MovieItemStyles';
 import {API_IMAGES} from '@env';
+import {IMovie} from '../../../models/models';
 
-interface MovieItemProps {
-  poster_path: string;
-  overview: string;
-  title: string;
-}
-
-const MovieItem = ({poster_path, overview, title}: MovieItemProps) => {
+const MovieItem = ({
+  //id,
+  poster_path,
+  overview,
+  title,
+}: // vote_average,
+IMovie) => {
   return (
     <View style={styles.movieContainer}>
       <ImageBackground
