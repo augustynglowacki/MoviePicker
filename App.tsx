@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaView, Text, View, Image, ScrollView} from 'react-native';
 import axios from 'axios';
 import {API_IMAGES, API_KEY, API_URL} from '@env';
+import ErrorBox from './src/ components/atoms/ErrorBox';
 
 const App = () => {
   const [moviesList, setMoviesList] = useState<
@@ -16,8 +17,9 @@ const App = () => {
   const [fetchError, setFetchError] = useState(false);
 
   useEffect(() => {
+    // add async
     axios
-      .get(`${API_URL}3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`)
+      .get(`${API_URL}trending/all/day?api_key=${API_KEY}&page=1`)
       .then(res => {
         setMoviesList(res.data.results);
       })
@@ -27,7 +29,7 @@ const App = () => {
     <SafeAreaView>
       <ScrollView>
         {fetchError === true ? (
-          <Text>Error</Text>
+          <ErrorBox />
         ) : (
           moviesList.map(movie => {
             return (
