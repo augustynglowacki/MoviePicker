@@ -1,12 +1,34 @@
+import {API_KEY, API_URL} from '@env';
 import {useNavigation} from '@react-navigation/native';
-import React, {useRef} from 'react';
-import {Text, StyleSheet, View, Alert} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {StyleSheet, View, Alert} from 'react-native';
 import {TapGestureHandler} from 'react-native-gesture-handler';
+import MovieList from '../components/organisms/MovieList';
+import {Movie} from '../models';
+import axios from 'axios';
 
 const Home = () => {
   const {navigate} = useNavigation();
   const doubleTapRef = useRef();
   const isLogIn = false;
+
+  const [moviesList, setMoviesList] = useState<Array<Movie>>([
+    {id: 0, title: 'none', vote_average: 0, poster_path: '', overview: ''},
+  ]);
+  const [fetchError, setFetchError] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get(`${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=2`)
+      .then(res => {
+        setMoviesList(res.data.results);
+      })
+      .catch(() => {
+        setFetchError(true);
+      });
+  }, []);
+
+  console.log(fetchError);
 
   return (
     <TapGestureHandler
@@ -39,7 +61,7 @@ const Home = () => {
               );
         }}>
         <View style={styles.wrapper}>
-          <Text>HomeScreen</Text>
+          <MovieList moviesList={moviesList} />
         </View>
       </TapGestureHandler>
     </TapGestureHandler>
@@ -52,8 +74,6 @@ export default Home;
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: 'blue',
   },
 });
