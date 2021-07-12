@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaView, Text, View, Image, ScrollView} from 'react-native';
 import axios from 'axios';
 import {API_IMAGES, API_KEY, API_URL} from '@env';
+import Home from './src/screens/Home/Home';
 
 const App = () => {
   const [moviesList, setMoviesList] = useState<
@@ -35,6 +36,9 @@ const App = () => {
                 <Text>{movie.title}</Text>
                 <Text>{movie.overview}</Text>
                 <Text>{movie.vote_average}</Text>
+                {/* <View style={{flex: 1}}>
+                  <Home />
+                </View> */}
                 <Image
                   source={{
                     uri: `${API_IMAGES}${movie.poster_path}`,
