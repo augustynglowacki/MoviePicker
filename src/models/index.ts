@@ -1,4 +1,4 @@
-import {Movie} from './Movie';
+import {IMovie} from './Movie';
 import {IMovieListProps} from './MovieListProps';
 
-export type {Movie, IMovieListProps};
+export type {IMovie, IMovieListProps};
