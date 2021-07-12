@@ -8,11 +8,11 @@ const App = () => {
     {
       id: Number;
       title: String;
-      vote_averge: Number;
+      vote_average: Number;
       poster_path: String; // ściezka do zdjęcia
       overview: String; // opis
     }[]
-  >([{id: 0, title: 'none', vote_averge: 0, poster_path: '', overview: ''}]);
+  >([{id: 0, title: 'none', vote_average: 0, poster_path: '', overview: ''}]);
   const [fetchError, setFetchError] = useState(false);
 
   useEffect(() => {
@@ -34,6 +34,7 @@ const App = () => {
               <View key={movie.id}>
                 <Text>{movie.title}</Text>
                 <Text>{movie.overview}</Text>
+                <Text>{movie.vote_average}</Text>
                 <Image
                   source={{
                     uri: `${API_IMAGES}${movie.poster_path}`,
