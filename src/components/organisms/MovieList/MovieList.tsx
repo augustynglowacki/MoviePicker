@@ -2,21 +2,19 @@ import React from 'react';
 import {StyleSheet, View, FlatList, Dimensions, Text} from 'react-native';
 import MovieItem from '../../molecules/MovieCover/MovieItem';
 
-// interface MovieListProps {
-//   title: string;
-// : React.FC<MovieListProps>
-// }
+interface movieListProps {
+  moviesList: Array<string>;
+}
 
-import MovieData from '../../../assets/filmDummyData';
-
-const MovieList = () => {
+const MovieList: React.FC<movieListProps> = ({moviesList}) => {
+  console.log(moviesList);
   return (
     <View style={styles.container}>
       <View style={styles.heading}>
         <Text style={styles.headingText}>What's popular</Text>
       </View>
       <FlatList
-        data={MovieData}
+        data={moviesList}
         renderItem={({item}) => <MovieItem {...item} />}
         snapToAlignment="start"
         decelerationRate="fast"

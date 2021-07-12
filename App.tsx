@@ -18,40 +18,47 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get(`${API_URL}3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`)
+      .get(`${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`)
       .then(res => {
         setMoviesList(res.data.results);
       })
-      .catch(() => setFetchError(true));
+      .catch(e => {
+        console.log(e);
+        setFetchError(true);
+      });
   }, []);
+
+  console.log(moviesList);
   return (
-    <SafeAreaView>
-      <ScrollView>
-        {fetchError === true ? (
-          <Text>Error</Text>
-        ) : (
-          moviesList.map(movie => {
-            return (
-              <View key={movie.id}>
-                <Text>{movie.title}</Text>
-                <Text>{movie.overview}</Text>
-                <Text>{movie.vote_average}</Text>
-                {/* <View style={{flex: 1}}>
-                  <Home />
-                </View> */}
-                <Image
-                  source={{
-                    uri: `${API_IMAGES}${movie.poster_path}`,
-                  }}
-                  style={{width: 400, height: 400}}
-                />
-              </View>
-            );
-          })
-        )}
-      </ScrollView>
-    </SafeAreaView>
+    <View style={{flex: 1}}>
+      <Home moviesList={moviesList} />
+    </View>
   );
 };
 
 export default App;
+
+// <SafeAreaView>
+// <ScrollView>
+//   {fetchError === true ? (
+//     <Text>Error</Text>
+//   ) : (
+//     moviesList.map(movie => {
+//       return (
+//         <View key={movie.id}>
+//           <Text>{movie.title}</Text>
+//           <Text>{movie.overview}</Text>
+//           <Text>{movie.vote_average}</Text>
+
+//           <Image
+//             source={{
+//               uri: `${API_IMAGES}${movie.poster_path}`,
+//             }}
+//             style={{width: 400, height: 400}}
+//           />
+//         </View>
+//       );
+//     })
+//   )}
+// </ScrollView>
+// </SafeAreaView>
