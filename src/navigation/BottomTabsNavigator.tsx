@@ -1,10 +1,10 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Home from '../screens/Home/Home';
-import Discover from '../screens/Discover/Discover';
+import Home from '../screens/Home';
+import Discover from '../screens/Discover';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import Liked from '../screens/Liked/Liked';
-import Account from '../screens/Account/Account';
+import Liked from '../screens/Liked';
+import Account from '../screens/Account';
 import {StyleSheet} from 'react-native';
 
 const Tab = createBottomTabNavigator();
@@ -61,7 +61,6 @@ const BottomTabsNavigator = () => {
 
 export default BottomTabsNavigator;
 
-//add liked + add stack with login settting screeen + account screen
 //temporary styles
 const styles = StyleSheet.create({
   icon: {
