@@ -1,11 +1,8 @@
 import React from 'react';
-import MovieList from '../../components/organisms/MovieList/MovieList';
+import MovieList from '../../components/organisms/MovieList';
+import {IMovieListProps} from '../../models';
 
-interface HomeProps {
-  moviesList: Array<string>;
-}
-
-const Home = ({moviesList}: HomeProps) => {
+const Home = ({moviesList}: IMovieListProps) => {
   return <MovieList moviesList={moviesList} />;
 };
 

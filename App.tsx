@@ -1,19 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, Text, View, Image, ScrollView} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import axios from 'axios';
-import {API_IMAGES, API_KEY, API_URL} from '@env';
+import {API_KEY, API_URL} from '@env';
 import Home from './src/screens/Home/Home';
+import {Movie} from './src/models';
 
 const App = () => {
-  const [moviesList, setMoviesList] = useState<
-    {
-      id: Number;
-      title: String;
-      vote_average: Number;
-      poster_path: String; // ściezka do zdjęcia
-      overview: String; // opis
-    }[]
-  >([{id: 0, title: 'none', vote_average: 0, poster_path: '', overview: ''}]);
+  const [moviesList, setMoviesList] = useState<Array<Movie>>([
+    {id: 0, title: 'none', vote_average: 0, poster_path: '', overview: ''},
+  ]);
   const [fetchError, setFetchError] = useState(false);
 
   useEffect(() => {
@@ -27,11 +22,17 @@ const App = () => {
       });
   }, []);
 
+  console.log(fetchError);
+
   return (
-    <View style={{flex: 1}}>
+    <View style={styles.container}>
       <Home moviesList={moviesList} />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {flex: 1},
+});
 
 export default App;
