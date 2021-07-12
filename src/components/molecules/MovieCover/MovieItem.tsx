@@ -10,11 +10,7 @@ interface MovieItemProps {
   title: string;
 }
 
-const MovieItem: React.FC<MovieItemProps> = ({
-  poster_path,
-  overview,
-  title,
-}) => {
+const MovieItem = ({poster_path, overview, title}: MovieItemProps) => {
   return (
     <View style={styles.movieContainer}>
       <ImageBackground

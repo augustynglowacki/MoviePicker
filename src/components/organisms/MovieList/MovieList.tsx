@@ -6,8 +6,7 @@ interface movieListProps {
   moviesList: Array<string>;
 }
 
-const MovieList: React.FC<movieListProps> = ({moviesList}) => {
-  console.log(moviesList);
+const MovieList = ({moviesList}: movieListProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.heading}>

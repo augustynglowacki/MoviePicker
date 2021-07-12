@@ -5,7 +5,7 @@ interface HomeProps {
   moviesList: Array<string>;
 }
 
-const Home: React.FC<HomeProps> = ({moviesList}) => {
+const Home = ({moviesList}: HomeProps) => {
   return <MovieList moviesList={moviesList} />;
 };
 

@@ -18,17 +18,15 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get(`${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`)
+      .get(`${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=2`)
       .then(res => {
         setMoviesList(res.data.results);
       })
-      .catch(e => {
-        console.log(e);
+      .catch(() => {
         setFetchError(true);
       });
   }, []);
 
-  console.log(moviesList);
   return (
     <View style={{flex: 1}}>
       <Home moviesList={moviesList} />
@@ -37,28 +35,3 @@ const App = () => {
 };
 
 export default App;
-
-// <SafeAreaView>
-// <ScrollView>
-//   {fetchError === true ? (
-//     <Text>Error</Text>
-//   ) : (
-//     moviesList.map(movie => {
-//       return (
-//         <View key={movie.id}>
-//           <Text>{movie.title}</Text>
-//           <Text>{movie.overview}</Text>
-//           <Text>{movie.vote_average}</Text>
-
-//           <Image
-//             source={{
-//               uri: `${API_IMAGES}${movie.poster_path}`,
-//             }}
-//             style={{width: 400, height: 400}}
-//           />
-//         </View>
-//       );
-//     })
-//   )}
-// </ScrollView>
-// </SafeAreaView>
