@@ -4,13 +4,15 @@ import LinearGradient from 'react-native-linear-gradient';
 import {styles} from './MovieItem.styles';
 import {API_IMAGES} from '@env';
 
-interface MovieItemProps {
-  poster_path: string;
-  overview: string;
-  title: string;
+interface IMovieItemProps {
+  id: Number;
+  title: String;
+  vote_average: Number;
+  poster_path: String;
+  overview: String;
 }
 
-const MovieItem = ({poster_path, overview, title}: MovieItemProps) => {
+const MovieItem = ({poster_path, overview, title}: IMovieItemProps) => {
   return (
     <View style={styles.movieContainer}>
       <ImageBackground

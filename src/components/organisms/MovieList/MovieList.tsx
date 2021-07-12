@@ -2,11 +2,18 @@ import React from 'react';
 import {StyleSheet, View, FlatList, Dimensions, Text} from 'react-native';
 import MovieItem from '../../molecules/MovieCover/MovieItem';
 
-interface movieListProps {
-  moviesList: Array<string>;
+interface IMovieListProps {
+  moviesList: IRenderItemProps[];
+}
+interface IRenderItemProps {
+  id: Number;
+  title: String;
+  vote_average: Number;
+  poster_path: String;
+  overview: String;
 }
 
-const MovieList = ({moviesList}: movieListProps) => {
+const MovieList = ({moviesList}: IMovieListProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.heading}>
