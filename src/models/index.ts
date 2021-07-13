@@ -1,4 +1,6 @@
 import {Movie} from './Movie';
-import {IMovieListProps} from './MovieListProps';
+import {MovieAxiosResponse} from './MovieAxiosResponse';
+import {MovieListProps} from './MovieListProps';
+import {MovieState} from './MovieState';
 
-export type {Movie, IMovieListProps};
+export type {Movie, MovieListProps, MovieState, MovieAxiosResponse};

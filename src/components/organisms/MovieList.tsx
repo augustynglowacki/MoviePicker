@@ -7,13 +7,13 @@ import {
   Text,
   ListRenderItem,
 } from 'react-native';
-import {IMovieListProps, Movie} from '../../models';
+import {MovieListProps, Movie} from '../../models';
 import MovieItem from '../molecules/MovieItem';
 
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
-const MovieList = ({moviesList}: IMovieListProps) => {
+const MovieList = ({moviesList}: MovieListProps) => {
   const renderItem: ListRenderItem<Movie> = ({item}) => (
     <MovieItem
       id={item.id}
