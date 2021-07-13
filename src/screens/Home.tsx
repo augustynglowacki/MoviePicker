@@ -1,34 +1,25 @@
-import {API_KEY, API_URL} from '@env';
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {StyleSheet, View, Alert} from 'react-native';
 import {TapGestureHandler} from 'react-native-gesture-handler';
 import MovieList from '../components/organisms/MovieList';
-import {Movie} from '../models';
-import axios from 'axios';
+import {getMovies, movieSelector} from '../redux/slices/MovieSlice';
+import {useDispatch, useSelector} from 'react-redux';
 
 const Home = () => {
+  const dispatch = useDispatch();
+  //To select whatever elements we want from the state, we pass the state (exported as movieSelector) to our useSelector hook.
+  const {movies, loading, error} = useSelector(movieSelector);
+  useEffect(() => {
+    dispatch(getMovies());
+  }, [dispatch]);
+
+  console.log(loading, error);
+
+  //navigation
   const {navigate} = useNavigation();
   const doubleTapRef = useRef();
   const isLogIn = false;
-
-  const [moviesList, setMoviesList] = useState<Array<Movie>>([
-    {id: 0, title: 'none', vote_average: 0, poster_path: '', overview: ''},
-  ]);
-  const [fetchError, setFetchError] = useState(false);
-
-  useEffect(() => {
-    axios
-      .get(`${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=2`)
-      .then(res => {
-        setMoviesList(res.data.results);
-      })
-      .catch(() => {
-        setFetchError(true);
-      });
-  }, []);
-
-  console.log(fetchError);
 
   return (
     <TapGestureHandler
@@ -61,7 +52,7 @@ const Home = () => {
               );
         }}>
         <View style={styles.wrapper}>
-          <MovieList moviesList={moviesList} />
+          <MovieList moviesList={movies} />
         </View>
       </TapGestureHandler>
     </TapGestureHandler>
