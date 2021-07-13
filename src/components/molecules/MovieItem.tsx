@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, ImageBackground} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {API_IMAGES} from '@env';
-import {Movie} from '../../models';
+import {IMovie} from '../../models';
 import {StyleSheet, Dimensions} from 'react-native';
 
 const MovieItem = ({
@@ -11,7 +11,7 @@ const MovieItem = ({
   overview,
   title,
 }: // vote_average,
-Movie) => {
+IMovie) => {
   return (
     <View style={styles.movieContainer}>
       <ImageBackground
