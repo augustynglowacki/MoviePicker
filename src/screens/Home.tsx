@@ -4,7 +4,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {StyleSheet, View, Alert} from 'react-native';
 import {TapGestureHandler} from 'react-native-gesture-handler';
 import MovieList from '../components/organisms/MovieList';
-import {IMovie} from '../models';
+import {Movie} from '../models';
 import axios from 'axios';
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
   const doubleTapRef = useRef();
   const isLogIn = false;
 
-  const [moviesList, setMoviesList] = useState<Array<IMovie>>([
+  const [moviesList, setMoviesList] = useState<Array<Movie>>([
     {id: 0, title: 'none', vote_average: 0, poster_path: '', overview: ''},
   ]);
   const [fetchError, setFetchError] = useState(false);
