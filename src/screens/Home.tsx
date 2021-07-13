@@ -5,6 +5,7 @@ import {TapGestureHandler} from 'react-native-gesture-handler';
 import MovieList from '../components/organisms/MovieList';
 import {getMovies, movieSelector} from '../redux/slices/MovieSlice';
 import {useDispatch, useSelector} from 'react-redux';
+import {getGenres} from '../data/genres';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const Home = () => {
   }, [dispatch]);
 
   console.log(loading, error);
-
+  console.log(getGenres);
   //navigation
   const {navigate} = useNavigation();
   const doubleTapRef = useRef();
