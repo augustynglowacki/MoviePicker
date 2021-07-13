@@ -1,5 +1,11 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
+import {
+  AUTH,
+  DETAILS,
+  HOME_NAVIGATOR,
+  SETTINGS,
+} from '../models/constants/routeNames';
 import Details from '../screens/Details';
 import Settings from '../screens/Settings';
 import AuthNavigator from './AuthNavigator';
@@ -12,16 +18,16 @@ const HomeNavigator = () => {
     <Stack.Navigator>
       <Stack.Screen
         options={{headerShown: false}}
-        name="Home"
+        name={HOME_NAVIGATOR}
         component={BottomTabsNavigator}
       />
       <Stack.Screen
         options={{headerShown: false}}
-        name="Auth"
+        name={AUTH}
         component={AuthNavigator}
       />
-      <Stack.Screen name="Details" component={Details} />
-      <Stack.Screen name="Settings" component={Settings} />
+      <Stack.Screen name={DETAILS} component={Details} />
+      <Stack.Screen name={SETTINGS} component={Settings} />
     </Stack.Navigator>
   );
 };
