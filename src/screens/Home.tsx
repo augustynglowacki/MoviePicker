@@ -6,11 +6,14 @@ import {TapGestureHandler} from 'react-native-gesture-handler';
 import MovieList from '../components/organisms/MovieList';
 import {IMovie} from '../models';
 import axios from 'axios';
+import {getGenres} from '../data/genres';
 
 const Home = () => {
   const {navigate} = useNavigation();
   const doubleTapRef = useRef();
   const isLogIn = false;
+
+  // fetch needs to be separated
 
   const [moviesList, setMoviesList] = useState<Array<IMovie>>([
     {id: 0, title: 'none', vote_average: 0, poster_path: '', overview: ''},
