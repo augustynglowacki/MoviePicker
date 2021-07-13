@@ -10,14 +10,13 @@ interface ISectionHeaderProps {
 }
 
 const SectionHeader = ({text, color, size}: ISectionHeaderProps) => (
-  <Text style={[styles.sectionHeader, {color: color, fontSize: size}]}>
+  <Text style={[styles.sectionHeader, {color: color, fontSize: size || 36}]}>
     {text}
   </Text>
 );
 
 const styles = StyleSheet.create({
   sectionHeader: {
-    fontSize: 36,
     fontWeight: '300',
   },
 });
