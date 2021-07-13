@@ -1,5 +1,5 @@
 import {combineReducers} from '@reduxjs/toolkit';
-import MoviesSliceReducer from './slices/MovieSlice';
+import MoviesSliceReducer from './movie/MovieSlice';
 
 // Combining multiple reducers - more will be added in the future
 const rootReducer = combineReducers({movies: MoviesSliceReducer});
