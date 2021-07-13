@@ -5,16 +5,20 @@ import {Text, StyleSheet} from 'react-native';
 
 interface ISectionHeaderProps {
   text: string;
+  color?: string;
+  size?: number;
 }
 
-const SectionHeader = ({text}: ISectionHeaderProps) => (
-  <Text style={styles.sectionHeader}>{text}</Text>
+const SectionHeader = ({text, color, size}: ISectionHeaderProps) => (
+  <Text style={[styles.sectionHeader, {color: color, fontSize: size}]}>
+    {text}
+  </Text>
 );
 
 const styles = StyleSheet.create({
   sectionHeader: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 36,
+    fontWeight: '300',
   },
 });
 export default SectionHeader;

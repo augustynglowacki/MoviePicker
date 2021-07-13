@@ -9,6 +9,8 @@ const DiscoveryInput = () => {
       <TextInput
         placeholder="Search for movies"
         style={styles.discoveryInput}
+        keyboardAppearance="light"
+        clearButtonMode="always"
       />
     </View>
   );
@@ -17,21 +19,21 @@ const DiscoveryInput = () => {
 const styles = StyleSheet.create({
   inputBox: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   discoveryInput: {
-    width: 200,
+    width: '90%',
     height: 30,
     padding: 4,
+    color: 'white',
     borderWidth: 1,
     borderLeftWidth: 0,
+    backgroundColor: 'grey',
   },
   inputIcon: {
-    padding: 3,
-    paddingTop: 8,
-    paddingBottom: 8,
+    padding: 8,
+
     borderWidth: 1,
+    backgroundColor: 'grey',
   },
 });
 
