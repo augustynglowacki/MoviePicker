@@ -145,6 +145,7 @@
 				C79F09CD83AF8CF72B6D073F /* Pods-MoviePicker-MoviePickerTests.debug.xcconfig */,
 				DC7546CD1E03F02F38FA5141 /* Pods-MoviePicker-MoviePickerTests.release.xcconfig */,
 			);
+			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -484,7 +485,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 57LHQ52445;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MoviePicker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -511,7 +511,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 57LHQ52445;
 				INFOPLIST_FILE = MoviePicker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
