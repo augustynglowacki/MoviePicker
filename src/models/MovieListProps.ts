@@ -1,5 +1,5 @@
-import {IMovie} from './Movie';
+import {Movie} from './Movie';
 
-export interface IMovieListProps {
-  moviesList: IMovie[];
+export interface MovieListProps {
+  moviesList: Movie[];
 }

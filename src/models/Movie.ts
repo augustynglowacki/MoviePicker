@@ -1,4 +1,4 @@
-export interface IMovie {
+export interface Movie {
   id: Number; //id filmu
   title: String; //tytul
   vote_average?: Number; //srednia ocen
