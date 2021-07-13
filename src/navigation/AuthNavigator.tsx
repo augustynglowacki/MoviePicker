@@ -1,5 +1,6 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
+import {LOGIN, REGISTER} from '../models/constants/routeNames';
 import Login from '../screens/Login';
 import SingUp from '../screens/SingUp';
 
@@ -8,8 +9,8 @@ const AuthNavigator = () => {
 
   return (
     <AuthStack.Navigator screenOptions={{headerShown: false}}>
-      <AuthStack.Screen name="Login" component={Login} />
-      <AuthStack.Screen name="Register" component={SingUp} />
+      <AuthStack.Screen name={LOGIN} component={Login} />
+      <AuthStack.Screen name={REGISTER} component={SingUp} />
     </AuthStack.Navigator>
   );
 };
