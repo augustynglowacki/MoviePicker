@@ -1,10 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import DiscoveryInput from '../components/atoms/DiscoveryInput';
 
 const Discover = () => {
   return (
     <View style={styles.wrapper}>
-      <Text> DiscoverScreen </Text>
+      <DiscoveryInput />
     </View>
   );
 };
@@ -17,6 +18,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'red',
   },
 });
