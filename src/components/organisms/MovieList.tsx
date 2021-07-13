@@ -7,14 +7,14 @@ import {
   Text,
   ListRenderItem,
 } from 'react-native';
-import {IMovieListProps, Movie} from '../../models';
+import {IMovieListProps, IMovie} from '../../models';
 import MovieItem from '../molecules/MovieItem';
 
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
 const MovieList = ({moviesList}: IMovieListProps) => {
-  const renderItem: ListRenderItem<Movie> = ({item}) => (
+  const renderItem: ListRenderItem<IMovie> = ({item}) => (
     <MovieItem
       id={item.id}
       title={item.title}
@@ -24,14 +24,14 @@ const MovieList = ({moviesList}: IMovieListProps) => {
     />
   );
 
-  const keyExtractor = (item: Movie) => item.id.toString();
+  const keyExtractor = (item: IMovie) => item.id.toString();
 
   return (
     <View style={styles.container}>
       <View style={styles.heading}>
         <Text style={styles.headingText}>What's popular</Text>
       </View>
-      <FlatList<Movie>
+      <FlatList<IMovie>
         data={moviesList}
         renderItem={renderItem}
         snapToAlignment="start"

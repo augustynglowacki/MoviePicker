@@ -1,39 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import axios from 'axios';
-import {API_KEY, API_URL} from '@env';
-import Home from './src/screens/Home/Home';
-import {Movie} from './src/models';
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import HomeNavigator from './src/navigation/HomeNavigator';
 
 const App = () => {
-  const [moviesList, setMoviesList] = useState<Array<Movie>>([
-    {id: 0, title: 'none', vote_average: 0, poster_path: '', overview: ''},
-  ]);
-  const [fetchError, setFetchError] = useState(false);
-
-  useEffect(() => {
-    // add async
-    axios
-      .get(`${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=2`)
-      .then(res => {
-        setMoviesList(res.data.results);
-      })
-      .catch(() => {
-        setFetchError(true);
-      });
-  }, []);
-
-  console.log(fetchError);
-
   return (
-    <View style={styles.container}>
-      <Home moviesList={moviesList} />
-    </View>
+    <NavigationContainer>
+      <HomeNavigator />
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {flex: 1},
-});
 
 export default App;
