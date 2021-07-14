@@ -1,39 +1,23 @@
-import {API_KEY} from '@env';
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useRef} from 'react';
 import {StyleSheet, View, Alert} from 'react-native';
 import {TapGestureHandler} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
+import ErrorBox from '../components/atoms/ErrorBox';
 import MovieList from '../components/organisms/MovieList';
-import axiosInstance from '../helpers/axiosInstance';
-import {Movie, MovieAxiosResponse, MovieState} from '../models';
 import {AUTH, DETAILS} from '../models/constants/routeNames';
 import {fetchMovies} from '../redux/action';
+import {MovieStateWithLoading} from '../redux/moviesReducer';
+import Loading from './Loading';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const movies = useSelector((state: MovieState) => state.movies);
+  const {movies, error, loading} = useSelector(
+    (state: MovieStateWithLoading) => state,
+  );
 
   useEffect(() => {
-    const getMovies = async () => {
-      try {
-        const res = await axiosInstance.get<MovieAxiosResponse>(
-          `movie/popular?api_key=${API_KEY}&language=en-US&page=1`,
-        );
-        const newresult = res.data.results.map((x: Movie) => ({
-          id: x.id,
-          title: x.title,
-          vote_average: x.vote_average,
-          poster_path: x.poster_path,
-          overview: x.overview,
-        }));
-        console.log(newresult);
-        dispatch(fetchMovies(newresult));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getMovies();
+    dispatch(fetchMovies());
   }, [dispatch]);
 
   const {navigate} = useNavigation();
@@ -75,7 +59,13 @@ const Home = () => {
         numberOfTaps={2}
         onActivated={handleOnActivated}>
         <View style={styles.wrapper}>
-          <MovieList moviesList={movies} />
+          {loading ? (
+            <Loading />
+          ) : error ? (
+            <ErrorBox />
+          ) : (
+            <MovieList moviesList={movies} />
+          )}
         </View>
       </TapGestureHandler>
     </TapGestureHandler>
@@ -84,7 +74,6 @@ const Home = () => {
 
 export default Home;
 
-//temporary styles
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
