@@ -6,15 +6,13 @@ import {useDispatch, useSelector} from 'react-redux';
 import ErrorBox from '../components/atoms/ErrorBox';
 import MovieList from '../components/organisms/MovieList';
 import {AUTH, DETAILS} from '../models/constants/routeNames';
-import {fetchMovies} from '../redux/action';
-import {MovieStateWithLoading} from '../redux/moviesReducer';
+import {fetchMovies} from '../redux/moviesAction';
+import {State} from '../redux/moviesReducer';
 import Loading from './Loading';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const {movies, error, loading} = useSelector(
-    (state: MovieStateWithLoading) => state,
-  );
+  const {movies, error, loading} = useSelector((state: State) => state);
 
   useEffect(() => {
     dispatch(fetchMovies());
