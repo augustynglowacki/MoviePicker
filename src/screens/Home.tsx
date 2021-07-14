@@ -1,27 +1,44 @@
+import {API_KEY} from '@env';
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useRef} from 'react';
 import {StyleSheet, View, Alert} from 'react-native';
 import {TapGestureHandler} from 'react-native-gesture-handler';
-import MovieList from '../components/organisms/MovieList';
-import {getMovies, movieSelector} from '../redux/slices/MovieSlice';
 import {useDispatch, useSelector} from 'react-redux';
-import {getGenres} from '../data/genres';
+import MovieList from '../components/organisms/MovieList';
+import axiosInstance from '../helpers/axiosInstance';
+import {Movie, MovieAxiosResponse, MovieState} from '../models';
 import {AUTH, DETAILS} from '../models/constants/routeNames';
+import {fetchMovies} from '../redux/action';
 
 const Home = () => {
   const dispatch = useDispatch();
-  //To select whatever elements we want from the state, we pass the state (exported as movieSelector) to our useSelector hook.
-  const {movies, loading, error} = useSelector(movieSelector);
+  const movies = useSelector((state: MovieState) => state.movies);
+
   useEffect(() => {
-    dispatch(getMovies());
+    const getMovies = async () => {
+      try {
+        const res = await axiosInstance.get<MovieAxiosResponse>(
+          `movie/popular?api_key=${API_KEY}&language=en-US&page=1`,
+        );
+        const newresult = res.data.results.map((x: Movie) => ({
+          id: x.id,
+          title: x.title,
+          vote_average: x.vote_average,
+          poster_path: x.poster_path,
+          overview: x.overview,
+        }));
+        console.log(newresult);
+        dispatch(fetchMovies(newresult));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getMovies();
   }, [dispatch]);
 
-  console.log(loading, error);
-  console.log(getGenres);
-  //navigation
   const {navigate} = useNavigation();
   const doubleTapRef = useRef();
-  const isLogIn = false; //temprary state
+  const isLogIn = false; //temporary state
 
   const navigateTo = () => {
     navigate(AUTH);
