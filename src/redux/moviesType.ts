@@ -13,7 +13,7 @@ export interface GetMoviesSucces {
 }
 export interface GetMoviesRejected {
   type: typeof GET_MOVIES_REJECTED;
-  payload: [];
+  payload: string;
 }
 
 export type MovieActionTypes =

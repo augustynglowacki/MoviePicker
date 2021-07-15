@@ -7,15 +7,15 @@ import {
 } from './moviesType';
 
 export interface State {
-  movies: Movie[] | [];
+  movies: Movie[];
   loading: boolean;
-  error: [] | null;
+  error: string;
 }
 
 const initialState: State = {
   movies: [{id: 0, title: '', vote_average: 0, poster_path: '', overview: ''}],
   loading: false,
-  error: null,
+  error: '',
 };
 
 const moviesReducer = (
@@ -35,7 +35,6 @@ const moviesReducer = (
         loading: false,
       };
     case GET_MOVIES_REJECTED:
-      console.log(action.payload);
       return {
         ...state,
         loading: false,
