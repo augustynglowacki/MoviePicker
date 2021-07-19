@@ -18,7 +18,12 @@ const DiscoveryContentBox = ({title, data}: DiscoveryContentBoxProps) => {
   return (
     <View style={styles.discoveryContentBox}>
       <SectionHeader text={title} size={20} color="white" />
-      <FlatList data={data} renderItem={renderItem} horizontal={true} />
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+      />
     </View>
   );
 };
