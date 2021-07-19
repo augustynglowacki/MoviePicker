@@ -26,7 +26,11 @@ const HomeNavigator = () => {
         name={AUTH}
         component={AuthNavigator}
       />
-      <Stack.Screen name={DETAILS} component={Details} />
+      <Stack.Screen
+        name={DETAILS}
+        component={Details}
+        options={{headerShown: false}}
+      />
       <Stack.Screen name={SETTINGS} component={Settings} />
     </Stack.Navigator>
   );
