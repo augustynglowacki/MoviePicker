@@ -3,6 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import MovieList from '../components/organisms/MovieList';
 import {getMovies, movieSelector} from '../redux/movie/MovieSlice';
 import {useDispatch, useSelector} from 'react-redux';
+import ScreenWrapper from './ScreenWrapper';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -12,12 +13,12 @@ const Home = () => {
     dispatch(getMovies());
   }, [dispatch]);
 
-
-
   return (
-    <View style={styles.wrapper}>
-      <MovieList moviesList={movies} />
-    </View>
+    <ScreenWrapper error={error} loading={loading}>
+      <View style={styles.wrapper}>
+        <MovieList moviesList={movies} />
+      </View>
+    </ScreenWrapper>
   );
 };
 
