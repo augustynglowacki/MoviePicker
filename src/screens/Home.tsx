@@ -16,8 +16,6 @@ const Home = () => {
     dispatch(getMovies());
   }, [dispatch]);
 
-  console.log(loading, error);
-  console.log(getGenres);
   //navigation
   const {navigate} = useNavigation();
   const doubleTapRef = useRef();

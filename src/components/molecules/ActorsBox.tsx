@@ -24,6 +24,7 @@ const ActorsBox = () => {
 const styles = StyleSheet.create({
   actorsBox: {
     marginTop: 5,
+    marginBottom: 15,
   },
 });
 
