@@ -12,6 +12,7 @@ import {API_IMAGES} from '@env';
 import {Platform} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import LinearGradient from 'react-native-linear-gradient';
+import colors from '../assets/theme/colors';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -26,7 +27,7 @@ const Details = ({route}: any) => {
         <View style={styles.contentWrapper}>
           <View style={styles.headerWrapper}>
             <TouchableOpacity>
-              <Entypo name="chevron-left" size={35} color="white" />
+              <Entypo name="chevron-left" size={35} color={colors.white} />
             </TouchableOpacity>
           </View>
           <View style={styles.linearWrapper}>
@@ -56,7 +57,7 @@ export default Details;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: colors.black,
   },
   imageBackground: {
     width: '100%',
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   title: {
-    color: 'white',
+    color: colors.white,
     fontSize: 36,
     fontWeight: '800',
     textAlign: 'center',
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   descriptionText: {
-    color: 'white',
+    color: colors.white,
     fontSize: 18,
     fontWeight: '500',
     textAlign: 'justify',

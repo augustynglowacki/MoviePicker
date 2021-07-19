@@ -1,4 +1,4 @@
-import React, {PropsWithChildren} from 'react';
+import React from 'react';
 import {
   View,
   ScrollView,
@@ -12,8 +12,10 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../../assets/theme/colors';
 
 interface ContainerProps {
+  //pass normal stylesheet object to change backgroundColor
   style?: StyleProp<ViewStyle>;
-  withKeyboard: boolean;
+  //specify withKeyboard prop when using Container if you want KeyboardAvoidingView
+  withKeyboard?: boolean;
 }
 
 const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({

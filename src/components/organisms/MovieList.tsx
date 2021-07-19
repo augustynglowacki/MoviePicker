@@ -7,6 +7,7 @@ import {
   Text,
   ListRenderItem,
 } from 'react-native';
+import colors from '../../assets/theme/colors';
 import {MovieListProps, Movie} from '../../models';
 import MovieItem from '../molecules/MovieItem';
 
@@ -47,7 +48,7 @@ const MovieList = ({moviesList}: MovieListProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
   },
   heading: {
     justifyContent: 'center',
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   headingText: {
-    color: '#fff',
+    color: colors.white,
     fontWeight: 'bold',
     fontSize: 15,
   },

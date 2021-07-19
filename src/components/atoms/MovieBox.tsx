@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
+import colors from '../../assets/theme/colors';
 
 interface MovieBoxProps {
   title: string;
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
     width: 180,
     height: 250,
     margin: 3,
-    backgroundColor: 'red',
+    backgroundColor: colors.primary,
   },
   movieImage: {},
 });
