@@ -4,5 +4,5 @@ export default {
   darkGrey: '#292929',
   black: '#1b1b1b',
   white: '#ffffff',
-  danger: '#f72585', //error color
+  danger: '#A40001', //error color
 };

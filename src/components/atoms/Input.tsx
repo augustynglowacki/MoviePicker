@@ -59,6 +59,7 @@ const Input = ({
           value={value}
           onFocus={handleFocus}
           onBlur={handleFocus}
+          placeholderTextColor={colors.grey}
           //pasword font glitch fix
           ref={ref =>
             ref && ref.setNativeProps({style: {fontFamily: 'Roboto'}})
@@ -87,18 +88,17 @@ const styles = StyleSheet.create({
   label: {
     alignSelf: 'center',
     width: '80%',
+    color: colors.white,
   },
-
   inputContainer: {
-    paddingVertical: 12,
+    paddingTop: 12,
+    paddingBottom: 2,
   },
-
   textInput: {
     flex: 1,
     width: '100%',
-    color: 'black',
+    color: colors.white,
   },
-
   error: {
     alignSelf: 'center',
     width: '80%',

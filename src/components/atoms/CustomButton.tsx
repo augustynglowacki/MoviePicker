@@ -34,7 +34,7 @@ const CustomButton = ({
     }
   };
   const getColor = () => {
-    return colors.black;
+    return colors.darkGrey;
   };
 
   const getWidth = () => {
