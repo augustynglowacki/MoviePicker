@@ -12,7 +12,7 @@ const Home = () => {
     dispatch(getMovies());
   }, [dispatch]);
 
-  console.log(loading, error);
+
 
   return (
     <View style={styles.wrapper}>
