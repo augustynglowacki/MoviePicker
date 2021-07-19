@@ -17,7 +17,7 @@ const MovieBox = ({poster_path, title}: MovieBoxProps) => {
 const styles = StyleSheet.create({
   movieBox: {
     width: 180,
-    height: 200,
+    height: 250,
     margin: 3,
     backgroundColor: 'red',
   },

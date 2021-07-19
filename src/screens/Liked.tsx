@@ -1,10 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+
+import LikedContentBox from '../components/molecules/LikedContentBox';
 
 const Liked = () => {
   return (
     <View style={styles.wrapper}>
-      <Text>Liked</Text>
+      <LikedContentBox />
     </View>
   );
 };
@@ -12,5 +14,10 @@ const Liked = () => {
 export default Liked;
 
 const styles = StyleSheet.create({
-  wrapper: {flex: 1, justifyContent: 'center', alignItems: 'center'},
+  wrapper: {
+    backgroundColor: 'black',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

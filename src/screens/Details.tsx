@@ -16,8 +16,9 @@ import LinearGradient from 'react-native-linear-gradient';
 
 const HEIGHT = Dimensions.get('window').height;
 
-const Details = () => {
+const Details = ({route}: any) => {
   const movie = useSelector(state => state.movies.movies[0]);
+  const {title} = route.params;
 
   console.log(movie);
 
@@ -45,7 +46,7 @@ const Details = () => {
 
       <View style={styles.bottomWrapper}>
         <Text>Sesion 1</Text>
-        <Text style={styles.title}>Black widow</Text>
+        <Text style={styles.title}>{title}</Text>
         <View style={styles.descriptionWrapper}>
           <Text style={styles.descriptionText}>
             Shing software like Aldus PageMaker including versions of Lorem
