@@ -5,7 +5,9 @@ import SectionHeader from '../atoms/SectionHeader';
 
 const LikedContentBox = () => {
   return (
-    <ScrollView style={styles.likedWrapper}>
+    <ScrollView
+      style={styles.likedWrapper}
+      showsVerticalScrollIndicator={false}>
       <SectionHeader text="Liked" color="white" />
       <View style={styles.likedContentBox}>
         {/* missing props  */}
