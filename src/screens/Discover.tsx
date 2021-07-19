@@ -1,14 +1,14 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import SearchBox from '../components/molecules/SearchBox';
-import SearchMoviesBox from '../components/molecules/SearchMoviesBox';
+import {StyleSheet} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
+
+import DiscoverySection from '../components/organisms/DiscoverySection';
 
 const Discover = () => {
   return (
-    <View style={styles.wrapper}>
-      <SearchBox />
-      <SearchMoviesBox />
-    </View>
+    <ScrollView style={styles.wrapper}>
+      <DiscoverySection />
+    </ScrollView>
   );
 };
 
