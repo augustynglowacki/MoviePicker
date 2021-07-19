@@ -16,6 +16,7 @@ const MovieItem = ({
   overview,
   title,
 }: // vote_average,
+
 Movie) => {
   const {navigate} = useNavigation();
   const doubleTapRef = useRef();
@@ -42,7 +43,11 @@ Movie) => {
     <TapGestureHandler
       waitFor={doubleTapRef}
       onActivated={() => {
-        navigate(DETAILS, {title});
+        navigate(DETAILS, {
+          poster_path,
+          overview,
+          title,
+        });
       }}>
       <TapGestureHandler
         maxDelayMs={250}
