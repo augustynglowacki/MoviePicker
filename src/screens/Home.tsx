@@ -3,9 +3,8 @@ import React, {useEffect, useRef} from 'react';
 import {StyleSheet, View, Alert} from 'react-native';
 import {TapGestureHandler} from 'react-native-gesture-handler';
 import MovieList from '../components/organisms/MovieList';
-import {getMovies, movieSelector} from '../redux/slices/MovieSlice';
+import {getMovies, movieSelector} from '../redux/movie/MovieSlice';
 import {useDispatch, useSelector} from 'react-redux';
-import {getGenres} from '../data/genres';
 import {AUTH, DETAILS} from '../models/constants/routeNames';
 
 const Home = () => {
@@ -15,6 +14,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(getMovies());
   }, [dispatch]);
+
 
   //navigation
   const {navigate} = useNavigation();
