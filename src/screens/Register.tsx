@@ -1,15 +1,15 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-const SingUp = () => {
+const Register = () => {
   return (
     <View style={styles.wrapper}>
-      <Text>Sing Up</Text>
+      <Text>Register</Text>
     </View>
   );
 };
 
-export default SingUp;
+export default Register;
 
 const styles = StyleSheet.create({
   wrapper: {flex: 1, justifyContent: 'center', alignItems: 'center'},
