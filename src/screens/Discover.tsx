@@ -1,22 +1,8 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import SearchBox from '../components/molecules/SearchBox';
-import SearchMoviesBox from '../components/molecules/SearchMoviesBox';
+import DiscoverySection from '../components/organisms/DiscoverySection';
 
 const Discover = () => {
-  return (
-    <View style={styles.wrapper}>
-      <SearchBox />
-      <SearchMoviesBox />
-    </View>
-  );
+  return <DiscoverySection />;
 };
 
 export default Discover;
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    backgroundColor: 'black',
-  },
-});
