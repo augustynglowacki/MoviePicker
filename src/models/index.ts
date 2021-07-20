@@ -1,3 +1,4 @@
+import {LoginForm} from './LoginForm';
 import {Movie} from './Movie';
 import {MovieAxiosResponse} from './MovieAxiosResponse';
 import {MovieListProps} from './MovieListProps';
@@ -10,4 +11,5 @@ export type {
   MovieState,
   MovieAxiosResponse,
   RegisterForm,
+  LoginForm,
 };
