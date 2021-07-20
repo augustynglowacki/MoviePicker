@@ -16,20 +16,24 @@ interface ContainerProps {
   style?: StyleProp<ViewStyle>;
   //specify withKeyboard prop when using Container if you want KeyboardAvoidingView
   withKeyboard?: boolean;
+  //specify withPadding prop when using Container if you want additional padding
   withPadding?: boolean;
+  //sticks component to top of the screen
+  flexStart?: boolean;
 }
 
 const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
   style,
-  withKeyboard,
   children,
+  withKeyboard,
   withPadding,
+  flexStart,
 }) => {
   const getViews = () => {
     return (
       <SafeAreaView style={[styles().safeArea, style]}>
         <ScrollView contentContainerStyle={styles().scrollView}>
-          <View style={styles(withPadding).wrapper}>{children}</View>
+          <View style={styles(withPadding, flexStart).wrapper}>{children}</View>
         </ScrollView>
       </SafeAreaView>
     );
@@ -47,10 +51,12 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
 
 export default Container;
 
-const styles = (withPadding?: boolean) =>
+const styles = (withPadding?: boolean, flexStart?: boolean) =>
   StyleSheet.create({
     wrapper: {
       padding: withPadding ? 16 : 0,
+      flex: 1,
+      justifyContent: flexStart ? 'flex-start' : 'center',
     },
     kbView: {
       flex: 1,
@@ -68,4 +74,6 @@ const styles = (withPadding?: boolean) =>
 
 Container.defaultProps = {
   withKeyboard: false,
+  withPadding: false,
+  flexStart: false,
 };
