@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import colors from '../../assets/theme/colors';
 
 const ProfileInfoContainer = () => {
   return (
@@ -17,13 +18,13 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: '',
-    color: '#fff',
+    color: colors.white,
   },
   titleText: {
     fontSize: 30,
   },
   subText: {
     fontSize: 12,
-    color: '#FFA31A',
+    color: colors.primary,
   },
 });

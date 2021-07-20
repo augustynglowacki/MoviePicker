@@ -5,6 +5,7 @@ import ProfileCover from '../atoms/ProfileCover';
 import ProfileTitleBar from '../atoms/ProfileTitleBar';
 import ProfileInfoContainer from '../atoms/ProfileInfoContainer';
 import ProfileStatsContainer from '../atoms/ProfileStatsContainer';
+import colors from '../../assets/theme/colors';
 
 const ProfileHeader = () => {
   return (
@@ -17,7 +18,7 @@ const ProfileHeader = () => {
         style={styles.avatar}
         size="xl">
         M
-        <Avatar.Badge bg={'#FFA31A'} size="xl" />
+        <Avatar.Badge bg={colors.primary} size="xl" />
       </Avatar>
       <ProfileInfoContainer />
       <ProfileStatsContainer />
@@ -26,10 +27,6 @@ const ProfileHeader = () => {
 };
 
 const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    backgroundColor: '#1b1b1b',
-  },
   avatar: {
     alignSelf: 'center',
   },

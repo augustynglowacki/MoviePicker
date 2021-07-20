@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import colors from '../../assets/theme/colors';
 
 const ProfileStatsContainer = () => {
   return (
@@ -23,7 +24,7 @@ const ProfileStatsContainer = () => {
 const styles = StyleSheet.create({
   text: {
     fontFamily: '',
-    color: '#fff',
+    color: colors.white,
   },
   titleText: {
     fontSize: 30,
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
   },
   subText: {
     fontSize: 12,
-    color: '#FFA31A',
+    color: colors.primary,
   },
   statsContainer: {
     flexDirection: 'row',
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   statsBoxBorder: {
-    borderColor: '#808080',
+    borderColor: colors.grey,
     borderLeftWidth: 1,
     borderRightWidth: 1,
   },

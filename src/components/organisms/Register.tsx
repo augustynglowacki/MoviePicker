@@ -15,7 +15,7 @@ interface IProps {
 
 const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
   return (
-    <Container withKeyboard>
+    <Container withKeyboard withPadding>
       <Image
         source={require('../../assets/images/logo.png')}
         style={styles.logoImage}
