@@ -10,7 +10,7 @@ interface ActorsBoxProps {
 }
 
 const renderItem: ListRenderItem<Actor> = ({item}) => (
-  <ActorBox profile_path={item.profile_path} />
+  <ActorBox name={item.name} profile_path={item.profile_path} />
 );
 
 const ActorsBox = ({data}: ActorsBoxProps) => {
