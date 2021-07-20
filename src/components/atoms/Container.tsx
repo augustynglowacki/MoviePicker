@@ -25,55 +25,55 @@ interface ContainerProps {
 const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
   style,
   children,
-  withKeyboard,
-  withPadding,
-  flexStart,
+  withKeyboard = false,
+  withPadding = false,
+  flexStart = false,
 }) => {
-  const getViews = () => {
-    return (
-      <SafeAreaView style={[styles().safeArea, style]}>
-        <ScrollView contentContainerStyle={styles().scrollView}>
-          <View style={styles(withPadding, flexStart).wrapper}>{children}</View>
-        </ScrollView>
-      </SafeAreaView>
-    );
+  const getJustifyContent = (): StyleProp<ViewStyle> => {
+    return {justifyContent: flexStart ? 'flex-start' : 'center'};
   };
+
+  const getPadding = (): StyleProp<ViewStyle> => {
+    return {padding: withPadding ? 16 : 0};
+  };
+
+  const content = (
+    <SafeAreaView style={[styles.safeArea, style]}>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <View style={[styles.wrapper, getPadding(), getJustifyContent()]}>
+          {children}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+
   return withKeyboard ? (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles().kbView}>
-      {getViews()}
+      style={styles.kbView}>
+      {content}
     </KeyboardAvoidingView>
   ) : (
-    getViews()
+    content
   );
 };
 
 export default Container;
 
-const styles = (withPadding?: boolean, flexStart?: boolean) =>
-  StyleSheet.create({
-    wrapper: {
-      padding: withPadding ? 16 : 0,
-      flex: 1,
-      justifyContent: flexStart ? 'flex-start' : 'center',
-    },
-    kbView: {
-      flex: 1,
-    },
-    scrollView: {
-      flexGrow: 1,
-      justifyContent: 'center',
-    },
-    safeArea: {
-      flex: 1,
-      backgroundColor: colors.black,
-      justifyContent: 'center',
-    },
-  });
-
-Container.defaultProps = {
-  withKeyboard: false,
-  withPadding: false,
-  flexStart: false,
-};
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+  },
+  kbView: {
+    flex: 1,
+  },
+  scrollView: {
+    flexGrow: 1,
+    justifyContent: 'center',
+  },
+  safeArea: {
+    flex: 1,
+    backgroundColor: colors.black,
+    justifyContent: 'center',
+  },
+});
