@@ -2,6 +2,7 @@ import React from 'react';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import HomeNavigator from './src/navigation/HomeNavigator';
 import colors from './src/assets/theme/colors';
+import {NativeBaseProvider} from 'native-base';
 
 //app background changed to black
 const MyTheme = {
@@ -15,9 +16,11 @@ const MyTheme = {
 
 const App = () => {
   return (
-    <NavigationContainer theme={MyTheme}>
-      <HomeNavigator />
-    </NavigationContainer>
+    <NativeBaseProvider>
+      <NavigationContainer theme={MyTheme}>
+        <HomeNavigator />
+      </NavigationContainer>
+    </NativeBaseProvider>
   );
 };
 
