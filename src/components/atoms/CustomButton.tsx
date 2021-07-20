@@ -13,7 +13,7 @@ interface MyButtonProps extends TouchableOpacityProps {
   disabled?: boolean;
   label: string;
   loading?: boolean;
-  variant?: 'primary' | 'secondary' | 'danger';
+  variant?: 'primary' | 'secondary';
   width?: 'small' | 'medium';
 }
 
@@ -25,6 +25,7 @@ const CustomButton = ({
   width,
   onPress,
 }: MyButtonProps) => {
+  //background color based on variant
   const getBackgroundColor = () => {
     if (disabled) {
       return colors.grey;
@@ -32,11 +33,18 @@ const CustomButton = ({
     if (variant === 'primary') {
       return colors.primary;
     }
+    if (variant === 'secondary') {
+      return colors.darkGrey;
+    }
   };
+  //label color based on variant
   const getColor = () => {
+    if (variant === 'secondary') {
+      return colors.primary;
+    }
     return colors.darkGrey;
   };
-
+  //button width based on variant
   const getWidth = () => {
     if (width === 'small') {
       return '45%';
@@ -46,7 +54,7 @@ const CustomButton = ({
     }
     return '100%';
   };
-
+  // additional padding when loading gets returned from state
   const getLoadingPadding = () => {
     return loading ? 5 : 0;
   };

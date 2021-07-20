@@ -23,7 +23,7 @@ const DiscoverySection = () => {
     }
   }, [dispatch, query]);
   return (
-    <Container>
+    <Container withPadding>
       <SearchBox />
       <DiscoveryContentBox title="Movies" data={foundMovies.movies} />
       <DiscoveryContentBox title="Tv Shows" data={foundTvShows.movies} />

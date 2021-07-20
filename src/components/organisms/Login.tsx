@@ -1,7 +1,9 @@
+import {useNavigation} from '@react-navigation/native';
 import * as React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import colors from '../../assets/theme/colors';
-import {RegisterForm} from '../../models';
+import {LoginForm} from '../../models';
+import {REGISTER} from '../../models/constants/routeNames';
 import Container from '../atoms/Container';
 import CustomButton from '../atoms/CustomButton';
 import Input from '../atoms/Input';
@@ -9,11 +11,12 @@ import Input from '../atoms/Input';
 interface IProps {
   onChange: ({name, value}: {name: string; value: string}) => void;
   onSubmit: () => void;
-  form: RegisterForm;
-  errors: RegisterForm;
+  form: LoginForm;
+  errors: LoginForm;
 }
-
-const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
+const LoginComponent = ({onChange, onSubmit, form, errors}: IProps) => {
+  const {navigate} = useNavigation();
+  const goToRegister = () => navigate(REGISTER);
   return (
     <Container withKeyboard withPadding>
       <Image
@@ -32,13 +35,6 @@ const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
             error={errors.username}
           />
           <Input
-            label="Email"
-            placeholder="Enter Email"
-            value={form.email}
-            onChangeText={value => onChange({name: 'email', value})}
-            error={errors.email}
-          />
-          <Input
             label="Password"
             placeholder="Enter Password"
             value={form.password}
@@ -48,10 +44,19 @@ const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
             icon={<Text>Show</Text>}
           />
           <CustomButton
-            onPress={onSubmit}
-            label="Register"
+            label="Login"
             width="small"
             variant="primary"
+            onPress={onSubmit}
+          />
+        </View>
+        <View>
+          <Text style={styles.register}>First time here?</Text>
+          <CustomButton
+            label="Register"
+            variant="secondary"
+            onPress={goToRegister}
+            width="small"
           />
         </View>
       </View>
@@ -59,7 +64,7 @@ const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
   );
 };
 
-export default RegisterComponent;
+export default LoginComponent;
 
 const styles = StyleSheet.create({
   logoImage: {
@@ -75,5 +80,11 @@ const styles = StyleSheet.create({
   },
   form: {
     paddingTop: 20,
+    paddingBottom: 35,
+  },
+  register: {
+    textAlign: 'center',
+    fontSize: 17,
+    color: colors.white,
   },
 });

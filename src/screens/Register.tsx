@@ -3,15 +3,10 @@ import * as React from 'react';
 import {useState} from 'react';
 import RegisterComponent from '../components/organisms/Register';
 import {RegisterForm} from '../models';
+import {LOGIN} from '../models/constants/routeNames';
 
-interface IProps {
-  name: string;
-  value: string;
-}
 const initialState = {
   username: '',
-  firstName: '',
-  lastName: '',
   email: '',
   password: '',
 };
@@ -21,11 +16,12 @@ const Register = () => {
   const [form, setForm] = useState<RegisterForm>(initialState);
   const [errors, setErrors] = useState<RegisterForm>(initialState);
   // Hook needed to navigate to login after succesful register
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const {navigate} = useNavigation();
-
+  const navigateTo = () => {
+    navigate(LOGIN);
+  };
   //real-time validation
-  const onChange = ({name, value}: IProps) => {
+  const onChange = ({name, value}: {name: string; value: string}) => {
     setForm({...form, [name]: value});
     if (value !== '') {
       setErrors(currErrors => {
@@ -69,6 +65,7 @@ const Register = () => {
       Object.values(errors).every(item => !item)
     ) {
       console.log('form:>>', form);
+      navigateTo();
     }
   };
 
