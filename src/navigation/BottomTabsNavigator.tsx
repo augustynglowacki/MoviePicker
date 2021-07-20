@@ -3,10 +3,10 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import Discover from '../screens/Discover';
 import Liked from '../screens/Liked';
-import Account from '../screens/Account';
 import TabIcon from '../components/atoms/TabIcon';
 import {DISCOVER, HOME, LIKED, PROFILE} from '../models/constants/routeNames';
 import {StyleSheet} from 'react-native';
+import Profile from '../screens/Profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -40,7 +40,7 @@ const BottomTabsNavigator = () => {
       />
       <Tab.Screen
         name={PROFILE}
-        component={Account}
+        component={Profile}
         options={{
           tabBarIcon: ({focused}) => TabIcon(focused, 'person-outline'),
         }}
