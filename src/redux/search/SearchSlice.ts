@@ -5,12 +5,12 @@ import {getSearchedMovies} from './SearchActions';
 
 const initialState: SearchState = {
   query: '',
-  movies: {movies: [], error: '', loading: false},
-  tvShows: {movies: [], error: '', loading: false},
+  foundMovies: {movies: [], error: '', loading: false},
+  foundTvShows: {movies: [], error: '', loading: false},
 };
 
 const SearchSlice = createSlice({
-  name: 'searched',
+  name: 'searchedData',
   initialState,
   reducers: {
     setQuery(state, action) {
@@ -19,23 +19,23 @@ const SearchSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(getSearchedMovies.pending, state => {
-      state.movies.loading = true;
-      state.movies.error = '';
+      state.foundMovies.error = '';
+      state.foundMovies.loading = true;
     });
     builder.addCase(
       getSearchedMovies.fulfilled,
       (state, action: PayloadAction<Movie[]>) => {
-        state.movies.loading = false;
-        state.movies.movies = action.payload;
+        state.foundMovies.movies = action.payload;
+        state.foundMovies.loading = false;
       },
     );
     builder.addCase(getSearchedMovies.rejected, (state, action) => {
-      state.movies.loading = false;
-      state.movies.error = action.error.message ?? "Couldn't load movies.";
+      state.foundMovies.error = action.error.message ?? 'error';
+      state.foundMovies.loading = false;
     });
   },
 });
 
 export default SearchSlice.reducer;
 export const {setQuery} = SearchSlice.actions;
-export const movieSelector = (state: RootState) => state.searchData;
+export const SearchSelector = (state: RootState) => state.searchedData;
