@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
+import colors from '../../assets/theme/colors';
 import MovieBox from '../atoms/MovieBox';
 import SectionHeader from '../atoms/SectionHeader';
 
@@ -8,7 +9,7 @@ const LikedContentBox = () => {
     <ScrollView
       style={styles.likedWrapper}
       showsVerticalScrollIndicator={false}>
-      <SectionHeader text="Liked" color="white" />
+      <SectionHeader text="Liked" color={colors.white} />
       <View style={styles.likedContentBox}>
         {/* missing props  */}
         <MovieBox />

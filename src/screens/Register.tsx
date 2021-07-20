@@ -1,17 +1,25 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
-import LoginComponent from '../components/organisms/Login';
-import {LoginForm} from '../models';
-import {HOME} from '../models/constants/routeNames';
-// import LoginComponent from '../../components/organisms/Login';
+import * as React from 'react';
+import {useState} from 'react';
+import RegisterComponent from '../components/organisms/Register';
+import {RegisterForm} from '../models';
+import {LOGIN} from '../models/constants/routeNames';
 
-const initialState = {username: '', password: ''};
+const initialState = {
+  username: '',
+  email: '',
+  password: '',
+};
 
-const Login = () => {
-  const [form, setForm] = useState<LoginForm>(initialState);
-  const [errors, setErrors] = useState<LoginForm>(initialState);
+const Register = () => {
+  //initialization of States
+  const [form, setForm] = useState<RegisterForm>(initialState);
+  const [errors, setErrors] = useState<RegisterForm>(initialState);
+  // Hook needed to navigate to login after succesful register
   const {navigate} = useNavigation();
-  const goToHome = () => navigate(HOME);
+  const navigateTo = () => {
+    navigate(LOGIN);
+  };
   //real-time validation
   const onChange = ({name, value}: {name: string; value: string}) => {
     setForm({...form, [name]: value});
@@ -34,6 +42,13 @@ const Login = () => {
         return {...currErrors, username: 'Please add the username'};
       });
     }
+
+    const regexpEmail = /\S+@\S+\.\S+/;
+    if (!regexpEmail.test(form.email)) {
+      setErrors(currErrors => {
+        return {...currErrors, email: 'Please enter a valid email address'};
+      });
+    }
     if (form.password.length < 8) {
       setErrors(currErrors => {
         return {
@@ -45,17 +60,17 @@ const Login = () => {
     }
 
     if (
-      Object.values(form).length === 2 &&
+      Object.values(form).length === 3 &&
       Object.values(form).every(item => item.trim().length > 0) &&
       Object.values(errors).every(item => !item)
     ) {
       console.log('form:>>', form);
-      goToHome();
+      navigateTo();
     }
   };
 
   return (
-    <LoginComponent
+    <RegisterComponent
       onSubmit={onSubmit}
       onChange={onChange}
       form={form}
@@ -64,4 +79,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
