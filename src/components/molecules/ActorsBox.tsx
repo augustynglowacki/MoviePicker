@@ -1,23 +1,29 @@
 import React from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {FlatList, ListRenderItem, StyleSheet, View} from 'react-native';
 import colors from '../../assets/theme/colors';
+import {Actor} from '../../models';
 import ActorBox from '../atoms/ActorBox';
 import SectionHeader from '../atoms/SectionHeader';
 
-const ActorsBox = () => {
+interface ActorsBoxProps {
+  data: Actor[];
+}
+
+const renderItem: ListRenderItem<Actor> = ({item}) => (
+  <ActorBox profile_path={item.profile_path} />
+);
+
+const ActorsBox = ({data}: ActorsBoxProps) => {
   return (
     <View style={styles.actorsBox}>
       <SectionHeader text="Actors" color={colors.white} size={20} />
-      <ScrollView horizontal={true}>
-        <ActorBox />
-        <ActorBox />
-        <ActorBox />
-        <ActorBox />
-        <ActorBox />
-        <ActorBox />
-        <ActorBox />
-        <ActorBox />
-      </ScrollView>
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={(item, index) => index.toString()}
+      />
     </View>
   );
 };

@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
   movieBox: {
     width: 180,
     height: 250,
+    flexBasis: '45%',
     margin: 3,
     backgroundColor: colors.primary,
   },

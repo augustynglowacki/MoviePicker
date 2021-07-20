@@ -1,12 +1,17 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Movie, SearchState} from '../../models';
 import {RootState} from '../rootReducer';
-import {getSearchedMovies, getSearchedTvShows} from './SearchActions';
+import {
+  getSearchedActor,
+  getSearchedMovies,
+  getSearchedTvShows,
+} from './SearchActions';
 
 const initialState: SearchState = {
   query: '',
   foundMovies: {movies: [], error: '', loading: false},
   foundTvShows: {movies: [], error: '', loading: false},
+  foundActors: {actors: [{profile_path: ''}], error: ''},
 };
 
 const SearchSlice = createSlice({
@@ -47,6 +52,15 @@ const SearchSlice = createSlice({
     builder.addCase(getSearchedTvShows.rejected, (state, action) => {
       state.foundTvShows.error = action.error.message ?? 'error';
       state.foundTvShows.loading = false;
+    });
+    builder.addCase(getSearchedActor.pending, state => {
+      state.foundActors.error = '';
+    });
+    builder.addCase(getSearchedActor.fulfilled, (state, action) => {
+      state.foundActors.actors = action.payload;
+    });
+    builder.addCase(getSearchedActor.rejected, (state, action) => {
+      state.foundActors.error = action.error.message ?? 'error';
     });
   },
 });

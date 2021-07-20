@@ -3,16 +3,16 @@ import React from 'react';
 import {View, StyleSheet, ImageBackground} from 'react-native';
 
 interface ActorBoxProps {
-  poster_path: string;
+  profile_path: string;
 }
 
-const ActorBox = ({poster_path}: ActorBoxProps) => {
+const ActorBox = ({profile_path}: ActorBoxProps) => {
   return (
     <>
-      {!!poster_path && (
+      {!!profile_path && (
         <View style={styles.actorBox}>
           <ImageBackground
-            source={{uri: `${API_IMAGES}${poster_path}`}}
+            source={{uri: `${API_IMAGES}${profile_path}`}}
             style={styles.actorImage}
           />
         </View>
@@ -32,8 +32,9 @@ const styles = StyleSheet.create({
   actorImage: {
     width: '100%',
     height: '100%',
+    borderRadius: 50,
+    overflow: 'hidden',
     resizeMode: 'cover',
-    position: 'absolute',
   },
 });
 

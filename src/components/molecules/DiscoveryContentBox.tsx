@@ -12,7 +12,7 @@ interface DiscoveryContentBoxProps {
 }
 
 const renderItem: ListRenderItem<Movie> = ({item}) => (
-  <MovieBox title={item.title} poster_path={item.poster_path} />
+  <MovieBox poster_path={item.poster_path} />
 );
 
 const DiscoveryContentBox = ({title, data}: DiscoveryContentBoxProps) => {

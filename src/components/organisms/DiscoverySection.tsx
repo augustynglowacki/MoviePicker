@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
+  getSearchedActor,
   getSearchedMovies,
   getSearchedTvShows,
 } from '../../redux/search/SearchActions';
@@ -12,11 +13,13 @@ import SearchBox from '../molecules/SearchBox';
 
 const DiscoverySection = () => {
   const dispatch = useDispatch();
-  const {query, foundMovies, foundTvShows} = useSelector(SearchSelector);
+  const {query, foundMovies, foundTvShows, foundActors} =
+    useSelector(SearchSelector);
   useEffect(() => {
     if (query.length > 3) {
       dispatch(getSearchedMovies());
       dispatch(getSearchedTvShows());
+      dispatch(getSearchedActor());
     }
   }, [dispatch, query]);
   return (
@@ -24,7 +27,7 @@ const DiscoverySection = () => {
       <SearchBox />
       <DiscoveryContentBox title="Movies" data={foundMovies.movies} />
       <DiscoveryContentBox title="Tv Shows" data={foundTvShows.movies} />
-      <ActorsBox />
+      <ActorsBox data={foundActors.actors} />
     </Container>
   );
 };
