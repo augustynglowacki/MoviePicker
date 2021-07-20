@@ -4,7 +4,16 @@ import {RootState} from '../rootReducer';
 import {getMovies} from './MovieActions';
 
 const initialState: MovieState = {
-  movies: [],
+  movies: [
+    {
+      id: 0,
+      title: '',
+      poster_path: '',
+      genre_ids: [],
+      overview: '',
+      vote_average: 0,
+    },
+  ],
   loading: false,
   error: '',
 };
