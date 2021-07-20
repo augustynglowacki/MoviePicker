@@ -16,18 +16,24 @@ interface ContainerProps {
   style?: StyleProp<ViewStyle>;
   //specify withKeyboard prop when using Container if you want KeyboardAvoidingView
   withKeyboard?: boolean;
+  //specify withPadding prop when using Container if you want additional padding
+  withPadding?: boolean;
+  //sticks component to top of the screen
+  flexStart?: boolean;
 }
 
 const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
   style,
-  withKeyboard,
   children,
+  withKeyboard,
+  withPadding,
+  flexStart,
 }) => {
   const getViews = () => {
     return (
-      <SafeAreaView style={[styles.safeArea, style]}>
-        <ScrollView contentContainerStyle={styles.scrollView}>
-          <View style={styles.wrapper}>{children}</View>
+      <SafeAreaView style={[styles().safeArea, style]}>
+        <ScrollView contentContainerStyle={styles().scrollView}>
+          <View style={styles(withPadding, flexStart).wrapper}>{children}</View>
         </ScrollView>
       </SafeAreaView>
     );
@@ -35,7 +41,7 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
   return withKeyboard ? (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.kbView}>
+      style={styles().kbView}>
       {getViews()}
     </KeyboardAvoidingView>
   ) : (
@@ -45,24 +51,29 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
 
 export default Container;
 
-const styles = StyleSheet.create({
-  wrapper: {
-    padding: 16,
-  },
-  kbView: {
-    flex: 1,
-  },
-  scrollView: {
-    flexGrow: 1,
-    justifyContent: 'center',
-  },
-  safeArea: {
-    flex: 1,
-    backgroundColor: colors.black,
-    justifyContent: 'center',
-  },
-});
+const styles = (withPadding?: boolean, flexStart?: boolean) =>
+  StyleSheet.create({
+    wrapper: {
+      padding: withPadding ? 16 : 0,
+      flex: 1,
+      justifyContent: flexStart ? 'flex-start' : 'center',
+    },
+    kbView: {
+      flex: 1,
+    },
+    scrollView: {
+      flexGrow: 1,
+      justifyContent: 'center',
+    },
+    safeArea: {
+      flex: 1,
+      backgroundColor: colors.black,
+      justifyContent: 'center',
+    },
+  });
 
 Container.defaultProps = {
   withKeyboard: false,
+  withPadding: false,
+  flexStart: false,
 };
