@@ -1,9 +1,12 @@
 import React from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {useDispatch} from 'react-redux';
 import colors from '../../assets/theme/colors';
+import {setQuery} from '../../redux/search/SearchSlice';
 
 const DiscoveryInput = () => {
+  const dispatch = useDispatch();
   return (
     <View style={styles.inputBox}>
       <Icon name="search" style={styles.inputIcon} />
@@ -12,6 +15,7 @@ const DiscoveryInput = () => {
         style={styles.discoveryInput}
         keyboardAppearance="light"
         clearButtonMode="always"
+        onChangeText={text => dispatch(setQuery(text))}
       />
     </View>
   );
