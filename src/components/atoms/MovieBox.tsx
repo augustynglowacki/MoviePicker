@@ -1,17 +1,24 @@
+import {API_IMAGES} from '@env';
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, ImageBackground} from 'react-native';
 import colors from '../../assets/theme/colors';
 
 interface MovieBoxProps {
-  title: string;
   poster_path: string;
 }
 
-const MovieBox = ({poster_path, title}: MovieBoxProps) => {
+const MovieBox = ({poster_path}: MovieBoxProps) => {
   return (
-    <View style={styles.movieBox}>
-      <Text>{title}</Text>
-    </View>
+    <>
+      {!!poster_path && (
+        <View style={styles.movieBox}>
+          <ImageBackground
+            source={{uri: `${API_IMAGES}${poster_path}`}}
+            style={styles.movieImage}
+          />
+        </View>
+      )}
+    </>
   );
 };
 
@@ -22,7 +29,12 @@ const styles = StyleSheet.create({
     margin: 3,
     backgroundColor: colors.primary,
   },
-  movieImage: {},
+  movieImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    position: 'absolute',
+  },
 });
 
 export default MovieBox;

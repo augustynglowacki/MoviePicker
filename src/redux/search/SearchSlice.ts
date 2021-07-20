@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Movie, SearchState} from '../../models';
 import {RootState} from '../rootReducer';
-import {getSearchedMovies} from './SearchActions';
+import {getSearchedMovies, getSearchedTvShows} from './SearchActions';
 
 const initialState: SearchState = {
   query: '',
@@ -32,6 +32,21 @@ const SearchSlice = createSlice({
     builder.addCase(getSearchedMovies.rejected, (state, action) => {
       state.foundMovies.error = action.error.message ?? 'error';
       state.foundMovies.loading = false;
+    });
+    builder.addCase(getSearchedTvShows.pending, state => {
+      state.foundTvShows.error = '';
+      state.foundTvShows.loading = true;
+    });
+    builder.addCase(
+      getSearchedTvShows.fulfilled,
+      (state, action: PayloadAction<Movie[]>) => {
+        state.foundTvShows.movies = action.payload;
+        state.foundTvShows.loading = false;
+      },
+    );
+    builder.addCase(getSearchedTvShows.rejected, (state, action) => {
+      state.foundTvShows.error = action.error.message ?? 'error';
+      state.foundTvShows.loading = false;
     });
   },
 });
