@@ -15,6 +15,7 @@ const DiscoverySection = () => {
   const dispatch = useDispatch();
   const {query, foundMovies, foundTvShows, foundActors} =
     useSelector(SearchSelector);
+
   useEffect(() => {
     if (query.length > 3) {
       dispatch(getSearchedMovies());
