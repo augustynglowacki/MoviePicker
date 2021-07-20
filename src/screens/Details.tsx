@@ -17,7 +17,9 @@ import colors from '../assets/theme/colors';
 const HEIGHT = Dimensions.get('window').height;
 
 const Details = ({route}: any) => {
-  const {title, poster_path, overview} = route.params;
+  const {title, poster_path, overview, id} = route.params;
+
+  console.log(id);
 
   return (
     <ScrollView style={styles.container}>

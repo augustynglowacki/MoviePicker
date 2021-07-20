@@ -1,17 +1,13 @@
+import {getGenres} from './GenresActions';
 import {createSlice} from '@reduxjs/toolkit';
-import {MovieState} from '../../models';
 import {RootState} from '../rootReducer';
-import {getMovies} from './MovieActions';
+import {GenresState} from '../../models/GenresState';
 
-const initialState: MovieState = {
-  movies: [
+const initialState: GenresState = {
+  genres: [
     {
       id: 0,
-      title: '',
-      poster_path: '',
-      genre_ids: [],
-      overview: '',
-      vote_average: 0,
+      name: '',
     },
   ],
   loading: false,
@@ -20,25 +16,24 @@ const initialState: MovieState = {
 
 //createSlice is a function that accepts a "slice name", an initial state, and an object full of reducer functions.
 //Then it automatically generates action creators and action types that correspond to the reducers and state.
-const movieSlice = createSlice({
-  name: 'movies',
+const genresSlice = createSlice({
+  name: 'genres',
   initialState,
   reducers: {},
   extraReducers: builder => {
     // Add reducers for additional action types here, and handle loading state as needed
-    builder.addCase(getMovies.fulfilled, (state, action) => {
+    builder.addCase(getGenres.fulfilled, (state, action) => {
       // Add user to the state array
-      state.movies = action.payload;
+      state.genres = action.payload;
       state.loading = false;
     });
-    builder.addCase(getMovies.pending, state => {
+    builder.addCase(getGenres.pending, state => {
       // Add user to the state array
       state.loading = true;
     });
-    builder.addCase(getMovies.rejected, (state, action) => {
+    builder.addCase(getGenres.rejected, (state, action) => {
       // Add user to the state array
       state.loading = false;
-      console.log('dupa');
       console.log(action.error.message);
       state.error = action.error.message ?? 'error';
     });
@@ -46,6 +41,6 @@ const movieSlice = createSlice({
 });
 
 //Since createSlice has taken care of building the reducer, we export it via: export default movieSlice.reducer;
-export default movieSlice.reducer;
-export const movieSelector = (state: RootState) => state.movies;
-export {getMovies};
+export default genresSlice.reducer;
+export const genresSelector = (state: RootState) => state.genres;
+export {getGenres};
