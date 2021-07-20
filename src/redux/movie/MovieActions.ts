@@ -16,6 +16,7 @@ export const getMovies = createAsyncThunk('movie/getMovies', async () => {
     vote_average: x.vote_average,
     poster_path: x.poster_path,
     overview: x.overview,
+    genre_ids: x.genre_ids,
   }));
   return newresult;
 });

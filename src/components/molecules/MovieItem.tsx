@@ -8,20 +8,23 @@ import {TapGestureHandler} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import {AUTH, DETAILS} from '../../models/constants/routeNames';
 import colors from '../../assets/theme/colors';
+import {useSelector} from 'react-redux';
+import {genresSelector} from '../../redux/genres/GenresSlice';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 
 const MovieItem = ({
-  //id,
+  id,
   poster_path,
   overview,
   title,
-}: // vote_average,
-
-Movie) => {
+  mergeGenresWithMovies,
+}: Movie) => {
+  const {loading} = useSelector(genresSelector);
   const {navigate} = useNavigation();
   const doubleTapRef = useRef();
   const isLogIn = false; //temprary state
+
   const handleOnActivated = () => {
     if (isLogIn) {
       //  TODO:
@@ -48,6 +51,7 @@ Movie) => {
           poster_path,
           overview,
           title,
+          id,
         });
       }}>
       <TapGestureHandler
@@ -71,12 +75,15 @@ Movie) => {
               <Text style={styles.title}>{title}</Text>
 
               <View style={styles.subtitle}>
-                <View style={styles.categoryContainer}>
-                  <Text style={styles.categoryItem}>Action</Text>
-                </View>
-                <View style={styles.categoryContainer}>
-                  <Text style={styles.categoryItem}>Kids</Text>
-                </View>
+                {loading ? (
+                  <Text>Loading </Text>
+                ) : (
+                  mergeGenresWithMovies.map((genre: any) => (
+                    <View key={genre.name} style={styles.categoryContainer}>
+                      <Text style={styles.categoryItem}>{genre.name}</Text>
+                    </View>
+                  ))
+                )}
               </View>
             </View>
           </View>
@@ -115,7 +122,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   subtitle: {
-    maxWidth: 300,
+    maxWidth: 350,
     fontSize: 14,
     letterSpacing: 0.76,
     lineHeight: 21,
@@ -123,6 +130,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    flexWrap: 'wrap',
   },
   categoryContainer: {
     marginRight: 6,
@@ -133,6 +141,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 5,
     borderRadius: 2,
     backgroundColor: colors.white,
+    marginTop: 6,
   },
   categoryItem: {
     color: colors.black,
