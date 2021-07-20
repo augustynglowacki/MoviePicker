@@ -1,6 +1,8 @@
 import React, {useRef} from 'react';
 import {StyleSheet, Animated, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import colors from '../assets/theme/colors';
+import Container from '../components/atoms/Container';
 
 const Loading = () => {
   const rotateAnim = useRef(new Animated.Value(0)).current;
@@ -18,11 +20,13 @@ const Loading = () => {
   });
 
   return (
-    <View style={styles.loadingBox}>
-      <Animated.View style={{transform: [{rotate: spin}]}}>
-        <Icon name="loading1" size={100} />
-      </Animated.View>
-    </View>
+    <Container>
+      <View style={styles.loadingBox}>
+        <Animated.View style={{transform: [{rotate: spin}]}}>
+          <Icon name="loading1" size={100} color={colors.primary} />
+        </Animated.View>
+      </View>
+    </Container>
   );
 };
 
@@ -32,7 +36,7 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: colors.black,
     position: 'absolute',
     flex: 1,
   },
