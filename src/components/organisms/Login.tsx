@@ -18,7 +18,7 @@ const LoginComponent = ({onChange, onSubmit, form, errors}: IProps) => {
   const {navigate} = useNavigation();
   const goToRegister = () => navigate(REGISTER);
   return (
-    <Container withKeyboard>
+    <Container withKeyboard withPadding>
       <Image
         source={require('../../assets/images/logo.png')}
         style={styles.logoImage}

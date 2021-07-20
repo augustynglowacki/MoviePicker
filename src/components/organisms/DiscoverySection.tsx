@@ -6,7 +6,7 @@ import SearchBox from '../molecules/SearchBox';
 
 const DiscoverySection = () => {
   return (
-    <Container>
+    <Container withPadding>
       <SearchBox />
       <DiscoveryContentBox
         title="Movies"
