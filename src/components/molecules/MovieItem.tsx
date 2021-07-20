@@ -96,8 +96,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   contentContainer: {
-    height: 300,
-    bottom: WINDOW_HEIGHT - 950,
+    height: WINDOW_HEIGHT * 0.9,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
