@@ -7,6 +7,7 @@ import {StyleSheet, Dimensions} from 'react-native';
 import {TapGestureHandler} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import {AUTH, DETAILS} from '../../models/constants/routeNames';
+import colors from '../../assets/theme/colors';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 
@@ -111,7 +112,7 @@ export const styles = StyleSheet.create({
     fontWeight: '800',
     fontSize: 42,
     marginBottom: 15,
-    color: '#ffff',
+    color: colors.white,
     textAlign: 'center',
   },
   subtitle: {
@@ -119,7 +120,7 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     letterSpacing: 0.76,
     lineHeight: 21,
-    color: '#ffff',
+    color: colors.white,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -132,10 +133,10 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 5,
     borderRadius: 2,
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
   },
   categoryItem: {
-    color: '#181818',
+    color: colors.black,
     fontWeight: '600',
     fontSize: 13,
   },

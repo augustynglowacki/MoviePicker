@@ -8,6 +8,7 @@ import TabIcon from '../components/atoms/TabIcon';
 import {DISCOVER, HOME, LIKED, PROFILE} from '../models/constants/routeNames';
 import {StyleSheet} from 'react-native';
 
+
 const Tab = createBottomTabNavigator();
 
 const BottomTabsNavigator = () => {
