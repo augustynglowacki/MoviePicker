@@ -1,14 +1,12 @@
 import {AppRegistry} from 'react-native';
 import App from './App';
 import React from 'react';
-import {Provider} from 'react-redux';
-import store from './src/redux/store';
 import {name as appName} from './app.json';
-
+import {MoviesProvider} from './src/mobx/movies/MoviesContext';
 const Root = () => (
-  <Provider store={store}>
+  <MoviesProvider>
     <App />
-  </Provider>
+  </MoviesProvider>
 );
 
 AppRegistry.registerComponent(appName, () => Root);

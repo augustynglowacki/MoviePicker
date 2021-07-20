@@ -1,7 +1,7 @@
 export interface Movie {
-  id: Number; //id filmu
-  title: String; //tytul
-  vote_average?: Number; //srednia ocen
-  poster_path: String; //ściezka do zdjęcia
-  overview: String; //opis filmu
+  id: number; //id filmu
+  title: string; //tytul
+  vote_average?: number; //srednia ocen
+  poster_path: string; //ściezka do zdjęcia
+  overview: string; //opis filmu
 }

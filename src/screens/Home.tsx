@@ -1,21 +1,17 @@
 import {useNavigation} from '@react-navigation/native';
+import {Observer} from 'mobx-react-lite';
 import React, {useEffect, useRef} from 'react';
 import {StyleSheet, View, Alert} from 'react-native';
 import {TapGestureHandler} from 'react-native-gesture-handler';
 import MovieList from '../components/organisms/MovieList';
-import {getMovies, movieSelector} from '../redux/movie/MovieSlice';
-import {useDispatch, useSelector} from 'react-redux';
+import {useMoviesStore} from '../mobx/movies/MoviesContext';
 import {AUTH, DETAILS} from '../models/constants/routeNames';
 
 const Home = () => {
-  const dispatch = useDispatch();
-  //To select whatever elements we want from the state, we pass the state (exported as movieSelector) to our useSelector hook.
-  const {movies, loading, error} = useSelector(movieSelector);
+  const moviesStore = useMoviesStore();
   useEffect(() => {
-    dispatch(getMovies());
-  }, [dispatch]);
-
-  console.log(loading, error);
+    moviesStore.load();
+  }, [moviesStore]);
 
   //navigation
   const {navigate} = useNavigation();
@@ -44,24 +40,26 @@ const Home = () => {
       ]);
     }
   };
-
-  return (
-    <TapGestureHandler
-      waitFor={doubleTapRef}
-      onActivated={() => {
-        navigate(DETAILS);
-      }}>
+  const renderFn = () => {
+    return (
       <TapGestureHandler
-        maxDelayMs={250}
-        ref={doubleTapRef}
-        numberOfTaps={2}
-        onActivated={handleOnActivated}>
-        <View style={styles.wrapper}>
-          <MovieList moviesList={movies} />
-        </View>
+        waitFor={doubleTapRef}
+        onActivated={() => {
+          navigate(DETAILS);
+        }}>
+        <TapGestureHandler
+          maxDelayMs={250}
+          ref={doubleTapRef}
+          numberOfTaps={2}
+          onActivated={handleOnActivated}>
+          <View style={styles.wrapper}>
+            <MovieList moviesList={moviesStore.movies} />
+          </View>
+        </TapGestureHandler>
       </TapGestureHandler>
-    </TapGestureHandler>
-  );
+    );
+  };
+  return <Observer>{renderFn}</Observer>;
 };
 
 export default Home;
