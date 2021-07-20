@@ -23,7 +23,7 @@ const ProfileStatsContainer = () => {
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: '',
+    //fontFamily: '',
     color: colors.white,
   },
   titleText: {

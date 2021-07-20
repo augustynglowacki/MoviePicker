@@ -15,7 +15,6 @@ const SearchBox = () => {
 
 const styles = StyleSheet.create({
   searchBox: {
-    height: '10%',
     width: '100%',
     justifyContent: 'space-around',
   },
