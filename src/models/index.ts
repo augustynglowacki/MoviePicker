@@ -5,6 +5,7 @@ import {MovieState} from './MovieState';
 import {RegisterForm} from './RegisterForm';
 import {SearchState} from './SearchState';
 import {TvShow} from './TvShow';
+import {Actor} from './Actor';
 
 export type {
   Movie,
@@ -14,4 +15,5 @@ export type {
   RegisterForm,
   SearchState,
   TvShow,
+  Actor,
 };
