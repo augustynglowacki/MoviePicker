@@ -15,6 +15,7 @@ const DiscoverySection = () => {
   const dispatch = useDispatch();
   const {query, foundMovies, foundTvShows, foundActors} =
     useSelector(SearchSelector);
+
   useEffect(() => {
     if (query.length > 3) {
       dispatch(getSearchedMovies());
@@ -23,7 +24,7 @@ const DiscoverySection = () => {
     }
   }, [dispatch, query]);
   return (
-    <Container withPadding flexStart>
+    <Container withPadding flexStart withKeyboard>
       <SearchBox />
       <DiscoveryContentBox title="Movies" data={foundMovies.movies} />
       <DiscoveryContentBox title="Tv Shows" data={foundTvShows.movies} />

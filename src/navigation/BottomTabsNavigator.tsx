@@ -8,7 +8,6 @@ import {DISCOVER, HOME, LIKED, PROFILE} from '../models/constants/routeNames';
 import {StyleSheet} from 'react-native';
 import Profile from '../screens/Profile';
 
-
 const Tab = createBottomTabNavigator();
 
 const BottomTabsNavigator = () => {
