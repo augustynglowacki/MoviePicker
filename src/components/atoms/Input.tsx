@@ -12,6 +12,7 @@ interface MyInputProps extends TextInputProps {
   left?: React.ReactNode;
   fullWidth?: boolean;
   hidePassword?: boolean;
+  autoFocus?: boolean;
   clear?: 'never' | 'while-editing' | 'unless-editing' | 'always' | undefined;
 }
 const Input = ({
@@ -25,6 +26,7 @@ const Input = ({
   clear,
   hidePassword = false,
   fullWidth = false,
+  autoFocus = false,
 }: MyInputProps) => {
   const getWidth = () => {
     return {width: fullWidth ? '100%' : '80%'};
@@ -47,7 +49,7 @@ const Input = ({
       left={left}
       secureTextEntry={hidePassword}
       clearButtonMode={clear}
-      autoFocus={true}
+      autoFocus={autoFocus}
     />
   );
 };
