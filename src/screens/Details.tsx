@@ -102,7 +102,7 @@ const Details = ({route, navigation}: any) => {
           )}
         </View>
       </View>
-      <ActorsBox data={movieActors} />
+      <ActorsBox data={movieActors} error="" />
     </ScrollView>
   );
 };
