@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Dimensions,
   ImageBackground,
@@ -13,13 +13,33 @@ import {Platform} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import LinearGradient from 'react-native-linear-gradient';
 import colors from '../assets/theme/colors';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  getMovieDetails,
+  movieDetailsSelector,
+} from '../redux/movieDetails/movieDetailsSlice';
+import {getMovieActors} from '../redux/movieDetails/movieDetailsActions';
 
 const HEIGHT = Dimensions.get('window').height;
 
-const Details = ({route}: any) => {
-  const {title, poster_path, overview, id} = route.params;
+const convertToHours = (time: number) => {
+  const hour = Math.round(time / 60);
+  const minutes = time % 60;
 
-  console.log(id);
+  return `${hour}h ${minutes}min`;
+};
+
+const Details = ({route}: any) => {
+  const distpach = useDispatch();
+  const {title, poster_path, id} = route.params;
+  const {movieDetails} = useSelector(movieDetailsSelector);
+
+  console.log(movieDetails);
+
+  useEffect(() => {
+    distpach(getMovieDetails(id));
+    distpach(getMovieActors(id));
+  }, [distpach, id]);
 
   return (
     <ScrollView style={styles.container}>
@@ -44,10 +64,15 @@ const Details = ({route}: any) => {
       </ImageBackground>
 
       <View style={styles.bottomWrapper}>
-        <Text>Sesion 1</Text>
         <Text style={styles.title}>{title}</Text>
+        <View style={styles.movieInfoWrapper}>
+          <Text style={styles.movieInfoItem}>{movieDetails.release_date}</Text>
+          <Text style={styles.movieInfoItem}>
+            {convertToHours(movieDetails.runtime)}
+          </Text>
+        </View>
         <View style={styles.descriptionWrapper}>
-          <Text style={styles.descriptionText}>{overview}</Text>
+          <Text style={styles.descriptionText}>{movieDetails.overview}</Text>
         </View>
       </View>
     </ScrollView>
@@ -59,11 +84,11 @@ export default Details;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.black,
+    backgroundColor: colors.strongBlack,
   },
   imageBackground: {
     width: '100%',
-    height: HEIGHT * 0.7,
+    height: HEIGHT * 0.6,
   },
   headerWrapper: {
     flexDirection: 'row',
@@ -87,7 +112,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.white,
-    fontSize: 36,
+    fontSize: 40,
     fontWeight: '800',
     textAlign: 'center',
   },
@@ -97,7 +122,7 @@ const styles = StyleSheet.create({
   },
   descriptionText: {
     color: colors.white,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '500',
     textAlign: 'justify',
   },
@@ -108,5 +133,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingHorizontal: 30,
     marginTop: -40,
+  },
+  movieInfoWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+  },
+  movieInfoItem: {
+    color: colors.white,
   },
 });
