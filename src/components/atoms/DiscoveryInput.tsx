@@ -15,6 +15,7 @@ const DiscoveryInput = () => {
       left={<TextInput.Icon name="magnify" color={colors.grey} />}
       fullWidth
       clear="always"
+      autoFocus
     />
   );
 };
