@@ -1,18 +1,29 @@
 import {API_IMAGES} from '@env';
 import {useNavigation} from '@react-navigation/native';
 import {DETAILS} from '../../models/constants/routeNames';
-import React from 'react';
-import {View, StyleSheet, ImageBackground} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {StyleSheet, ImageBackground, Animated} from 'react-native';
 import {TapGestureHandler} from 'react-native-gesture-handler';
 import colors from '../../assets/theme/colors';
 import {Movie} from '../../models';
+import LinearGradient from 'react-native-linear-gradient';
 
 interface MovieBoxProps {
   movie: Movie;
 }
 
 const MovieBox = ({movie}: MovieBoxProps) => {
+  const fadeAnim = useRef(new Animated.Value(0)).current;
   const {navigate} = useNavigation();
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 900,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
+
   return (
     <>
       {!!movie.poster_path && (
@@ -25,12 +36,18 @@ const MovieBox = ({movie}: MovieBoxProps) => {
               id: movie.id,
             });
           }}>
-          <View style={styles.movieBox}>
+          <Animated.View style={{...styles.movieBox, opacity: fadeAnim}}>
             <ImageBackground
               source={{uri: `${API_IMAGES}${movie.poster_path}`}}
               style={styles.movieImage}
             />
-          </View>
+            <LinearGradient
+              colors={['rgba(0,0,0,0.4)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.1)']}
+              start={{x: 0, y: 1}}
+              end={{x: 0, y: 0}}
+              style={styles.linearGradient}
+            />
+          </Animated.View>
         </TapGestureHandler>
       )}
     </>
@@ -50,6 +67,12 @@ const styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'cover',
     position: 'absolute',
+  },
+  linearGradient: {
+    height: '100%',
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
   },
 });
 
