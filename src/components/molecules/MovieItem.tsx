@@ -8,6 +8,8 @@ import {TapGestureHandler} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import {AUTH, DETAILS} from '../../models/constants/routeNames';
 import colors from '../../assets/theme/colors';
+import {useSelector} from 'react-redux';
+import {userSelector} from '../../redux/user/UserSlice';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 
@@ -21,13 +23,14 @@ const MovieItem = ({
 Movie) => {
   const {navigate} = useNavigation();
   const doubleTapRef = useRef();
-  const isLogIn = false; //temprary state
+  const {email} = useSelector(userSelector);
+
   const handleOnActivated = () => {
-    if (isLogIn) {
+    if (email !== '') {
       //  TODO:
       console.log('add function to like');
     }
-    if (!isLogIn) {
+    if (email === '') {
       Alert.alert('Login ', 'Do you want to login to add to favorite?', [
         {
           text: 'Cancel',

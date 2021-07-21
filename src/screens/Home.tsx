@@ -20,7 +20,6 @@ const Home = () => {
   useEffect(() => {
     if (email === '') {
       const subscriber = auth().onAuthStateChanged(user => {
-        console.log('useEffect home');
         if (user) {
           dispatch(
             setActiveUser({
