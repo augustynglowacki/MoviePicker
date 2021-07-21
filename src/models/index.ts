@@ -1,3 +1,4 @@
+import {BackendUser} from './BackendUser';
 import {LoginForm} from './LoginForm';
 import {Movie} from './Movie';
 import {MovieAxiosResponse} from './MovieAxiosResponse';
@@ -12,4 +13,5 @@ export type {
   MovieAxiosResponse,
   RegisterForm,
   LoginForm,
+  BackendUser,
 };
