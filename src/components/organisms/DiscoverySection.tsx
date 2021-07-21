@@ -26,9 +26,19 @@ const DiscoverySection = () => {
   return (
     <Container withPadding flexStart withKeyboard>
       <SearchBox />
-      <DiscoveryContentBox title="Movies" data={foundMovies.movies} />
-      <DiscoveryContentBox title="Tv Shows" data={foundTvShows.movies} />
-      <ActorsBox data={foundActors.actors} />
+      <DiscoveryContentBox
+        title="Movies"
+        data={foundMovies.movies}
+        error={foundMovies.error}
+        loading={foundMovies.loading}
+      />
+      <DiscoveryContentBox
+        title="Tv Shows"
+        data={foundTvShows.movies}
+        error={foundTvShows.error}
+        loading={foundTvShows.loading}
+      />
+      <ActorsBox data={foundActors.actors} error={foundActors.error} />
     </Container>
   );
 };

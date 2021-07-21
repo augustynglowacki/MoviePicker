@@ -18,6 +18,7 @@ const SectionHeader = ({text, color, size}: ISectionHeaderProps) => (
 const styles = StyleSheet.create({
   sectionHeader: {
     fontWeight: '300',
+    marginBottom: 5,
   },
 });
 export default SectionHeader;

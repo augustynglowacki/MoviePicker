@@ -38,13 +38,13 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
   };
 
   const content = (
-    <SafeAreaView style={[styles.safeArea, style]}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
+    <ScrollView contentContainerStyle={styles.scrollView}>
+      <SafeAreaView style={[styles.safeArea, style]}>
         <View style={[styles.wrapper, getPadding(), getJustifyContent()]}>
           {children}
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ScrollView>
   );
 
   return withKeyboard ? (
