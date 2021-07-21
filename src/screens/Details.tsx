@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     width: '100%',
-    height: HEIGHT * 0.7,
+    height: HEIGHT * 0.6,
   },
   headerWrapper: {
     flexDirection: 'row',
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.white,
-    fontSize: 36,
+    fontSize: 40,
     fontWeight: '800',
     textAlign: 'center',
   },
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
   descriptionText: {
     color: colors.white,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '500',
     textAlign: 'justify',
   },
@@ -133,5 +133,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingHorizontal: 30,
     marginTop: -40,
+  },
+  movieInfoWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+  },
+  movieInfoItem: {
+    color: colors.white,
   },
 });
