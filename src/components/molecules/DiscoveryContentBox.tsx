@@ -25,7 +25,9 @@ const DiscoveryContentBox = ({
 }: DiscoveryContentBoxProps) => {
   return (
     <View style={styles.discoveryContentBox}>
-      <SectionHeader text={title} size={20} color={colors.white} />
+      {data.length === 0 ? null : (
+        <SectionHeader text={title} size={20} color={colors.white} />
+      )}
       <SearchErrorBox error={error} loading={false}>
         <FlatList
           data={data}

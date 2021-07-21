@@ -18,7 +18,9 @@ const renderItem: ListRenderItem<Actor> = ({item}) => (
 const ActorsBox = ({data, error}: ActorsBoxProps) => {
   return (
     <View style={styles.actorsBox}>
-      <SectionHeader text="Actors" color={colors.white} size={20} />
+      {data.length === 0 ? null : (
+        <SectionHeader text="Actors" color={colors.white} size={20} />
+      )}
       <SearchErrorBox error={error} loading={false}>
         <FlatList
           data={data}
