@@ -11,7 +11,7 @@ const initialState: SearchState = {
   query: '',
   foundMovies: {movies: [], error: '', loading: false},
   foundTvShows: {movies: [], error: '', loading: false},
-  foundActors: {actors: [{profile_path: ''}], error: ''},
+  foundActors: {actors: [], error: ''},
 };
 
 const SearchSlice = createSlice({

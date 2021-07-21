@@ -1,6 +1,8 @@
 import {useNavigation} from '@react-navigation/native';
 import * as React from 'react';
+import {useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import {TextInput} from 'react-native-paper';
 import colors from '../../assets/theme/colors';
 import {LoginForm} from '../../models';
 import {REGISTER} from '../../models/constants/routeNames';
@@ -17,6 +19,8 @@ interface IProps {
 const LoginComponent = ({onChange, onSubmit, form, errors}: IProps) => {
   const {navigate} = useNavigation();
   const goToRegister = () => navigate(REGISTER);
+  const [hiddenPassword, setHiddenPassword] = useState(true);
+  const handleHide = () => setHiddenPassword(!hiddenPassword);
   return (
     <Container withKeyboard withPadding>
       <Image
@@ -28,20 +32,23 @@ const LoginComponent = ({onChange, onSubmit, form, errors}: IProps) => {
         <View style={styles.form}>
           <Input
             label="Username"
-            iconPosition="right"
-            placeholder="Enter Username"
             value={form.username}
             onChangeText={value => onChange({name: 'username', value})}
             error={errors.username}
           />
           <Input
             label="Password"
-            placeholder="Enter Password"
             value={form.password}
             onChangeText={value => onChange({name: 'password', value})}
             error={errors.password}
-            secureTextEntry={true}
-            icon={<Text>Show</Text>}
+            hidePassword={hiddenPassword}
+            right={
+              <TextInput.Icon
+                name="eye"
+                color={colors.grey}
+                onPress={handleHide}
+              />
+            }
           />
           <CustomButton
             label="Login"

@@ -7,9 +7,7 @@ import {movieSelector} from '../../redux/movie/MovieSlice';
 import MovieBox from '../atoms/MovieBox';
 import SectionHeader from '../atoms/SectionHeader';
 
-const renderItem: ListRenderItem<Movie> = ({item}) => (
-  <MovieBox poster_path={item.poster_path} />
-);
+const renderItem: ListRenderItem<Movie> = ({item}) => <MovieBox movie={item} />;
 
 const LikedContentBox = () => {
   const {movies} = useSelector(movieSelector); // temporary
@@ -22,6 +20,7 @@ const LikedContentBox = () => {
           renderItem={renderItem}
           showsHorizontalScrollIndicator={false}
           numColumns={2}
+          maxToRenderPerBatch={5}
         />
       </View>
     </View>
