@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     height: 250,
     flexBasis: '45%',
     margin: 3,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.black,
   },
   movieImage: {
     width: '100%',
