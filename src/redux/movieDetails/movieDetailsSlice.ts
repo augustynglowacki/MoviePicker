@@ -1,7 +1,7 @@
 import {MovieDetailsState} from './../../models/MovieDetailsState';
 import {createSlice} from '@reduxjs/toolkit';
 import {RootState} from '../rootReducer';
-import {getMovieDetails} from './movieDetailsActions';
+import {getMovieActors, getMovieDetails} from './movieDetailsActions';
 
 const initialState: MovieDetailsState = {
   movieDetails: {
@@ -12,17 +12,18 @@ const initialState: MovieDetailsState = {
     vote_average: 0,
     runtime: 0,
     revenue: 0,
+    release_date: '',
   },
 
   loading: false,
   error: '',
-  requestedId: 0,
+  movieActors: [],
 };
 
 //createSlice is a function that accepts a "slice name", an initial state, and an object full of reducer functions.
 //Then it automatically generates action creators and action types that correspond to the reducers and state.
 const movieDetailsSlice = createSlice({
-  name: 'movies',
+  name: 'movieDetails',
   initialState,
   reducers: {},
   extraReducers: builder => {
@@ -40,6 +41,20 @@ const movieDetailsSlice = createSlice({
       // Add user to the state array
       state.loading = false;
       console.log(action.error.message);
+      state.error = action.error.message ?? 'error';
+    });
+
+    builder.addCase(getMovieActors.fulfilled, (state, action) => {
+      // Add user to the state array
+      state.movieActors = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(getMovieActors.pending, state => {
+      // Add user to the state array
+      state.loading = true;
+    });
+    builder.addCase(getMovieActors.rejected, (state, action) => {
+      // Add user to the state array
       state.error = action.error.message ?? 'error';
     });
   },

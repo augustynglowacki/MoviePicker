@@ -18,6 +18,7 @@ import {
   getMovieDetails,
   movieDetailsSelector,
 } from '../redux/movieDetails/movieDetailsSlice';
+import {getMovieActors} from '../redux/movieDetails/movieDetailsActions';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -33,8 +34,11 @@ const Details = ({route}: any) => {
   const {title, poster_path, id} = route.params;
   const {movieDetails} = useSelector(movieDetailsSelector);
 
+  console.log(movieDetails);
+
   useEffect(() => {
     distpach(getMovieDetails(id));
+    distpach(getMovieActors(id));
   }, [distpach, id]);
 
   return (
@@ -61,9 +65,9 @@ const Details = ({route}: any) => {
 
       <View style={styles.bottomWrapper}>
         <Text style={styles.title}>{title}</Text>
-        <View>
-          <Text style={{color: 'white'}}>{movieDetails.vote_average}</Text>
-          <Text style={{color: 'white'}}>
+        <View style={styles.movieInfoWrapper}>
+          <Text style={styles.movieInfoItem}>{movieDetails.release_date}</Text>
+          <Text style={styles.movieInfoItem}>
             {convertToHours(movieDetails.runtime)}
           </Text>
         </View>
