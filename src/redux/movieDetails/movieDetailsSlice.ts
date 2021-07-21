@@ -13,6 +13,7 @@ const initialState: MovieDetailsState = {
     runtime: 0,
     revenue: 0,
     release_date: '',
+    genres: [],
   },
 
   loading: false,
