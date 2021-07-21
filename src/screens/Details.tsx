@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Dimensions,
   ImageBackground,
@@ -13,13 +13,29 @@ import {Platform} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import LinearGradient from 'react-native-linear-gradient';
 import colors from '../assets/theme/colors';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  getMovieDetails,
+  movieDetailsSelector,
+} from '../redux/movieDetails/movieDetailsSlice';
 
 const HEIGHT = Dimensions.get('window').height;
 
-const Details = ({route}: any) => {
-  const {title, poster_path, overview, id} = route.params;
+const convertToHours = (time: number) => {
+  const hour = Math.round(time / 60);
+  const minutes = time % 60;
 
-  console.log(id);
+  return `${hour}h ${minutes}min`;
+};
+
+const Details = ({route}: any) => {
+  const distpach = useDispatch();
+  const {title, poster_path, id} = route.params;
+  const {movieDetails} = useSelector(movieDetailsSelector);
+
+  useEffect(() => {
+    distpach(getMovieDetails(id));
+  }, [distpach, id]);
 
   return (
     <ScrollView style={styles.container}>
@@ -44,10 +60,15 @@ const Details = ({route}: any) => {
       </ImageBackground>
 
       <View style={styles.bottomWrapper}>
-        <Text>Sesion 1</Text>
         <Text style={styles.title}>{title}</Text>
+        <View>
+          <Text style={{color: 'white'}}>{movieDetails.vote_average}</Text>
+          <Text style={{color: 'white'}}>
+            {convertToHours(movieDetails.runtime)}
+          </Text>
+        </View>
         <View style={styles.descriptionWrapper}>
-          <Text style={styles.descriptionText}>{overview}</Text>
+          <Text style={styles.descriptionText}>{movieDetails.overview}</Text>
         </View>
       </View>
     </ScrollView>
@@ -59,7 +80,7 @@ export default Details;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.black,
+    backgroundColor: colors.strongBlack,
   },
   imageBackground: {
     width: '100%',
