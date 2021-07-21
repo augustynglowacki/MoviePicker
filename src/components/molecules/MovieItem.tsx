@@ -10,17 +10,20 @@ import {AUTH, DETAILS} from '../../models/constants/routeNames';
 import colors from '../../assets/theme/colors';
 import {useSelector} from 'react-redux';
 import {userSelector} from '../../redux/user/UserSlice';
+import {genresSelector} from '../../redux/genres/GenresSlice';
+import {useTranslation} from 'react-i18next';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 
 const MovieItem = ({
-  //id,
+  id,
   poster_path,
   overview,
   title,
-}: // vote_average,
-
-Movie) => {
+  mergeGenresWithMovies,
+}: Movie) => {
+  const {loading} = useSelector(genresSelector);
+  const {i18n} = useTranslation();
   const {navigate} = useNavigation();
   const doubleTapRef = useRef();
   const {email} = useSelector(userSelector);
@@ -31,13 +34,13 @@ Movie) => {
       console.log('add function to like');
     }
     if (email === '') {
-      Alert.alert('Login ', 'Do you want to login to add to favorite?', [
+      Alert.alert(i18n.t('common:login'), i18n.t('common:loginSuggestion'), [
         {
-          text: 'Cancel',
+          text: i18n.t('common:cancel'),
           onPress: () => {},
         },
         {
-          text: 'OK',
+          text: i18n.t('common:ok'),
           onPress: () => navigate(AUTH),
         },
       ]);
@@ -51,6 +54,7 @@ Movie) => {
           poster_path,
           overview,
           title,
+          id,
         });
       }}>
       <TapGestureHandler
@@ -74,12 +78,15 @@ Movie) => {
               <Text style={styles.title}>{title}</Text>
 
               <View style={styles.subtitle}>
-                <View style={styles.categoryContainer}>
-                  <Text style={styles.categoryItem}>Action</Text>
-                </View>
-                <View style={styles.categoryContainer}>
-                  <Text style={styles.categoryItem}>Kids</Text>
-                </View>
+                {loading ? (
+                  <Text>Loading </Text>
+                ) : (
+                  mergeGenresWithMovies.map((genre: any) => (
+                    <View key={genre.name} style={styles.categoryContainer}>
+                      <Text style={styles.categoryItem}>{genre.name}</Text>
+                    </View>
+                  ))
+                )}
               </View>
             </View>
           </View>
@@ -98,10 +105,10 @@ export const styles = StyleSheet.create({
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: colors.black,
   },
   contentContainer: {
-    height: 300,
-    bottom: WINDOW_HEIGHT - 950,
+    height: WINDOW_HEIGHT * 0.9,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
@@ -119,7 +126,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   subtitle: {
-    maxWidth: 300,
+    maxWidth: 350,
     fontSize: 14,
     letterSpacing: 0.76,
     lineHeight: 21,
@@ -127,6 +134,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    flexWrap: 'wrap',
   },
   categoryContainer: {
     marginRight: 6,
@@ -137,6 +145,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 5,
     borderRadius: 2,
     backgroundColor: colors.white,
+    marginTop: 6,
   },
   categoryItem: {
     color: colors.black,

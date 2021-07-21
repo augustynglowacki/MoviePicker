@@ -16,56 +16,64 @@ interface ContainerProps {
   style?: StyleProp<ViewStyle>;
   //specify withKeyboard prop when using Container if you want KeyboardAvoidingView
   withKeyboard?: boolean;
+  //specify withPadding prop when using Container if you want additional padding
   withPadding?: boolean;
+  //sticks component to top of the screen
+  flexStart?: boolean;
 }
 
 const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
   style,
-  withKeyboard,
   children,
-  withPadding,
+  withKeyboard = false,
+  withPadding = false,
+  flexStart = false,
 }) => {
-  const getViews = () => {
-    return (
-      <SafeAreaView style={[styles().safeArea, style]}>
-        <ScrollView contentContainerStyle={styles().scrollView}>
-          <View style={styles(withPadding).wrapper}>{children}</View>
-        </ScrollView>
-      </SafeAreaView>
-    );
+  const getJustifyContent = (): StyleProp<ViewStyle> => {
+    return {justifyContent: flexStart ? 'flex-start' : 'center'};
   };
+
+  const getPadding = (): StyleProp<ViewStyle> => {
+    return {padding: withPadding ? 16 : 0};
+  };
+
+  const content = (
+    <ScrollView contentContainerStyle={styles.scrollView}>
+      <SafeAreaView style={[styles.safeArea, style]}>
+        <View style={[styles.wrapper, getPadding(), getJustifyContent()]}>
+          {children}
+        </View>
+      </SafeAreaView>
+    </ScrollView>
+  );
+
   return withKeyboard ? (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles().kbView}>
-      {getViews()}
+      style={styles.kbView}>
+      {content}
     </KeyboardAvoidingView>
   ) : (
-    getViews()
+    content
   );
 };
 
 export default Container;
 
-const styles = (withPadding?: boolean) =>
-  StyleSheet.create({
-    wrapper: {
-      padding: withPadding ? 16 : 0,
-    },
-    kbView: {
-      flex: 1,
-    },
-    scrollView: {
-      flexGrow: 1,
-      justifyContent: 'center',
-    },
-    safeArea: {
-      flex: 1,
-      backgroundColor: colors.black,
-      justifyContent: 'center',
-    },
-  });
-
-Container.defaultProps = {
-  withKeyboard: false,
-};
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+  },
+  kbView: {
+    flex: 1,
+  },
+  scrollView: {
+    flexGrow: 1,
+    justifyContent: 'center',
+  },
+  safeArea: {
+    flex: 1,
+    backgroundColor: colors.black,
+    justifyContent: 'center',
+  },
+});

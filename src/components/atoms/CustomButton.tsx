@@ -1,20 +1,15 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ActivityIndicator,
-  TouchableOpacityProps,
-  StyleSheet,
-} from 'react-native';
+import {StyleSheet} from 'react-native';
+import {Button} from 'react-native-paper';
 import colors from '../../assets/theme/colors';
 
-interface MyButtonProps extends TouchableOpacityProps {
+interface MyButtonProps {
   disabled?: boolean;
   label: string;
   loading?: boolean;
   variant?: 'primary' | 'secondary';
   width?: 'small' | 'medium';
+  onPress: () => void;
 }
 
 const CustomButton = ({
@@ -54,36 +49,25 @@ const CustomButton = ({
     }
     return '100%';
   };
-  // additional padding when loading gets returned from state
-  const getLoadingPadding = () => {
-    return loading ? 5 : 0;
-  };
-
   return (
-    <TouchableOpacity
+    <Button
+      mode="contained"
       disabled={disabled}
+      loading={loading}
       onPress={onPress}
       style={[
         styles.wrapper,
         {backgroundColor: getBackgroundColor()},
         {width: getWidth()},
-      ]}>
-      <View style={[styles.loaderSection]}>
-        {loading && (
-          <ActivityIndicator color={getColor()} style={styles.loader} />
-        )}
-        {label && (
-          <Text
-            style={[
-              styles.text,
-              {color: getColor()},
-              {paddingHorizontal: getLoadingPadding()},
-            ]}>
-            {label}
-          </Text>
-        )}
-      </View>
-    </TouchableOpacity>
+      ]}
+      labelStyle={[styles.text, {color: getColor()}]}
+      theme={{
+        colors: {
+          text: 'black',
+        },
+      }}>
+      {label}
+    </Button>
   );
 };
 
@@ -91,23 +75,20 @@ export default CustomButton;
 
 const styles = StyleSheet.create({
   wrapper: {
-    borderRadius: 3,
+    borderRadius: 16,
     marginVertical: 24,
     alignItems: 'center',
     justifyContent: 'space-evenly',
     alignSelf: 'center',
   },
   text: {
-    paddingVertical: 13,
-    fontSize: 18,
+    paddingVertical: 3,
+    fontSize: 17,
     fontWeight: '700',
     textTransform: 'uppercase',
-    letterSpacing: 0.5,
+    letterSpacing: 0.6,
   },
   loader: {
     paddingHorizontal: 5,
-  },
-  loaderSection: {
-    flexDirection: 'row',
   },
 });

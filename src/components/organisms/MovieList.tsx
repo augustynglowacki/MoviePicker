@@ -9,21 +9,30 @@ import {
 } from 'react-native';
 import colors from '../../assets/theme/colors';
 import {MovieListProps, Movie} from '../../models';
+import {GenresProps} from '../../models/GenresProps';
 import MovieItem from '../molecules/MovieItem';
 
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
-const MovieList = ({moviesList}: MovieListProps) => {
-  const renderItem: ListRenderItem<Movie> = ({item}) => (
-    <MovieItem
-      id={item.id}
-      title={item.title}
-      overview={item.overview}
-      poster_path={item.poster_path}
-      vote_average={item.vote_average}
-    />
-  );
+const MovieList = ({moviesList, genres}: MovieListProps & GenresProps) => {
+  const renderItem: ListRenderItem<Movie> = ({item}) => {
+    const mergeGenresWithMovies = item.genre_ids.map(movie =>
+      genres.find(genre => genre.id === movie),
+    );
+
+    return (
+      <MovieItem
+        id={item.id}
+        title={item.title}
+        overview={item.overview}
+        poster_path={item.poster_path}
+        vote_average={item.vote_average}
+        genre_ids={item.genre_ids}
+        mergeGenresWithMovies={mergeGenresWithMovies}
+      />
+    );
+  };
 
   const keyExtractor = (item: Movie) => item.id.toString();
 

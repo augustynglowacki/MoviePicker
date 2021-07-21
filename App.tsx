@@ -1,15 +1,26 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import HomeNavigator from './src/navigation/HomeNavigator';
-import {NativeBaseProvider} from 'native-base';
+import colors from './src/assets/theme/colors';
+import {Provider as PaperProvider} from 'react-native-paper';
+
+//app background changed to black
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: colors.primary,
+    background: colors.black,
+  },
+};
 
 const App = () => {
   return (
-    <NativeBaseProvider>
-      <NavigationContainer>
+    <PaperProvider>
+      <NavigationContainer theme={MyTheme}>
         <HomeNavigator />
       </NavigationContainer>
-    </NativeBaseProvider>
+    </PaperProvider>
   );
 };
 
