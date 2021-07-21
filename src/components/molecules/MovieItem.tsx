@@ -10,6 +10,7 @@ import {AUTH, DETAILS} from '../../models/constants/routeNames';
 import colors from '../../assets/theme/colors';
 import {useSelector} from 'react-redux';
 import {genresSelector} from '../../redux/genres/GenresSlice';
+import {useTranslation} from 'react-i18next';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 
@@ -21,6 +22,7 @@ const MovieItem = ({
   mergeGenresWithMovies,
 }: Movie) => {
   const {loading} = useSelector(genresSelector);
+  const {i18n} = useTranslation();
   const {navigate} = useNavigation();
   const doubleTapRef = useRef();
   const isLogIn = false; //temprary state
@@ -31,13 +33,13 @@ const MovieItem = ({
       console.log('add function to like');
     }
     if (!isLogIn) {
-      Alert.alert('Login ', 'Do you want to login to add to favorite?', [
+      Alert.alert(i18n.t('common:login'), i18n.t('common:loginSuggestion'), [
         {
-          text: 'Cancel',
+          text: i18n.t('common:cancel'),
           onPress: () => {},
         },
         {
-          text: 'OK',
+          text: i18n.t('common:ok'),
           onPress: () => navigate(AUTH),
         },
       ]);
