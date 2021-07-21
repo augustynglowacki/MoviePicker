@@ -1,5 +1,11 @@
 import React from 'react';
-import {View, StyleSheet, ListRenderItem, FlatList} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ListRenderItem,
+  FlatList,
+  SafeAreaView,
+} from 'react-native';
 import {useSelector} from 'react-redux';
 import colors from '../../assets/theme/colors';
 import {Movie} from '../../models';
@@ -12,18 +18,18 @@ const renderItem: ListRenderItem<Movie> = ({item}) => <MovieBox movie={item} />;
 const LikedContentBox = () => {
   const {movies} = useSelector(movieSelector); // temporary
   return (
-    <View style={styles.likedWrapper}>
+    <SafeAreaView style={styles.likedWrapper}>
       <SectionHeader text="Liked" color={colors.white} />
       <View style={styles.likedContentBox}>
         <FlatList
           data={movies}
           renderItem={renderItem}
-          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
           numColumns={2}
           maxToRenderPerBatch={5}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
