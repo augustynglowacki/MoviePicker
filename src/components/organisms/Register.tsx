@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import {TextInput} from 'react-native-paper';
 import colors from '../../assets/theme/colors';
 import {RegisterForm} from '../../models';
 import Container from '../atoms/Container';
@@ -25,27 +26,23 @@ const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
         <View style={styles.form}>
           <Input
             label="Username"
-            iconPosition="right"
-            placeholder="Enter Username"
             value={form.username}
             onChangeText={value => onChange({name: 'username', value})}
             error={errors.username}
           />
           <Input
             label="Email"
-            placeholder="Enter Email"
             value={form.email}
             onChangeText={value => onChange({name: 'email', value})}
             error={errors.email}
           />
           <Input
             label="Password"
-            placeholder="Enter Password"
             value={form.password}
             onChangeText={value => onChange({name: 'password', value})}
             error={errors.password}
-            secureTextEntry={true}
-            icon={<Text>Show</Text>}
+            secureTextEntry={false}
+            right={<TextInput.Icon name="eye" color={colors.grey} />}
           />
           <CustomButton
             onPress={onSubmit}
