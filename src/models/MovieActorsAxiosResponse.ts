@@ -1,5 +1,5 @@
-import {MovieActors} from './MovieActors';
+import {Actor} from './Actor';
 
 export interface MovieActorsAxiosResponse {
-  cast: MovieActors[];
+  cast: Actor[];
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import {FlatList, ListRenderItem, StyleSheet, View} from 'react-native';
 import colors from '../../assets/theme/colors';
 import {Actor} from '../../models';
+
 import ActorBox from '../atoms/ActorBox';
 import SearchErrorBox from '../atoms/SearchErrorBox';
 import SectionHeader from '../atoms/SectionHeader';
