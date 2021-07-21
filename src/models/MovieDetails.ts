@@ -6,4 +6,5 @@ export interface MovieDetails {
   vote_average: number;
   poster_path?: string;
   revenue: number;
+  release_date: string;
 }
