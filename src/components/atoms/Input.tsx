@@ -12,8 +12,8 @@ interface MyInputProps extends TextInputProps {
   left?: React.ReactNode;
   fullWidth?: boolean;
   hidePassword?: boolean;
+  clear?: 'never' | 'while-editing' | 'unless-editing' | 'always' | undefined;
 }
-
 const Input = ({
   onChangeText,
   style,
@@ -22,6 +22,7 @@ const Input = ({
   error,
   right,
   left,
+  clear,
   hidePassword = false,
   fullWidth = false,
 }: MyInputProps) => {
@@ -45,6 +46,7 @@ const Input = ({
       right={right}
       left={left}
       secureTextEntry={hidePassword}
+      clearButtonMode={clear}
     />
   );
 };

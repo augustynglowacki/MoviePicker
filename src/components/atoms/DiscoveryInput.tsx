@@ -14,7 +14,7 @@ const DiscoveryInput = () => {
       secureTextEntry={true}
       left={<TextInput.Icon name="magnify" color={colors.grey} />}
       fullWidth
-      clearButtonMode="always" //For iOS, it will give the default clear text button.
+      clear="always"
     />
   );
 };
