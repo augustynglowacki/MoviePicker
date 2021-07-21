@@ -102,6 +102,7 @@ export const styles = StyleSheet.create({
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: colors.black,
   },
   contentContainer: {
     height: WINDOW_HEIGHT * 0.9,
