@@ -29,10 +29,10 @@ const convertToHours = (time: number) => {
   return `${hour}h ${minutes}min`;
 };
 
-const Details = ({route}: any) => {
+const Details = ({route, navigation}: any) => {
   const distpach = useDispatch();
   const {title, poster_path, id} = route.params;
-  const {movieDetails} = useSelector(movieDetailsSelector);
+  const {movieDetails, loading} = useSelector(movieDetailsSelector);
 
   console.log(movieDetails);
 
@@ -48,7 +48,7 @@ const Details = ({route}: any) => {
         source={{uri: `${API_IMAGES}${poster_path}`}}>
         <View style={styles.contentWrapper}>
           <View style={styles.headerWrapper}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
               <Entypo name="chevron-left" size={35} color={colors.white} />
             </TouchableOpacity>
           </View>
@@ -67,12 +67,19 @@ const Details = ({route}: any) => {
         <Text style={styles.title}>{title}</Text>
         <View style={styles.movieInfoWrapper}>
           <Text style={styles.movieInfoItem}>{movieDetails.release_date}</Text>
+          <Entypo name="dot-single" size={32} color="white" />
+          <Text>gentees</Text>
+          <Entypo name="dot-single" size={32} color="white" />
           <Text style={styles.movieInfoItem}>
             {convertToHours(movieDetails.runtime)}
           </Text>
         </View>
         <View style={styles.descriptionWrapper}>
-          <Text style={styles.descriptionText}>{movieDetails.overview}</Text>
+          {loading ? (
+            <Text>Loading</Text> // TO ADD MATERIAL UI LOADING
+          ) : (
+            <Text style={styles.descriptionText}>{movieDetails.overview}</Text>
+          )}
         </View>
       </View>
     </ScrollView>
@@ -115,6 +122,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: '800',
     textAlign: 'center',
+    marginBottom: 15,
   },
   descriptionWrapper: {
     marginTop: 70,
