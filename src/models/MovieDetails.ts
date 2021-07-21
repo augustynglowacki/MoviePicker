@@ -1,3 +1,5 @@
+import {Genres} from './Genres';
+
 export interface MovieDetails {
   id: number;
   overview: string;
@@ -7,4 +9,5 @@ export interface MovieDetails {
   poster_path?: string;
   revenue: number;
   release_date: string;
+  genres: Genres[];
 }

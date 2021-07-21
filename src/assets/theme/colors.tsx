@@ -6,4 +6,5 @@ export default {
   white: '#ffffff',
   danger: '#A40001', //error color
   strongBlack: '#000000',
+  lightGrey: '#999999',
 };
