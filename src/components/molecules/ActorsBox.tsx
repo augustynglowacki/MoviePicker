@@ -34,8 +34,7 @@ const ActorsBox = ({data, error}: ActorsBoxProps) => {
 
 const styles = StyleSheet.create({
   actorsBox: {
-    marginTop: 5,
-    marginBottom: 15,
+    marginTop: 20,
   },
 });
 
