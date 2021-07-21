@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import Animated, {AnimatedLayout, StretchInX} from 'react-native-reanimated';
@@ -16,6 +17,8 @@ interface IProps {
 }
 
 const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
+  const [hiddenPassword, setHiddenPassword] = useState(true);
+  const handleHide = () => setHiddenPassword(!hiddenPassword);
   return (
     <Container withKeyboard withPadding>
       <AnimatedLayout>
@@ -46,8 +49,14 @@ const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
               value={form.password}
               onChangeText={value => onChange({name: 'password', value})}
               error={errors.password}
-              secureTextEntry={false}
-              right={<TextInput.Icon name="eye" color={colors.grey} />}
+              hidePassword={hiddenPassword}
+              right={
+                <TextInput.Icon
+                  name="eye"
+                  color={colors.grey}
+                  onPress={handleHide}
+                />
+              }
             />
             <CustomButton
               onPress={onSubmit}
