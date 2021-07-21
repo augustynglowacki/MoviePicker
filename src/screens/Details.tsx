@@ -40,10 +40,14 @@ const Details = ({route, navigation}: any) => {
 
   const GENRES = movieDetails.genres.map(genre => genre.name);
 
+  console.log(movieDetails);
+
   useEffect(() => {
-    distpach(getMovieDetails(id));
-    distpach(getMovieActors(id));
-  }, [distpach, id]);
+    if (!movieDetails.id) {
+      distpach(getMovieDetails(id));
+      distpach(getMovieActors(id));
+    }
+  }, [distpach, id, movieDetails.id]);
 
   return (
     <ScrollView style={styles.container}>
