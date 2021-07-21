@@ -5,4 +5,5 @@ export default {
   black: '#1b1b1b',
   white: '#ffffff',
   danger: '#A40001', //error color
+  strongBlack: '#000000',
 };
