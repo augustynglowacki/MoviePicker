@@ -14,9 +14,7 @@ interface DiscoveryContentBoxProps {
   loading: boolean;
 }
 
-const renderItem: ListRenderItem<Movie> = ({item}) => (
-  <MovieBox poster_path={item.poster_path} />
-);
+const renderItem: ListRenderItem<Movie> = ({item}) => <MovieBox movie={item} />;
 
 const DiscoveryContentBox = ({
   title,

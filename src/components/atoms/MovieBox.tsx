@@ -1,22 +1,37 @@
 import {API_IMAGES} from '@env';
+import {useNavigation} from '@react-navigation/native';
+import {DETAILS} from '../../models/constants/routeNames';
 import React from 'react';
 import {View, StyleSheet, ImageBackground} from 'react-native';
+import {TapGestureHandler} from 'react-native-gesture-handler';
 import colors from '../../assets/theme/colors';
+import {Movie} from '../../models';
 
 interface MovieBoxProps {
-  poster_path: string;
+  movie: Movie;
 }
 
-const MovieBox = ({poster_path}: MovieBoxProps) => {
+const MovieBox = ({movie}: MovieBoxProps) => {
+  const {navigate} = useNavigation();
   return (
     <>
-      {!!poster_path && (
-        <View style={styles.movieBox}>
-          <ImageBackground
-            source={{uri: `${API_IMAGES}${poster_path}`}}
-            style={styles.movieImage}
-          />
-        </View>
+      {!!movie.poster_path && (
+        <TapGestureHandler
+          onActivated={() => {
+            navigate(DETAILS, {
+              poster_path: movie.poster_path,
+              overview: movie.overview,
+              title: movie.title,
+              id: movie.id,
+            });
+          }}>
+          <View style={styles.movieBox}>
+            <ImageBackground
+              source={{uri: `${API_IMAGES}${movie.poster_path}`}}
+              style={styles.movieImage}
+            />
+          </View>
+        </TapGestureHandler>
       )}
     </>
   );

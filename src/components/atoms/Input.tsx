@@ -47,6 +47,7 @@ const Input = ({
       left={left}
       secureTextEntry={hidePassword}
       clearButtonMode={clear}
+      autoFocus={true}
     />
   );
 };
