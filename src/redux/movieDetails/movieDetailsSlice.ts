@@ -13,6 +13,7 @@ const initialState: MovieDetailsState = {
     runtime: 0,
     revenue: 0,
     release_date: '',
+    genres: [],
   },
 
   loading: false,
@@ -20,21 +21,16 @@ const initialState: MovieDetailsState = {
   movieActors: [],
 };
 
-//createSlice is a function that accepts a "slice name", an initial state, and an object full of reducer functions.
-//Then it automatically generates action creators and action types that correspond to the reducers and state.
 const movieDetailsSlice = createSlice({
   name: 'movieDetails',
   initialState,
   reducers: {},
   extraReducers: builder => {
-    // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(getMovieDetails.fulfilled, (state, action) => {
-      // Add user to the state array
       state.movieDetails = action.payload;
       state.loading = false;
     });
     builder.addCase(getMovieDetails.pending, state => {
-      // Add user to the state array
       state.loading = true;
     });
     builder.addCase(getMovieDetails.rejected, (state, action) => {

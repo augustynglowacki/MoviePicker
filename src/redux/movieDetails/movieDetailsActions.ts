@@ -1,5 +1,6 @@
+import {Actor} from './../../models/Actor';
 import {MovieActorsAxiosResponse} from './../../models/MovieActorsAxiosResponse';
-import {MovieActors} from './../../models/MovieActors';
+
 import {MovieDetails} from './../../models/MovieDetails';
 import {API_KEY} from '@env';
 import {createAsyncThunk} from '@reduxjs/toolkit';
@@ -21,25 +22,24 @@ export const getMovieDetails = createAsyncThunk<MovieDetails, number>(
       poster_path: res.data.poster_path,
       revenue: res.data.revenue,
       release_date: res.data.release_date,
+      genres: res.data.genres,
     };
     return newresult;
   },
 );
 
-export const getMovieActors = createAsyncThunk<MovieActors[], number>(
+export const getMovieActors = createAsyncThunk<Actor[], number>(
   'movieDetails/getMovieActors',
   async id => {
     const res = await axiosInstance.get<MovieActorsAxiosResponse>(
       `movie/${id}/credits?api_key=${API_KEY}&language=en-US`,
     );
 
-    const newresult: MovieActors[] = res.data.cast.map(actor => ({
-      character: actor.character,
+    const newresult: Actor[] = res.data.cast.map(actor => ({
+      id: actor.id,
       name: actor.name,
       profile_path: actor.profile_path,
     }));
-
-    console.log(newresult);
 
     return newresult;
   },
