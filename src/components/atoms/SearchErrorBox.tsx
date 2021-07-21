@@ -11,15 +11,15 @@ interface SearchErrorBoxProps {
 
 const SearchErrorBox = ({loading, error, children}: SearchErrorBoxProps) => {
   return (
-    <View style={styles.searchErrorBox}>
+    <View>
       {/* to do: loading */}
       {loading ? (
         <Text>Loading...</Text>
       ) : error ? (
-        <>
+        <View style={styles.searchErrorBox}>
           <Icon name="times-circle-o" color={colors.danger} size={50} />
           <Text style={{color: colors.danger}}>{error}</Text>
-        </>
+        </View>
       ) : (
         <>{children}</>
       )}

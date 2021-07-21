@@ -32,6 +32,7 @@ const DiscoveryContentBox = ({
           renderItem={renderItem}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
+          maxToRenderPerBatch={5}
         />
       </SearchErrorBox>
     </View>
