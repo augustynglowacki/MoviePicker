@@ -14,9 +14,7 @@ interface DiscoveryContentBoxProps {
   loading: boolean;
 }
 
-const renderItem: ListRenderItem<Movie> = ({item}) => (
-  <MovieBox poster_path={item.poster_path} />
-);
+const renderItem: ListRenderItem<Movie> = ({item}) => <MovieBox movie={item} />;
 
 const DiscoveryContentBox = ({
   title,
@@ -25,7 +23,9 @@ const DiscoveryContentBox = ({
 }: DiscoveryContentBoxProps) => {
   return (
     <View style={styles.discoveryContentBox}>
-      <SectionHeader text={title} size={20} color={colors.white} />
+      {data.length === 0 ? null : (
+        <SectionHeader text={title} size={20} color={colors.white} />
+      )}
       <SearchErrorBox error={error} loading={false}>
         <FlatList
           data={data}

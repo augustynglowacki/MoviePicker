@@ -2,6 +2,7 @@ import React from 'react';
 import {FlatList, ListRenderItem, StyleSheet, View} from 'react-native';
 import colors from '../../assets/theme/colors';
 import {Actor} from '../../models';
+
 import ActorBox from '../atoms/ActorBox';
 import SearchErrorBox from '../atoms/SearchErrorBox';
 import SectionHeader from '../atoms/SectionHeader';
@@ -18,7 +19,9 @@ const renderItem: ListRenderItem<Actor> = ({item}) => (
 const ActorsBox = ({data, error}: ActorsBoxProps) => {
   return (
     <View style={styles.actorsBox}>
-      <SectionHeader text="Actors" color={colors.white} size={20} />
+      {data.length === 0 ? null : (
+        <SectionHeader text="Actors" color={colors.white} size={20} />
+      )}
       <SearchErrorBox error={error} loading={false}>
         <FlatList
           data={data}

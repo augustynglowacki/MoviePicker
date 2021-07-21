@@ -1,29 +1,29 @@
 import React from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet, ListRenderItem, FlatList} from 'react-native';
+import {useSelector} from 'react-redux';
 import colors from '../../assets/theme/colors';
+import {Movie} from '../../models';
+import {movieSelector} from '../../redux/movie/MovieSlice';
 import MovieBox from '../atoms/MovieBox';
 import SectionHeader from '../atoms/SectionHeader';
 
+const renderItem: ListRenderItem<Movie> = ({item}) => <MovieBox movie={item} />;
+
 const LikedContentBox = () => {
+  const {movies} = useSelector(movieSelector); // temporary
   return (
-    <ScrollView
-      style={styles.likedWrapper}
-      showsVerticalScrollIndicator={false}>
+    <View style={styles.likedWrapper}>
       <SectionHeader text="Liked" color={colors.white} />
       <View style={styles.likedContentBox}>
-        {/* missing props  */}
-        <MovieBox />
-        <MovieBox />
-        <MovieBox />
-        <MovieBox />
-        <MovieBox />
-        <MovieBox />
-        <MovieBox />
-        <MovieBox />
-        <MovieBox />
-        <MovieBox />
+        <FlatList
+          data={movies}
+          renderItem={renderItem}
+          showsHorizontalScrollIndicator={false}
+          numColumns={2}
+          maxToRenderPerBatch={5}
+        />
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
   },
   likedContentBox: {
     width: '100%',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    justifyContent: 'center',
+    paddingBottom: 70,
   },
 });
 
