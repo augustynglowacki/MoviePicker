@@ -2,16 +2,12 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
 import colors from '../../assets/theme/colors';
-import {userThunkSelector} from '../../redux/userThunk/UserSlice';
+import {userThunkSelector} from '../../redux/user/UserSlice';
 
 const ProfileInfoContainer = () => {
   const {
     user: {userName},
-    error,
-    loading,
   } = useSelector(userThunkSelector);
-  console.log(error);
-  console.log(loading);
 
   return (
     <View style={styles.infoContainer}>

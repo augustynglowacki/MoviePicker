@@ -5,7 +5,7 @@ import {LoginForm} from '../models';
 import {PROFILE} from '../models/constants/routeNames';
 import auth from '@react-native-firebase/auth';
 import {useDispatch} from 'react-redux';
-import {signInWithEmailAndPassword} from '../redux/userThunk/UserAction';
+import {signInWithEmailAndPassword} from '../redux/user/UserAction';
 
 // import LoginComponent from '../../components/organisms/Login';
 

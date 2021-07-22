@@ -11,7 +11,7 @@ import colors from '../../assets/theme/colors';
 import {useSelector} from 'react-redux';
 import {genresSelector} from '../../redux/genres/GenresSlice';
 import {useTranslation} from 'react-i18next';
-import {userThunkSelector} from '../../redux/userThunk/UserSlice';
+import {userThunkSelector} from '../../redux/user/UserSlice';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 

@@ -3,12 +3,12 @@ import MoviesSliceReducer from './movie/MovieSlice';
 import GenresSliceReducer from './genres/GenresSlice';
 import SearchSliceReducer from './search/SearchSlice';
 import MovieDetailsReducer from './movieDetails/movieDetailsSlice';
-import userThunkSlice from './userThunk/UserSlice';
+import userSliceReducer from './user/UserSlice';
 
 // Combining multiple reducers - more will be added in the future
 const rootReducer = combineReducers({
   movies: MoviesSliceReducer,
-  usersThunk: userThunkSlice,
+  users: userSliceReducer,
   genres: GenresSliceReducer,
   searchedData: SearchSliceReducer,
   movieDetails: MovieDetailsReducer,

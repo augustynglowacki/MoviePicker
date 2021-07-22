@@ -23,8 +23,8 @@ export interface User {
   userName: string | null;
 }
 
-const userThunkSlice = createSlice({
-  name: 'userThunk',
+const userSlice = createSlice({
+  name: 'user',
   initialState,
   reducers: {
     setActiveUser: (state, action) => {
@@ -74,8 +74,8 @@ const userThunkSlice = createSlice({
     );
   },
 });
-export const {setActiveUser} = userThunkSlice.actions;
+export const {setActiveUser} = userSlice.actions;
 
-export const userThunkSelector = (state: RootState) => state.usersThunk;
+export const userThunkSelector = (state: RootState) => state.users;
 
-export default userThunkSlice.reducer;
+export default userSlice.reducer;

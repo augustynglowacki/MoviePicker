@@ -5,7 +5,7 @@ import RegisterComponent from '../components/organisms/Register';
 import {RegisterForm} from '../models';
 import {PROFILE} from '../models/constants/routeNames';
 import auth from '@react-native-firebase/auth';
-import {createUserWithEmailAndPassword} from '../redux/userThunk/UserAction';
+import {createUserWithEmailAndPassword} from '../redux/user/UserAction';
 import {useDispatch} from 'react-redux';
 
 const initialState = {
@@ -28,7 +28,7 @@ const Register = () => {
   const handleCreateUser = () => {
     dispatch(
       createUserWithEmailAndPassword({
-        email: 'ostatecznytest2@ggg.pl',
+        email: 'ostatecznytest3@ggg.pl',
         password: 'TajneHasło123',
         displayName: 'User1',
       }),

@@ -7,7 +7,7 @@ import ScreenWrapper from './ScreenWrapper';
 import auth from '@react-native-firebase/auth';
 import {genresSelector} from '../redux/genres/GenresSlice';
 import {getGenres} from '../redux/genres/GenresSlice';
-import {setActiveUser, userThunkSelector} from '../redux/userThunk/UserSlice';
+import {setActiveUser, userThunkSelector} from '../redux/user/UserSlice';
 
 const Home = () => {
   const dispatch = useDispatch();

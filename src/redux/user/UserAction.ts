@@ -12,7 +12,6 @@ export const signInWithEmailAndPassword = createAsyncThunk(
   'auth/signIn',
   async ({email, password}: LoginUser) => {
     const res = await auth().signInWithEmailAndPassword(email, password);
-    console.log('Response :>>', res);
     const newUser: User = {
       email: res.user.email,
       userName: res.user.displayName,
@@ -48,7 +47,3 @@ export const createUserWithEmailAndPassword = createAsyncThunk(
     return newUser;
   },
 );
-
-//dodać rejestrację
-//dodać logowanie przez google
-//sprawdzić czy użytkownik jest w storze i dipiero gdy nie ma pobrać
