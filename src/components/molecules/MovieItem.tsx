@@ -11,6 +11,7 @@ import colors from '../../assets/theme/colors';
 import {useSelector} from 'react-redux';
 import {genresSelector} from '../../redux/genres/GenresSlice';
 import {useTranslation} from 'react-i18next';
+import {userThunkSelector} from '../../redux/user/UserSlice';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 
@@ -25,14 +26,16 @@ const MovieItem = ({
   const {i18n} = useTranslation();
   const {navigate} = useNavigation();
   const doubleTapRef = useRef();
-  const isLogIn = false; //temprary state
+  const {
+    user: {email},
+  } = useSelector(userThunkSelector);
 
   const handleOnActivated = () => {
-    if (isLogIn) {
+    if (email !== '') {
       //  TODO:
       console.log('add function to like');
     }
-    if (!isLogIn) {
+    if (email === '') {
       Alert.alert(i18n.t('common:login'), i18n.t('common:loginSuggestion'), [
         {
           text: i18n.t('common:cancel'),

@@ -20,30 +20,29 @@ import {
 } from '../redux/movieDetails/movieDetailsSlice';
 import {getMovieActors} from '../redux/movieDetails/movieDetailsActions';
 import {Rating} from 'react-native-ratings';
-
 import ActorsBox from '../components/molecules/ActorsBox';
+import {convertToHours} from '../helpers/convertToHours';
 
 const HEIGHT = Dimensions.get('window').height;
-
-const convertToHours = (time: number) => {
-  const hour = Math.round(time / 60);
-  const minutes = time % 60;
-
-  return `${hour}h ${minutes}min`;
-};
 
 const Details = ({route, navigation}: any) => {
   const distpach = useDispatch();
   const {title, poster_path, id} = route.params;
-  const {movieDetails, loading, movieActors} =
-    useSelector(movieDetailsSelector);
+  const {fetchedMovies, movieActors} = useSelector(movieDetailsSelector);
 
-  const GENRES = movieDetails.genres.map(genre => genre.name);
+  const movie = fetchedMovies[id];
+  const genres = movie?.genres.map(genre => genre.name);
 
   useEffect(() => {
-    distpach(getMovieDetails(id));
-    distpach(getMovieActors(id));
-  }, [distpach, id]);
+    if (!fetchedMovies[id]) {
+      distpach(getMovieDetails(id));
+      distpach(getMovieActors(id));
+    }
+  }, [distpach, id, fetchedMovies]);
+
+  if (!movie) {
+    return <Text>Loading</Text>;
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -70,36 +69,32 @@ const Details = ({route, navigation}: any) => {
       <View style={styles.bottomWrapper}>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.movieInfoWrapper}>
-          <Text style={styles.movieInfoItem}>{movieDetails.release_date}</Text>
+          <Text style={styles.movieInfoItem}>{movie.release_date}</Text>
           <Entypo name="dot-single" size={32} color={colors.lightGrey} />
 
-          <Text style={styles.genreText}>{`${GENRES[0]}, `}</Text>
-          <Text style={styles.genreText}>{GENRES[1]}</Text>
+          <Text style={styles.genreText}>{`${genres[0]}, `}</Text>
+          <Text style={styles.genreText}>{genres[1]}</Text>
 
           <Entypo name="dot-single" size={32} color={colors.lightGrey} />
           <Text style={styles.movieInfoItem}>
-            {convertToHours(movieDetails.runtime)}
+            {convertToHours(movie.runtime)}
           </Text>
         </View>
         <View style={styles.ratingWrapper}>
-          <Text style={styles.ratingText}>{movieDetails.vote_average}</Text>
+          <Text style={styles.ratingText}>{movie.vote_average}</Text>
           <Rating
             type="star"
             ratingCount={5}
             imageSize={25}
             tintColor="black"
-            startingValue={movieDetails.vote_average / 2}
+            startingValue={movie.vote_average / 2}
             fractions={5}
             readonly={true}
           />
         </View>
 
         <View style={styles.descriptionWrapper}>
-          {loading ? (
-            <Text>Loading</Text> // TO ADD MATERIAL UI LOADING
-          ) : (
-            <Text style={styles.descriptionText}>{movieDetails.overview}</Text>
-          )}
+          <Text style={styles.descriptionText}>{movie.overview}</Text>
         </View>
       </View>
       <ActorsBox data={movieActors} error="" />
