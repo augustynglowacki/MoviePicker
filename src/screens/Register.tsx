@@ -17,20 +17,22 @@ const initialState = {
 const Register = () => {
   //initialization of States
   const [form, setForm] = useState<RegisterForm>(initialState);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [errors, setErrors] = useState<RegisterForm>(initialState);
   const dispatch = useDispatch();
   // Hook needed to navigate to login after succesful register
   const {navigate} = useNavigation();
+
   const goToProfile = useCallback(() => {
     navigate(PROFILE);
   }, [navigate]);
 
-  const handleCreateUser = () => {
+  const handleCreateUser = (register: RegisterForm) => {
     dispatch(
       createUserWithEmailAndPassword({
-        email: 'ostatecznytest3@ggg.pl',
-        password: 'TajneHasło123',
-        displayName: 'User1',
+        email: register.email,
+        password: register.password,
+        displayName: register.username,
       }),
     );
   };
@@ -47,56 +49,16 @@ const Register = () => {
   //real-time validation
   const onChange = ({name, value}: {name: string; value: string}) => {
     setForm({...form, [name]: value});
-    if (value !== '') {
-      setErrors(currErrors => {
-        return {...currErrors, [name]: ''};
-      });
-    }
-    if (value === '') {
-      setErrors(currErrors => {
-        return {...currErrors, [name]: 'This field is required'};
-      });
-    }
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onSubmit = () => {
-    //onClick validation
-    if (!form.username) {
-      setErrors(currErrors => {
-        return {...currErrors, username: 'Please add the username'};
-      });
-    }
-
-    const regexpEmail = /\S+@\S+\.\S+/;
-    if (!regexpEmail.test(form.email)) {
-      setErrors(currErrors => {
-        return {...currErrors, email: 'Please enter a valid email address'};
-      });
-    }
-    if (form.password.length < 8) {
-      setErrors(currErrors => {
-        return {
-          ...currErrors,
-          password: 'Password has to be at least 8 characters',
-        };
-      });
-      return;
-    }
-
-    if (
-      Object.values(form).length === 3 &&
-      Object.values(form).every(item => item.trim().length > 0) &&
-      Object.values(errors).every(item => !item)
-    ) {
-      console.log('form:>>', form);
-      goToProfile();
-    }
+    console.log('form:>>', form);
+    handleCreateUser(form);
   };
 
   return (
     <RegisterComponent
-      onSubmit={handleCreateUser}
+      onSubmit={onSubmit}
       onChange={onChange}
       form={form}
       errors={errors}

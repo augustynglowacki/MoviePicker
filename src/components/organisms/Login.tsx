@@ -37,10 +37,10 @@ const LoginComponent = ({onChange, onSubmit, form, errors}: IProps) => {
           <Text style={styles.title}>{i18n.t('common:welcomeMessage')}</Text>
           <View style={styles.form}>
             <Input
-              label={i18n.t('common:userName')}
-              value={form.username}
-              onChangeText={value => onChange({name: 'username', value})}
-              error={errors.username}
+              label={i18n.t('common:email')}
+              value={form.email}
+              onChangeText={value => onChange({name: 'email', value})}
+              error={errors.email}
             />
             <Input
               label={i18n.t('common:password')}
