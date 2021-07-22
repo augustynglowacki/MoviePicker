@@ -11,13 +11,14 @@ import CustomButton from '../atoms/CustomButton';
 import Input from '../atoms/Input';
 import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
+import Message from '../atoms/Message';
 interface IProps {
   onChange: ({name, value}: {name: string; value: string}) => void;
   onSubmit: () => void;
   form: LoginForm;
-  errors: LoginForm;
+  error: string;
 }
-const LoginComponent = ({onChange, onSubmit, form, errors}: IProps) => {
+const LoginComponent = ({onChange, onSubmit, form, error}: IProps) => {
   const {i18n} = useTranslation();
   const {navigate} = useNavigation();
   const goToRegister = () => navigate(REGISTER);
@@ -40,13 +41,11 @@ const LoginComponent = ({onChange, onSubmit, form, errors}: IProps) => {
               label={i18n.t('common:email')}
               value={form.email}
               onChangeText={value => onChange({name: 'email', value})}
-              error={errors.email}
             />
             <Input
               label={i18n.t('common:password')}
               value={form.password}
               onChangeText={value => onChange({name: 'password', value})}
-              error={errors.password}
               hidePassword={hiddenPassword}
               right={
                 <TextInput.Icon
@@ -62,6 +61,7 @@ const LoginComponent = ({onChange, onSubmit, form, errors}: IProps) => {
               variant="primary"
               onPress={onSubmit}
             />
+            {error ? <Message label={error} /> : null}
           </View>
           <View>
             <Text style={styles.register}>

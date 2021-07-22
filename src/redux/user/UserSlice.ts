@@ -30,6 +30,9 @@ const userSlice = createSlice({
     setActiveUser: (state, action) => {
       state.user = action.payload;
     },
+    setErrorNull: state => {
+      state.error = '';
+    },
   },
   extraReducers: builder => {
     builder.addCase(signInWithEmailAndPassword.fulfilled, (state, action) => {
@@ -41,7 +44,10 @@ const userSlice = createSlice({
     });
     builder.addCase(signInWithEmailAndPassword.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.error.message ?? 'error';
+      if (action.error.message) {
+        let temp = action.error.message.split(']');
+        state.error = temp[1];
+      }
     });
     builder.addCase(logOutUser.pending, state => {
       state.loading = true;
@@ -53,7 +59,10 @@ const userSlice = createSlice({
     });
     builder.addCase(logOutUser.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.error.message ?? 'error';
+      if (action.error.message) {
+        let temp = action.error.message.split(']');
+        state.error = temp[1];
+      }
     });
     builder.addCase(
       createUserWithEmailAndPassword.fulfilled,
@@ -69,12 +78,15 @@ const userSlice = createSlice({
       createUserWithEmailAndPassword.rejected,
       (state, action) => {
         state.loading = false;
-        state.error = action.error.message ?? 'error';
+        if (action.error.message) {
+          let temp = action.error.message.split(']');
+          state.error = temp[1];
+        }
       },
     );
   },
 });
-export const {setActiveUser} = userSlice.actions;
+export const {setActiveUser, setErrorNull} = userSlice.actions;
 
 export const userThunkSelector = (state: RootState) => state.users;
 

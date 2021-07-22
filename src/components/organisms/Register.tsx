@@ -9,15 +9,16 @@ import {RegisterForm} from '../../models';
 import Container from '../atoms/Container';
 import CustomButton from '../atoms/CustomButton';
 import Input from '../atoms/Input';
+import Message from '../atoms/Message';
 
 interface IProps {
   onChange: ({name, value}: {name: string; value: string}) => void;
   onSubmit: () => void;
   form: RegisterForm;
-  errors: RegisterForm;
+  error: string;
 }
 
-const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
+const RegisterComponent = ({onChange, onSubmit, form, error}: IProps) => {
   const {i18n} = useTranslation();
   const [hiddenPassword, setHiddenPassword] = useState(true);
   const handleHide = () => setHiddenPassword(!hiddenPassword);
@@ -38,19 +39,16 @@ const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
               label={i18n.t('common:userName')}
               value={form.username}
               onChangeText={value => onChange({name: 'username', value})}
-              error={errors.username}
             />
             <Input
               label={i18n.t('common:email')}
               value={form.email}
               onChangeText={value => onChange({name: 'email', value})}
-              error={errors.email}
             />
             <Input
               label={i18n.t('common:password')}
               value={form.password}
               onChangeText={value => onChange({name: 'password', value})}
-              error={errors.password}
               hidePassword={hiddenPassword}
               right={
                 <TextInput.Icon
@@ -66,6 +64,7 @@ const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
               width="small"
               variant="primary"
             />
+            {error ? <Message label={error} /> : null}
           </View>
         </View>
       </AnimatedLayout>

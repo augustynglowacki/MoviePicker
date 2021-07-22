@@ -6,7 +6,8 @@ import {RegisterForm} from '../models';
 import {PROFILE} from '../models/constants/routeNames';
 import auth from '@react-native-firebase/auth';
 import {createUserWithEmailAndPassword} from '../redux/user/UserAction';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {userThunkSelector} from '../redux/user/UserSlice';
 
 const initialState = {
   username: '',
@@ -19,6 +20,7 @@ const Register = () => {
   const [form, setForm] = useState<RegisterForm>(initialState);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [errors, setErrors] = useState<RegisterForm>(initialState);
+  const {error} = useSelector(userThunkSelector);
   const dispatch = useDispatch();
   // Hook needed to navigate to login after succesful register
   const {navigate} = useNavigation();
@@ -61,7 +63,7 @@ const Register = () => {
       onSubmit={onSubmit}
       onChange={onChange}
       form={form}
-      errors={errors}
+      error={error}
     />
   );
 };

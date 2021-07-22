@@ -58,7 +58,7 @@ const Login = () => {
       onSubmit={onSubmit}
       onChange={onChange}
       form={form}
-      errors={errors}
+      error={error}
     />
   );
 };
