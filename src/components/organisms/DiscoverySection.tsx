@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {useTranslation} from 'react-i18next';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   getSearchedActor,
@@ -13,6 +14,7 @@ import SearchBox from '../molecules/SearchBox';
 
 const DiscoverySection = () => {
   const dispatch = useDispatch();
+  const {i18n} = useTranslation();
   const {query, foundMovies, foundTvShows, foundActors} =
     useSelector(SearchSelector);
 
@@ -27,13 +29,13 @@ const DiscoverySection = () => {
     <Container withPadding flexStart withKeyboard>
       <SearchBox />
       <DiscoveryContentBox
-        title="Movies"
+        title={i18n.t('movies:movies')}
         data={foundMovies.movies}
         error={foundMovies.error}
         loading={foundMovies.loading}
       />
       <DiscoveryContentBox
-        title="Tv Shows"
+        title={i18n.t('movies:tvShows')}
         data={foundTvShows.movies}
         error={foundTvShows.error}
         loading={foundTvShows.loading}

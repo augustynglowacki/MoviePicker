@@ -1,8 +1,12 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import LoginComponent from '../components/organisms/Login';
 import {LoginForm} from '../models';
-import {HOME} from '../models/constants/routeNames';
+import {PROFILE} from '../models/constants/routeNames';
+import auth from '@react-native-firebase/auth';
+import {useDispatch} from 'react-redux';
+import {signInWithEmailAndPassword} from '../redux/user/UserAction';
+
 // import LoginComponent from '../../components/organisms/Login';
 
 const initialState = {username: '', password: ''};
@@ -11,7 +15,31 @@ const Login = () => {
   const [form, setForm] = useState<LoginForm>(initialState);
   const [errors, setErrors] = useState<LoginForm>(initialState);
   const {navigate} = useNavigation();
-  const goToHome = () => navigate(HOME);
+
+  const goToProfile = React.useCallback(() => {
+    navigate(PROFILE);
+  }, [navigate]);
+
+  const dispatch = useDispatch();
+
+  const handleLoginUser = () => {
+    dispatch(
+      signInWithEmailAndPassword({
+        email: 'piotrrrdd7@ggg.pl',
+        password: 'TajneHasło123',
+      }),
+    );
+  };
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(user => {
+      if (user) {
+        goToProfile();
+      }
+    });
+    return subscriber;
+  }, [goToProfile]);
+
   //real-time validation
   const onChange = ({name, value}: {name: string; value: string}) => {
     setForm({...form, [name]: value});
@@ -27,6 +55,7 @@ const Login = () => {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onSubmit = () => {
     //onClick validation
     if (!form.username) {
@@ -50,13 +79,13 @@ const Login = () => {
       Object.values(errors).every(item => !item)
     ) {
       console.log('form:>>', form);
-      goToHome();
+      goToProfile();
     }
   };
 
   return (
     <LoginComponent
-      onSubmit={onSubmit}
+      onSubmit={handleLoginUser}
       onChange={onChange}
       form={form}
       errors={errors}
