@@ -24,6 +24,7 @@ export const getMovieDetails = createAsyncThunk<MovieDetails, number>(
       release_date: res.data.release_date,
       genres: res.data.genres,
     };
+
     return newresult;
   },
 );

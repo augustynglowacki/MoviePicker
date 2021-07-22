@@ -1,9 +1,12 @@
 import {useNavigation} from '@react-navigation/native';
 import * as React from 'react';
-import {useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import RegisterComponent from '../components/organisms/Register';
 import {RegisterForm} from '../models';
-import {LOGIN} from '../models/constants/routeNames';
+import {PROFILE} from '../models/constants/routeNames';
+import auth from '@react-native-firebase/auth';
+import {createUserWithEmailAndPassword} from '../redux/user/UserAction';
+import {useDispatch} from 'react-redux';
 
 const initialState = {
   username: '',
@@ -15,11 +18,32 @@ const Register = () => {
   //initialization of States
   const [form, setForm] = useState<RegisterForm>(initialState);
   const [errors, setErrors] = useState<RegisterForm>(initialState);
+  const dispatch = useDispatch();
   // Hook needed to navigate to login after succesful register
   const {navigate} = useNavigation();
-  const navigateTo = () => {
-    navigate(LOGIN);
+  const goToProfile = useCallback(() => {
+    navigate(PROFILE);
+  }, [navigate]);
+
+  const handleCreateUser = () => {
+    dispatch(
+      createUserWithEmailAndPassword({
+        email: 'ostatecznytest3@ggg.pl',
+        password: 'TajneHasło123',
+        displayName: 'User1',
+      }),
+    );
   };
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(user => {
+      if (user) {
+        goToProfile();
+      }
+    });
+    return subscriber;
+  }, [goToProfile]);
+
   //real-time validation
   const onChange = ({name, value}: {name: string; value: string}) => {
     setForm({...form, [name]: value});
@@ -35,6 +59,7 @@ const Register = () => {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onSubmit = () => {
     //onClick validation
     if (!form.username) {
@@ -65,13 +90,13 @@ const Register = () => {
       Object.values(errors).every(item => !item)
     ) {
       console.log('form:>>', form);
-      navigateTo();
+      goToProfile();
     }
   };
 
   return (
     <RegisterComponent
-      onSubmit={onSubmit}
+      onSubmit={handleCreateUser}
       onChange={onChange}
       form={form}
       errors={errors}

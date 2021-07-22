@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1049524813514",
+    "project_id": "moviepicker-2405b",
+    "storage_bucket": "moviepicker-2405b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049524813514:android:435ec1e648c5080e243e33",
+        "android_client_info": {
+          "package_name": "com.moviepicker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049524813514-ec80cm576pj7hg385t21a15dmover0qr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.moviepicker",
+            "certificate_hash": "66899e0292a34101976f4b7ba0e0e6bf9e4fcb62"
+          }
+        },
+        {
+          "client_id": "1049524813514-pg8k5nj0jgoh4ir1uj3vikflo6q0r44k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCE_qpcG00hicMVGR3mxd0wpTfBu_RbLIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049524813514-pg8k5nj0jgoh4ir1uj3vikflo6q0r44k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
