@@ -10,6 +10,7 @@ import Container from '../atoms/Container';
 import CustomButton from '../atoms/CustomButton';
 import Input from '../atoms/Input';
 import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
+import {useTranslation} from 'react-i18next';
 interface IProps {
   onChange: ({name, value}: {name: string; value: string}) => void;
   onSubmit: () => void;
@@ -17,6 +18,7 @@ interface IProps {
   errors: LoginForm;
 }
 const LoginComponent = ({onChange, onSubmit, form, errors}: IProps) => {
+  const {i18n} = useTranslation();
   const {navigate} = useNavigation();
   const goToRegister = () => navigate(REGISTER);
   const [hiddenPassword, setHiddenPassword] = useState(true);
@@ -32,16 +34,16 @@ const LoginComponent = ({onChange, onSubmit, form, errors}: IProps) => {
         </Animated.View>
 
         <View>
-          <Text style={styles.title}>Welcome to MoviePicker!</Text>
+          <Text style={styles.title}>{i18n.t('common:welcomeMessage')}</Text>
           <View style={styles.form}>
             <Input
-              label="Username"
+              label={i18n.t('common:userName')}
               value={form.username}
               onChangeText={value => onChange({name: 'username', value})}
               error={errors.username}
             />
             <Input
-              label="Password"
+              label={i18n.t('common:password')}
               value={form.password}
               onChangeText={value => onChange({name: 'password', value})}
               error={errors.password}
@@ -55,16 +57,18 @@ const LoginComponent = ({onChange, onSubmit, form, errors}: IProps) => {
               }
             />
             <CustomButton
-              label="Login"
+              label={i18n.t('common:login')}
               width="small"
               variant="primary"
               onPress={onSubmit}
             />
           </View>
           <View>
-            <Text style={styles.register}>First time here?</Text>
+            <Text style={styles.register}>
+              {i18n.t('common:registerSuggestion')}
+            </Text>
             <CustomButton
-              label="Register"
+              label={i18n.t('common:register')}
               variant="secondary"
               onPress={goToRegister}
               width="small"

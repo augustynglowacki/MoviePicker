@@ -1,4 +1,5 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import {FlatList, ListRenderItem, StyleSheet, View} from 'react-native';
 import colors from '../../assets/theme/colors';
 import {Actor} from '../../models';
@@ -17,10 +18,15 @@ const renderItem: ListRenderItem<Actor> = ({item}) => (
 );
 
 const ActorsBox = ({data, error}: ActorsBoxProps) => {
+  const {i18n} = useTranslation();
   return (
     <View style={styles.actorsBox}>
       {data.length === 0 ? null : (
-        <SectionHeader text="Actors" color={colors.white} size={20} />
+        <SectionHeader
+          text={i18n.t('movies: actors')}
+          color={colors.white}
+          size={20}
+        />
       )}
       <SearchErrorBox error={error} loading={false}>
         <FlatList
