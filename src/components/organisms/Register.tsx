@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import Animated, {AnimatedLayout, StretchInX} from 'react-native-reanimated';
@@ -17,6 +18,7 @@ interface IProps {
 }
 
 const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
+  const {i18n} = useTranslation();
   const [hiddenPassword, setHiddenPassword] = useState(true);
   const handleHide = () => setHiddenPassword(!hiddenPassword);
   return (
@@ -30,22 +32,22 @@ const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
         </Animated.View>
 
         <View>
-          <Text style={styles.title}>Welcome to MoviePicker!</Text>
+          <Text style={styles.title}>{i18n.t('common:welcomeMessage')}</Text>
           <View style={styles.form}>
             <Input
-              label="Username"
+              label={i18n.t('common:userName')}
               value={form.username}
               onChangeText={value => onChange({name: 'username', value})}
               error={errors.username}
             />
             <Input
-              label="Email"
+              label={i18n.t('common:email')}
               value={form.email}
               onChangeText={value => onChange({name: 'email', value})}
               error={errors.email}
             />
             <Input
-              label="Password"
+              label={i18n.t('common:password')}
               value={form.password}
               onChangeText={value => onChange({name: 'password', value})}
               error={errors.password}
@@ -60,7 +62,7 @@ const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
             />
             <CustomButton
               onPress={onSubmit}
-              label="Register"
+              label={i18n.t('common:register')}
               width="small"
               variant="primary"
             />

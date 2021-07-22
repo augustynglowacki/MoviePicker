@@ -1,4 +1,5 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import {View, StyleSheet, ListRenderItem, FlatList} from 'react-native';
 import {useSelector} from 'react-redux';
 import colors from '../../assets/theme/colors';
@@ -10,10 +11,11 @@ import SectionHeader from '../atoms/SectionHeader';
 const renderItem: ListRenderItem<Movie> = ({item}) => <MovieBox movie={item} />;
 
 const LikedContentBox = () => {
+  const {i18n} = useTranslation();
   const {movies} = useSelector(movieSelector); // temporary
   return (
     <View style={styles.likedWrapper}>
-      <SectionHeader text="Liked" color={colors.white} />
+      <SectionHeader text={i18n.t('movies:liked')} color={colors.white} />
       <View style={styles.likedContentBox}>
         <FlatList
           data={movies}
