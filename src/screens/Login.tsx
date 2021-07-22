@@ -4,8 +4,8 @@ import LoginComponent from '../components/organisms/Login';
 import {LoginForm} from '../models';
 import {PROFILE} from '../models/constants/routeNames';
 import auth from '@react-native-firebase/auth';
-import {loginUser} from '../redux/user/UserAction';
 import {useDispatch} from 'react-redux';
+import {signInWithEmailAndPassword} from '../redux/userThunk/UserAction';
 
 // import LoginComponent from '../../components/organisms/Login';
 
@@ -24,7 +24,7 @@ const Login = () => {
 
   const handleLoginUser = () => {
     dispatch(
-      loginUser({
+      signInWithEmailAndPassword({
         email: 'piotrrrdd7@ggg.pl',
         password: 'TajneHasło123',
       }),

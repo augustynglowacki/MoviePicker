@@ -1,14 +1,14 @@
 import {combineReducers} from '@reduxjs/toolkit';
 import MoviesSliceReducer from './movie/MovieSlice';
-import UserSlice from './user/UserSlice';
 import GenresSliceReducer from './genres/GenresSlice';
 import SearchSliceReducer from './search/SearchSlice';
 import MovieDetailsReducer from './movieDetails/movieDetailsSlice';
+import userThunkSlice from './userThunk/UserSlice';
 
 // Combining multiple reducers - more will be added in the future
 const rootReducer = combineReducers({
   movies: MoviesSliceReducer,
-  users: UserSlice,
+  usersThunk: userThunkSlice,
   genres: GenresSliceReducer,
   searchedData: SearchSliceReducer,
   movieDetails: MovieDetailsReducer,

@@ -1,12 +1,12 @@
 import {useNavigation} from '@react-navigation/native';
 import * as React from 'react';
 import {useCallback, useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
 import RegisterComponent from '../components/organisms/Register';
 import {RegisterForm} from '../models';
 import {PROFILE} from '../models/constants/routeNames';
-import {createUser} from '../redux/user/UserAction';
 import auth from '@react-native-firebase/auth';
+import {createUserWithEmailAndPassword} from '../redux/userThunk/UserAction';
+import {useDispatch} from 'react-redux';
 
 const initialState = {
   username: '',
@@ -27,10 +27,10 @@ const Register = () => {
 
   const handleCreateUser = () => {
     dispatch(
-      createUser({
-        email: 'Rade@ggg.pl',
+      createUserWithEmailAndPassword({
+        email: 'ostatecznytest2@ggg.pl',
         password: 'TajneHasło123',
-        displayName: 'User12333322',
+        displayName: 'User1',
       }),
     );
   };

@@ -4,10 +4,10 @@ import MovieList from '../components/organisms/MovieList';
 import {getMovies, movieSelector} from '../redux/movie/MovieSlice';
 import {useDispatch, useSelector} from 'react-redux';
 import ScreenWrapper from './ScreenWrapper';
-import {setActiveUser, userSelector} from '../redux/user/UserSlice';
 import auth from '@react-native-firebase/auth';
 import {genresSelector} from '../redux/genres/GenresSlice';
 import {getGenres} from '../redux/genres/GenresSlice';
+import {setActiveUser, userThunkSelector} from '../redux/userThunk/UserSlice';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -20,7 +20,9 @@ const Home = () => {
     dispatch(getGenres());
   }, [dispatch]);
 
-  const {email} = useSelector(userSelector);
+  const {
+    user: {email},
+  } = useSelector(userThunkSelector);
 
   useEffect(() => {
     if (email === '') {

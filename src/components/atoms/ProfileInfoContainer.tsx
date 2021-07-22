@@ -2,15 +2,20 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
 import colors from '../../assets/theme/colors';
-import {userSelector} from '../../redux/user/UserSlice';
+import {userThunkSelector} from '../../redux/userThunk/UserSlice';
 
 const ProfileInfoContainer = () => {
-  const {email, userName} = useSelector(userSelector);
+  const {
+    user: {userName},
+    error,
+    loading,
+  } = useSelector(userThunkSelector);
+  console.log(error);
+  console.log(loading);
+
   return (
     <View style={styles.infoContainer}>
-      <Text style={[styles.text, styles.titleText]}>
-        {email} {userName}
-      </Text>
+      <Text style={[styles.text, styles.titleText]}>{userName}</Text>
       <Text style={[styles.text, styles.subText]}>Premium</Text>
     </View>
   );

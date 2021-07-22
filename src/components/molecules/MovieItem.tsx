@@ -9,9 +9,9 @@ import {useNavigation} from '@react-navigation/native';
 import {AUTH, DETAILS} from '../../models/constants/routeNames';
 import colors from '../../assets/theme/colors';
 import {useSelector} from 'react-redux';
-import {userSelector} from '../../redux/user/UserSlice';
 import {genresSelector} from '../../redux/genres/GenresSlice';
 import {useTranslation} from 'react-i18next';
+import {userThunkSelector} from '../../redux/userThunk/UserSlice';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 
@@ -26,7 +26,9 @@ const MovieItem = ({
   const {i18n} = useTranslation();
   const {navigate} = useNavigation();
   const doubleTapRef = useRef();
-  const {email} = useSelector(userSelector);
+  const {
+    user: {email},
+  } = useSelector(userThunkSelector);
 
   const handleOnActivated = () => {
     if (email !== '') {

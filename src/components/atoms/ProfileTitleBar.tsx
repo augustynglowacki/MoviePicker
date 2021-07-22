@@ -5,7 +5,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch} from 'react-redux';
 import colors from '../../assets/theme/colors';
 import {SETTINGS} from '../../models/constants/routeNames';
-import {logoutUser} from '../../redux/user/UserAction';
+import {logOutUser} from '../../redux/userThunk/UserAction';
 
 const ProfileTitleBar = () => {
   const {navigate} = useNavigation();
@@ -16,7 +16,7 @@ const ProfileTitleBar = () => {
   };
 
   const handleLogOut = () => {
-    dispatch(logoutUser());
+    dispatch(logOutUser());
   };
 
   return (
