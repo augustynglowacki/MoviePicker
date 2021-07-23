@@ -4,17 +4,18 @@ import LoginComponent from '../components/organisms/Login';
 import {LoginForm} from '../models';
 import {PROFILE} from '../models/constants/routeNames';
 import auth from '@react-native-firebase/auth';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {signInWithEmailAndPassword} from '../redux/user/UserAction';
+import {userThunkSelector} from '../redux/user/UserSlice';
 
-// import LoginComponent from '../../components/organisms/Login';
-
-const initialState = {username: '', password: ''};
+const initialState = {email: '', password: ''};
 
 const Login = () => {
   const [form, setForm] = useState<LoginForm>(initialState);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [errors, setErrors] = useState<LoginForm>(initialState);
   const {navigate} = useNavigation();
+  const {error} = useSelector(userThunkSelector);
 
   const goToProfile = React.useCallback(() => {
     navigate(PROFILE);
@@ -22,11 +23,12 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
-  const handleLoginUser = () => {
+  const handleLoginUser = (login: LoginForm) => {
+    console.log(login);
     dispatch(
       signInWithEmailAndPassword({
-        email: 'piotrrrdd7@ggg.pl',
-        password: 'TajneHasło123',
+        email: login.email,
+        password: login.password,
       }),
     );
   };
@@ -43,52 +45,20 @@ const Login = () => {
   //real-time validation
   const onChange = ({name, value}: {name: string; value: string}) => {
     setForm({...form, [name]: value});
-    if (value !== '') {
-      setErrors(currErrors => {
-        return {...currErrors, [name]: ''};
-      });
-    }
-    if (value === '') {
-      setErrors(currErrors => {
-        return {...currErrors, [name]: 'This field is required'};
-      });
-    }
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onSubmit = () => {
-    //onClick validation
-    if (!form.username) {
-      setErrors(currErrors => {
-        return {...currErrors, username: 'Please add the username'};
-      });
-    }
-    if (form.password.length < 8) {
-      setErrors(currErrors => {
-        return {
-          ...currErrors,
-          password: 'Password has to be at least 8 characters',
-        };
-      });
-      return;
-    }
-
-    if (
-      Object.values(form).length === 2 &&
-      Object.values(form).every(item => item.trim().length > 0) &&
-      Object.values(errors).every(item => !item)
-    ) {
-      console.log('form:>>', form);
-      goToProfile();
-    }
+    console.log('login>>', form);
+    console.log(error);
+    handleLoginUser(form);
   };
 
   return (
     <LoginComponent
-      onSubmit={handleLoginUser}
+      onSubmit={onSubmit}
       onChange={onChange}
       form={form}
-      errors={errors}
+      error={error}
     />
   );
 };
