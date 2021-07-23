@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "1049524813514-ec80cm576pj7hg385t21a15dmover0qr.apps.googleusercontent.com",
+          "client_id": "1049524813514-ns47gbt1u0qt0jenp9dj0kbfdbb45n5o.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.moviepicker",
-            "certificate_hash": "66899e0292a34101976f4b7ba0e0e6bf9e4fcb62"
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
         {
@@ -37,6 +37,13 @@
             {
               "client_id": "1049524813514-pg8k5nj0jgoh4ir1uj3vikflo6q0r44k.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1049524813514-f2ae3c990hrsdvk52eu427jirbmsnght.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.MoviePickerIos"
+              }
             }
           ]
         }

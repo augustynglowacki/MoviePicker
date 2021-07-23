@@ -5,7 +5,10 @@ import {LoginForm} from '../models';
 import {PROFILE} from '../models/constants/routeNames';
 import auth from '@react-native-firebase/auth';
 import {useDispatch} from 'react-redux';
-import {signInWithEmailAndPassword} from '../redux/user/UserAction';
+import {
+  signInWithEmailAndPassword,
+  signInWithGoogle,
+} from '../redux/user/UserAction';
 
 // import LoginComponent from '../../components/organisms/Login';
 
@@ -22,6 +25,7 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleLoginUser = () => {
     dispatch(
       signInWithEmailAndPassword({
@@ -29,6 +33,10 @@ const Login = () => {
         password: 'TajneHasło123',
       }),
     );
+  };
+
+  const handleSignInWithGoogle = () => {
+    dispatch(signInWithGoogle());
   };
 
   useEffect(() => {
@@ -85,7 +93,7 @@ const Login = () => {
 
   return (
     <LoginComponent
-      onSubmit={handleLoginUser}
+      onSubmit={handleSignInWithGoogle}
       onChange={onChange}
       form={form}
       errors={errors}
