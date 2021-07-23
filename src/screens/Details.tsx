@@ -74,6 +74,7 @@ const Details = ({route, navigation}: any) => {
           <Text style={styles.descriptionText}>{movie.overview}</Text>
         </View>
       </View>
+
       <ActorsBox data={movieActors} error="" />
     </ScrollView>
   );

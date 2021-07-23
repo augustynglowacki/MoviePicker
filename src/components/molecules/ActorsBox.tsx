@@ -14,7 +14,9 @@ interface ActorsBoxProps {
 }
 
 const renderItem: ListRenderItem<Actor> = ({item}) => (
-  <ActorBox name={item.name} profile_path={item.profile_path} />
+  <View>
+    <ActorBox name={item.name} profile_path={item.profile_path} />
+  </View>
 );
 
 const ActorsBox = ({data, error}: ActorsBoxProps) => {
