@@ -8,13 +8,13 @@ import ProfileHeader from '../molecules/ProfileHeader';
 
 const ProfileSection = () => {
   const {movies} = useSelector(movieSelector);
-  const {i18n} = useTranslation();
+  const {t} = useTranslation();
   return (
     <Container>
       <ProfileHeader />
-      <DiscoveryContentBox title={i18n.t('movies:liked')} data={movies} />
-      <DiscoveryContentBox title={i18n.t('movies:watched')} data={movies} />
-      <DiscoveryContentBox title={i18n.t('movies:toWatch')} data={movies} />
+      <DiscoveryContentBox title={t('movies:liked')} data={movies} />
+      <DiscoveryContentBox title={t('movies:watched')} data={movies} />
+      <DiscoveryContentBox title={t('movies:toWatch')} data={movies} />
     </Container>
   );
 };

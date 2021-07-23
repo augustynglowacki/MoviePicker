@@ -14,7 +14,7 @@ import SearchBox from '../molecules/SearchBox';
 
 const DiscoverySection = () => {
   const dispatch = useDispatch();
-  const {i18n} = useTranslation();
+  const {t} = useTranslation();
   const {query, foundMovies, foundTvShows, foundActors} =
     useSelector(SearchSelector);
 
@@ -29,13 +29,13 @@ const DiscoverySection = () => {
     <Container withPadding flexStart withKeyboard>
       <SearchBox />
       <DiscoveryContentBox
-        title={i18n.t('movies:movies')}
+        title={t('movies:movies')}
         data={foundMovies.movies}
         error={foundMovies.error}
         loading={foundMovies.loading}
       />
       <DiscoveryContentBox
-        title={i18n.t('movies:tvShows')}
+        title={t('movies:tvShows')}
         data={foundTvShows.movies}
         error={foundTvShows.error}
         loading={foundTvShows.loading}

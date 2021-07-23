@@ -11,11 +11,11 @@ import SectionHeader from '../atoms/SectionHeader';
 const renderItem: ListRenderItem<Movie> = ({item}) => <MovieBox movie={item} />;
 
 const LikedContentBox = () => {
-  const {i18n} = useTranslation();
+  const {t} = useTranslation();
   const {movies} = useSelector(movieSelector); // temporary
   return (
     <View style={styles.likedWrapper}>
-      <SectionHeader text={i18n.t('movies:liked')} color={colors.white} />
+      <SectionHeader text={t('movies:liked')} color={colors.white} />
       <View style={styles.likedContentBox}>
         <FlatList
           data={movies}
