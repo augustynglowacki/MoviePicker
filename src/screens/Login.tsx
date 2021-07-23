@@ -4,8 +4,12 @@ import LoginComponent from '../components/organisms/Login';
 import {LoginForm} from '../models';
 import {PROFILE} from '../models/constants/routeNames';
 import auth from '@react-native-firebase/auth';
-import {useDispatch, useSelector} from 'react-redux';
-import {signInWithEmailAndPassword} from '../redux/user/UserAction';
+import {useDispatch} from 'react-redux';
+import {
+  signInWithEmailAndPassword,
+  signInWithGoogle,
+} from '../redux/user/UserAction';
+import {useSelector} from 'react-redux';
 import {userThunkSelector} from '../redux/user/UserSlice';
 import {useTranslation} from 'react-i18next';
 import {useFormik} from 'formik';
@@ -29,6 +33,10 @@ const Login = () => {
         password: login.password,
       }),
     );
+  };
+
+  const handleSignInWithGoogle = () => {
+    dispatch(signInWithGoogle());
   };
 
   useEffect(() => {
@@ -71,6 +79,7 @@ const Login = () => {
       form={form}
       serverError={error}
       errors={errors}
+      signUpWithGoogle={handleSignInWithGoogle}
     />
   );
 };

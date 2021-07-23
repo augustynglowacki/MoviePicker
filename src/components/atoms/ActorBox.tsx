@@ -13,12 +13,16 @@ const ActorBox = ({profile_path, name}: ActorBoxProps) => {
   return (
     <>
       {!!profile_path && (
-        <View style={styles.actorBox}>
-          <ImageBackground
-            source={{uri: `${API_IMAGES}${profile_path}`}}
-            style={styles.actorImage}
-          />
-          <Text style={styles.actorName}>{name}</Text>
+        <View style={styles.wrapper}>
+          <View style={styles.actorBox}>
+            <ImageBackground
+              source={{uri: `${API_IMAGES}${profile_path}`}}
+              style={styles.actorImage}
+            />
+          </View>
+          <View>
+            <Text style={styles.actorName}>{name}</Text>
+          </View>
         </View>
       )}
     </>
@@ -26,13 +30,17 @@ const ActorBox = ({profile_path, name}: ActorBoxProps) => {
 };
 
 const styles = StyleSheet.create({
+  wrapper: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
   actorBox: {
     width: 100,
     height: 100,
     borderRadius: 50,
     backgroundColor: colors.grey,
     margin: 5,
-    justifyContent: 'flex-end',
   },
   actorImage: {
     width: '100%',
@@ -43,8 +51,9 @@ const styles = StyleSheet.create({
   },
   actorName: {
     fontSize: 16,
-    position: 'absolute',
     color: colors.white,
+    textAlign: 'center',
+    width: 70,
   },
 });
 

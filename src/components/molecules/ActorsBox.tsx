@@ -14,7 +14,9 @@ interface ActorsBoxProps {
 }
 
 const renderItem: ListRenderItem<Actor> = ({item}) => (
-  <ActorBox name={item.name} profile_path={item.profile_path} />
+  <View>
+    <ActorBox name={item.name} profile_path={item.profile_path} />
+  </View>
 );
 
 const ActorsBox = ({data, error}: ActorsBoxProps) => {
@@ -23,7 +25,7 @@ const ActorsBox = ({data, error}: ActorsBoxProps) => {
     <View style={styles.actorsBox}>
       {data.length === 0 ? null : (
         <SectionHeader
-          text={t('movies: actors')}
+          text={t('movies:actors')}
           color={colors.white}
           size={20}
         />

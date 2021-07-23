@@ -13,6 +13,7 @@ import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
 import Message from '../atoms/Message';
 import {FormikErrors} from 'formik';
+import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
 interface IProps {
   onChange: {
     <T_1 = string | React.ChangeEvent<any>>(
@@ -22,6 +23,7 @@ interface IProps {
       : (e: string | React.ChangeEvent<any>) => void;
   };
   onSubmit: () => void;
+  signUpWithGoogle: () => void;
   form: LoginForm;
   errors: FormikErrors<LoginForm>;
   serverError: string;
@@ -32,6 +34,7 @@ const LoginComponent = ({
   form,
   serverError,
   errors,
+  signUpWithGoogle,
 }: IProps) => {
   const {t} = useTranslation();
   const {navigate} = useNavigation();
@@ -78,6 +81,12 @@ const LoginComponent = ({
               onPress={onSubmit}
             />
             {serverError ? <Message label={serverError} /> : null}
+            <GoogleSigninButton
+              onPress={signUpWithGoogle}
+              style={styles.googleButton}
+              color={GoogleSigninButton.Color.Light}
+              size={GoogleSigninButton.Size.Standard}
+            />
           </View>
           <View>
             <Text style={styles.register}>
@@ -118,5 +127,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 17,
     color: colors.white,
+  },
+  googleButton: {
+    alignSelf: 'center',
+    width: '47%',
+    height: 55,
   },
 });

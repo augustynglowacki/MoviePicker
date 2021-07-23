@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   logOutUser,
   signInWithEmailAndPassword,
+  signInWithGoogle,
 } from './UserAction';
 
 interface UserState {
@@ -84,6 +85,16 @@ const userSlice = createSlice({
         }
       },
     );
+    builder.addCase(signInWithGoogle.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(signInWithGoogle.pending, state => {
+      state.loading = true;
+    });
+    builder.addCase(signInWithGoogle.rejected, state => {
+      state.loading = false;
+    });
   },
 });
 export const {setActiveUser, setErrorNull} = userSlice.actions;
