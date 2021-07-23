@@ -50,6 +50,7 @@ const Input = ({
       secureTextEntry={hidePassword}
       clearButtonMode={clear}
       autoFocus={autoFocus}
+      testID="testInput"
     />
   );
 };

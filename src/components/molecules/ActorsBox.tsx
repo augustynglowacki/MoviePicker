@@ -20,12 +20,12 @@ const renderItem: ListRenderItem<Actor> = ({item}) => (
 );
 
 const ActorsBox = ({data, error}: ActorsBoxProps) => {
-  const {i18n} = useTranslation();
+  const {t} = useTranslation();
   return (
     <View style={styles.actorsBox}>
       {data.length === 0 ? null : (
         <SectionHeader
-          text={i18n.t('movies: actors')}
+          text={t('movies: actors')}
           color={colors.white}
           size={20}
         />

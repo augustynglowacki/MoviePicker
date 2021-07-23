@@ -4,8 +4,12 @@ import LoginComponent from '../components/organisms/Login';
 import {LoginForm} from '../models';
 import {PROFILE} from '../models/constants/routeNames';
 import auth from '@react-native-firebase/auth';
-import {useDispatch, useSelector} from 'react-redux';
-import {signInWithEmailAndPassword} from '../redux/user/UserAction';
+import {useDispatch} from 'react-redux';
+import {
+  signInWithEmailAndPassword,
+  signInWithGoogle,
+} from '../redux/user/UserAction';
+import {useSelector} from 'react-redux';
 import {userThunkSelector} from '../redux/user/UserSlice';
 
 const initialState = {email: '', password: ''};
@@ -33,6 +37,10 @@ const Login = () => {
     );
   };
 
+  const handleSignInWithGoogle = () => {
+    dispatch(signInWithGoogle());
+  };
+
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(user => {
       if (user) {
@@ -56,6 +64,7 @@ const Login = () => {
   return (
     <LoginComponent
       onSubmit={onSubmit}
+      signUpWithGoogle={handleSignInWithGoogle}
       onChange={onChange}
       form={form}
       error={error}
