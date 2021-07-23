@@ -5,7 +5,10 @@ import {LoginForm} from '../models';
 import {PROFILE} from '../models/constants/routeNames';
 import auth from '@react-native-firebase/auth';
 import {useDispatch} from 'react-redux';
-import {signInWithEmailAndPassword} from '../redux/user/UserAction';
+import {
+  signInWithEmailAndPassword,
+  signInWithGoogle,
+} from '../redux/user/UserAction';
 import {useSelector} from 'react-redux';
 import {userThunkSelector} from '../redux/user/UserSlice';
 
@@ -34,9 +37,9 @@ const Login = () => {
     );
   };
 
-  // const handleSignInWithGoogle = () => {
-  //   dispatch(signInWithGoogle());
-  // };
+  const handleSignInWithGoogle = () => {
+    dispatch(signInWithGoogle());
+  };
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(user => {
@@ -61,6 +64,7 @@ const Login = () => {
   return (
     <LoginComponent
       onSubmit={onSubmit}
+      signUpWithGoogle={handleSignInWithGoogle}
       onChange={onChange}
       form={form}
       error={error}
