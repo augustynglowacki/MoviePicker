@@ -16,6 +16,7 @@ const RatingBox = ({voteAverage}: RatingProps) => {
         imageSize={25}
         tintColor="black"
         startingValue={voteAverage / 2}
+        ratingBackgroundColor="transparent"
         fractions={5}
         readonly={true}
       />

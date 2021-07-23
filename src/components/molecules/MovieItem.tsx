@@ -86,7 +86,7 @@ const MovieItem = ({
                 {loading ? (
                   <Text>Loading </Text>
                 ) : (
-                  mergeGenresWithMovies.map((genre: any) => (
+                  mergeGenresWithMovies.slice(0, 2).map((genre: any) => (
                     <View key={genre.name} style={styles.categoryContainer}>
                       <Text style={styles.categoryItem}>{genre.name}</Text>
                     </View>
