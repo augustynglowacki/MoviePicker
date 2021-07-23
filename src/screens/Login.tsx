@@ -1,57 +1,56 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import LoginComponent from '../components/organisms/Login';
 import {LoginForm} from '../models';
-import {HOME} from '../models/constants/routeNames';
-// import LoginComponent from '../../components/organisms/Login';
+import {PROFILE} from '../models/constants/routeNames';
+import auth from '@react-native-firebase/auth';
+import {useDispatch, useSelector} from 'react-redux';
+import {signInWithEmailAndPassword} from '../redux/user/UserAction';
+import {userThunkSelector} from '../redux/user/UserSlice';
 
-const initialState = {username: '', password: ''};
+const initialState = {email: '', password: ''};
 
 const Login = () => {
   const [form, setForm] = useState<LoginForm>(initialState);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [errors, setErrors] = useState<LoginForm>(initialState);
   const {navigate} = useNavigation();
-  const goToHome = () => navigate(HOME);
+  const {error} = useSelector(userThunkSelector);
+
+  const goToProfile = React.useCallback(() => {
+    navigate(PROFILE);
+  }, [navigate]);
+
+  const dispatch = useDispatch();
+
+  const handleLoginUser = (login: LoginForm) => {
+    console.log(login);
+    dispatch(
+      signInWithEmailAndPassword({
+        email: login.email,
+        password: login.password,
+      }),
+    );
+  };
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(user => {
+      if (user) {
+        goToProfile();
+      }
+    });
+    return subscriber;
+  }, [goToProfile]);
+
   //real-time validation
   const onChange = ({name, value}: {name: string; value: string}) => {
     setForm({...form, [name]: value});
-    if (value !== '') {
-      setErrors(currErrors => {
-        return {...currErrors, [name]: ''};
-      });
-    }
-    if (value === '') {
-      setErrors(currErrors => {
-        return {...currErrors, [name]: 'This field is required'};
-      });
-    }
   };
 
   const onSubmit = () => {
-    //onClick validation
-    if (!form.username) {
-      setErrors(currErrors => {
-        return {...currErrors, username: 'Please add the username'};
-      });
-    }
-    if (form.password.length < 8) {
-      setErrors(currErrors => {
-        return {
-          ...currErrors,
-          password: 'Password has to be at least 8 characters',
-        };
-      });
-      return;
-    }
-
-    if (
-      Object.values(form).length === 2 &&
-      Object.values(form).every(item => item.trim().length > 0) &&
-      Object.values(errors).every(item => !item)
-    ) {
-      console.log('form:>>', form);
-      goToHome();
-    }
+    console.log('login>>', form);
+    console.log(error);
+    handleLoginUser(form);
   };
 
   return (
@@ -59,7 +58,7 @@ const Login = () => {
       onSubmit={onSubmit}
       onChange={onChange}
       form={form}
-      errors={errors}
+      error={error}
     />
   );
 };

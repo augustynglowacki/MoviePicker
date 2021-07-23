@@ -38,7 +38,9 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
   };
 
   const content = (
-    <ScrollView contentContainerStyle={styles.scrollView}>
+    <ScrollView
+      contentContainerStyle={styles.scrollView}
+      showsVerticalScrollIndicator={false}>
       <SafeAreaView style={[styles.safeArea, style]}>
         <View style={[styles.wrapper, getPadding(), getJustifyContent()]}>
           {children}

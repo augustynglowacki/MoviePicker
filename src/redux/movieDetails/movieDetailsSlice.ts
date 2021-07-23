@@ -4,18 +4,7 @@ import {RootState} from '../rootReducer';
 import {getMovieActors, getMovieDetails} from './movieDetailsActions';
 
 const initialState: MovieDetailsState = {
-  movieDetails: {
-    id: 0,
-    title: '',
-    poster_path: '',
-    overview: '',
-    vote_average: 0,
-    runtime: 0,
-    revenue: 0,
-    release_date: '',
-    genres: [],
-  },
-
+  fetchedMovies: {},
   loading: false,
   error: '',
   movieActors: [],
@@ -27,7 +16,11 @@ const movieDetailsSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(getMovieDetails.fulfilled, (state, action) => {
-      state.movieDetails = action.payload;
+      state.fetchedMovies = {
+        ...state.fetchedMovies,
+        [action.payload.id]: action.payload,
+      };
+
       state.loading = false;
     });
     builder.addCase(getMovieDetails.pending, state => {
@@ -58,5 +51,6 @@ const movieDetailsSlice = createSlice({
 
 //Since createSlice has taken care of building the reducer, we export it via: export default movieSlice.reducer;
 export default movieDetailsSlice.reducer;
+
 export const movieDetailsSelector = (state: RootState) => state.movieDetails;
 export {getMovieDetails};
