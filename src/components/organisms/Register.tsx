@@ -9,16 +9,17 @@ import {RegisterForm} from '../../models';
 import Container from '../atoms/Container';
 import CustomButton from '../atoms/CustomButton';
 import Input from '../atoms/Input';
+import Message from '../atoms/Message';
 
 interface IProps {
   onChange: ({name, value}: {name: string; value: string}) => void;
   onSubmit: () => void;
   form: RegisterForm;
-  errors: RegisterForm;
+  error: string;
 }
 
-const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
-  const {i18n} = useTranslation();
+const RegisterComponent = ({onChange, onSubmit, form, error}: IProps) => {
+  const {t} = useTranslation();
   const [hiddenPassword, setHiddenPassword] = useState(true);
   const handleHide = () => setHiddenPassword(!hiddenPassword);
   return (
@@ -32,25 +33,22 @@ const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
         </Animated.View>
 
         <View>
-          <Text style={styles.title}>{i18n.t('common:welcomeMessage')}</Text>
+          <Text style={styles.title}>{t('common:welcomeMessage')}</Text>
           <View style={styles.form}>
             <Input
-              label={i18n.t('common:userName')}
+              label={t('common:userName')}
               value={form.username}
               onChangeText={value => onChange({name: 'username', value})}
-              error={errors.username}
             />
             <Input
-              label={i18n.t('common:email')}
+              label={t('common:email')}
               value={form.email}
               onChangeText={value => onChange({name: 'email', value})}
-              error={errors.email}
             />
             <Input
-              label={i18n.t('common:password')}
+              label={t('common:password')}
               value={form.password}
               onChangeText={value => onChange({name: 'password', value})}
-              error={errors.password}
               hidePassword={hiddenPassword}
               right={
                 <TextInput.Icon
@@ -62,10 +60,11 @@ const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
             />
             <CustomButton
               onPress={onSubmit}
-              label={i18n.t('common:register')}
+              label={t('common:register')}
               width="small"
               variant="primary"
             />
+            {error ? <Message label={error} /> : null}
           </View>
         </View>
       </AnimatedLayout>
