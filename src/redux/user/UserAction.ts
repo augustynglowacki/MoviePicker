@@ -1,4 +1,5 @@
 import auth from '@react-native-firebase/auth';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {BackendUser} from '../../models';
 import {User} from './UserSlice';
@@ -7,6 +8,12 @@ interface LoginUser {
   email: string;
   password: string;
 }
+
+GoogleSignin.configure({
+  webClientId:
+    '1049524813514-pg8k5nj0jgoh4ir1uj3vikflo6q0r44k.apps.googleusercontent.com',
+  offlineAccess: true,
+});
 
 export const signInWithEmailAndPassword = createAsyncThunk(
   'auth/signIn',
@@ -44,6 +51,23 @@ export const createUserWithEmailAndPassword = createAsyncThunk(
       userName: displayNameFirebase ?? 'None',
     };
 
+    return newUser;
+  },
+);
+
+export const signInWithGoogle = createAsyncThunk(
+  'auth/signInWithGoogle',
+  async () => {
+    // Get the users ID token
+    const {idToken} = await GoogleSignin.signIn();
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    const response = await auth().signInWithCredential(googleCredential);
+    console.log(response.user);
+    const newUser: User = {
+      email: response.user.email,
+      userName: response.user.displayName,
+    };
     return newUser;
   },
 );

@@ -48,7 +48,6 @@ const Input = ({
         label={label}
         right={right}
         left={left}
-        // error={error}
         secureTextEntry={hidePassword}
         clearButtonMode={clear}
         autoFocus={autoFocus}

@@ -13,7 +13,14 @@ import Input from '../atoms/Input';
 import Message from '../atoms/Message';
 
 interface IProps {
-  onChange: (text: string) => any;
+  //type from useFormik handleChange
+  onChange: {
+    <T_1 = string | React.ChangeEvent<any>>(
+      field: T_1,
+    ): T_1 extends React.ChangeEvent<any>
+      ? void
+      : (e: string | React.ChangeEvent<any>) => void;
+  };
   onSubmit: () => void;
   form: RegisterForm;
   errors: FormikErrors<RegisterForm>;
