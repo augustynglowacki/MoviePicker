@@ -1,22 +1,21 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {MovieDetails} from '../../models/MovieDetails';
 import {Rating} from 'react-native-ratings';
 
 interface RatingProps {
-  movie: MovieDetails;
+  voteAverage: number;
 }
 
-const RatingBox = ({movie}: RatingProps) => {
+const RatingBox = ({voteAverage}: RatingProps) => {
   return (
     <View style={styles.ratingWrapper}>
-      <Text style={styles.ratingText}>{movie.vote_average}</Text>
+      <Text style={styles.ratingText}>{voteAverage}</Text>
       <Rating
         type="star"
         ratingCount={5}
         imageSize={25}
         tintColor="black"
-        startingValue={movie.vote_average / 2}
+        startingValue={voteAverage / 2}
         fractions={5}
         readonly={true}
       />

@@ -69,7 +69,7 @@ const Details = ({route, navigation}: any) => {
       <View style={styles.bottomWrapper}>
         <Header title={title} />
         <MovieDetailsInfoBox movie={movie} />
-        <RatingBox movie={movie} />
+        <RatingBox voteAverage={movie.vote_average} />
         <View style={styles.descriptionWrapper}>
           <Text style={styles.descriptionText}>{movie.overview}</Text>
         </View>

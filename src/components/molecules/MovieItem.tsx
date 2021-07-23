@@ -12,6 +12,7 @@ import {useSelector} from 'react-redux';
 import {genresSelector} from '../../redux/genres/GenresSlice';
 import {useTranslation} from 'react-i18next';
 import {userThunkSelector} from '../../redux/user/UserSlice';
+import RatingBox from './RatingBox';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 
@@ -21,6 +22,7 @@ const MovieItem = ({
   overview,
   title,
   mergeGenresWithMovies,
+  vote_average,
 }: Movie) => {
   const {loading} = useSelector(genresSelector);
   const {i18n} = useTranslation();
@@ -48,6 +50,7 @@ const MovieItem = ({
       ]);
     }
   };
+
   return (
     <TapGestureHandler
       waitFor={doubleTapRef}
@@ -90,6 +93,7 @@ const MovieItem = ({
                   ))
                 )}
               </View>
+              <RatingBox voteAverage={vote_average} />
             </View>
           </View>
         </View>
