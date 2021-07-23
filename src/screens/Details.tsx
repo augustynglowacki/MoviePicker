@@ -19,9 +19,9 @@ import {
   movieDetailsSelector,
 } from '../redux/movieDetails/movieDetailsSlice';
 import {getMovieActors} from '../redux/movieDetails/movieDetailsActions';
-import {Rating} from 'react-native-ratings';
 import ActorsBox from '../components/molecules/ActorsBox';
 import {convertToHours} from '../helpers/convertToHours';
+import RatingBox from '../components/molecules/RatingBox';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -41,7 +41,7 @@ const Details = ({route, navigation}: any) => {
   }, [distpach, id, fetchedMovies]);
 
   if (!movie) {
-    return <Text>Loading</Text>;
+    return <Text>Loading</Text>; /// Add peper loading
   }
 
   return (
@@ -80,19 +80,7 @@ const Details = ({route, navigation}: any) => {
             {convertToHours(movie.runtime)}
           </Text>
         </View>
-        <View style={styles.ratingWrapper}>
-          <Text style={styles.ratingText}>{movie.vote_average}</Text>
-          <Rating
-            type="star"
-            ratingCount={5}
-            imageSize={25}
-            tintColor="black"
-            startingValue={movie.vote_average / 2}
-            fractions={5}
-            readonly={true}
-          />
-        </View>
-
+        <RatingBox movie={movie} />
         <View style={styles.descriptionWrapper}>
           <Text style={styles.descriptionText}>{movie.overview}</Text>
         </View>
@@ -172,17 +160,6 @@ const styles = StyleSheet.create({
   genreText: {
     color: colors.lightGrey,
     fontSize: 16,
-    fontWeight: '600',
-  },
-  ratingWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  ratingText: {
-    color: '#F1CB00',
-    fontSize: 20,
-    marginRight: 10,
     fontWeight: '600',
   },
 });
