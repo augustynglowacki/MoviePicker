@@ -1,3 +1,4 @@
+import {format, parseISO} from 'date-fns';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -15,15 +16,14 @@ const MovieDetailsInfoBox = ({
   const genresArray = genres.map(genre => genre.name);
   const firstGenre = genresArray[0];
   const SecondGenre = genresArray[1];
+  const date = format(parseISO(release_date), 'yyyy');
 
   return (
     <View style={styles.movieInfoWrapper}>
-      <Text style={styles.movieInfoItem}>{release_date}</Text>
+      <Text style={styles.movieInfoItem}>{date}</Text>
       <Entypo name="dot-single" size={32} color={colors.lightGrey} />
-
       <Text style={styles.genreText}>{`${firstGenre}, `}</Text>
       <Text style={styles.genreText}>{SecondGenre}</Text>
-
       <Entypo name="dot-single" size={32} color={colors.lightGrey} />
       <Text style={styles.movieInfoItem}>{convertToHours(runtime)}</Text>
     </View>
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   movieInfoWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'center',
     marginBottom: 20,
   },
   movieInfoItem: {

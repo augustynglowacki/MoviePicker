@@ -19,6 +19,7 @@
     "@reduxjs/toolkit": "^1.6.0",
     "@types/react-redux": "^7.1.18",
     "axios": "^0.21.1",
+    "date-fns": "^2.23.0",
     "i18next": "^20.3.4",
     "react": "17.0.1",
     "react-i18next": "^11.11.3",
