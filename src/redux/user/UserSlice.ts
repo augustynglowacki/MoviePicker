@@ -92,9 +92,8 @@ const userSlice = createSlice({
     builder.addCase(signInWithGoogle.pending, state => {
       state.loading = true;
     });
-    builder.addCase(signInWithGoogle.rejected, (state, action) => {
+    builder.addCase(signInWithGoogle.rejected, state => {
       state.loading = false;
-      state.error = action.error.message ?? 'error';
     });
   },
 });
