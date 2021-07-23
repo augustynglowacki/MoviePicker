@@ -6,10 +6,10 @@ import colors from '../../assets/theme/colors';
 import {useTranslation} from 'react-i18next';
 
 const SearchBox = () => {
-  const {i18n} = useTranslation();
+  const {t} = useTranslation();
   return (
     <View style={styles.searchBox}>
-      <SectionHeader text={i18n.t('movies:search')} color={colors.white} />
+      <SectionHeader text={t('movies:search')} color={colors.white} />
       <DiscoveryInput />
     </View>
   );
