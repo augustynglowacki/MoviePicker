@@ -12,13 +12,21 @@ import Input from '../atoms/Input';
 import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
 import Message from '../atoms/Message';
+import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
 interface IProps {
   onChange: ({name, value}: {name: string; value: string}) => void;
   onSubmit: () => void;
+  signUpWithGoogle: () => void;
   form: LoginForm;
   error: string;
 }
-const LoginComponent = ({onChange, onSubmit, form, error}: IProps) => {
+const LoginComponent = ({
+  onChange,
+  onSubmit,
+  form,
+  error,
+  signUpWithGoogle,
+}: IProps) => {
   const {t} = useTranslation();
   const {navigate} = useNavigation();
   const goToRegister = () => navigate(REGISTER);
@@ -61,6 +69,10 @@ const LoginComponent = ({onChange, onSubmit, form, error}: IProps) => {
               variant="primary"
               onPress={onSubmit}
             />
+            <GoogleSigninButton
+              onPress={signUpWithGoogle}
+              style={styles.googleButton}
+            />
             {error ? <Message label={error} /> : null}
           </View>
           <View>
@@ -102,5 +114,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 17,
     color: colors.white,
+  },
+  googleButton: {
+    alignSelf: 'center',
+    width: '40%',
+    height: 45,
   },
 });
