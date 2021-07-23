@@ -49,6 +49,7 @@ const MovieList = ({moviesList, genres}: MovieListProps & GenresProps) => {
         snapToInterval={HEIGHT}
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
+        initialNumToRender={7}
       />
     </View>
   );
