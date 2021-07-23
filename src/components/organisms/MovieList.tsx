@@ -1,4 +1,5 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   StyleSheet,
   View,
@@ -16,6 +17,7 @@ const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
 const MovieList = ({moviesList, genres}: MovieListProps & GenresProps) => {
+  const {t} = useTranslation();
   const renderItem: ListRenderItem<Movie> = ({item}) => {
     const mergeGenresWithMovies = item.genre_ids.map(movie =>
       genres.find(genre => genre.id === movie),
@@ -39,7 +41,7 @@ const MovieList = ({moviesList, genres}: MovieListProps & GenresProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.heading}>
-        <Text style={styles.headingText}>What's popular</Text>
+        <Text style={styles.headingText}>{t('movies:popular')}</Text>
       </View>
       <FlatList<Movie>
         data={moviesList}

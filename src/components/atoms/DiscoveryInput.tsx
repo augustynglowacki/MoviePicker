@@ -8,10 +8,10 @@ import Input from './Input';
 
 const DiscoveryInput = () => {
   const dispatch = useDispatch();
-  const {i18n} = useTranslation();
+  const {t} = useTranslation();
   return (
     <Input
-      label={i18n.t('movies:searchPlaceholder')}
+      label={t('movies:searchPlaceholder')}
       onChangeText={text => dispatch(setQuery(text))}
       secureTextEntry={true}
       left={<TextInput.Icon name="magnify" color={colors.grey} />}

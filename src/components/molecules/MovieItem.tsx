@@ -23,7 +23,7 @@ const MovieItem = ({
   mergeGenresWithMovies,
 }: Movie) => {
   const {loading} = useSelector(genresSelector);
-  const {i18n} = useTranslation();
+  const {t} = useTranslation();
   const {navigate} = useNavigation();
   const doubleTapRef = useRef();
   const {
@@ -36,13 +36,13 @@ const MovieItem = ({
       console.log('add function to like');
     }
     if (email === '') {
-      Alert.alert(i18n.t('common:login'), i18n.t('common:loginSuggestion'), [
+      Alert.alert(t('common:login'), t('common:loginSuggestion'), [
         {
-          text: i18n.t('common:cancel'),
+          text: t('common:cancel'),
           onPress: () => {},
         },
         {
-          text: i18n.t('common:ok'),
+          text: t('common:ok'),
           onPress: () => navigate(AUTH),
         },
       ]);
