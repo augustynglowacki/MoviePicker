@@ -141,6 +141,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexWrap: 'wrap',
+    marginBottom: 20,
   },
   categoryContainer: {
     marginRight: 6,

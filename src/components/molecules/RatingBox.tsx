@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Rating} from 'react-native-ratings';
+import {AirbnbRating} from 'react-native-ratings';
 
 interface RatingProps {
   voteAverage: number;
@@ -10,15 +10,13 @@ const RatingBox = ({voteAverage}: RatingProps) => {
   return (
     <View style={styles.ratingWrapper}>
       <Text style={styles.ratingText}>{voteAverage}</Text>
-      <Rating
-        type="star"
-        ratingCount={5}
-        imageSize={25}
-        tintColor="black"
-        startingValue={voteAverage / 2}
-        ratingBackgroundColor="transparent"
-        fractions={5}
-        readonly={true}
+
+      <AirbnbRating
+        count={5}
+        defaultRating={voteAverage / 2}
+        size={20}
+        isDisabled
+        showRating={false}
       />
     </View>
   );
