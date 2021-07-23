@@ -1,3 +1,4 @@
+import {FormikErrors} from 'formik';
 import * as React from 'react';
 import {useState} from 'react';
 import {useTranslation} from 'react-i18next';
@@ -12,13 +13,20 @@ import Input from '../atoms/Input';
 import Message from '../atoms/Message';
 
 interface IProps {
-  onChange: ({name, value}: {name: string; value: string}) => void;
+  onChange: (text: string) => any;
   onSubmit: () => void;
   form: RegisterForm;
-  error: string;
+  errors: FormikErrors<RegisterForm>;
+  serverError: string;
 }
 
-const RegisterComponent = ({onChange, onSubmit, form, error}: IProps) => {
+const RegisterComponent = ({
+  onChange,
+  onSubmit,
+  form,
+  serverError,
+  errors,
+}: IProps) => {
   const {t} = useTranslation();
   const [hiddenPassword, setHiddenPassword] = useState(true);
   const handleHide = () => setHiddenPassword(!hiddenPassword);
@@ -38,18 +46,21 @@ const RegisterComponent = ({onChange, onSubmit, form, error}: IProps) => {
             <Input
               label={t('common:userName')}
               value={form.username}
-              onChangeText={value => onChange({name: 'username', value})}
+              onChangeText={onChange('username')}
+              error={errors.username}
             />
             <Input
               label={t('common:email')}
               value={form.email}
-              onChangeText={value => onChange({name: 'email', value})}
+              onChangeText={onChange('email')}
+              error={errors.email}
             />
             <Input
               label={t('common:password')}
               value={form.password}
-              onChangeText={value => onChange({name: 'password', value})}
+              onChangeText={onChange('password')}
               hidePassword={hiddenPassword}
+              error={errors.password}
               right={
                 <TextInput.Icon
                   name="eye"
@@ -64,7 +75,7 @@ const RegisterComponent = ({onChange, onSubmit, form, error}: IProps) => {
               width="small"
               variant="primary"
             />
-            {error ? <Message label={error} /> : null}
+            {serverError ? <Message label={serverError} /> : null}
           </View>
         </View>
       </AnimatedLayout>

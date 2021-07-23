@@ -12,13 +12,27 @@ import Input from '../atoms/Input';
 import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
 import Message from '../atoms/Message';
+import {FormikErrors} from 'formik';
 interface IProps {
-  onChange: ({name, value}: {name: string; value: string}) => void;
+  onChange: {
+    <T_1 = string | React.ChangeEvent<any>>(
+      field: T_1,
+    ): T_1 extends React.ChangeEvent<any>
+      ? void
+      : (e: string | React.ChangeEvent<any>) => void;
+  };
   onSubmit: () => void;
   form: LoginForm;
-  error: string;
+  errors: FormikErrors<LoginForm>;
+  serverError: string;
 }
-const LoginComponent = ({onChange, onSubmit, form, error}: IProps) => {
+const LoginComponent = ({
+  onChange,
+  onSubmit,
+  form,
+  serverError,
+  errors,
+}: IProps) => {
   const {t} = useTranslation();
   const {navigate} = useNavigation();
   const goToRegister = () => navigate(REGISTER);
@@ -40,13 +54,15 @@ const LoginComponent = ({onChange, onSubmit, form, error}: IProps) => {
             <Input
               label={t('common:email')}
               value={form.email}
-              onChangeText={value => onChange({name: 'email', value})}
+              onChangeText={onChange('email')}
+              error={errors.email}
             />
             <Input
               label={t('common:password')}
               value={form.password}
-              onChangeText={value => onChange({name: 'password', value})}
+              onChangeText={onChange('password')}
               hidePassword={hiddenPassword}
+              error={errors.password}
               right={
                 <TextInput.Icon
                   name="eye"
@@ -61,7 +77,7 @@ const LoginComponent = ({onChange, onSubmit, form, error}: IProps) => {
               variant="primary"
               onPress={onSubmit}
             />
-            {error ? <Message label={error} /> : null}
+            {serverError ? <Message label={serverError} /> : null}
           </View>
           <View>
             <Text style={styles.register}>
