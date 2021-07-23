@@ -20,9 +20,9 @@ import {
 } from '../redux/movieDetails/movieDetailsSlice';
 import {getMovieActors} from '../redux/movieDetails/movieDetailsActions';
 import ActorsBox from '../components/molecules/ActorsBox';
-import {convertToHours} from '../helpers/convertToHours';
 import RatingBox from '../components/molecules/RatingBox';
 import Header from '../components/atoms/Header';
+import MovieDetailsInfoBox from '../components/molecules/MovieDetailsInfoBox';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -32,7 +32,6 @@ const Details = ({route, navigation}: any) => {
   const {fetchedMovies, movieActors} = useSelector(movieDetailsSelector);
 
   const movie = fetchedMovies[id];
-  const genres = movie?.genres.map(genre => genre.name);
 
   useEffect(() => {
     if (!fetchedMovies[id]) {
@@ -69,18 +68,7 @@ const Details = ({route, navigation}: any) => {
 
       <View style={styles.bottomWrapper}>
         <Header title={title} />
-        <View style={styles.movieInfoWrapper}>
-          <Text style={styles.movieInfoItem}>{movie.release_date}</Text>
-          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
-
-          <Text style={styles.genreText}>{`${genres[0]}, `}</Text>
-          <Text style={styles.genreText}>{genres[1]}</Text>
-
-          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
-          <Text style={styles.movieInfoItem}>
-            {convertToHours(movie.runtime)}
-          </Text>
-        </View>
+        <MovieDetailsInfoBox movie={movie} />
         <RatingBox movie={movie} />
         <View style={styles.descriptionWrapper}>
           <Text style={styles.descriptionText}>{movie.overview}</Text>
@@ -140,21 +128,5 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingHorizontal: 30,
     marginTop: -40,
-  },
-  movieInfoWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    marginBottom: 20,
-  },
-  movieInfoItem: {
-    color: colors.lightGrey,
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  genreText: {
-    color: colors.lightGrey,
-    fontSize: 16,
-    fontWeight: '600',
   },
 });
