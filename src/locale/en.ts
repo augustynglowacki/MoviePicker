@@ -20,6 +20,7 @@ const translations = {
     search: 'Search',
     searchPlaceholder: "What's on your mind?",
     actors: 'Actors',
+    popular: "What's popular?",
   },
 };
 export default translations;

@@ -19,7 +19,7 @@ interface IProps {
   error: string;
 }
 const LoginComponent = ({onChange, onSubmit, form, error}: IProps) => {
-  const {i18n} = useTranslation();
+  const {t} = useTranslation();
   const {navigate} = useNavigation();
   const goToRegister = () => navigate(REGISTER);
   const [hiddenPassword, setHiddenPassword] = useState(true);
@@ -35,15 +35,15 @@ const LoginComponent = ({onChange, onSubmit, form, error}: IProps) => {
         </Animated.View>
 
         <View>
-          <Text style={styles.title}>{i18n.t('common:welcomeMessage')}</Text>
+          <Text style={styles.title}>{t('common:welcomeMessage')}</Text>
           <View style={styles.form}>
             <Input
-              label={i18n.t('common:email')}
+              label={t('common:email')}
               value={form.email}
               onChangeText={value => onChange({name: 'email', value})}
             />
             <Input
-              label={i18n.t('common:password')}
+              label={t('common:password')}
               value={form.password}
               onChangeText={value => onChange({name: 'password', value})}
               hidePassword={hiddenPassword}
@@ -56,7 +56,7 @@ const LoginComponent = ({onChange, onSubmit, form, error}: IProps) => {
               }
             />
             <CustomButton
-              label={i18n.t('common:login')}
+              label={t('common:login')}
               width="small"
               variant="primary"
               onPress={onSubmit}
@@ -65,10 +65,10 @@ const LoginComponent = ({onChange, onSubmit, form, error}: IProps) => {
           </View>
           <View>
             <Text style={styles.register}>
-              {i18n.t('common:registerSuggestion')}
+              {t('common:registerSuggestion')}
             </Text>
             <CustomButton
-              label={i18n.t('common:register')}
+              label={t('common:register')}
               variant="secondary"
               onPress={goToRegister}
               width="small"
