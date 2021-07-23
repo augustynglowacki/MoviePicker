@@ -22,6 +22,7 @@ import {getMovieActors} from '../redux/movieDetails/movieDetailsActions';
 import ActorsBox from '../components/molecules/ActorsBox';
 import {convertToHours} from '../helpers/convertToHours';
 import RatingBox from '../components/molecules/RatingBox';
+import Header from '../components/atoms/Header';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -67,7 +68,7 @@ const Details = ({route, navigation}: any) => {
       </ImageBackground>
 
       <View style={styles.bottomWrapper}>
-        <Text style={styles.title}>{title}</Text>
+        <Header title={title} />
         <View style={styles.movieInfoWrapper}>
           <Text style={styles.movieInfoItem}>{movie.release_date}</Text>
           <Entypo name="dot-single" size={32} color={colors.lightGrey} />
@@ -121,13 +122,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
   },
-  title: {
-    color: colors.white,
-    fontSize: 40,
-    fontWeight: '800',
-    textAlign: 'center',
-    marginBottom: 15,
-  },
+
   descriptionWrapper: {
     marginTop: 20,
     marginBottom: 30,
