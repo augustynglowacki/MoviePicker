@@ -14,7 +14,7 @@
 		28CC1FECE1A29459142E631C /* libPods-MoviePicker-MoviePickerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0183088464431E206565DD28 /* libPods-MoviePicker-MoviePickerTests.a */; };
 		345E065447FA2D117EBD70C8 /* libPods-MoviePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 64A6BFCC35EB8E6F21381334 /* libPods-MoviePicker.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		DBD3779226A1B77200F34B8B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DBD3779126A1B77200F34B8B /* GoogleService-Info.plist */; };
+		DB6D019F26AACA9F0063E3E8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB6D019E26AACA9F0063E3E8 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,7 +43,7 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = MoviePicker/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B216EA7D1438ED8DC0D26AAC /* Pods-MoviePicker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoviePicker.release.xcconfig"; path = "Target Support Files/Pods-MoviePicker/Pods-MoviePicker.release.xcconfig"; sourceTree = "<group>"; };
 		C79F09CD83AF8CF72B6D073F /* Pods-MoviePicker-MoviePickerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoviePicker-MoviePickerTests.debug.xcconfig"; path = "Target Support Files/Pods-MoviePicker-MoviePickerTests/Pods-MoviePicker-MoviePickerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		DBD3779126A1B77200F34B8B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DB6D019E26AACA9F0063E3E8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DC7546CD1E03F02F38FA5141 /* Pods-MoviePicker-MoviePickerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoviePicker-MoviePickerTests.release.xcconfig"; path = "Target Support Files/Pods-MoviePicker-MoviePickerTests/Pods-MoviePicker-MoviePickerTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -118,7 +118,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				DBD3779126A1B77200F34B8B /* GoogleService-Info.plist */,
+				DB6D019E26AACA9F0063E3E8 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* MoviePicker */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* MoviePickerTests */,
@@ -248,7 +248,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				DBD3779226A1B77200F34B8B /* GoogleService-Info.plist in Resources */,
+				DB6D019F26AACA9F0063E3E8 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
