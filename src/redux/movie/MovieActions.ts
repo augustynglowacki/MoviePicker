@@ -17,3 +17,5 @@ export const getMovies = createAsyncThunk<Movie[]>(
     return newresult;
   },
 );
+
+// export const getTvShows = createAsyncThunk<

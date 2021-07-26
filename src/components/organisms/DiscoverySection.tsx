@@ -25,6 +25,9 @@ const DiscoverySection = () => {
       dispatch(getSearchedActor());
     }
   }, [dispatch, query]);
+
+  console.log(foundTvShows);
+
   return (
     <Container withPadding flexStart withKeyboard>
       <SearchBox />
