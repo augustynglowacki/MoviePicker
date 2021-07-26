@@ -1,6 +1,9 @@
 import {Movie} from '../models';
 
-export const convertResponseToMovie = (data: Movie[]) => {
+export const convertResponseToMovie = (
+  data: Movie[],
+  isMovie: boolean = true,
+) => {
   const newResult: Movie[] = data.map((movie: Movie) => ({
     id: movie.id,
     title: movie.title,
@@ -8,6 +11,7 @@ export const convertResponseToMovie = (data: Movie[]) => {
     poster_path: movie.poster_path,
     overview: movie.overview,
     genre_ids: movie.genre_ids,
+    isMovie,
   }));
   return newResult;
 };
