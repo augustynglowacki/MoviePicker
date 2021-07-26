@@ -5,7 +5,6 @@ import {convertResponseToMovie} from '../../helpers/convertResponseToMovie';
 import {Movie, MovieAxiosResponse} from '../../models';
 
 //Thunk action
-
 export const getMovies = createAsyncThunk<Movie[]>(
   'movie/getMovies',
   async () => {
