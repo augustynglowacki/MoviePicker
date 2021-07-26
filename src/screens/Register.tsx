@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import * as React from 'react';
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect} from 'react';
 import RegisterComponent from '../components/organisms/Register';
 import {RegisterForm} from '../models';
 import {PROFILE} from '../models/constants/routeNames';
@@ -8,22 +8,16 @@ import auth from '@react-native-firebase/auth';
 import {createUserWithEmailAndPassword} from '../redux/user/UserAction';
 import {useDispatch, useSelector} from 'react-redux';
 import {userThunkSelector} from '../redux/user/UserSlice';
-
-const initialState = {
-  username: '',
-  email: '',
-  password: '',
-};
+import {useFormik} from 'formik';
+import {useTranslation} from 'react-i18next';
+let Yup = require('yup');
 
 const Register = () => {
-  //initialization of States
-  const [form, setForm] = useState<RegisterForm>(initialState);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [errors, setErrors] = useState<RegisterForm>(initialState);
   const {error} = useSelector(userThunkSelector);
   const dispatch = useDispatch();
   // Hook needed to navigate to login after succesful register
   const {navigate} = useNavigation();
+  const {t} = useTranslation();
 
   const goToProfile = useCallback(() => {
     navigate(PROFILE);
@@ -48,22 +42,42 @@ const Register = () => {
     return subscriber;
   }, [goToProfile]);
 
-  //real-time validation
-  const onChange = ({name, value}: {name: string; value: string}) => {
-    setForm({...form, [name]: value});
-  };
-
   const onSubmit = () => {
     console.log('form:>>', form);
     handleCreateUser(form);
   };
 
+  const validationSchema = Yup.object({
+    username: Yup.string().required(t('form:required')),
+    email: Yup.string().email(t('form:email')).required(t('form:required')),
+    password: Yup.string().min(6, t('form:short')).required(t('form:required')),
+  });
+
+  const {
+    handleChange,
+    handleSubmit,
+    values: form,
+    errors,
+  } = useFormik<RegisterForm>({
+    initialValues: {username: '', email: '', password: ''},
+    validationSchema, //yup object
+    //validate only after submit click
+    validateOnChange: false,
+    validateOnBlur: false,
+    onSubmit: onSubmit,
+  });
+
+  // useEffect(() => {
+  //   console.log(form, errors);
+  // }, [form, errors]);
+
   return (
     <RegisterComponent
-      onSubmit={onSubmit}
-      onChange={onChange}
+      onSubmit={handleSubmit}
+      onChange={handleChange}
       form={form}
-      error={error}
+      serverError={error}
+      errors={errors}
     />
   );
 };

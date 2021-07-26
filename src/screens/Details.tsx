@@ -19,9 +19,10 @@ import {
   movieDetailsSelector,
 } from '../redux/movieDetails/movieDetailsSlice';
 import {getMovieActors} from '../redux/movieDetails/movieDetailsActions';
-import {Rating} from 'react-native-ratings';
 import ActorsBox from '../components/molecules/ActorsBox';
-import {convertToHours} from '../helpers/convertToHours';
+import RatingBox from '../components/molecules/RatingBox';
+import Header from '../components/atoms/Header';
+import MovieDetailsInfoBox from '../components/molecules/MovieDetailsInfoBox';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -31,7 +32,6 @@ const Details = ({route, navigation}: any) => {
   const {fetchedMovies, movieActors} = useSelector(movieDetailsSelector);
 
   const movie = fetchedMovies[id];
-  const genres = movie?.genres.map(genre => genre.name);
 
   useEffect(() => {
     if (!fetchedMovies[id]) {
@@ -41,7 +41,7 @@ const Details = ({route, navigation}: any) => {
   }, [distpach, id, fetchedMovies]);
 
   if (!movie) {
-    return <Text>Loading</Text>;
+    return <Text>Loading</Text>; /// Add peper loading
   }
 
   return (
@@ -67,36 +67,14 @@ const Details = ({route, navigation}: any) => {
       </ImageBackground>
 
       <View style={styles.bottomWrapper}>
-        <Text style={styles.title}>{title}</Text>
-        <View style={styles.movieInfoWrapper}>
-          <Text style={styles.movieInfoItem}>{movie.release_date}</Text>
-          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
-
-          <Text style={styles.genreText}>{`${genres[0]}, `}</Text>
-          <Text style={styles.genreText}>{genres[1]}</Text>
-
-          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
-          <Text style={styles.movieInfoItem}>
-            {convertToHours(movie.runtime)}
-          </Text>
-        </View>
-        <View style={styles.ratingWrapper}>
-          <Text style={styles.ratingText}>{movie.vote_average}</Text>
-          <Rating
-            type="star"
-            ratingCount={5}
-            imageSize={25}
-            tintColor="black"
-            startingValue={movie.vote_average / 2}
-            fractions={5}
-            readonly={true}
-          />
-        </View>
-
+        <Header title={title} />
+        <MovieDetailsInfoBox movie={movie} />
+        <RatingBox voteAverage={movie.vote_average} />
         <View style={styles.descriptionWrapper}>
           <Text style={styles.descriptionText}>{movie.overview}</Text>
         </View>
       </View>
+
       <ActorsBox data={movieActors} error="" />
     </ScrollView>
   );
@@ -133,13 +111,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
   },
-  title: {
-    color: colors.white,
-    fontSize: 40,
-    fontWeight: '800',
-    textAlign: 'center',
-    marginBottom: 15,
-  },
+
   descriptionWrapper: {
     marginTop: 20,
     marginBottom: 30,
@@ -157,32 +129,5 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingHorizontal: 30,
     marginTop: -40,
-  },
-  movieInfoWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    marginBottom: 20,
-  },
-  movieInfoItem: {
-    color: colors.lightGrey,
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  genreText: {
-    color: colors.lightGrey,
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  ratingWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  ratingText: {
-    color: '#F1CB00',
-    fontSize: 20,
-    marginRight: 10,
-    fontWeight: '600',
   },
 });

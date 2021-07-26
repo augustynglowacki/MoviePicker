@@ -22,5 +22,10 @@ const translations = {
     actors: 'Actors',
     popular: "What's popular?",
   },
+  form: {
+    required: 'Required!',
+    email: 'Email must be a valid email!',
+    short: 'Password must be at least 6 characters long!',
+  },
 };
 export default translations;
