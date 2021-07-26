@@ -25,7 +25,7 @@ const ActorsBox = ({data, error}: ActorsBoxProps) => {
     <View style={styles.actorsBox}>
       {data.length === 0 ? null : (
         <SectionHeader
-          text={t('movies: actors')}
+          text={t('movies:actors')}
           color={colors.white}
           size={20}
         />

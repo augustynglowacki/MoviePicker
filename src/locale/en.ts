@@ -10,6 +10,8 @@ const translations = {
     welcomeMessage: 'Welcome to MoviePicker!',
     registerSuggestion: 'First time here?',
     loginSuggestion: 'Do you want to login to add to favorite?',
+    or: '-OR-',
+    signInWith: 'Sign in with',
   },
   movies: {
     movies: 'Movies',
@@ -21,6 +23,11 @@ const translations = {
     searchPlaceholder: "What's on your mind?",
     actors: 'Actors',
     popular: "What's popular?",
+  },
+  form: {
+    required: 'Required!',
+    email: 'Email must be a valid email!',
+    short: 'Password must be at least 6 characters long!',
   },
 };
 export default translations;
