@@ -13,6 +13,11 @@ import {genresSelector} from '../../redux/genres/GenresSlice';
 import {useTranslation} from 'react-i18next';
 import {userThunkSelector} from '../../redux/user/UserSlice';
 import RatingBox from './RatingBox';
+import {Genres} from '../../models/Genres';
+
+interface MovieItemProps extends Movie {
+  mergeGenresWithMovies: (Genres | undefined)[];
+}
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 
@@ -23,7 +28,7 @@ const MovieItem = ({
   title,
   mergeGenresWithMovies,
   vote_average,
-}: Movie) => {
+}: MovieItemProps) => {
   const {loading} = useSelector(genresSelector);
   const {t} = useTranslation();
   const {navigate} = useNavigation();

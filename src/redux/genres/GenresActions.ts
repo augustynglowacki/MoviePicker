@@ -1,8 +1,11 @@
-import {GenresAxiosResponse} from './../../models/GenresAxiosResponse';
 import {API_KEY} from '@env';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axiosInstance from '../../helpers/axiosInstance';
 import {Genres} from '../../models/Genres';
+
+interface GenresAxiosResponse {
+  genres: Array<Genres>;
+}
 
 export const getGenres = createAsyncThunk('genres/getGenres', async () => {
   const response = await axiosInstance.get<GenresAxiosResponse>(
