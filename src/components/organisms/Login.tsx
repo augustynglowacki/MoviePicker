@@ -13,7 +13,8 @@ import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
 import Message from '../atoms/Message';
 import {FormikErrors} from 'formik';
-import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
+import SocialBox from '../molecules/SocialBox';
+import RegisterInfo from '../atoms/RegisterInfo';
 interface IProps {
   //type from useFormik handleChange
   onChange: {
@@ -51,7 +52,6 @@ const LoginComponent = ({
             style={styles.logoImage}
           />
         </Animated.View>
-
         <View>
           <Text style={styles.title}>{t('common:welcomeMessage')}</Text>
           <View style={styles.form}>
@@ -82,23 +82,8 @@ const LoginComponent = ({
               onPress={onSubmit}
             />
             {serverError ? <Message label={serverError} /> : null}
-            <GoogleSigninButton
-              onPress={signUpWithGoogle}
-              style={styles.googleButton}
-              color={GoogleSigninButton.Color.Light}
-              size={GoogleSigninButton.Size.Standard}
-            />
-          </View>
-          <View>
-            <Text style={styles.register}>
-              {t('common:registerSuggestion')}
-            </Text>
-            <CustomButton
-              label={t('common:register')}
-              variant="secondary"
-              onPress={goToRegister}
-              width="small"
-            />
+            <SocialBox onPress={signUpWithGoogle} />
+            <RegisterInfo onPress={goToRegister} />
           </View>
         </View>
       </AnimatedLayout>
@@ -123,15 +108,5 @@ const styles = StyleSheet.create({
   form: {
     paddingTop: 20,
     paddingBottom: 35,
-  },
-  register: {
-    textAlign: 'center',
-    fontSize: 17,
-    color: colors.white,
-  },
-  googleButton: {
-    alignSelf: 'center',
-    width: '47%',
-    height: 55,
   },
 });
