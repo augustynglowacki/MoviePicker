@@ -8,7 +8,7 @@ import colors from '../../assets/theme/colors';
 interface MyInputProps extends TextInputProps {
   right?: React.ReactNode;
   label: string;
-  error?: any;
+  error?: string;
   left?: React.ReactNode;
   fullWidth?: boolean;
   hidePassword?: boolean;
@@ -32,25 +32,28 @@ const Input = ({
     return {width: fullWidth ? '100%' : '80%'};
   };
   return (
-    <TextInput
-      style={[styles.textInput, getWidth(), style]}
-      onChangeText={onChangeText}
-      value={value}
-      theme={{
-        colors: {
-          primary: colors.primary,
-          text: colors.white,
-          placeholder: colors.grey,
-        },
-      }}
-      placeholderTextColor={colors.white}
-      label={label}
-      right={right}
-      left={left}
-      secureTextEntry={hidePassword}
-      clearButtonMode={clear}
-      autoFocus={autoFocus}
-    />
+    <View style={styles.wrap}>
+      <TextInput
+        style={[styles.textInput, getWidth(), style]}
+        onChangeText={onChangeText}
+        value={value}
+        theme={{
+          colors: {
+            primary: colors.primary,
+            text: colors.white,
+            placeholder: colors.grey,
+          },
+        }}
+        placeholderTextColor={colors.white}
+        label={label}
+        right={right}
+        left={left}
+        secureTextEntry={hidePassword}
+        clearButtonMode={clear}
+        autoFocus={autoFocus}
+      />
+      {error ? <Text style={styles.error}>{error}</Text> : null}
+    </View>
   );
 };
 
@@ -59,10 +62,19 @@ export default Input;
 const styles = StyleSheet.create({
   textInput: {
     height: 60,
-    marginBottom: 12,
     width: '80%',
     alignSelf: 'center',
     backgroundColor: colors.darkGrey,
     borderRadius: 4,
+  },
+  wrap: {
+    marginBottom: 12,
+  },
+  error: {
+    alignSelf: 'center',
+    width: '80%',
+    color: colors.danger,
+    fontSize: 12,
+    marginTop: 1,
   },
 });

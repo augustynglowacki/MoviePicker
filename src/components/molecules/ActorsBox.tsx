@@ -1,4 +1,5 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import {FlatList, ListRenderItem, StyleSheet, View} from 'react-native';
 import colors from '../../assets/theme/colors';
 import {Actor} from '../../models';
@@ -13,14 +14,21 @@ interface ActorsBoxProps {
 }
 
 const renderItem: ListRenderItem<Actor> = ({item}) => (
-  <ActorBox name={item.name} profile_path={item.profile_path} />
+  <View>
+    <ActorBox name={item.name} profile_path={item.profile_path} />
+  </View>
 );
 
 const ActorsBox = ({data, error}: ActorsBoxProps) => {
+  const {t} = useTranslation();
   return (
     <View style={styles.actorsBox}>
       {data.length === 0 ? null : (
-        <SectionHeader text="Actors" color={colors.white} size={20} />
+        <SectionHeader
+          text={t('movies:actors')}
+          color={colors.white}
+          size={20}
+        />
       )}
       <SearchErrorBox error={error} loading={false}>
         <FlatList

@@ -1,5 +1,7 @@
+import {FormikErrors} from 'formik';
 import * as React from 'react';
 import {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import Animated, {AnimatedLayout, StretchInX} from 'react-native-reanimated';
@@ -8,15 +10,31 @@ import {RegisterForm} from '../../models';
 import Container from '../atoms/Container';
 import CustomButton from '../atoms/CustomButton';
 import Input from '../atoms/Input';
+import Message from '../atoms/Message';
 
 interface IProps {
-  onChange: ({name, value}: {name: string; value: string}) => void;
+  //type from useFormik handleChange
+  onChange: {
+    <T_1 = string | React.ChangeEvent<any>>(
+      field: T_1,
+    ): T_1 extends React.ChangeEvent<any>
+      ? void
+      : (e: string | React.ChangeEvent<any>) => void;
+  };
   onSubmit: () => void;
   form: RegisterForm;
-  errors: RegisterForm;
+  errors: FormikErrors<RegisterForm>;
+  serverError: string;
 }
 
-const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
+const RegisterComponent = ({
+  onChange,
+  onSubmit,
+  form,
+  serverError,
+  errors,
+}: IProps) => {
+  const {t} = useTranslation();
   const [hiddenPassword, setHiddenPassword] = useState(true);
   const handleHide = () => setHiddenPassword(!hiddenPassword);
   return (
@@ -30,26 +48,26 @@ const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
         </Animated.View>
 
         <View>
-          <Text style={styles.title}>Welcome to MoviePicker!</Text>
+          <Text style={styles.title}>{t('common:welcomeMessage')}</Text>
           <View style={styles.form}>
             <Input
-              label="Username"
+              label={t('common:userName')}
               value={form.username}
-              onChangeText={value => onChange({name: 'username', value})}
+              onChangeText={onChange('username')}
               error={errors.username}
             />
             <Input
-              label="Email"
+              label={t('common:email')}
               value={form.email}
-              onChangeText={value => onChange({name: 'email', value})}
+              onChangeText={onChange('email')}
               error={errors.email}
             />
             <Input
-              label="Password"
+              label={t('common:password')}
               value={form.password}
-              onChangeText={value => onChange({name: 'password', value})}
-              error={errors.password}
+              onChangeText={onChange('password')}
               hidePassword={hiddenPassword}
+              error={errors.password}
               right={
                 <TextInput.Icon
                   name="eye"
@@ -60,10 +78,11 @@ const RegisterComponent = ({onChange, onSubmit, form, errors}: IProps) => {
             />
             <CustomButton
               onPress={onSubmit}
-              label="Register"
+              label={t('common:register')}
               width="small"
               variant="primary"
             />
+            {serverError ? <Message label={serverError} /> : null}
           </View>
         </View>
       </AnimatedLayout>

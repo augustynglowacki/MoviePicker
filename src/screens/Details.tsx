@@ -19,31 +19,30 @@ import {
   movieDetailsSelector,
 } from '../redux/movieDetails/movieDetailsSlice';
 import {getMovieActors} from '../redux/movieDetails/movieDetailsActions';
-import {Rating} from 'react-native-ratings';
-
 import ActorsBox from '../components/molecules/ActorsBox';
+import RatingBox from '../components/molecules/RatingBox';
+import Header from '../components/atoms/Header';
+import MovieDetailsInfoBox from '../components/molecules/MovieDetailsInfoBox';
 
 const HEIGHT = Dimensions.get('window').height;
-
-const convertToHours = (time: number) => {
-  const hour = Math.round(time / 60);
-  const minutes = time % 60;
-
-  return `${hour}h ${minutes}min`;
-};
 
 const Details = ({route, navigation}: any) => {
   const distpach = useDispatch();
   const {title, poster_path, id} = route.params;
-  const {movieDetails, loading, movieActors} =
-    useSelector(movieDetailsSelector);
+  const {fetchedMovies, movieActors} = useSelector(movieDetailsSelector);
 
-  const GENRES = movieDetails.genres.map(genre => genre.name);
+  const movie = fetchedMovies[id];
 
   useEffect(() => {
-    distpach(getMovieDetails(id));
-    distpach(getMovieActors(id));
-  }, [distpach, id]);
+    if (!fetchedMovies[id]) {
+      distpach(getMovieDetails(id));
+      distpach(getMovieActors(id));
+    }
+  }, [distpach, id, fetchedMovies]);
+
+  if (!movie) {
+    return <Text>Loading</Text>; /// Add peper loading
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -68,40 +67,14 @@ const Details = ({route, navigation}: any) => {
       </ImageBackground>
 
       <View style={styles.bottomWrapper}>
-        <Text style={styles.title}>{title}</Text>
-        <View style={styles.movieInfoWrapper}>
-          <Text style={styles.movieInfoItem}>{movieDetails.release_date}</Text>
-          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
-
-          <Text style={styles.genreText}>{`${GENRES[0]}, `}</Text>
-          <Text style={styles.genreText}>{GENRES[1]}</Text>
-
-          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
-          <Text style={styles.movieInfoItem}>
-            {convertToHours(movieDetails.runtime)}
-          </Text>
-        </View>
-        <View style={styles.ratingWrapper}>
-          <Text style={styles.ratingText}>{movieDetails.vote_average}</Text>
-          <Rating
-            type="star"
-            ratingCount={5}
-            imageSize={25}
-            tintColor="black"
-            startingValue={movieDetails.vote_average / 2}
-            fractions={5}
-            readonly={true}
-          />
-        </View>
-
+        <Header title={title} />
+        <MovieDetailsInfoBox movie={movie} />
+        <RatingBox voteAverage={movie.vote_average} />
         <View style={styles.descriptionWrapper}>
-          {loading ? (
-            <Text>Loading</Text> // TO ADD MATERIAL UI LOADING
-          ) : (
-            <Text style={styles.descriptionText}>{movieDetails.overview}</Text>
-          )}
+          <Text style={styles.descriptionText}>{movie.overview}</Text>
         </View>
       </View>
+
       <ActorsBox data={movieActors} error="" />
     </ScrollView>
   );
@@ -138,13 +111,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
   },
-  title: {
-    color: colors.white,
-    fontSize: 40,
-    fontWeight: '800',
-    textAlign: 'center',
-    marginBottom: 15,
-  },
+
   descriptionWrapper: {
     marginTop: 20,
     marginBottom: 30,
@@ -162,32 +129,5 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingHorizontal: 30,
     marginTop: -40,
-  },
-  movieInfoWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    marginBottom: 20,
-  },
-  movieInfoItem: {
-    color: colors.lightGrey,
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  genreText: {
-    color: colors.lightGrey,
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  ratingWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  ratingText: {
-    color: '#F1CB00',
-    fontSize: 20,
-    marginRight: 10,
-    fontWeight: '600',
   },
 });

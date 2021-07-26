@@ -4,8 +4,10 @@ import MovieList from '../components/organisms/MovieList';
 import {getMovies, movieSelector} from '../redux/movie/MovieSlice';
 import {useDispatch, useSelector} from 'react-redux';
 import ScreenWrapper from './ScreenWrapper';
+import auth from '@react-native-firebase/auth';
 import {genresSelector} from '../redux/genres/GenresSlice';
 import {getGenres} from '../redux/genres/GenresSlice';
+import {setActiveUser, userThunkSelector} from '../redux/user/UserSlice';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -17,6 +19,26 @@ const Home = () => {
     dispatch(getMovies());
     dispatch(getGenres());
   }, [dispatch]);
+
+  const {
+    user: {email},
+  } = useSelector(userThunkSelector);
+
+  useEffect(() => {
+    if (email === '') {
+      const subscriber = auth().onAuthStateChanged(user => {
+        if (user) {
+          dispatch(
+            setActiveUser({
+              email: user.email,
+              userName: user.displayName,
+            }),
+          );
+        }
+      });
+      return subscriber;
+    }
+  }, [dispatch, email]);
 
   return (
     <ScreenWrapper error={error} loading={loading}>

@@ -38,7 +38,6 @@ const movieSlice = createSlice({
     builder.addCase(getMovies.rejected, (state, action) => {
       // Add user to the state array
       state.loading = false;
-      console.log('dupa');
       console.log(action.error.message);
       state.error = action.error.message ?? 'error';
     });

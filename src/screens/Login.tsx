@@ -1,65 +1,85 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import LoginComponent from '../components/organisms/Login';
 import {LoginForm} from '../models';
-import {HOME} from '../models/constants/routeNames';
-// import LoginComponent from '../../components/organisms/Login';
-
-const initialState = {username: '', password: ''};
+import {PROFILE} from '../models/constants/routeNames';
+import auth from '@react-native-firebase/auth';
+import {useDispatch} from 'react-redux';
+import {
+  signInWithEmailAndPassword,
+  signInWithGoogle,
+} from '../redux/user/UserAction';
+import {useSelector} from 'react-redux';
+import {userThunkSelector} from '../redux/user/UserSlice';
+import {useTranslation} from 'react-i18next';
+import {useFormik} from 'formik';
+let Yup = require('yup');
 
 const Login = () => {
-  const [form, setForm] = useState<LoginForm>(initialState);
-  const [errors, setErrors] = useState<LoginForm>(initialState);
+  const {error} = useSelector(userThunkSelector);
+  const dispatch = useDispatch();
   const {navigate} = useNavigation();
-  const goToHome = () => navigate(HOME);
-  //real-time validation
-  const onChange = ({name, value}: {name: string; value: string}) => {
-    setForm({...form, [name]: value});
-    if (value !== '') {
-      setErrors(currErrors => {
-        return {...currErrors, [name]: ''};
-      });
-    }
-    if (value === '') {
-      setErrors(currErrors => {
-        return {...currErrors, [name]: 'This field is required'};
-      });
-    }
+  const {t} = useTranslation();
+
+  const goToProfile = React.useCallback(() => {
+    navigate(PROFILE);
+  }, [navigate]);
+
+  const handleLoginUser = (login: LoginForm) => {
+    console.log(login);
+    dispatch(
+      signInWithEmailAndPassword({
+        email: login.email,
+        password: login.password,
+      }),
+    );
   };
+
+  const handleSignInWithGoogle = () => {
+    dispatch(signInWithGoogle());
+  };
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(user => {
+      if (user) {
+        goToProfile();
+      }
+    });
+    return subscriber;
+  }, [goToProfile]);
 
   const onSubmit = () => {
-    //onClick validation
-    if (!form.username) {
-      setErrors(currErrors => {
-        return {...currErrors, username: 'Please add the username'};
-      });
-    }
-    if (form.password.length < 8) {
-      setErrors(currErrors => {
-        return {
-          ...currErrors,
-          password: 'Password has to be at least 8 characters',
-        };
-      });
-      return;
-    }
-
-    if (
-      Object.values(form).length === 2 &&
-      Object.values(form).every(item => item.trim().length > 0) &&
-      Object.values(errors).every(item => !item)
-    ) {
-      console.log('form:>>', form);
-      goToHome();
-    }
+    console.log('login>>', form);
+    handleLoginUser(form);
   };
+
+  const validationSchema = Yup.object({
+    email: Yup.string().email(t('form:email')).required(t('form:required')),
+    password: Yup.string().min(6, t('form:short')).required(t('form:required')),
+  });
+
+  const {
+    handleChange,
+    handleSubmit,
+    values: form,
+    errors,
+  } = useFormik<LoginForm>({
+    initialValues: {email: '', password: ''},
+    validationSchema, //yup object
+    //validate only after submit click
+    validateOnChange: false,
+    validateOnBlur: false,
+    onSubmit: onSubmit,
+  });
 
   return (
     <LoginComponent
-      onSubmit={onSubmit}
-      onChange={onChange}
+      onSubmit={handleSubmit}
+      onChange={handleChange}
       form={form}
+      serverError={error}
       errors={errors}
+      signUpWithGoogle={handleSignInWithGoogle}
     />
   );
 };

@@ -10,13 +10,34 @@ import Container from '../atoms/Container';
 import CustomButton from '../atoms/CustomButton';
 import Input from '../atoms/Input';
 import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
+import {useTranslation} from 'react-i18next';
+import Message from '../atoms/Message';
+import {FormikErrors} from 'formik';
+import {GoogleSigninButton} from '@react-native-google-signin/google-signin';
 interface IProps {
-  onChange: ({name, value}: {name: string; value: string}) => void;
+  //type from useFormik handleChange
+  onChange: {
+    <T_1 = string | React.ChangeEvent<any>>(
+      field: T_1,
+    ): T_1 extends React.ChangeEvent<any>
+      ? void
+      : (e: string | React.ChangeEvent<any>) => void;
+  };
   onSubmit: () => void;
+  signUpWithGoogle: () => void;
   form: LoginForm;
-  errors: LoginForm;
+  errors: FormikErrors<LoginForm>;
+  serverError: string;
 }
-const LoginComponent = ({onChange, onSubmit, form, errors}: IProps) => {
+const LoginComponent = ({
+  onChange,
+  onSubmit,
+  form,
+  serverError,
+  errors,
+  signUpWithGoogle,
+}: IProps) => {
+  const {t} = useTranslation();
   const {navigate} = useNavigation();
   const goToRegister = () => navigate(REGISTER);
   const [hiddenPassword, setHiddenPassword] = useState(true);
@@ -32,20 +53,20 @@ const LoginComponent = ({onChange, onSubmit, form, errors}: IProps) => {
         </Animated.View>
 
         <View>
-          <Text style={styles.title}>Welcome to MoviePicker!</Text>
+          <Text style={styles.title}>{t('common:welcomeMessage')}</Text>
           <View style={styles.form}>
             <Input
-              label="Username"
-              value={form.username}
-              onChangeText={value => onChange({name: 'username', value})}
-              error={errors.username}
+              label={t('common:email')}
+              value={form.email}
+              onChangeText={onChange('email')}
+              error={errors.email}
             />
             <Input
-              label="Password"
+              label={t('common:password')}
               value={form.password}
-              onChangeText={value => onChange({name: 'password', value})}
-              error={errors.password}
+              onChangeText={onChange('password')}
               hidePassword={hiddenPassword}
+              error={errors.password}
               right={
                 <TextInput.Icon
                   name="eye"
@@ -55,16 +76,25 @@ const LoginComponent = ({onChange, onSubmit, form, errors}: IProps) => {
               }
             />
             <CustomButton
-              label="Login"
+              label={t('common:login')}
               width="small"
               variant="primary"
               onPress={onSubmit}
             />
+            {serverError ? <Message label={serverError} /> : null}
+            <GoogleSigninButton
+              onPress={signUpWithGoogle}
+              style={styles.googleButton}
+              color={GoogleSigninButton.Color.Light}
+              size={GoogleSigninButton.Size.Standard}
+            />
           </View>
           <View>
-            <Text style={styles.register}>First time here?</Text>
+            <Text style={styles.register}>
+              {t('common:registerSuggestion')}
+            </Text>
             <CustomButton
-              label="Register"
+              label={t('common:register')}
               variant="secondary"
               onPress={goToRegister}
               width="small"
@@ -98,5 +128,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 17,
     color: colors.white,
+  },
+  googleButton: {
+    alignSelf: 'center',
+    width: '47%',
+    height: 55,
   },
 });

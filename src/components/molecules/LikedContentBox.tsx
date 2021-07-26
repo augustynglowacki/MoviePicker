@@ -1,4 +1,5 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   View,
   StyleSheet,
@@ -16,18 +17,21 @@ import SectionHeader from '../atoms/SectionHeader';
 const renderItem: ListRenderItem<Movie> = ({item}) => <MovieBox movie={item} />;
 
 const LikedContentBox = () => {
+  const {t} = useTranslation();
   const {movies} = useSelector(movieSelector); // temporary
   return (
-    <SafeAreaView style={styles.likedWrapper}>
-      <SectionHeader text="Liked" color={colors.white} />
-      <View style={styles.likedContentBox}>
-        <FlatList
-          data={movies}
-          renderItem={renderItem}
-          showsVerticalScrollIndicator={false}
-          numColumns={2}
-          maxToRenderPerBatch={5}
-        />
+    <SafeAreaView>
+      <View style={styles.likedWrapper}>
+        <SectionHeader text={t('movies:liked')} color={colors.white} />
+        <View style={styles.likedContentBox}>
+          <FlatList
+            data={movies}
+            renderItem={renderItem}
+            showsVerticalScrollIndicator={false}
+            numColumns={2}
+            maxToRenderPerBatch={5}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );

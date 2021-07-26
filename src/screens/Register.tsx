@@ -1,79 +1,82 @@
 import {useNavigation} from '@react-navigation/native';
 import * as React from 'react';
-import {useState} from 'react';
+import {useCallback, useEffect} from 'react';
 import RegisterComponent from '../components/organisms/Register';
 import {RegisterForm} from '../models';
-import {LOGIN} from '../models/constants/routeNames';
-
-const initialState = {
-  username: '',
-  email: '',
-  password: '',
-};
+import {PROFILE} from '../models/constants/routeNames';
+import auth from '@react-native-firebase/auth';
+import {createUserWithEmailAndPassword} from '../redux/user/UserAction';
+import {useDispatch, useSelector} from 'react-redux';
+import {userThunkSelector} from '../redux/user/UserSlice';
+import {useFormik} from 'formik';
+import {useTranslation} from 'react-i18next';
+let Yup = require('yup');
 
 const Register = () => {
-  //initialization of States
-  const [form, setForm] = useState<RegisterForm>(initialState);
-  const [errors, setErrors] = useState<RegisterForm>(initialState);
+  const {error} = useSelector(userThunkSelector);
+  const dispatch = useDispatch();
   // Hook needed to navigate to login after succesful register
   const {navigate} = useNavigation();
-  const navigateTo = () => {
-    navigate(LOGIN);
+  const {t} = useTranslation();
+
+  const goToProfile = useCallback(() => {
+    navigate(PROFILE);
+  }, [navigate]);
+
+  const handleCreateUser = (register: RegisterForm) => {
+    dispatch(
+      createUserWithEmailAndPassword({
+        email: register.email,
+        password: register.password,
+        displayName: register.username,
+      }),
+    );
   };
-  //real-time validation
-  const onChange = ({name, value}: {name: string; value: string}) => {
-    setForm({...form, [name]: value});
-    if (value !== '') {
-      setErrors(currErrors => {
-        return {...currErrors, [name]: ''};
-      });
-    }
-    if (value === '') {
-      setErrors(currErrors => {
-        return {...currErrors, [name]: 'This field is required'};
-      });
-    }
-  };
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(user => {
+      if (user) {
+        goToProfile();
+      }
+    });
+    return subscriber;
+  }, [goToProfile]);
 
   const onSubmit = () => {
-    //onClick validation
-    if (!form.username) {
-      setErrors(currErrors => {
-        return {...currErrors, username: 'Please add the username'};
-      });
-    }
-
-    const regexpEmail = /\S+@\S+\.\S+/;
-    if (!regexpEmail.test(form.email)) {
-      setErrors(currErrors => {
-        return {...currErrors, email: 'Please enter a valid email address'};
-      });
-    }
-    if (form.password.length < 8) {
-      setErrors(currErrors => {
-        return {
-          ...currErrors,
-          password: 'Password has to be at least 8 characters',
-        };
-      });
-      return;
-    }
-
-    if (
-      Object.values(form).length === 3 &&
-      Object.values(form).every(item => item.trim().length > 0) &&
-      Object.values(errors).every(item => !item)
-    ) {
-      console.log('form:>>', form);
-      navigateTo();
-    }
+    console.log('form:>>', form);
+    handleCreateUser(form);
   };
+
+  const validationSchema = Yup.object({
+    username: Yup.string().required(t('form:required')),
+    email: Yup.string().email(t('form:email')).required(t('form:required')),
+    password: Yup.string().min(6, t('form:short')).required(t('form:required')),
+  });
+
+  const {
+    handleChange,
+    handleSubmit,
+    values: form,
+    errors,
+  } = useFormik<RegisterForm>({
+    initialValues: {username: '', email: '', password: ''},
+    validationSchema, //yup object
+    //validate only after submit click
+    validateOnChange: false,
+    validateOnBlur: false,
+    onSubmit: onSubmit,
+  });
+
+  // useEffect(() => {
+  //   console.log(form, errors);
+  // }, [form, errors]);
 
   return (
     <RegisterComponent
-      onSubmit={onSubmit}
-      onChange={onChange}
+      onSubmit={handleSubmit}
+      onChange={handleChange}
       form={form}
+      serverError={error}
       errors={errors}
     />
   );

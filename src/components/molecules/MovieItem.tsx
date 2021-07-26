@@ -10,6 +10,9 @@ import {AUTH, DETAILS} from '../../models/constants/routeNames';
 import colors from '../../assets/theme/colors';
 import {useSelector} from 'react-redux';
 import {genresSelector} from '../../redux/genres/GenresSlice';
+import {useTranslation} from 'react-i18next';
+import {userThunkSelector} from '../../redux/user/UserSlice';
+import RatingBox from './RatingBox';
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 
@@ -19,30 +22,35 @@ const MovieItem = ({
   overview,
   title,
   mergeGenresWithMovies,
+  vote_average,
 }: Movie) => {
   const {loading} = useSelector(genresSelector);
+  const {t} = useTranslation();
   const {navigate} = useNavigation();
   const doubleTapRef = useRef();
-  const isLogIn = false; //temprary state
+  const {
+    user: {email},
+  } = useSelector(userThunkSelector);
 
   const handleOnActivated = () => {
-    if (isLogIn) {
+    if (email !== '') {
       //  TODO:
       console.log('add function to like');
     }
-    if (!isLogIn) {
-      Alert.alert('Login ', 'Do you want to login to add to favorite?', [
+    if (email === '') {
+      Alert.alert(t('common:login'), t('common:loginSuggestion'), [
         {
-          text: 'Cancel',
+          text: t('common:cancel'),
           onPress: () => {},
         },
         {
-          text: 'OK',
+          text: t('common:ok'),
           onPress: () => navigate(AUTH),
         },
       ]);
     }
   };
+
   return (
     <TapGestureHandler
       waitFor={doubleTapRef}
@@ -78,13 +86,14 @@ const MovieItem = ({
                 {loading ? (
                   <Text>Loading </Text>
                 ) : (
-                  mergeGenresWithMovies.map((genre: any) => (
+                  mergeGenresWithMovies.slice(0, 2).map((genre: any) => (
                     <View key={genre.name} style={styles.categoryContainer}>
                       <Text style={styles.categoryItem}>{genre.name}</Text>
                     </View>
                   ))
                 )}
               </View>
+              <RatingBox voteAverage={vote_average} />
             </View>
           </View>
         </View>
@@ -132,6 +141,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexWrap: 'wrap',
+    marginBottom: 20,
   },
   categoryContainer: {
     marginRight: 6,
