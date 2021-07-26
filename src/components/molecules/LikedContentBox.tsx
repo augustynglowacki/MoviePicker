@@ -1,6 +1,12 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {View, StyleSheet, ListRenderItem, FlatList} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ListRenderItem,
+  FlatList,
+  SafeAreaView,
+} from 'react-native';
 import {useSelector} from 'react-redux';
 import colors from '../../assets/theme/colors';
 import {Movie} from '../../models';
@@ -14,18 +20,20 @@ const LikedContentBox = () => {
   const {t} = useTranslation();
   const {movies} = useSelector(movieSelector); // temporary
   return (
-    <View style={styles.likedWrapper}>
-      <SectionHeader text={t('movies:liked')} color={colors.white} />
-      <View style={styles.likedContentBox}>
-        <FlatList
-          data={movies}
-          renderItem={renderItem}
-          showsHorizontalScrollIndicator={false}
-          numColumns={2}
-          maxToRenderPerBatch={5}
-        />
+    <SafeAreaView>
+      <View style={styles.likedWrapper}>
+        <SectionHeader text={t('movies:liked')} color={colors.white} />
+        <View style={styles.likedContentBox}>
+          <FlatList
+            data={movies}
+            renderItem={renderItem}
+            showsVerticalScrollIndicator={false}
+            numColumns={2}
+            maxToRenderPerBatch={5}
+          />
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
