@@ -36,7 +36,7 @@ type CombineTypes = MovieDetails | TvShowsDetails;
 const Details = ({route, navigation}: any) => {
   const [active, setActive] = useState<CombineTypes>();
   const distpach = useDispatch();
-  const {title, poster_path, id, isMovie} = route.params;
+  const {poster_path, id, isMovie} = route.params;
   const {fetchedMovies, fetchedTvShows, movieActors} =
     useSelector(movieDetailsSelector);
 
@@ -62,10 +62,8 @@ const Details = ({route, navigation}: any) => {
     }
   }, [movie, show]);
 
-  console.log(active);
-
   if (!show && !movie) {
-    return <Text>Loading</Text>;
+    return <Text>Loading dupa</Text>;
   }
 
   const renderMovieDetails = () => (
@@ -92,7 +90,7 @@ const Details = ({route, navigation}: any) => {
 
       <View style={styles.bottomWrapper}>
         <Header title={active?.title!} />
-        <MovieDetailsInfoBox data={isMovie ? movie : show} />
+        <MovieDetailsInfoBox isMovie={isMovie} data={isMovie ? movie : show} />
         <RatingBox voteAverage={active?.vote_average!} />
         <View style={styles.descriptionWrapper}>
           <Text style={styles.descriptionText}>{active?.overview}</Text>

@@ -37,6 +37,7 @@ const MovieList = ({moviesList, genres}: MovieListProps) => {
         vote_average={item.vote_average}
         genre_ids={item.genre_ids}
         mergeGenresWithMovies={mergeGenresWithMovies}
+        isMovie={item.isMovie}
       />
     );
   };

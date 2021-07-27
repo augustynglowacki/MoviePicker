@@ -28,6 +28,7 @@ const MovieItem = ({
   title,
   mergeGenresWithMovies,
   vote_average,
+  isMovie,
 }: MovieItemProps) => {
   const {loading} = useSelector(genresSelector);
   const {t} = useTranslation();
@@ -36,6 +37,8 @@ const MovieItem = ({
   const {
     user: {email},
   } = useSelector(userThunkSelector);
+
+  console.log(id, 'MOVIEITEM', isMovie);
 
   const handleOnActivated = () => {
     if (email !== '') {
@@ -65,6 +68,7 @@ const MovieItem = ({
           overview,
           title,
           id,
+          isMovie,
         });
       }}>
       <TapGestureHandler
