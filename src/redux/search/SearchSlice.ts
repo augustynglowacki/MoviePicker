@@ -1,11 +1,17 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Movie, SearchState} from '../../models';
+import {Actor, Movie, MovieState} from '../../models';
 import {RootState} from '../rootReducer';
 import {
   getSearchedActor,
   getSearchedMovies,
   getSearchedTvShows,
 } from './SearchActions';
+interface SearchState {
+  query: string;
+  foundMovies: MovieState;
+  foundTvShows: MovieState;
+  foundActors: {actors: Actor[]; error: string};
+}
 
 const initialState: SearchState = {
   query: '',

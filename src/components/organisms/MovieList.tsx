@@ -9,14 +9,19 @@ import {
   ListRenderItem,
 } from 'react-native';
 import colors from '../../assets/theme/colors';
-import {MovieListProps, Movie} from '../../models';
-import {GenresProps} from '../../models/GenresProps';
+import {Movie} from '../../models';
+import {Genres} from '../../models/Genres';
 import MovieItem from '../molecules/MovieItem';
+
+interface MovieListProps {
+  moviesList: Movie[];
+  genres: Genres[];
+}
 
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
-const MovieList = ({moviesList, genres}: MovieListProps & GenresProps) => {
+const MovieList = ({moviesList, genres}: MovieListProps) => {
   const {t} = useTranslation();
   const renderItem: ListRenderItem<Movie> = ({item}) => {
     const mergeGenresWithMovies = item.genre_ids.map(movie =>
@@ -32,6 +37,7 @@ const MovieList = ({moviesList, genres}: MovieListProps & GenresProps) => {
         vote_average={item.vote_average}
         genre_ids={item.genre_ids}
         mergeGenresWithMovies={mergeGenresWithMovies}
+        isMovie={item.isMovie}
       />
     );
   };

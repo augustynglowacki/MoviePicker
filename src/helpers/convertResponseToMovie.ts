@@ -11,7 +11,7 @@ export const convertResponseToMovie = (
     poster_path: movie.poster_path,
     overview: movie.overview,
     genre_ids: movie.genre_ids,
-    isMovie,
+    isMovie: isMovie,
   }));
   return newResult;
 };
