@@ -1,12 +1,6 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import SettingsSection from '../components/organisms/SettingsSection';
 
-const Settings = () => {
-  return (
-    <View>
-      <Text>Settings</Text>
-    </View>
-  );
-};
+const Settings = () => <SettingsSection />;
 
 export default Settings;

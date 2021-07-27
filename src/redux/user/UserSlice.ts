@@ -20,8 +20,8 @@ const initialState: UserState = {
 };
 
 export interface User {
-  email: string | null;
-  userName: string | null;
+  email: string;
+  userName: string;
 }
 
 const userSlice = createSlice({
