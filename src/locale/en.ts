@@ -33,7 +33,8 @@ const translations = {
   },
   profile: {
     explore: 'Explore your profile.',
-    exploreSub: "With free account you will get access to you'r movies list!",
+    exploreSub: 'With free account you gain access to your movies collections!',
+    button: 'Sign in now',
   },
 };
 export default translations;

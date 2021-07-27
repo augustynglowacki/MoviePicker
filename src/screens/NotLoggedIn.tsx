@@ -8,6 +8,8 @@ import colors from '../assets/theme/colors';
 import CustomButton from '../components/atoms/CustomButton';
 import LikedSection from '../components/organisms/LikedSection';
 import {useTranslation} from 'react-i18next';
+import {movieSelector} from '../redux/movie/MovieSlice';
+import {useSelector} from 'react-redux';
 
 const NotLoggedIn = ({isLiked}: {isLiked: boolean}) => {
   const {navigate} = useNavigation();
@@ -17,16 +19,18 @@ const NotLoggedIn = ({isLiked}: {isLiked: boolean}) => {
     navigate(AUTH);
   }, [navigate]);
 
+  const {movies} = useSelector(movieSelector);
+
   return (
     <View style={styles.container}>
-      {isLiked ? <LikedSection /> : <ProfileSection />}
+      {isLiked ? <LikedSection movies={movies} /> : <ProfileSection />}
       <BlurView style={styles.absolute} blurType="dark" blurAmount={5} />
       <View style={styles.box}>
         <Text style={styles.text}>{t('profile:explore')}</Text>
         <Text style={styles.subText}>{t('profile:exploreSub')}</Text>
         <View style={styles.buttons}>
           <CustomButton
-            label="Login In now"
+            label={t('profile:button')}
             variant="primary"
             onPress={goToAuth}
           />
@@ -65,6 +69,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginVertical: 10,
     color: colors.white,
+    textAlign: 'center',
   },
   buttons: {
     flexDirection: 'row',

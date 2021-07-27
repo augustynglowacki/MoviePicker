@@ -63,7 +63,7 @@ export const signInWithGoogle = createAsyncThunk(
     // Create a Google credential with the token
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
     const response = await auth().signInWithCredential(googleCredential);
-    console.log(response.user);
+    // console.log(response.user);
     const newUser: User = {
       email: response.user.email,
       userName: response.user.displayName,
