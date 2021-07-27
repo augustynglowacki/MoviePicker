@@ -35,6 +35,7 @@ const MovieBox = ({movie}: MovieBoxProps) => {
               overview: movie.overview,
               title: movie.title,
               id: movie.id,
+              isMovie: movie.isMovie,
             });
           }}>
           <Animated.View style={{...styles.movieBox, opacity: fadeAnim}}>

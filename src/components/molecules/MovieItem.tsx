@@ -28,7 +28,7 @@ const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
   const {loading} = useSelector(genresSelector);
   const {t} = useTranslation();
   const {navigate} = useNavigation();
-  const {poster_path, overview, title, id, vote_average} = movie;
+  const {poster_path, overview, title, id, vote_average, isMovie} = movie;
   const doubleTapRef = useRef();
   const {
     user: {email},
@@ -76,6 +76,7 @@ const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
           overview,
           title,
           id,
+          isMovie,
         });
       }}>
       <TapGestureHandler

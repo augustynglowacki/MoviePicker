@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {useTranslation} from 'react-i18next';
+import {Alert, StyleSheet, TouchableOpacity, View} from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch} from 'react-redux';
 import colors from '../../assets/theme/colors';
@@ -10,13 +11,23 @@ import {logOutUser} from '../../redux/user/UserAction';
 const ProfileTitleBar = () => {
   const {navigate} = useNavigation();
   const dispatch = useDispatch();
+  const {t} = useTranslation();
 
   const navigateTo = () => {
     navigate(SETTINGS);
   };
 
   const handleLogOut = () => {
-    dispatch(logOutUser());
+    Alert.alert(t('common:logout'), t('common:logoutWarning'), [
+      {
+        text: t('common:cancel'),
+        onPress: () => {},
+      },
+      {
+        text: t('common:ok'),
+        onPress: () => dispatch(logOutUser()),
+      },
+    ]);
   };
 
   return (

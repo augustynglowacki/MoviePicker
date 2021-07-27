@@ -5,13 +5,23 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import colors from '../../assets/theme/colors';
 import {convertToHours} from '../../helpers/convertToHours';
 import {MovieDetails} from '../../models/MovieDetails';
+import {TvShowsDetails} from '../../models/TvShowsDetails';
 
+interface MovieAndShows extends MovieDetails, TvShowsDetails {}
 interface MovieDetailsInfoBoxProps {
-  movie: MovieDetails;
+  data: MovieAndShows;
+  isMovie: boolean;
 }
 
 const MovieDetailsInfoBox = ({
-  movie: {release_date, runtime, genres},
+  data: {
+    release_date = '1990-12-12', //random inital nubmer
+    runtime = 129, //random inital nubmer
+    genres,
+    number_of_seasons,
+    number_of_episodes,
+  },
+  isMovie,
 }: MovieDetailsInfoBoxProps) => {
   const genresArray = genres.map(genre => genre.name);
   const firstGenre = genresArray[0];
@@ -20,12 +30,16 @@ const MovieDetailsInfoBox = ({
 
   return (
     <View style={styles.movieInfoWrapper}>
-      <Text style={styles.movieInfoItem}>{date}</Text>
+      <Text style={styles.movieInfoItem}>
+        {isMovie ? date : `${number_of_episodes} episodes`}
+      </Text>
       <Entypo name="dot-single" size={32} color={colors.lightGrey} />
       <Text style={styles.genreText}>{`${firstGenre}, `}</Text>
       <Text style={styles.genreText}>{SecondGenre}</Text>
       <Entypo name="dot-single" size={32} color={colors.lightGrey} />
-      <Text style={styles.movieInfoItem}>{convertToHours(runtime)}</Text>
+      <Text style={styles.movieInfoItem}>
+        {isMovie ? convertToHours(runtime) : `${number_of_seasons} seasons`}
+      </Text>
     </View>
   );
 };
@@ -38,15 +52,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
+    flexWrap: 'wrap',
   },
   movieInfoItem: {
     color: colors.lightGrey,
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '600',
   },
   genreText: {
     color: colors.lightGrey,
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '600',
   },
 });
