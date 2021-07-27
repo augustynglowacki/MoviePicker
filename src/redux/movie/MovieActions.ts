@@ -6,7 +6,6 @@ import {Movie, MovieAxiosResponse} from '../../models';
 import {TvShowsDetails} from '../../models/TvShowsDetails';
 
 //Thunk action
-
 export const getMovies = createAsyncThunk<Movie[]>(
   'movie/getMovies',
   async () => {

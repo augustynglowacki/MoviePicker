@@ -1,11 +1,14 @@
 import {TvShowsDetailsAxiosResponse} from './../../models/TvShowsDetailsAxiosResponse';
 import {Actor} from './../../models/Actor';
-import {MovieActorsAxiosResponse} from './../../models/MovieActorsAxiosResponse';
 import {MovieDetails} from './../../models/MovieDetails';
 import {API_KEY} from '@env';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axiosInstance from '../../helpers/axiosInstance';
 import {TvShowsDetails} from '../../models/TvShowsDetails';
+
+interface MovieActorsAxiosResponse {
+  cast: Actor[];
+}
 
 export const getMovieDetails = createAsyncThunk<MovieDetails, number>(
   'movieDetails/getMovieDetails',

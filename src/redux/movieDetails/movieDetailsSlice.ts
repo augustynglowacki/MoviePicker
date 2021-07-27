@@ -1,4 +1,3 @@
-import {MovieDetailsState} from './../../models/MovieDetailsState';
 import {createSlice} from '@reduxjs/toolkit';
 import {RootState} from '../rootReducer';
 import {
@@ -6,6 +5,17 @@ import {
   getMovieDetails,
   getTvShows,
 } from './movieDetailsActions';
+import {MovieDetails} from '../../models/MovieDetails';
+import {Actor} from '../../models';
+import {TvShowsDetails} from '../../models/TvShowsDetails';
+
+interface MovieDetailsState {
+  fetchedMovies: Record<number, MovieDetails>;
+  fetchedTvShows: Record<number, TvShowsDetails>;
+  loading: boolean;
+  error: string;
+  movieActors: Actor[];
+}
 
 const initialState: MovieDetailsState = {
   fetchedMovies: {},

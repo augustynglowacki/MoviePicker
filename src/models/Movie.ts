@@ -5,6 +5,5 @@ export interface Movie {
   poster_path: string; //ściezka do zdjęcia
   overview: string; //opis filmu
   genre_ids: number[]; // gatunki
-  mergeGenresWithMovies?: any;
-  isMovie?: boolean;
+  isMovie?: boolean; //w naszym api filmy i seriale to różne kolekcje, które mogą posiadać to samo id, przez co potrzebujemy flagi, by je rozróżnić w przypadku tego samego id.
 }

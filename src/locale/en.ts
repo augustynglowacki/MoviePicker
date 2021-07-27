@@ -10,6 +10,8 @@ const translations = {
     welcomeMessage: 'Welcome to MoviePicker!',
     registerSuggestion: 'First time here?',
     loginSuggestion: 'Do you want to login to add to favorite?',
+    or: '-OR-',
+    signInWith: 'Sign in with',
   },
   movies: {
     movies: 'Movies',
