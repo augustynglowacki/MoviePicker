@@ -38,8 +38,6 @@ const MovieItem = ({
     user: {email},
   } = useSelector(userThunkSelector);
 
-  console.log(id, 'MOVIEITEM', isMovie);
-
   const handleOnActivated = () => {
     if (email !== '') {
       //  TODO:

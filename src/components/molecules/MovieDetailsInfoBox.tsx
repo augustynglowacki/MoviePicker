@@ -15,8 +15,8 @@ interface MovieDetailsInfoBoxProps {
 
 const MovieDetailsInfoBox = ({
   data: {
-    release_date = '1990-12-12',
-    runtime = 129,
+    release_date = '1990-12-12', //random inital nubmer
+    runtime = 129, //random inital nubmer
     genres,
     number_of_seasons,
     number_of_episodes,
