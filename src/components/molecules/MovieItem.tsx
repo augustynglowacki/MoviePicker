@@ -14,33 +14,44 @@ import {useTranslation} from 'react-i18next';
 import {userThunkSelector} from '../../redux/user/UserSlice';
 import RatingBox from './RatingBox';
 import {Genres} from '../../models/Genres';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
-interface MovieItemProps extends Movie {
+interface MovieItemProps {
   mergeGenresWithMovies: (Genres | undefined)[];
+  movie: Movie;
 }
 
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 
-const MovieItem = ({
-  id,
-  poster_path,
-  overview,
-  title,
-  mergeGenresWithMovies,
-  vote_average,
-}: MovieItemProps) => {
+const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
   const {loading} = useSelector(genresSelector);
   const {t} = useTranslation();
   const {navigate} = useNavigation();
+  const {poster_path, overview, title, id, vote_average} = movie;
   const doubleTapRef = useRef();
   const {
     user: {email},
   } = useSelector(userThunkSelector);
 
+  const setData = () => {
+    const db = firestore();
+    const userId = auth().currentUser?.uid ?? 'none';
+    db.collection('users').doc(userId).collection('likedMovies').add({
+      movieId: movie.id,
+      title: movie.title,
+      vote_average: movie.vote_average,
+      poster_path: movie.poster_path,
+      overview: movie.overview,
+      genre_ids: movie.genre_ids,
+      isMovie: movie.isMovie,
+    });
+  };
+
   const handleOnActivated = () => {
     if (email !== '') {
       //  TODO:
-      console.log('add function to like');
+      setData();
     }
     if (email === '') {
       Alert.alert(t('common:login'), t('common:loginSuggestion'), [

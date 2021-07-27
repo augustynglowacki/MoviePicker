@@ -29,15 +29,7 @@ const MovieList = ({moviesList, genres}: MovieListProps) => {
     );
 
     return (
-      <MovieItem
-        id={item.id}
-        title={item.title}
-        overview={item.overview}
-        poster_path={item.poster_path}
-        vote_average={item.vote_average}
-        genre_ids={item.genre_ids}
-        mergeGenresWithMovies={mergeGenresWithMovies}
-      />
+      <MovieItem movie={item} mergeGenresWithMovies={mergeGenresWithMovies} />
     );
   };
 

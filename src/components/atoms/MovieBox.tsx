@@ -7,6 +7,7 @@ import {TapGestureHandler} from 'react-native-gesture-handler';
 import colors from '../../assets/theme/colors';
 import {Movie} from '../../models';
 import LinearGradient from 'react-native-linear-gradient';
+import {Dimensions} from 'react-native';
 
 interface MovieBoxProps {
   movie: Movie;
@@ -53,26 +54,31 @@ const MovieBox = ({movie}: MovieBoxProps) => {
     </>
   );
 };
-
+const WIDTH = Dimensions.get('window').width / 2 - 22;
+const HEIGHT = (WIDTH / 2) * 3;
+const BORDER_RADIUS = 4;
 const styles = StyleSheet.create({
   movieBox: {
-    width: 180,
-    height: 250,
-    flexBasis: '45%',
+    height: HEIGHT,
+    minWidth: WIDTH,
     margin: 3,
     backgroundColor: colors.black,
+    borderRadius: BORDER_RADIUS,
   },
   movieImage: {
     width: '100%',
     height: '100%',
     resizeMode: 'cover',
     position: 'absolute',
+    borderRadius: BORDER_RADIUS,
+    overflow: 'hidden',
   },
   linearGradient: {
     height: '100%',
     position: 'absolute',
     bottom: 0,
     width: '100%',
+    borderRadius: BORDER_RADIUS,
   },
 });
 

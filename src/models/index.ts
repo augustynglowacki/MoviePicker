@@ -6,6 +6,7 @@ import {TvShow} from './TvShow';
 import {Actor} from './Actor';
 import {MovieAxiosResponse} from './MovieAxiosResponse';
 import {MovieState} from './MovieState';
+import {BackendEntity} from './BackendEntity';
 
 export type {
   Movie,
@@ -16,4 +17,5 @@ export type {
   BackendUser,
   MovieAxiosResponse,
   MovieState,
+  BackendEntity,
 };
