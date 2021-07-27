@@ -1,9 +1,10 @@
+import {TvShowsDetailsAxiosResponse} from './../../models/TvShowsDetailsAxiosResponse';
 import {Actor} from './../../models/Actor';
-
 import {MovieDetails} from './../../models/MovieDetails';
 import {API_KEY} from '@env';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axiosInstance from '../../helpers/axiosInstance';
+import {TvShowsDetails} from '../../models/TvShowsDetails';
 
 interface MovieActorsAxiosResponse {
   cast: Actor[];
@@ -46,5 +47,29 @@ export const getMovieActors = createAsyncThunk<Actor[], number>(
     }));
 
     return newresult;
+  },
+);
+
+export const getTvShows = createAsyncThunk<TvShowsDetails, number>(
+  'tvShowDetails/getTvShowDetails',
+  async id => {
+    console.log(id);
+
+    const res = await axiosInstance.get<TvShowsDetailsAxiosResponse>(
+      `tv/${id}?api_key=${API_KEY}&language=en-US`,
+    );
+
+    const newResult: TvShowsDetails = {
+      title: res.data.name,
+      number_of_episodes: res.data.number_of_episodes,
+      number_of_seasons: res.data.number_of_seasons,
+      vote_average: res.data.vote_average,
+      poster_path: res.data.poster_path,
+      seasons: res.data.seasons,
+      id: res.data.id,
+      overview: res.data.overview,
+      genres: res.data.genres,
+    };
+    return newResult;
   },
 );

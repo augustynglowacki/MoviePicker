@@ -28,6 +28,7 @@ const MovieItem = ({
   title,
   mergeGenresWithMovies,
   vote_average,
+  isMovie,
 }: MovieItemProps) => {
   const {loading} = useSelector(genresSelector);
   const {t} = useTranslation();
@@ -65,6 +66,7 @@ const MovieItem = ({
           overview,
           title,
           id,
+          isMovie,
         });
       }}>
       <TapGestureHandler

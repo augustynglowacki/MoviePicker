@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
   ImageBackground,
@@ -18,34 +18,56 @@ import {
   getMovieDetails,
   movieDetailsSelector,
 } from '../redux/movieDetails/movieDetailsSlice';
-import {getMovieActors} from '../redux/movieDetails/movieDetailsActions';
+import {
+  getMovieActors,
+  getTvShows,
+} from '../redux/movieDetails/movieDetailsActions';
 import ActorsBox from '../components/molecules/ActorsBox';
 import RatingBox from '../components/molecules/RatingBox';
 import Header from '../components/atoms/Header';
 import MovieDetailsInfoBox from '../components/molecules/MovieDetailsInfoBox';
+import {MovieDetails} from '../models/MovieDetails';
+import {TvShowsDetails} from '../models/TvShowsDetails';
 
 const HEIGHT = Dimensions.get('window').height;
 
+type CombineTypes = MovieDetails | TvShowsDetails;
+
 const Details = ({route, navigation}: any) => {
+  const [active, setActive] = useState<CombineTypes>();
   const distpach = useDispatch();
-  const {title, poster_path, id} = route.params;
-  const {fetchedMovies, movieActors} = useSelector(movieDetailsSelector);
+  const {poster_path, id, isMovie} = route.params;
+  const {fetchedMovies, fetchedTvShows, movieActors} =
+    useSelector(movieDetailsSelector);
 
   const movie = fetchedMovies[id];
+  const show = fetchedTvShows[id];
 
   useEffect(() => {
-    if (!fetchedMovies[id]) {
-      distpach(getMovieDetails(id));
-      distpach(getMovieActors(id));
+    if (isMovie) {
+      if (!fetchedMovies[id]) {
+        distpach(getMovieDetails(id));
+        distpach(getMovieActors(id));
+      }
+    } else {
+      distpach(getTvShows(id));
     }
-  }, [distpach, id, fetchedMovies]);
+  }, [distpach, id, isMovie, fetchedMovies]);
 
-  if (!movie) {
-    return <Text>Loading</Text>; /// Add peper loading
+  useEffect(() => {
+    if (movie) {
+      setActive(movie);
+    } else {
+      setActive(show);
+    }
+  }, [movie, show]);
+
+  if (!show && !movie) {
+    return <Text>Loading dupa</Text>;
   }
 
-  return (
-    <ScrollView style={styles.container}>
+  const renderMovieDetails = () => (
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <ImageBackground
         style={styles.imageBackground}
         source={{uri: `${API_IMAGES}${poster_path}`}}>
@@ -67,17 +89,19 @@ const Details = ({route, navigation}: any) => {
       </ImageBackground>
 
       <View style={styles.bottomWrapper}>
-        <Header title={title} />
-        <MovieDetailsInfoBox movie={movie} />
-        <RatingBox voteAverage={movie.vote_average} />
+        <Header title={active?.title!} />
+        <MovieDetailsInfoBox isMovie={isMovie} data={isMovie ? movie : show} />
+        <RatingBox voteAverage={active?.vote_average!} />
         <View style={styles.descriptionWrapper}>
-          <Text style={styles.descriptionText}>{movie.overview}</Text>
+          <Text style={styles.descriptionText}>{active?.overview}</Text>
         </View>
       </View>
 
       <ActorsBox data={movieActors} error="" />
     </ScrollView>
   );
+
+  return <>{renderMovieDetails()}</>;
 };
 
 export default Details;
