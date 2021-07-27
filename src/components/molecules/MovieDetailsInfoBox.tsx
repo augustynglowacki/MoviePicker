@@ -5,18 +5,22 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import colors from '../../assets/theme/colors';
 import {convertToHours} from '../../helpers/convertToHours';
 import {MovieDetails} from '../../models/MovieDetails';
+import {TvShowsDetails} from '../../models/TvShowsDetails';
 
+interface MovieAndShows extends MovieDetails, TvShowsDetails {}
 interface MovieDetailsInfoBoxProps {
-  movie: MovieDetails;
+  data: MovieAndShows;
 }
 
 const MovieDetailsInfoBox = ({
-  movie: {release_date, runtime, genres},
+  data: {release_date = '1990-12-12', runtime, genres, title},
 }: MovieDetailsInfoBoxProps) => {
   const genresArray = genres.map(genre => genre.name);
   const firstGenre = genresArray[0];
   const SecondGenre = genresArray[1];
   const date = format(parseISO(release_date), 'yyyy');
+
+  console.log(title);
 
   return (
     <View style={styles.movieInfoWrapper}>

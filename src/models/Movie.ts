@@ -6,4 +6,5 @@ export interface Movie {
   overview: string; //opis filmu
   genre_ids: number[]; // gatunki
   mergeGenresWithMovies?: any;
+  isMovie?: boolean;
 }

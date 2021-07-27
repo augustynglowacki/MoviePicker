@@ -26,8 +26,6 @@ const DiscoverySection = () => {
     }
   }, [dispatch, query]);
 
-  console.log(foundTvShows);
-
   return (
     <Container withPadding flexStart withKeyboard>
       <SearchBox />

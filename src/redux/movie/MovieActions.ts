@@ -3,6 +3,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import axiosInstance from '../../helpers/axiosInstance';
 import {convertResponseToMovie} from '../../helpers/convertResponseToMovie';
 import {Movie, MovieAxiosResponse} from '../../models';
+import {TvShowsDetails} from '../../models/TvShowsDetails';
 
 //Thunk action
 
@@ -17,5 +18,3 @@ export const getMovies = createAsyncThunk<Movie[]>(
     return newresult;
   },
 );
-
-// export const getTvShows = createAsyncThunk<
