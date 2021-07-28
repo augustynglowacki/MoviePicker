@@ -7,15 +7,13 @@ import TabIcon from '../components/atoms/TabIcon';
 import {DISCOVER, HOME, LIKED, PROFILE} from '../models/constants/routeNames';
 import {StyleSheet} from 'react-native';
 import Profile from '../screens/Profile';
-import {Dimensions} from 'react-native';
 import {useSelector} from 'react-redux';
 import {userThunkSelector} from '../redux/user/UserSlice';
 
 import NotLoggedIn from '../screens/NotLoggedIn';
+import {BOTTOM_TABS_HEIGHT} from '../components/molecules/MovieItem';
 
 const Tab = createBottomTabNavigator();
-
-const BOTTOM_TABS_HEIGHT = Dimensions.get('window').height / 12.5;
 
 const BottomTabsNavigator = () => {
   const {

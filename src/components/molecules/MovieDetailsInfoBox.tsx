@@ -14,32 +14,60 @@ interface MovieDetailsInfoBoxProps {
 }
 
 const MovieDetailsInfoBox = ({
-  data: {
-    release_date = '1990-12-12', //random inital nubmer
-    runtime = 129, //random inital nubmer
-    genres,
-    number_of_seasons,
-    number_of_episodes,
-  },
+  data: {release_date, runtime, genres, number_of_seasons, number_of_episodes},
   isMovie,
 }: MovieDetailsInfoBoxProps) => {
   const genresArray = genres.map(genre => genre.name);
   const firstGenre = genresArray[0];
   const SecondGenre = genresArray[1];
-  const date = format(parseISO(release_date), 'yyyy');
 
+  const getDuration = () => {
+    if (isMovie && runtime) {
+      return (
+        <>
+          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
+          <Text style={styles.movieInfoItem}>{convertToHours(runtime)}</Text>
+        </>
+      );
+    }
+    if (!isMovie && number_of_seasons) {
+      return (
+        <>
+          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
+          <Text
+            style={styles.movieInfoItem}>{`${number_of_seasons} seasons`}</Text>
+        </>
+      );
+    }
+  };
+  const getDate = () => {
+    if (isMovie && release_date) {
+      return (
+        <>
+          <Text style={styles.movieInfoItem}>
+            {format(parseISO(release_date), 'yyyy')}
+          </Text>
+          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
+        </>
+      );
+    }
+    if (!isMovie && number_of_seasons) {
+      return (
+        <>
+          <Text style={styles.movieInfoItem}>
+            {`${number_of_episodes} episodes`}
+          </Text>
+          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
+        </>
+      );
+    }
+  };
   return (
     <View style={styles.movieInfoWrapper}>
-      <Text style={styles.movieInfoItem}>
-        {isMovie ? date : `${number_of_episodes} episodes`}
-      </Text>
-      <Entypo name="dot-single" size={32} color={colors.lightGrey} />
+      {getDate()}
       <Text style={styles.genreText}>{`${firstGenre}, `}</Text>
       <Text style={styles.genreText}>{SecondGenre}</Text>
-      <Entypo name="dot-single" size={32} color={colors.lightGrey} />
-      <Text style={styles.movieInfoItem}>
-        {isMovie ? convertToHours(runtime) : `${number_of_seasons} seasons`}
-      </Text>
+      {getDuration()}
     </View>
   );
 };

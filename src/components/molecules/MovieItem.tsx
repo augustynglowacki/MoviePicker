@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {Text, View, ImageBackground, Alert, StatusBar} from 'react-native';
+import {Text, View, ImageBackground, Alert} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {API_IMAGES} from '@env';
 import {Movie} from '../../models';
@@ -22,12 +22,13 @@ interface MovieItemProps {
   movie: Movie;
 }
 
-const STATUS_BAR_HEIGHT = StatusBar.currentHeight || 0;
-console.log('status', STATUS_BAR_HEIGHT);
+export const BOTTOM_TABS_HEIGHT = Math.floor(
+  Dimensions.get('window').height / 12.5,
+);
 
-const WINDOW_HEIGHT = Dimensions.get('window').height;
-export const MOVIE_HEIGHT =
-  Dimensions.get('window').height - WINDOW_HEIGHT / 12.5 + STATUS_BAR_HEIGHT;
+export const MOVIE_HEIGHT = Math.ceil(
+  Dimensions.get('window').height - BOTTOM_TABS_HEIGHT,
+);
 
 console.log('Movie height', MOVIE_HEIGHT);
 
@@ -97,7 +98,18 @@ const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
             style={styles.image}
           />
           <LinearGradient
-            colors={['rgba(0,0,0,0.9)', 'rgba(0,0,0,0.4)', 'rgba(0,0,0,0.4)']}
+            colors={[
+              'rgba(0,0,0,0.6)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.65)',
+              'rgba(0,0,0,0.75)',
+            ]}
             start={{x: 0, y: 1}}
             end={{x: 0, y: 0}}
             style={styles.linearGradient}
@@ -138,7 +150,7 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.black,
   },
   contentContainer: {
-    height: WINDOW_HEIGHT * 0.9,
+    height: '100%',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
