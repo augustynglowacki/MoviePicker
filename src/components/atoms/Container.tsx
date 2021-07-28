@@ -47,7 +47,7 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
   };
 
   const safeArea = disableSafeArea ? (
-    <View style={[styles.wrapper, getPadding(), getJustifyContent()]}>
+    <View style={[styles.wrapper, style, getPadding(), getJustifyContent()]}>
       {children}
     </View>
   ) : (
