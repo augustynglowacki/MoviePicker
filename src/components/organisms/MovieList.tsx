@@ -11,14 +11,13 @@ import {
 import colors from '../../assets/theme/colors';
 import {Movie} from '../../models';
 import {Genres} from '../../models/Genres';
-import MovieItem from '../molecules/MovieItem';
+import MovieItem, {MOVIE_HEIGHT} from '../molecules/MovieItem';
 
 interface MovieListProps {
   moviesList: Movie[];
   genres: Genres[];
 }
 
-const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 
 const MovieList = ({moviesList, genres}: MovieListProps) => {
@@ -54,7 +53,7 @@ const MovieList = ({moviesList, genres}: MovieListProps) => {
         renderItem={renderItem}
         snapToAlignment="start"
         decelerationRate="fast"
-        snapToInterval={HEIGHT}
+        snapToInterval={MOVIE_HEIGHT}
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
         initialNumToRender={7}

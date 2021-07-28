@@ -7,8 +7,11 @@ import TabIcon from '../components/atoms/TabIcon';
 import {DISCOVER, HOME, LIKED, PROFILE} from '../models/constants/routeNames';
 import {StyleSheet} from 'react-native';
 import Profile from '../screens/Profile';
+import {Dimensions} from 'react-native';
 
 const Tab = createBottomTabNavigator();
+
+const BOTTOM_TABS_HEIGHT = Dimensions.get('window').height / 12.5;
 
 const BottomTabsNavigator = () => {
   return (
@@ -52,5 +55,9 @@ const BottomTabsNavigator = () => {
 export default BottomTabsNavigator;
 
 const styles = StyleSheet.create({
-  tab: {backgroundColor: '#000', borderTopWidth: 0},
+  tab: {
+    backgroundColor: '#000',
+    borderTopWidth: 0,
+    height: BOTTOM_TABS_HEIGHT,
+  },
 });
