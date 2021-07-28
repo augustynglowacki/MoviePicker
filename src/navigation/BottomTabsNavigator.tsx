@@ -52,5 +52,5 @@ const BottomTabsNavigator = () => {
 export default BottomTabsNavigator;
 
 const styles = StyleSheet.create({
-  tab: {backgroundColor: '#000', borderTopWidth: 0},
+  tab: {backgroundColor: '#000', borderTopWidth: 0, height: 70},
 });

@@ -27,6 +27,14 @@ export const signInWithEmailAndPassword = createAsyncThunk(
   },
 );
 
+export const updateEmail = createAsyncThunk(
+  'auth/updateEmail',
+  async ({email}: LoginUser) => {
+    await auth().currentUser?.updateEmail(email);
+    return email;
+  },
+);
+
 export const logOutUser = createAsyncThunk(
   'auth/logOut',
   async () => await auth().signOut(),

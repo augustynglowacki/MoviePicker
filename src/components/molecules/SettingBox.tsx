@@ -4,22 +4,30 @@ import Input from '../atoms/Input';
 
 interface SettingBoxProps {
   label: string;
-  startingValue: string;
+  startingValue: string | null;
   hidePassword?: boolean;
+  onChange: (text: string) => void;
+  error: any;
 }
 
 const SettingBox: React.FC<SettingBoxProps> = ({
   label,
   startingValue,
   hidePassword,
+  onChange,
+  error,
 }) => {
   const [text, setText] = useState(startingValue);
 
   return (
     <View style={styles.settingBox}>
       <Input
+        error={error}
         label={label}
-        onChangeText={valueText => setText(valueText)}
+        onChangeText={valueText => {
+          setText(valueText);
+          onChange(valueText);
+        }}
         value={text}
         hidePassword={hidePassword}
       />
