@@ -1,24 +1,13 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import colors from '../../assets/theme/colors';
+import {Movie} from '../../models';
 import LikedContentBox from '../molecules/LikedContentBox';
 
-const LikedSection = () => {
-  return (
-    <View style={styles.wrapper}>
-      <LikedContentBox />
-    </View>
-  );
-};
+interface LikedProps {
+  movies: Movie[];
+}
 
-const styles = StyleSheet.create({
-  wrapper: {
-    backgroundColor: colors.black,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingBottom: 0,
-  },
-});
+const LikedSection = ({movies}: LikedProps) => {
+  return <LikedContentBox movies={movies} />;
+};
 
 export default LikedSection;

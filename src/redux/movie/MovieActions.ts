@@ -3,9 +3,8 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import axiosInstance from '../../helpers/axiosInstance';
 import {convertResponseToMovie} from '../../helpers/convertResponseToMovie';
 import {Movie, MovieAxiosResponse} from '../../models';
-import {TvShowsDetails} from '../../models/TvShowsDetails';
 
-const randomItem = Math.floor(Math.random() * 8); // get random items from database // to Delete
+const randomItem = Math.floor(Math.random() * 8) + 1; // get random items from database // to Delete
 
 //Thunk action
 export const getMovies = createAsyncThunk<Movie[]>(

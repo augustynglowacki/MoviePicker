@@ -47,7 +47,7 @@ const CustomButton = ({
     if (width === 'medium') {
       return '60%';
     }
-    return '100%';
+    return '70%';
   };
   return (
     <Button
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 0.6,
+    width: '82%',
   },
   loader: {
     paddingHorizontal: 5,
