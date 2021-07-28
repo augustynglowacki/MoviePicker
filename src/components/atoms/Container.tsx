@@ -22,6 +22,7 @@ interface ContainerProps {
   //sticks component to top of the screen
   flexStart?: boolean;
   disableScroll?: boolean;
+  disableSafeArea?: boolean;
 }
 
 const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
@@ -31,6 +32,7 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
   withPadding = false,
   flexStart = false,
   disableScroll = false,
+  disableSafeArea = false,
 }) => {
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
@@ -44,21 +46,25 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
     return {padding: withPadding ? 16 : 0};
   };
 
-  const content = disableScroll ? (
+  const safeArea = disableSafeArea ? (
+    <View style={[styles.wrapper, getPadding(), getJustifyContent()]}>
+      {children}
+    </View>
+  ) : (
     <SafeAreaView style={[styles.safeArea, style]}>
       <View style={[styles.wrapper, getPadding(), getJustifyContent()]}>
         {children}
       </View>
     </SafeAreaView>
+  );
+
+  const scrollWrapper = disableScroll ? (
+    safeArea
   ) : (
     <ScrollView
       contentContainerStyle={styles.scrollView}
       showsVerticalScrollIndicator={false}>
-      <SafeAreaView style={[styles.safeArea, style]}>
-        <View style={[styles.wrapper, getPadding(), getJustifyContent()]}>
-          {children}
-        </View>
-      </SafeAreaView>
+      {safeArea}
     </ScrollView>
   );
 
@@ -66,10 +72,10 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.kbView}>
-      {content}
+      {scrollWrapper}
     </KeyboardAvoidingView>
   ) : (
-    content
+    scrollWrapper
   );
 };
 
