@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
 import {API_IMAGES} from '@env';
 import {Platform} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -28,6 +27,7 @@ import Header from '../components/atoms/Header';
 import MovieDetailsInfoBox from '../components/molecules/MovieDetailsInfoBox';
 import {MovieDetails} from '../models/MovieDetails';
 import {TvShowsDetails} from '../models/TvShowsDetails';
+import Container from '../components/atoms/Container';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -67,7 +67,7 @@ const Details = ({route, navigation}: any) => {
   }
 
   const renderMovieDetails = () => (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <Container disableSafeArea style={styles.container}>
       <ImageBackground
         style={styles.imageBackground}
         source={{uri: `${API_IMAGES}${poster_path}`}}>
@@ -91,14 +91,15 @@ const Details = ({route, navigation}: any) => {
       <View style={styles.bottomWrapper}>
         <Header title={active?.title!} />
         <MovieDetailsInfoBox isMovie={isMovie} data={isMovie ? movie : show} />
-        <RatingBox voteAverage={active?.vote_average!} />
+        {active?.vote_average ? (
+          <RatingBox voteAverage={active?.vote_average} />
+        ) : null}
         <View style={styles.descriptionWrapper}>
           <Text style={styles.descriptionText}>{active?.overview}</Text>
         </View>
+        <ActorsBox data={movieActors} error="" />
       </View>
-
-      <ActorsBox data={movieActors} error="" />
-    </ScrollView>
+    </Container>
   );
 
   return <>{renderMovieDetails()}</>;
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: Platform.OS === 'ios' ? 40 : 30,
-    marginHorizontal: 20,
+    marginHorizontal: 16,
   },
   contentWrapper: {
     flex: 1,
@@ -139,6 +140,8 @@ const styles = StyleSheet.create({
   descriptionWrapper: {
     marginTop: 20,
     marginBottom: 30,
+    paddingHorizontal: 14,
+    alignSelf: 'center',
   },
   descriptionText: {
     color: colors.white,
@@ -151,7 +154,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-    paddingHorizontal: 30,
+    paddingHorizontal: 16,
     marginTop: -40,
   },
 });
