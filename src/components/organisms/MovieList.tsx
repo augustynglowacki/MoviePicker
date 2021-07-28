@@ -19,7 +19,6 @@ interface MovieListProps {
 }
 
 const HEIGHT = Dimensions.get('window').height;
-const WIDTH = Dimensions.get('window').width;
 
 const MovieList = ({moviesList, genres}: MovieListProps) => {
   const {t} = useTranslation();
@@ -57,20 +56,18 @@ const MovieList = ({moviesList, genres}: MovieListProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.black,
   },
   heading: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    left: WIDTH / 2 - 55,
-    top: WIDTH - 340,
+    alignSelf: 'center',
+    top: 40,
     position: 'absolute',
     zIndex: 10,
   },
   headingText: {
     color: colors.white,
     fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: 17,
   },
 });
 

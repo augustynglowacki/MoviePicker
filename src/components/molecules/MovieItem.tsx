@@ -90,7 +90,18 @@ const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
             style={styles.image}
           />
           <LinearGradient
-            colors={['rgba(0,0,0,0.9)', 'rgba(0,0,0,0.4)', 'rgba(0,0,0,0.4)']}
+            colors={[
+              'rgba(0,0,0,0.6)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.65)',
+              'rgba(0,0,0,0.75)',
+            ]}
             start={{x: 0, y: 1}}
             end={{x: 0, y: 0}}
             style={styles.linearGradient}
