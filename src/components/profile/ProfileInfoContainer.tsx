@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    //fontFamily: '',
     color: colors.white,
   },
   titleText: {

@@ -6,15 +6,13 @@ import {TextInput} from 'react-native-paper';
 import colors from '../../assets/theme/colors';
 import {LoginForm} from '../../models';
 import {REGISTER} from '../../models/constants/routeNames';
-import Container from '../atoms/Container';
-import CustomButton from '../atoms/CustomButton';
-import Input from '../atoms/Input';
 import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
-import Message from '../atoms/Message';
 import {FormikErrors} from 'formik';
-import SocialBox from '../molecules/SocialBox';
-import RegisterInfo from '../atoms/RegisterInfo';
+import SocialBox from './SocialBox';
+import RegisterInfo from './RegisterInfo';
+import {Container, CustomButton, Input, Message} from '../common';
+
 interface IProps {
   //type from useFormik handleChange
   onChange: {

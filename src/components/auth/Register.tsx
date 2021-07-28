@@ -7,10 +7,7 @@ import {TextInput} from 'react-native-paper';
 import Animated, {AnimatedLayout, StretchInX} from 'react-native-reanimated';
 import colors from '../../assets/theme/colors';
 import {RegisterForm} from '../../models';
-import Container from '../atoms/Container';
-import CustomButton from '../atoms/CustomButton';
-import Input from '../atoms/Input';
-import Message from '../atoms/Message';
+import {Container, CustomButton, Input, Message} from '../common';
 
 interface IProps {
   //type from useFormik handleChange

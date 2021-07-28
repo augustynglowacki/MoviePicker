@@ -1,9 +1,9 @@
 import React from 'react';
 import {Image, StyleSheet} from 'react-native';
-import ProfileCover from '../atoms/ProfileCover';
-import ProfileTitleBar from '../atoms/ProfileTitleBar';
-import ProfileInfoContainer from '../atoms/ProfileInfoContainer';
-import ProfileStatsContainer from '../atoms/ProfileStatsContainer';
+import ProfileCover from './ProfileCover';
+import ProfileTitleBar from './ProfileTitleBar';
+import ProfileInfoContainer from './ProfileInfoContainer';
+import ProfileStatsContainer from './ProfileStatsContainer';
 
 const ProfileHeader = () => {
   return (

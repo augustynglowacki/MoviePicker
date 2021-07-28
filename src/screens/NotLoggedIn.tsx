@@ -1,15 +1,15 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useCallback} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import ProfileSection from '../components/organisms/ProfileSection';
+import Profile from '../components/profile/Profile';
 import {AUTH} from '../models/constants/routeNames';
 import {BlurView} from '@react-native-community/blur';
 import colors from '../assets/theme/colors';
-import CustomButton from '../components/atoms/CustomButton';
-import LikedSection from '../components/organisms/LikedSection';
+import Liked from '../components/liked/Liked';
 import {useTranslation} from 'react-i18next';
 import {movieSelector} from '../redux/movie/MovieSlice';
 import {useSelector} from 'react-redux';
+import {CustomButton} from '../components/common';
 
 const NotLoggedIn = ({isLiked}: {isLiked: boolean}) => {
   const {navigate} = useNavigation();
@@ -23,7 +23,7 @@ const NotLoggedIn = ({isLiked}: {isLiked: boolean}) => {
 
   return (
     <View style={styles.container}>
-      {isLiked ? <LikedSection movies={movies} /> : <ProfileSection />}
+      {isLiked ? <Liked movies={movies} /> : <Profile />}
       <BlurView style={styles.absolute} blurType="dark" blurAmount={5} />
       <View style={styles.box}>
         <Text style={styles.text}>{t('profile:explore')}</Text>

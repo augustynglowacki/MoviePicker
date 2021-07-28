@@ -21,13 +21,11 @@ import {
   getMovieActors,
   getTvShows,
 } from '../redux/movieDetails/movieDetailsActions';
-import ActorsBox from '../components/molecules/ActorsBox';
-import RatingBox from '../components/molecules/RatingBox';
-import Header from '../components/atoms/Header';
-import MovieDetailsInfoBox from '../components/molecules/MovieDetailsInfoBox';
-import {MovieDetails} from '../models/MovieDetails';
-import {TvShowsDetails} from '../models/TvShowsDetails';
-import Container from '../components/atoms/Container';
+import ActorsBox from '../components/actors/ActorList';
+import RatingBox from '../components/details/RatingBox';
+import MovieDetailsInfoBox from '../components/details/DetailsInfoBox';
+import {MovieDetails, TvShowsDetails} from '../models';
+import {Container} from '../components/common';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -89,7 +87,7 @@ const Details = ({route, navigation}: any) => {
       </ImageBackground>
 
       <View style={styles.bottomWrapper}>
-        <Header title={active?.title!} />
+        <Text style={styles.title}>{active?.title!}</Text>
         <MovieDetailsInfoBox isMovie={isMovie} data={isMovie ? movie : show} />
         {active?.vote_average ? (
           <RatingBox voteAverage={active?.vote_average} />
@@ -111,6 +109,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.strongBlack,
+  },
+  title: {
+    color: colors.white,
+    fontSize: 40,
+    fontWeight: '800',
+    textAlign: 'center',
+    marginBottom: 15,
   },
   imageBackground: {
     width: '100%',

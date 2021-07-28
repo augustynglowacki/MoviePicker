@@ -5,9 +5,7 @@ import {
   getMovieDetails,
   getTvShows,
 } from './movieDetailsActions';
-import {MovieDetails} from '../../models/MovieDetails';
-import {Actor} from '../../models';
-import {TvShowsDetails} from '../../models/TvShowsDetails';
+import {Actor, MovieDetails, TvShowsDetails} from '../../models';
 
 interface MovieDetailsState {
   fetchedMovies: Record<number, MovieDetails>;

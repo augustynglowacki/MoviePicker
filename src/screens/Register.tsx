@@ -1,7 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import * as React from 'react';
 import {useCallback, useEffect} from 'react';
-import RegisterComponent from '../components/organisms/Register';
 import {RegisterForm} from '../models';
 import {PROFILE} from '../models/constants/routeNames';
 import auth from '@react-native-firebase/auth';
@@ -10,6 +9,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {userThunkSelector} from '../redux/user/UserSlice';
 import {useFormik} from 'formik';
 import {useTranslation} from 'react-i18next';
+import RegisterComponent from '../components/auth/Register';
 let Yup = require('yup');
 
 const Register = () => {

@@ -1,8 +1,8 @@
 import React from 'react';
-import DiscoverySection from '../components/organisms/DiscoverySection';
+import Discovery from '../components/discovery/Discovery';
 
 const Discover = () => {
-  return <DiscoverySection />;
+  return <Discovery />;
 };
 
 export default Discover;

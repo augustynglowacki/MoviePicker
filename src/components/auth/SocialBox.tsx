@@ -2,7 +2,8 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {View, StyleSheet, Text, Alert} from 'react-native';
 import colors from '../../assets/theme/colors';
-import SocialButton from '../atoms/SocialButton';
+import {SocialButton} from '../common';
+
 interface MyButtonProps {
   onPress: () => void;
 }
