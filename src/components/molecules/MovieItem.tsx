@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {Text, View, ImageBackground, Alert} from 'react-native';
+import {Text, View, ImageBackground, Alert, StatusBar} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {API_IMAGES} from '@env';
 import {Movie} from '../../models';
@@ -22,7 +22,14 @@ interface MovieItemProps {
   movie: Movie;
 }
 
+const STATUS_BAR_HEIGHT = StatusBar.currentHeight || 0;
+console.log('status', STATUS_BAR_HEIGHT);
+
 const WINDOW_HEIGHT = Dimensions.get('window').height;
+export const MOVIE_HEIGHT =
+  Dimensions.get('window').height - WINDOW_HEIGHT / 12.5 + STATUS_BAR_HEIGHT;
+
+console.log('Movie height', MOVIE_HEIGHT);
 
 const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
   const {loading} = useSelector(genresSelector);
@@ -124,7 +131,7 @@ export default MovieItem;
 export const styles = StyleSheet.create({
   movieContainer: {
     width: '100%',
-    height: WINDOW_HEIGHT,
+    height: MOVIE_HEIGHT,
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
