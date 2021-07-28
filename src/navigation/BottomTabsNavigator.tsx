@@ -11,6 +11,7 @@ import {useSelector} from 'react-redux';
 import {userThunkSelector} from '../redux/user/UserSlice';
 
 import NotLoggedIn from '../screens/NotLoggedIn';
+import {BOTTOM_TABS_HEIGHT} from '../components/molecules/MovieItem';
 
 const Tab = createBottomTabNavigator();
 
@@ -81,5 +82,9 @@ const BottomTabsNavigator = () => {
 export default BottomTabsNavigator;
 
 const styles = StyleSheet.create({
-  tab: {backgroundColor: '#000', borderTopWidth: 0},
+  tab: {
+    backgroundColor: '#000',
+    borderTopWidth: 0,
+    height: BOTTOM_TABS_HEIGHT,
+  },
 });

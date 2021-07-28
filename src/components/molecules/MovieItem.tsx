@@ -22,7 +22,15 @@ interface MovieItemProps {
   movie: Movie;
 }
 
-const WINDOW_HEIGHT = Dimensions.get('window').height;
+export const BOTTOM_TABS_HEIGHT = Math.floor(
+  Dimensions.get('window').height / 12.5,
+);
+
+export const MOVIE_HEIGHT = Math.ceil(
+  Dimensions.get('window').height - BOTTOM_TABS_HEIGHT,
+);
+
+console.log('Movie height', MOVIE_HEIGHT);
 
 const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
   const {loading} = useSelector(genresSelector);
@@ -135,14 +143,14 @@ export default MovieItem;
 export const styles = StyleSheet.create({
   movieContainer: {
     width: '100%',
-    height: WINDOW_HEIGHT,
+    height: MOVIE_HEIGHT,
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.black,
   },
   contentContainer: {
-    height: WINDOW_HEIGHT * 0.9,
+    height: '100%',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',

@@ -1,24 +1,15 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Dimensions,
-  Text,
-  ListRenderItem,
-} from 'react-native';
+import {StyleSheet, View, FlatList, Text, ListRenderItem} from 'react-native';
 import colors from '../../assets/theme/colors';
 import {Movie} from '../../models';
 import {Genres} from '../../models/Genres';
-import MovieItem from '../molecules/MovieItem';
+import MovieItem, {MOVIE_HEIGHT} from '../molecules/MovieItem';
 
 interface MovieListProps {
   moviesList: Movie[];
   genres: Genres[];
 }
-
-const HEIGHT = Dimensions.get('window').height;
 
 const MovieList = ({moviesList, genres}: MovieListProps) => {
   const {t} = useTranslation();
@@ -44,7 +35,7 @@ const MovieList = ({moviesList, genres}: MovieListProps) => {
         renderItem={renderItem}
         snapToAlignment="start"
         decelerationRate="fast"
-        snapToInterval={HEIGHT}
+        snapToInterval={MOVIE_HEIGHT}
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
         initialNumToRender={7}
