@@ -11,6 +11,7 @@ import {FormikErrors} from 'formik';
 import Message from '../atoms/Message';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
+import ChangeBackground from '../atoms/ChangeBackground';
 
 interface SettingsSectionProps {
   onChange: {
@@ -63,6 +64,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
   return (
     <Container flexStart>
       <Avatar uri={profileURI} editable />
+      <ChangeBackground />
       {serverError ? <Message label={serverError} /> : null}
       <SettingBox
         label="Username"

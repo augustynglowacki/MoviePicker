@@ -1,15 +1,35 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet} from 'react-native';
 import ProfileCover from '../atoms/ProfileCover';
 import ProfileTitleBar from '../atoms/ProfileTitleBar';
 import ProfileInfoContainer from '../atoms/ProfileInfoContainer';
 import ProfileStatsContainer from '../atoms/ProfileStatsContainer';
 import auth from '@react-native-firebase/auth';
+import storage from '@react-native-firebase/storage';
 
 const ProfileHeader = () => {
   const photoURI = auth().currentUser?.photoURL;
+  const [profileURI, setProfileURI] = useState<string>(
+    'https://st.depositphotos.com/1522993/4737/v/600/depositphotos_47372005-stock-illustration-orange-blue-background-with-triagles.jpg',
+  );
+
+  const fetchAvatar = async () => {
+    try {
+      const userId = auth().currentUser?.uid;
+      const results = await storage()
+        .ref(`/users/${userId}/profile.jpg`)
+        .getDownloadURL();
+      setProfileURI(results);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    fetchAvatar();
+  }, []);
+
   return (
-    <ProfileCover img={require('../../assets/images/coverPhoto.jpg')}>
+    <ProfileCover img={profileURI}>
       <ProfileTitleBar />
       <Image
         source={{
