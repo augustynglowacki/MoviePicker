@@ -1,4 +1,5 @@
-import {Genres} from './Genres';
+import {Genres} from '.';
+
 export interface TvShowsDetails {
   title: string;
   number_of_episodes?: number;

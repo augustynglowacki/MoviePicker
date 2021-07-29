@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
-import Input from '../atoms/Input';
+import {Input} from '../common';
 
 interface SettingBoxProps {
   label: string;
-  startingValue: string | null;
-  hidePassword?: boolean;
+  startingValue?: string;
+  secureTextEntry?: boolean;
   onChange: (text: string) => void;
   error: any;
 }
@@ -13,7 +13,7 @@ interface SettingBoxProps {
 const SettingBox: React.FC<SettingBoxProps> = ({
   label,
   startingValue,
-  hidePassword,
+  secureTextEntry,
   onChange,
   error,
 }) => {
@@ -29,7 +29,7 @@ const SettingBox: React.FC<SettingBoxProps> = ({
           onChange(valueText);
         }}
         value={text}
-        hidePassword={hidePassword}
+        secureTextEntry={secureTextEntry}
       />
     </View>
   );

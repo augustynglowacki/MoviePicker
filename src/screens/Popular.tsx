@@ -1,15 +1,14 @@
 import React, {useEffect} from 'react';
-import MovieList from '../components/organisms/MovieList';
+import MovieList from '../components/popular/MovieList';
 import {getMovies, movieSelector} from '../redux/movie/MovieSlice';
 import {useDispatch, useSelector} from 'react-redux';
-import ScreenWrapper from './ScreenWrapper';
 import auth from '@react-native-firebase/auth';
 import {genresSelector} from '../redux/genres/GenresSlice';
 import {getGenres} from '../redux/genres/GenresSlice';
 import {setActiveUser, userThunkSelector} from '../redux/user/UserSlice';
-import Container from '../components/atoms/Container';
+import {Container, ScreenWrapper} from '../components/common';
 
-const Home = () => {
+const Popular = () => {
   const dispatch = useDispatch();
   //To select whatever elements we want from the state, we pass the state (exported as movieSelector) to our useSelector hook.
   const {movies, loading, error} = useSelector(movieSelector);
@@ -49,4 +48,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Popular;

@@ -1,17 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import Avatar from '../atoms/Avatar';
-import Container from '../atoms/Container';
-import SettingBox from '../molecules/SettingBox';
-import CustomButton from '../atoms/CustomButton';
 import {StyleSheet, View} from 'react-native';
 import {PROFILE} from '../../models/constants/routeNames';
 import {useNavigation} from '@react-navigation/native';
-import {IFormValues} from '../../screens/Settings';
 import {FormikErrors} from 'formik';
-import Message from '../atoms/Message';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
-import ChangeBackground from '../atoms/ChangeBackground';
+import {Container, CustomButton, Message} from '../common';
+import SettingBox from './SettingBox';
+import Avatar from './Avatar';
+import ChangeBackground from './ChangeBackground';
+import {FormValues} from '../../screens/Settings';
 
 interface SettingsSectionProps {
   onChange: {
@@ -22,14 +20,14 @@ interface SettingsSectionProps {
       : (e: string | React.ChangeEvent<any>) => void;
   };
   onSubmit: () => void;
-  errors: FormikErrors<IFormValues>;
+  errors: FormikErrors<FormValues>;
   values: any;
   fieldValue: any;
   serverError: string;
   loading: boolean;
 }
 
-const SettingsSection: React.FC<SettingsSectionProps> = ({
+const SettingsComponent: React.FC<SettingsSectionProps> = ({
   onChange,
   values,
   onSubmit,
@@ -91,7 +89,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
           <SettingBox
             label="Password"
             startingValue={''}
-            hidePassword
+            secureTextEntry
             onChange={onChange('password')}
             error={errors.password}
           />
@@ -108,14 +106,14 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
           <SettingBox
             label="Password"
             startingValue={''}
-            hidePassword
+            secureTextEntry
             onChange={onChange('password')}
             error={errors.password}
           />
           <SettingBox
             label="New Password"
             startingValue={''}
-            hidePassword
+            secureTextEntry
             onChange={onChange('newPassword')}
             error={errors.newPassword}
           />
@@ -172,4 +170,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SettingsSection;
+export default SettingsComponent;

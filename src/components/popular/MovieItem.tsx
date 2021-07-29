@@ -2,7 +2,6 @@ import React, {useRef} from 'react';
 import {Text, View, ImageBackground, Alert} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {API_IMAGES} from '@env';
-import {Movie} from '../../models';
 import {StyleSheet, Dimensions} from 'react-native';
 import {TapGestureHandler} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
@@ -12,10 +11,10 @@ import {useSelector} from 'react-redux';
 import {genresSelector} from '../../redux/genres/GenresSlice';
 import {useTranslation} from 'react-i18next';
 import {userThunkSelector} from '../../redux/user/UserSlice';
-import RatingBox from './RatingBox';
-import {Genres} from '../../models/Genres';
+import RatingBox from '../details/RatingBox';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import {Genres, Movie} from '../../models';
 
 interface MovieItemProps {
   mergeGenresWithMovies: (Genres | undefined)[];

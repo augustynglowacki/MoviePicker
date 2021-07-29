@@ -1,6 +1,6 @@
 export const LOGIN: string = 'Login';
 export const REGISTER: string = 'Register';
-export const HOME: string = 'Home';
+export const HOME: string = 'Popular';
 export const DISCOVER: string = 'Discover';
 export const LIKED: string = 'Liked';
 export const PROFILE: string = 'Profile';

@@ -3,10 +3,8 @@ import {useTranslation} from 'react-i18next';
 import {FlatList, ListRenderItem, StyleSheet, View} from 'react-native';
 import colors from '../../assets/theme/colors';
 import {Actor} from '../../models';
-
-import ActorBox from '../atoms/ActorBox';
-import SearchErrorBox from '../atoms/SearchErrorBox';
-import SectionHeader from '../atoms/SectionHeader';
+import {SearchErrorBox, SectionHeader} from '../common';
+import ActorBox from './ActorItem';
 
 interface ActorsBoxProps {
   data: Actor[];

@@ -3,10 +3,7 @@ import {useTranslation} from 'react-i18next';
 import {View, StyleSheet, ListRenderItem, FlatList} from 'react-native';
 import colors from '../../assets/theme/colors';
 import {Movie} from '../../models';
-import Container from '../atoms/Container';
-
-import MovieBox from '../atoms/MovieBox';
-import SectionHeader from '../atoms/SectionHeader';
+import {Container, MovieBox, SectionHeader} from '../common';
 
 interface LikedProps {
   movies: Movie[];

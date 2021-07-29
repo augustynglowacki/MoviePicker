@@ -4,8 +4,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import colors from '../../assets/theme/colors';
 import {convertToHours} from '../../helpers/convertToHours';
-import {MovieDetails} from '../../models/MovieDetails';
-import {TvShowsDetails} from '../../models/TvShowsDetails';
+import {MovieDetails, TvShowsDetails} from '../../models';
 
 interface MovieAndShows extends MovieDetails, TvShowsDetails {}
 interface MovieDetailsInfoBoxProps {

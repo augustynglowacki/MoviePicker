@@ -1,17 +1,16 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Home from '../screens/Home';
+import Popular from '../screens/Popular';
 import Discover from '../screens/Discover';
 import Liked from '../screens/Liked';
-import TabIcon from '../components/atoms/TabIcon';
 import {DISCOVER, HOME, LIKED, PROFILE} from '../models/constants/routeNames';
 import {StyleSheet} from 'react-native';
 import Profile from '../screens/Profile';
 import {useSelector} from 'react-redux';
 import {userThunkSelector} from '../redux/user/UserSlice';
-
 import NotLoggedIn from '../screens/NotLoggedIn';
-import {BOTTOM_TABS_HEIGHT} from '../components/molecules/MovieItem';
+import {BOTTOM_TABS_HEIGHT} from '../components/popular/MovieItem';
+import {TabIcon} from '../components/common';
 
 const Tab = createBottomTabNavigator();
 
@@ -27,7 +26,7 @@ const BottomTabsNavigator = () => {
       }}>
       <Tab.Screen
         name={HOME}
-        component={Home}
+        component={Popular}
         options={{
           tabBarIcon: ({focused}) => TabIcon(focused, 'home'),
         }}

@@ -3,28 +3,38 @@ import {useTranslation} from 'react-i18next';
 import {View, Text, StyleSheet} from 'react-native';
 import colors from '../../assets/theme/colors';
 
+interface StatBoxProps {
+  value: number;
+  label: string;
+}
+
+const StatBox = ({value, label}: StatBoxProps) => {
+  return (
+    <>
+      <Text style={[styles.text, styles.numberText]}>{value}</Text>
+      <Text style={[styles.text, styles.subText]}>{label}</Text>
+    </>
+  );
+};
+
 const ProfileStatsContainer = () => {
   const {t} = useTranslation();
   return (
     <View style={styles.statsContainer}>
       <View style={styles.statsBox}>
-        <Text style={[styles.text, styles.numberText]}>50</Text>
-        <Text style={[styles.text, styles.subText]}>{t('movies:liked')}</Text>
+        <StatBox value={50} label={t('movies:liked')} />
       </View>
       <View style={[styles.statsBox, styles.statsBoxBorder]}>
-        <Text style={[styles.text, styles.numberText]}>112</Text>
-        <Text style={[styles.text, styles.subText]}>{t('movies:watched')}</Text>
+        <StatBox value={112} label={t('movies:watched')} />
       </View>
       <View style={styles.statsBox}>
-        <Text style={[styles.text, styles.numberText]}>20</Text>
-        <Text style={[styles.text, styles.subText]}>{t('movies:toWatch')}</Text>
+        <StatBox value={22} label={t('movies:toWatch')} />
       </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
   text: {
-    //fontFamily: '',
     color: colors.white,
   },
   titleText: {

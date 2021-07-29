@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import LoginComponent from '../components/organisms/Login';
+import LoginComponent from '../components/auth/Login';
 import {LoginForm} from '../models';
 import {PROFILE} from '../models/constants/routeNames';
 import auth from '@react-native-firebase/auth';
@@ -16,7 +16,7 @@ import {useFormik} from 'formik';
 let Yup = require('yup');
 
 const Login = () => {
-  const {error} = useSelector(userThunkSelector);
+  const {error, loading} = useSelector(userThunkSelector);
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
   const {t} = useTranslation();
@@ -80,6 +80,7 @@ const Login = () => {
       serverError={error}
       errors={errors}
       signUpWithGoogle={handleSignInWithGoogle}
+      loading={loading}
     />
   );
 };
