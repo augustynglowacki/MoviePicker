@@ -13,7 +13,7 @@ import RegisterComponent from '../components/auth/Register';
 let Yup = require('yup');
 
 const Register = () => {
-  const {error} = useSelector(userThunkSelector);
+  const {error, loading} = useSelector(userThunkSelector);
   const dispatch = useDispatch();
   // Hook needed to navigate to login after succesful register
   const {navigate} = useNavigation();
@@ -78,6 +78,7 @@ const Register = () => {
       form={form}
       serverError={error}
       errors={errors}
+      loading={loading}
     />
   );
 };

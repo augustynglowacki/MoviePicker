@@ -22,6 +22,7 @@ interface IProps {
   form: RegisterForm;
   errors: FormikErrors<RegisterForm>;
   serverError: string;
+  loading: boolean;
 }
 
 const RegisterComponent = ({
@@ -30,6 +31,7 @@ const RegisterComponent = ({
   form,
   serverError,
   errors,
+  loading,
 }: IProps) => {
   const {t} = useTranslation();
   const [hiddenPassword, setHiddenPassword] = useState(true);
@@ -52,18 +54,21 @@ const RegisterComponent = ({
               value={form.username}
               onChangeText={onChange('username')}
               error={errors.username}
+              autoCapitalize="words"
             />
             <Input
               label={t('common:email')}
               value={form.email}
               onChangeText={onChange('email')}
               error={errors.email}
+              autoCompleteType="email"
+              keyboardType="email-address"
             />
             <Input
               label={t('common:password')}
               value={form.password}
               onChangeText={onChange('password')}
-              hidePassword={hiddenPassword}
+              secureTextEntry={hiddenPassword}
               error={errors.password}
               right={
                 <TextInput.Icon
@@ -76,8 +81,9 @@ const RegisterComponent = ({
             <CustomButton
               onPress={onSubmit}
               label={t('common:register')}
-              width="small"
+              width="medium"
               variant="primary"
+              loading={loading}
             />
             {serverError ? <Message label={serverError} /> : null}
           </View>

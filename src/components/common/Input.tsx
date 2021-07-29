@@ -10,9 +10,6 @@ interface MyInputProps extends TextInputProps {
   error?: string;
   left?: React.ReactNode;
   fullWidth?: boolean;
-  hidePassword?: boolean;
-  autoFocus?: boolean;
-  clear?: 'never' | 'while-editing' | 'unless-editing' | 'always' | undefined;
 }
 const Input = ({
   onChangeText,
@@ -22,10 +19,11 @@ const Input = ({
   error,
   right,
   left,
-  clear,
-  hidePassword = false,
+  clearButtonMode,
+  secureTextEntry = false,
   fullWidth = false,
   autoFocus = false,
+  autoCapitalize = 'none', //if u want input with automatic capital letter use autoCapitalize = 'words',
 }: MyInputProps) => {
   const getWidth = () => {
     return {width: fullWidth ? '100%' : '80%'};
@@ -47,9 +45,11 @@ const Input = ({
         label={label}
         right={right}
         left={left}
-        secureTextEntry={hidePassword}
-        clearButtonMode={clear}
+        secureTextEntry={secureTextEntry}
+        clearButtonMode={clearButtonMode}
         autoFocus={autoFocus}
+        autoCapitalize={autoCapitalize}
+        autoCorrect={false}
       />
       {error ? <Text style={styles.error}>{error}</Text> : null}
     </View>

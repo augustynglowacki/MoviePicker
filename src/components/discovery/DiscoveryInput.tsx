@@ -13,11 +13,11 @@ const DiscoveryInput = () => {
     <Input
       label={t('movies:searchPlaceholder')}
       onChangeText={text => dispatch(setQuery(text))}
-      secureTextEntry={true}
       left={<TextInput.Icon name="magnify" color={colors.grey} />}
       fullWidth
-      clear="always"
+      clearButtonMode="always"
       autoFocus
+      autoCapitalize="words"
     />
   );
 };

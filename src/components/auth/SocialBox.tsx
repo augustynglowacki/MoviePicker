@@ -18,7 +18,6 @@ const SocialBox = ({onPress}: MyButtonProps) => {
   return (
     <View style={styles.wrapper}>
       <View>
-        <Text style={styles.social}>{t('common:or')}</Text>
         <Text style={styles.social}>{t('common:signInWith')}</Text>
       </View>
       <View style={styles.buttons}>
