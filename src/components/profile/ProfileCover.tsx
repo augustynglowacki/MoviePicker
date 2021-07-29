@@ -10,8 +10,12 @@ const ProfileCover: React.FC<React.PropsWithChildren<ContainerProps>> = ({
   children,
   img,
 }) => {
+  const imageBackground = {
+    uri: img,
+  };
+
   return (
-    <ImageBackground source={img} style={styles.coverPhoto}>
+    <ImageBackground source={imageBackground} style={styles.coverPhoto}>
       <LinearGradient
         colors={['#050404b2', 'rgba(0,0,0,0.4)', 'rgba(0,0,0,0)']}
         start={{x: 0, y: 1}}
