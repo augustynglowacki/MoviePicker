@@ -3,6 +3,7 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {BackendUser} from '../../models';
 import {User} from './UserSlice';
+import storage from '@react-native-firebase/storage';
 
 interface LoginUser {
   email: string;
@@ -47,12 +48,18 @@ export const createUserWithEmailAndPassword = createAsyncThunk(
       email,
       password,
     );
-    const updateProfile = await authUser.user.updateProfile({
+    const imageURL = await storage()
+      .ref('/users/default/defaultProfile.jpeg')
+      .getDownloadURL();
+
+    console.log(imageURL);
+
+    await authUser.user.updateProfile({
       displayName: displayName,
+      photoURL: imageURL,
     });
 
-    console.log(updateProfile);
-    const displayNameFirebase = await auth().currentUser?.displayName;
+    const displayNameFirebase = auth().currentUser?.displayName;
 
     const newUser: User = {
       email: authUser.user.email,

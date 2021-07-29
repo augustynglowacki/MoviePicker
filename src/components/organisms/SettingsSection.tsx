@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Avatar from '../atoms/Avatar';
 import Container from '../atoms/Container';
 import SettingBox from '../molecules/SettingBox';
 import CustomButton from '../atoms/CustomButton';
 import {StyleSheet, View} from 'react-native';
-import auth from '@react-native-firebase/auth';
 import {PROFILE} from '../../models/constants/routeNames';
 import {useNavigation} from '@react-navigation/native';
 import {IFormValues} from '../../screens/Settings';
 import {FormikErrors} from 'formik';
 import Message from '../atoms/Message';
+import storage from '@react-native-firebase/storage';
+import auth from '@react-native-firebase/auth';
 
 interface SettingsSectionProps {
   onChange: {
@@ -35,20 +36,30 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
   serverError,
 }) => {
   const [editData, setEditData] = useState(0);
+  const [profileURI, setProfileURI] = useState<string>('');
   const {navigate} = useNavigation();
 
+  const fetchAvatar = async () => {
+    try {
+      const userId = auth().currentUser?.uid;
+      const results = await storage()
+        .ref(`/users/${userId}/profile.jpg`)
+        .getDownloadURL();
+      setProfileURI(results);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    fetchAvatar();
+  }, []);
+
   const validateError = Object.keys(errors);
+  console.log('URL: ', profileURI);
 
   return (
     <Container flexStart>
-      <Avatar
-        uri={
-          auth().currentUser?.photoURL ||
-          'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200'
-        }
-        editable
-        setPhoto={() => {}}
-      />
+      {profileURI !== '' ? <Avatar uri={profileURI} editable /> : null}
       {serverError ? <Message label={serverError} /> : null}
       <SettingBox
         label="Username"

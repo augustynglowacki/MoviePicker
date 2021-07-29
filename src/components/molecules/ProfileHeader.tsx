@@ -4,14 +4,18 @@ import ProfileCover from '../atoms/ProfileCover';
 import ProfileTitleBar from '../atoms/ProfileTitleBar';
 import ProfileInfoContainer from '../atoms/ProfileInfoContainer';
 import ProfileStatsContainer from '../atoms/ProfileStatsContainer';
+import auth from '@react-native-firebase/auth';
 
 const ProfileHeader = () => {
+  const photoURI = auth().currentUser?.photoURL;
   return (
     <ProfileCover img={require('../../assets/images/coverPhoto.jpg')}>
       <ProfileTitleBar />
       <Image
         source={{
-          uri: 'https://media-exp1.licdn.com/dms/image/C560BAQEM0HmBESd-ng/company-logo_200_200/0/1551168627756?e=2159024400&v=beta&t=g2YbHUitdxt0u-VFoZnVgo7QR926BqR8aFwPFfG6gus',
+          uri:
+            photoURI ||
+            'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultProfile.jpeg?alt=media&token=bc972054-6f70-4339-a72d-4a6c89be93a2',
         }}
         style={styles.avatar}
       />
