@@ -37,8 +37,6 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
   const [editData, setEditData] = useState(0);
   const {navigate} = useNavigation();
 
-  const validateError = Object.keys(errors);
-
   return (
     <Container flexStart>
       <Avatar
@@ -81,6 +79,12 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
       ) : null}
       {editData === 0 ? (
         <>
+          <SettingBox
+            label="E-mail"
+            startingValue={values.email}
+            onChange={onChange('email')}
+            error={errors.email}
+          />
           <SettingBox
             label="Password"
             startingValue={''}
@@ -131,9 +135,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
         <CustomButton
           variant="primary"
           label="Save"
-          onPress={() => {
-            validateError.length > 0 || serverError ? null : onSubmit();
-          }}
+          onPress={onSubmit}
           width="small"
         />
       </View>

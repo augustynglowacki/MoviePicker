@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import SettingsSection from '../components/organisms/SettingsSection';
 import * as Yup from 'yup';
 import {useTranslation} from 'react-i18next';
@@ -6,10 +6,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setActiveUser, userThunkSelector} from '../redux/user/UserSlice';
 import {useFormik} from 'formik';
 import auth from '@react-native-firebase/auth';
-import {
-  signInWithEmailAndPassword,
-  updateEmail,
-} from '../redux/user/UserAction';
+import {useNavigation} from '@react-navigation/native';
+import {PROFILE} from '../models/constants/routeNames';
 
 export interface IFormValues {
   email: any;
@@ -20,56 +18,73 @@ export interface IFormValues {
 }
 
 const Settings = () => {
-  const {user, error} = useSelector(userThunkSelector);
+  const {user} = useSelector(userThunkSelector);
   const dispatch = useDispatch();
   const {t} = useTranslation();
+  const {navigate} = useNavigation();
+  const [error, setError] = useState<any>('');
 
   const onSubmit = () => {
-    handleUserUpdate(values);
-  };
-
-  const handleUserUpdate = async ({
-    displayName,
-    email,
-    newEmail,
-    password,
-    newPassword,
-  }: IFormValues) => {
-    try {
-      const displayNameFirebase = auth().currentUser?.displayName;
-      if (displayName !== displayNameFirebase) {
-        await auth().currentUser?.updateProfile({
-          displayName: displayName,
-        });
-        if (!error) {
-          dispatch(
-            setActiveUser({
-              userName: displayNameFirebase,
-            }),
-          );
-        }
-      }
-      console.log(newPassword);
-
-      if (newEmail !== '') {
-        dispatch(signInWithEmailAndPassword({email, password}));
-        dispatch(updateEmail(email));
-        if (!error) {
-          dispatch(
-            setActiveUser({
-              userName: auth().currentUser?.displayName,
-              email: newEmail,
-            }),
-          );
-        }
-      }
-    } catch (err) {
-      console.log(err);
+    const displayNameFirebase = auth().currentUser?.displayName;
+    if (values.displayName !== displayNameFirebase) {
+      handleUserNameUpdate(values);
+    }
+    if (values.newEmail !== '') {
+      handleUserEmailUpdate(values);
+    }
+    if (values.newPassword !== '') {
+      handlePasswordUpdate(values);
     }
   };
 
+  const handlePasswordUpdate = async ({
+    newPassword,
+    password,
+    email,
+  }: IFormValues) => {
+    try {
+      await auth().signInWithEmailAndPassword(email, password);
+      await auth().currentUser?.updatePassword(newPassword);
+      navigate(PROFILE);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleUserEmailUpdate = async ({
+    newEmail,
+    email,
+    password,
+    displayName,
+  }: IFormValues) => {
+    try {
+      await auth().signInWithEmailAndPassword(email, password);
+      await auth().currentUser?.updateEmail(newEmail);
+      dispatch(
+        setActiveUser({
+          userName: displayName,
+          email: newEmail,
+        }),
+      );
+      navigate(PROFILE);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+  const handleUserNameUpdate = async ({displayName}: IFormValues) => {
+    await auth().currentUser?.updateProfile({
+      displayName,
+    });
+    dispatch(
+      setActiveUser({
+        userName: displayName,
+      }),
+    );
+    navigate(PROFILE);
+  };
+
   const validationSchema = Yup.object({
-    displayName: Yup.string(),
+    displayName: Yup.string().min(3),
     email: Yup.string().email(t('form:email')),
     newEmail: Yup.string().email(t('form:email')),
     password: Yup.string().min(6, t('form:short')).required(),
@@ -86,7 +101,7 @@ const Settings = () => {
         displayName: user.userName,
       },
       validationSchema,
-      validateOnChange: true,
+      validateOnChange: false,
       validateOnBlur: false,
       onSubmit: onSubmit,
     },
