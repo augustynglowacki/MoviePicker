@@ -5,27 +5,69 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import colors from '../../assets/theme/colors';
 import {convertToHours} from '../../helpers/convertToHours';
 import {MovieDetails} from '../../models/MovieDetails';
+import {TvShowsDetails} from '../../models/TvShowsDetails';
 
+interface MovieAndShows extends MovieDetails, TvShowsDetails {}
 interface MovieDetailsInfoBoxProps {
-  movie: MovieDetails;
+  data: MovieAndShows;
+  isMovie: boolean;
 }
 
 const MovieDetailsInfoBox = ({
-  movie: {release_date, runtime, genres},
+  data: {release_date, runtime, genres, number_of_seasons, number_of_episodes},
+  isMovie,
 }: MovieDetailsInfoBoxProps) => {
   const genresArray = genres.map(genre => genre.name);
   const firstGenre = genresArray[0];
   const SecondGenre = genresArray[1];
-  const date = format(parseISO(release_date), 'yyyy');
 
+  const getDuration = () => {
+    if (isMovie && runtime) {
+      return (
+        <>
+          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
+          <Text style={styles.movieInfoItem}>{convertToHours(runtime)}</Text>
+        </>
+      );
+    }
+    if (!isMovie && number_of_seasons) {
+      return (
+        <>
+          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
+          <Text
+            style={styles.movieInfoItem}>{`${number_of_seasons} seasons`}</Text>
+        </>
+      );
+    }
+  };
+  const getDate = () => {
+    if (isMovie && release_date) {
+      return (
+        <>
+          <Text style={styles.movieInfoItem}>
+            {format(parseISO(release_date), 'yyyy')}
+          </Text>
+          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
+        </>
+      );
+    }
+    if (!isMovie && number_of_seasons) {
+      return (
+        <>
+          <Text style={styles.movieInfoItem}>
+            {`${number_of_episodes} episodes`}
+          </Text>
+          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
+        </>
+      );
+    }
+  };
   return (
     <View style={styles.movieInfoWrapper}>
-      <Text style={styles.movieInfoItem}>{date}</Text>
-      <Entypo name="dot-single" size={32} color={colors.lightGrey} />
+      {getDate()}
       <Text style={styles.genreText}>{`${firstGenre}, `}</Text>
       <Text style={styles.genreText}>{SecondGenre}</Text>
-      <Entypo name="dot-single" size={32} color={colors.lightGrey} />
-      <Text style={styles.movieInfoItem}>{convertToHours(runtime)}</Text>
+      {getDuration()}
     </View>
   );
 };
@@ -38,15 +80,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
+    flexWrap: 'wrap',
   },
   movieInfoItem: {
     color: colors.lightGrey,
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '600',
   },
   genreText: {
     color: colors.lightGrey,
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '600',
   },
 });

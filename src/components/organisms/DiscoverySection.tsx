@@ -25,6 +25,7 @@ const DiscoverySection = () => {
       dispatch(getSearchedActor());
     }
   }, [dispatch, query]);
+
   return (
     <Container withPadding flexStart withKeyboard>
       <SearchBox />

@@ -13,29 +13,53 @@ import {genresSelector} from '../../redux/genres/GenresSlice';
 import {useTranslation} from 'react-i18next';
 import {userThunkSelector} from '../../redux/user/UserSlice';
 import RatingBox from './RatingBox';
+import {Genres} from '../../models/Genres';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
-const WINDOW_HEIGHT = Dimensions.get('window').height;
+interface MovieItemProps {
+  mergeGenresWithMovies: (Genres | undefined)[];
+  movie: Movie;
+}
 
-const MovieItem = ({
-  id,
-  poster_path,
-  overview,
-  title,
-  mergeGenresWithMovies,
-  vote_average,
-}: Movie) => {
+export const BOTTOM_TABS_HEIGHT = Math.floor(
+  Dimensions.get('window').height / 12.5,
+);
+
+export const MOVIE_HEIGHT = Math.ceil(
+  Dimensions.get('window').height - BOTTOM_TABS_HEIGHT,
+);
+
+console.log('Movie height', MOVIE_HEIGHT);
+
+const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
   const {loading} = useSelector(genresSelector);
   const {t} = useTranslation();
   const {navigate} = useNavigation();
+  const {poster_path, overview, title, id, vote_average, isMovie} = movie;
   const doubleTapRef = useRef();
   const {
     user: {email},
   } = useSelector(userThunkSelector);
 
+  const setData = () => {
+    const db = firestore();
+    const userId = auth().currentUser?.uid ?? 'none';
+    db.collection('users').doc(userId).collection('likedMovies').add({
+      movieId: movie.id,
+      title: movie.title,
+      vote_average: movie.vote_average,
+      poster_path: movie.poster_path,
+      overview: movie.overview,
+      genre_ids: movie.genre_ids,
+      isMovie: movie.isMovie,
+    });
+  };
+
   const handleOnActivated = () => {
     if (email !== '') {
       //  TODO:
-      console.log('add function to like');
+      setData();
     }
     if (email === '') {
       Alert.alert(t('common:login'), t('common:loginSuggestion'), [
@@ -60,6 +84,7 @@ const MovieItem = ({
           overview,
           title,
           id,
+          isMovie,
         });
       }}>
       <TapGestureHandler
@@ -73,7 +98,18 @@ const MovieItem = ({
             style={styles.image}
           />
           <LinearGradient
-            colors={['rgba(0,0,0,0.9)', 'rgba(0,0,0,0.4)', 'rgba(0,0,0,0.4)']}
+            colors={[
+              'rgba(0,0,0,0.6)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.65)',
+              'rgba(0,0,0,0.75)',
+            ]}
             start={{x: 0, y: 1}}
             end={{x: 0, y: 0}}
             style={styles.linearGradient}
@@ -107,14 +143,14 @@ export default MovieItem;
 export const styles = StyleSheet.create({
   movieContainer: {
     width: '100%',
-    height: WINDOW_HEIGHT,
+    height: MOVIE_HEIGHT,
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.black,
   },
   contentContainer: {
-    height: WINDOW_HEIGHT * 0.9,
+    height: '100%',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
