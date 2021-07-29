@@ -26,6 +26,7 @@ interface SettingsSectionProps {
   values: any;
   fieldValue: any;
   serverError: string;
+  loading: boolean;
 }
 
 const SettingsSection: React.FC<SettingsSectionProps> = ({
@@ -35,6 +36,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
   errors,
   fieldValue,
   serverError,
+  loading,
 }) => {
   const [editData, setEditData] = useState(0);
   const [profileURI, setProfileURI] = useState<string>(
@@ -155,6 +157,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
           label="Save"
           onPress={onSubmit}
           width="small"
+          loading={loading ? true : false}
         />
       </View>
     </Container>
