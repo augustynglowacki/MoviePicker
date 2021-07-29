@@ -19,7 +19,7 @@ const MyTheme = {
 const App = () => {
   useEffect(() => {
     setTimeout(() => {
-      RNBootSplash.hide();
+      RNBootSplash.hide({fade: true});
     }, 2000);
   }, []);
   return (
