@@ -36,7 +36,9 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
   serverError,
 }) => {
   const [editData, setEditData] = useState(0);
-  const [profileURI, setProfileURI] = useState<string>('');
+  const [profileURI, setProfileURI] = useState<string>(
+    'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultProfile.jpeg?alt=media&token=bc972054-6f70-4339-a72d-4a6c89be93a2',
+  );
   const {navigate} = useNavigation();
 
   const fetchAvatar = async () => {
@@ -54,12 +56,13 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
     fetchAvatar();
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const validateError = Object.keys(errors);
   console.log('URL: ', profileURI);
 
   return (
     <Container flexStart>
-      {profileURI !== '' ? <Avatar uri={profileURI} editable /> : null}
+      <Avatar uri={profileURI} editable />
       {serverError ? <Message label={serverError} /> : null}
       <SettingBox
         label="Username"
@@ -92,6 +95,12 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
       ) : null}
       {editData === 0 ? (
         <>
+          <SettingBox
+            label="E-mail"
+            startingValue={values.email}
+            onChange={onChange('email')}
+            error={errors.email}
+          />
           <SettingBox
             label="Password"
             startingValue={''}
@@ -142,9 +151,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
         <CustomButton
           variant="primary"
           label="Save"
-          onPress={() => {
-            validateError.length > 0 || serverError ? null : onSubmit();
-          }}
+          onPress={onSubmit}
           width="small"
         />
       </View>
