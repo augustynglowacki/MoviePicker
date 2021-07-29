@@ -1,35 +1,46 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import ImagePicker from 'react-native-image-crop-picker';
+import storage from '@react-native-firebase/storage';
+import auth from '@react-native-firebase/auth';
 
 interface AvatarProps {
   uri: string;
   editable?: boolean;
-  setPhoto?: (photo: string) => void; // ?????
 }
 
-const Avatar: React.FC<AvatarProps> = ({editable, uri, setPhoto}) => {
-  const [userImage, setUserImage] = useState(uri);
+const Avatar: React.FC<AvatarProps> = ({editable, uri}) => {
+  const handlePicMovie = async () => {
+    const res = await ImagePicker.openPicker({multiple: false});
+    console.log(res.path);
+    return res.path;
+  };
+
+  const saveToFirestore = async () => {
+    const newRes = await handlePicMovie();
+    console.log('newRes', newRes);
+    try {
+      console.log('try');
+      await storage()
+        .ref('users/' + auth().currentUser?.uid + '/profile.jpg')
+        .putFile(newRes);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View style={styles.avatarBox}>
       <Image
         source={{
-          uri: userImage,
+          uri: uri,
         }}
         style={styles.avatar}
       />
 
       {editable ? (
-        <TouchableOpacity
-          onPress={() => {
-            ImagePicker.openPicker({multiple: false}).then(photo => {
-              setUserImage(photo.path);
-              setPhoto ? setPhoto(photo.path) : '';
-            });
-          }}
-          style={styles.icon}>
+        <TouchableOpacity onPress={saveToFirestore} style={styles.icon}>
           <Icon name="pluscircle" size={20} color="white" />
         </TouchableOpacity>
       ) : null}
