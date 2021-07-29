@@ -6,10 +6,14 @@ const translations = {
     password: 'Password',
     email: 'Email',
     login: 'Login',
+    logout: 'Logout',
     register: 'Register',
     welcomeMessage: 'Welcome to MoviePicker!',
     registerSuggestion: 'First time here?',
     loginSuggestion: 'Do you want to login to add to favorite?',
+    logoutWarning: 'Are you sure want to logout?',
+    or: '-OR-',
+    signInWith: 'Sign in with',
   },
   movies: {
     movies: 'Movies',
@@ -20,12 +24,17 @@ const translations = {
     search: 'Search',
     searchPlaceholder: "What's on your mind?",
     actors: 'Actors',
-    popular: "What's popular?",
+    popular: 'Popular',
   },
   form: {
     required: 'Required!',
     email: 'Email must be a valid email!',
     short: 'Password must be at least 6 characters long!',
+  },
+  profile: {
+    explore: 'Explore your profile.',
+    exploreSub: 'With free account you gain access to your movies collections!',
+    button: 'Sign in now',
   },
 };
 export default translations;

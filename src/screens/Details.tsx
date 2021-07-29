@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
   ImageBackground,
@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
 import {API_IMAGES} from '@env';
 import {Platform} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -18,34 +17,57 @@ import {
   getMovieDetails,
   movieDetailsSelector,
 } from '../redux/movieDetails/movieDetailsSlice';
-import {getMovieActors} from '../redux/movieDetails/movieDetailsActions';
+import {
+  getMovieActors,
+  getTvShows,
+} from '../redux/movieDetails/movieDetailsActions';
 import ActorsBox from '../components/molecules/ActorsBox';
 import RatingBox from '../components/molecules/RatingBox';
 import Header from '../components/atoms/Header';
 import MovieDetailsInfoBox from '../components/molecules/MovieDetailsInfoBox';
+import {MovieDetails} from '../models/MovieDetails';
+import {TvShowsDetails} from '../models/TvShowsDetails';
+import Container from '../components/atoms/Container';
 
 const HEIGHT = Dimensions.get('window').height;
 
+type CombineTypes = MovieDetails | TvShowsDetails;
+
 const Details = ({route, navigation}: any) => {
+  const [active, setActive] = useState<CombineTypes>();
   const distpach = useDispatch();
-  const {title, poster_path, id} = route.params;
-  const {fetchedMovies, movieActors} = useSelector(movieDetailsSelector);
+  const {poster_path, id, isMovie} = route.params;
+  const {fetchedMovies, fetchedTvShows, movieActors} =
+    useSelector(movieDetailsSelector);
 
   const movie = fetchedMovies[id];
+  const show = fetchedTvShows[id];
 
   useEffect(() => {
-    if (!fetchedMovies[id]) {
-      distpach(getMovieDetails(id));
-      distpach(getMovieActors(id));
+    if (isMovie) {
+      if (!fetchedMovies[id]) {
+        distpach(getMovieDetails(id));
+        distpach(getMovieActors(id));
+      }
+    } else {
+      distpach(getTvShows(id));
     }
-  }, [distpach, id, fetchedMovies]);
+  }, [distpach, id, isMovie, fetchedMovies]);
 
-  if (!movie) {
-    return <Text>Loading</Text>; /// Add peper loading
+  useEffect(() => {
+    if (movie) {
+      setActive(movie);
+    } else {
+      setActive(show);
+    }
+  }, [movie, show]);
+
+  if (!show && !movie) {
+    return <Text>Loading dupa</Text>;
   }
 
-  return (
-    <ScrollView style={styles.container}>
+  const renderMovieDetails = () => (
+    <Container disableSafeArea style={styles.container}>
       <ImageBackground
         style={styles.imageBackground}
         source={{uri: `${API_IMAGES}${poster_path}`}}>
@@ -67,17 +89,20 @@ const Details = ({route, navigation}: any) => {
       </ImageBackground>
 
       <View style={styles.bottomWrapper}>
-        <Header title={title} />
-        <MovieDetailsInfoBox movie={movie} />
-        <RatingBox voteAverage={movie.vote_average} />
+        <Header title={active?.title!} />
+        <MovieDetailsInfoBox isMovie={isMovie} data={isMovie ? movie : show} />
+        {active?.vote_average ? (
+          <RatingBox voteAverage={active?.vote_average} />
+        ) : null}
         <View style={styles.descriptionWrapper}>
-          <Text style={styles.descriptionText}>{movie.overview}</Text>
+          <Text style={styles.descriptionText}>{active?.overview}</Text>
         </View>
+        <ActorsBox data={movieActors} error="" />
       </View>
-
-      <ActorsBox data={movieActors} error="" />
-    </ScrollView>
+    </Container>
   );
+
+  return <>{renderMovieDetails()}</>;
 };
 
 export default Details;
@@ -95,7 +120,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: Platform.OS === 'ios' ? 40 : 30,
-    marginHorizontal: 20,
+    marginHorizontal: 16,
   },
   contentWrapper: {
     flex: 1,
@@ -115,6 +140,8 @@ const styles = StyleSheet.create({
   descriptionWrapper: {
     marginTop: 20,
     marginBottom: 30,
+    paddingHorizontal: 14,
+    alignSelf: 'center',
   },
   descriptionText: {
     color: colors.white,
@@ -127,7 +154,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-    paddingHorizontal: 30,
+    paddingHorizontal: 16,
     marginTop: -40,
   },
 });

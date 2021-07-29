@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   ScrollView,
@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../../assets/theme/colors';
+import {LogBox} from 'react-native';
 
 interface ContainerProps {
   //pass normal stylesheet object to change backgroundColor
@@ -20,6 +21,8 @@ interface ContainerProps {
   withPadding?: boolean;
   //sticks component to top of the screen
   flexStart?: boolean;
+  disableScroll?: boolean;
+  disableSafeArea?: boolean;
 }
 
 const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
@@ -28,7 +31,13 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
   withKeyboard = false,
   withPadding = false,
   flexStart = false,
+  disableScroll = false,
+  disableSafeArea = false,
 }) => {
+  useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+  }, []);
+
   const getJustifyContent = (): StyleProp<ViewStyle> => {
     return {justifyContent: flexStart ? 'flex-start' : 'center'};
   };
@@ -37,15 +46,25 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
     return {padding: withPadding ? 16 : 0};
   };
 
-  const content = (
+  const safeArea = disableSafeArea ? (
+    <View style={[styles.wrapper, style, getPadding(), getJustifyContent()]}>
+      {children}
+    </View>
+  ) : (
+    <SafeAreaView style={[styles.safeArea, style]}>
+      <View style={[styles.wrapper, getPadding(), getJustifyContent()]}>
+        {children}
+      </View>
+    </SafeAreaView>
+  );
+
+  const scrollWrapper = disableScroll ? (
+    safeArea
+  ) : (
     <ScrollView
       contentContainerStyle={styles.scrollView}
       showsVerticalScrollIndicator={false}>
-      <SafeAreaView style={[styles.safeArea, style]}>
-        <View style={[styles.wrapper, getPadding(), getJustifyContent()]}>
-          {children}
-        </View>
-      </SafeAreaView>
+      {safeArea}
     </ScrollView>
   );
 
@@ -53,10 +72,10 @@ const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.kbView}>
-      {content}
+      {scrollWrapper}
     </KeyboardAvoidingView>
   ) : (
-    content
+    scrollWrapper
   );
 };
 

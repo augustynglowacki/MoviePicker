@@ -12,9 +12,24 @@ const ProfileSection = () => {
   return (
     <Container>
       <ProfileHeader />
-      <DiscoveryContentBox title={t('movies:liked')} data={movies} />
-      <DiscoveryContentBox title={t('movies:watched')} data={movies} />
-      <DiscoveryContentBox title={t('movies:toWatch')} data={movies} />
+      <DiscoveryContentBox
+        title={t('movies:liked')}
+        data={movies}
+        error=""
+        loading={false}
+      />
+      <DiscoveryContentBox
+        title={t('movies:watched')}
+        data={movies}
+        error=""
+        loading={false}
+      />
+      <DiscoveryContentBox
+        title={t('movies:toWatch')}
+        data={movies}
+        error=""
+        loading={false}
+      />
     </Container>
   );
 };

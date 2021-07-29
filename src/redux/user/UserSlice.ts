@@ -5,6 +5,7 @@ import {
   logOutUser,
   signInWithEmailAndPassword,
   signInWithGoogle,
+  updateEmail,
 } from './UserAction';
 
 interface UserState {
@@ -28,6 +29,12 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    setUserName: (state, action) => {
+      state.user.userName = action.payload;
+    },
+    setUserEmail: (state, action) => {
+      state.user.email = action.payload;
+    },
     setActiveUser: (state, action) => {
       state.user = action.payload;
     },
@@ -44,6 +51,19 @@ const userSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(signInWithEmailAndPassword.rejected, (state, action) => {
+      state.loading = false;
+      if (action.error.message) {
+        let temp = action.error.message.split(']');
+        state.error = temp[1];
+      }
+    });
+    builder.addCase(updateEmail.fulfilled, (state, action) => {
+      state.user.email = action.payload;
+    });
+    builder.addCase(updateEmail.pending, state => {
+      state.loading = true;
+    });
+    builder.addCase(updateEmail.rejected, (state, action) => {
       state.loading = false;
       if (action.error.message) {
         let temp = action.error.message.split(']');
@@ -97,7 +117,8 @@ const userSlice = createSlice({
     });
   },
 });
-export const {setActiveUser, setErrorNull} = userSlice.actions;
+export const {setActiveUser, setErrorNull, setUserName, setUserEmail} =
+  userSlice.actions;
 
 export const userThunkSelector = (state: RootState) => state.users;
 

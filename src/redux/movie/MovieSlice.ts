@@ -12,6 +12,7 @@ const initialState: MovieState = {
       genre_ids: [],
       overview: '',
       vote_average: 0,
+      isMovie: true,
     },
   ],
   loading: false,

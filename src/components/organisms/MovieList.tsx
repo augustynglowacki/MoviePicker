@@ -1,22 +1,17 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Dimensions,
-  Text,
-  ListRenderItem,
-} from 'react-native';
+import {StyleSheet, View, FlatList, Text, ListRenderItem} from 'react-native';
 import colors from '../../assets/theme/colors';
-import {MovieListProps, Movie} from '../../models';
-import {GenresProps} from '../../models/GenresProps';
-import MovieItem from '../molecules/MovieItem';
+import {Movie} from '../../models';
+import {Genres} from '../../models/Genres';
+import MovieItem, {MOVIE_HEIGHT} from '../molecules/MovieItem';
 
-const HEIGHT = Dimensions.get('window').height;
-const WIDTH = Dimensions.get('window').width;
+interface MovieListProps {
+  moviesList: Movie[];
+  genres: Genres[];
+}
 
-const MovieList = ({moviesList, genres}: MovieListProps & GenresProps) => {
+const MovieList = ({moviesList, genres}: MovieListProps) => {
   const {t} = useTranslation();
   const renderItem: ListRenderItem<Movie> = ({item}) => {
     const mergeGenresWithMovies = item.genre_ids.map(movie =>
@@ -24,15 +19,7 @@ const MovieList = ({moviesList, genres}: MovieListProps & GenresProps) => {
     );
 
     return (
-      <MovieItem
-        id={item.id}
-        title={item.title}
-        overview={item.overview}
-        poster_path={item.poster_path}
-        vote_average={item.vote_average}
-        genre_ids={item.genre_ids}
-        mergeGenresWithMovies={mergeGenresWithMovies}
-      />
+      <MovieItem movie={item} mergeGenresWithMovies={mergeGenresWithMovies} />
     );
   };
 
@@ -48,7 +35,7 @@ const MovieList = ({moviesList, genres}: MovieListProps & GenresProps) => {
         renderItem={renderItem}
         snapToAlignment="start"
         decelerationRate="fast"
-        snapToInterval={HEIGHT}
+        snapToInterval={MOVIE_HEIGHT}
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
         initialNumToRender={7}
@@ -60,20 +47,18 @@ const MovieList = ({moviesList, genres}: MovieListProps & GenresProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.black,
   },
   heading: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    left: WIDTH / 2 - 55,
-    top: WIDTH - 340,
+    alignSelf: 'center',
+    top: 40,
     position: 'absolute',
     zIndex: 10,
   },
   headingText: {
     color: colors.white,
     fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: 17,
   },
 });
 
