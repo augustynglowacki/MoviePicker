@@ -23,6 +23,7 @@ const Settings = () => {
   const {t} = useTranslation();
   const {navigate} = useNavigation();
   const [error, setError] = useState<any>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onSubmit = () => {
     const displayNameFirebase = auth().currentUser?.displayName;
@@ -43,11 +44,14 @@ const Settings = () => {
     email,
   }: IFormValues) => {
     try {
+      setLoading(true);
       await auth().signInWithEmailAndPassword(email, password);
       await auth().currentUser?.updatePassword(newPassword);
+      setLoading(false);
       navigate(PROFILE);
     } catch (err) {
       setError(err.message);
+      setTimeout(() => setError(''), 4000);
     }
   };
 
@@ -58,6 +62,7 @@ const Settings = () => {
     displayName,
   }: IFormValues) => {
     try {
+      setLoading(true);
       await auth().signInWithEmailAndPassword(email, password);
       await auth().currentUser?.updateEmail(newEmail);
       dispatch(
@@ -66,9 +71,11 @@ const Settings = () => {
           email: newEmail,
         }),
       );
+      setLoading(false);
       navigate(PROFILE);
     } catch (err) {
       setError(err.message);
+      setTimeout(() => setError(''), 4000);
     }
   };
   const handleUserNameUpdate = async ({displayName}: IFormValues) => {
@@ -115,6 +122,7 @@ const Settings = () => {
       fieldValue={setFieldValue}
       serverError={error}
       errors={errors}
+      loading={loading}
     />
   );
 };
