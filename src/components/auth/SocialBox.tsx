@@ -2,7 +2,8 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {View, StyleSheet, Text, Alert} from 'react-native';
 import colors from '../../assets/theme/colors';
-import SocialButton from '../atoms/SocialButton';
+import {SocialButton} from '../common';
+
 interface MyButtonProps {
   onPress: () => void;
 }
@@ -17,7 +18,6 @@ const SocialBox = ({onPress}: MyButtonProps) => {
   return (
     <View style={styles.wrapper}>
       <View>
-        <Text style={styles.social}>{t('common:or')}</Text>
         <Text style={styles.social}>{t('common:signInWith')}</Text>
       </View>
       <View style={styles.buttons}>

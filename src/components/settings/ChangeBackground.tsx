@@ -2,7 +2,7 @@ import React from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
-import CustomButton from './CustomButton';
+import {CustomButton} from '../common';
 
 const ChangeBackground = () => {
   const handlePicMovie = async () => {

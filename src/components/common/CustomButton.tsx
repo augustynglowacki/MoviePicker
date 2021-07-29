@@ -78,7 +78,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     marginVertical: 24,
     alignItems: 'center',
-    justifyContent: 'space-evenly',
     alignSelf: 'center',
   },
   text: {
@@ -87,9 +86,5 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 0.6,
-    width: '82%',
-  },
-  loader: {
-    paddingHorizontal: 5,
   },
 });

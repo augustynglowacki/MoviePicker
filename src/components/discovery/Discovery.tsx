@@ -7,12 +7,11 @@ import {
   getSearchedTvShows,
 } from '../../redux/search/SearchActions';
 import {SearchSelector} from '../../redux/search/SearchSlice';
-import Container from '../atoms/Container';
-import ActorsBox from '../molecules/ActorsBox';
-import DiscoveryContentBox from '../molecules/DiscoveryContentBox';
-import SearchBox from '../molecules/SearchBox';
+import ActorsBox from '../actors/ActorList';
+import {CollectionContentBox, Container} from '../common';
+import DiscoveryBox from './DiscoveryBox';
 
-const DiscoverySection = () => {
+const DiscoveryComponent = () => {
   const dispatch = useDispatch();
   const {t} = useTranslation();
   const {query, foundMovies, foundTvShows, foundActors} =
@@ -28,14 +27,14 @@ const DiscoverySection = () => {
 
   return (
     <Container withPadding flexStart withKeyboard>
-      <SearchBox />
-      <DiscoveryContentBox
+      <DiscoveryBox />
+      <CollectionContentBox
         title={t('movies:movies')}
         data={foundMovies.movies}
         error={foundMovies.error}
         loading={foundMovies.loading}
       />
-      <DiscoveryContentBox
+      <CollectionContentBox
         title={t('movies:tvShows')}
         data={foundTvShows.movies}
         error={foundTvShows.error}
@@ -46,4 +45,4 @@ const DiscoverySection = () => {
   );
 };
 
-export default DiscoverySection;
+export default DiscoveryComponent;

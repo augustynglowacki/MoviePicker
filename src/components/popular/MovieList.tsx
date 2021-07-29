@@ -2,9 +2,8 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {StyleSheet, View, FlatList, Text, ListRenderItem} from 'react-native';
 import colors from '../../assets/theme/colors';
-import {Movie} from '../../models';
-import {Genres} from '../../models/Genres';
-import MovieItem, {MOVIE_HEIGHT} from '../molecules/MovieItem';
+import {Genres, Movie} from '../../models';
+import MovieItem, {MOVIE_HEIGHT} from './MovieItem';
 
 interface MovieListProps {
   moviesList: Movie[];

@@ -1,8 +1,8 @@
 import React from 'react';
-import ProfileSection from '../components/organisms/ProfileSection';
+import ProfileComponent from '../components/profile/Profile';
 
 const Profile = () => {
-  return <ProfileSection />;
+  return <ProfileComponent />;
 };
 
 export default Profile;

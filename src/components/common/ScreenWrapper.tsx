@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import ErrorBox from '../components/atoms/ErrorBox';
-import Loading from './Loading';
+import ErrorBox from './ErrorBox';
+import Loading from '../../screens/Loading';
 
 interface ErrorWrapperProps {
   error: string;
@@ -14,7 +14,8 @@ const ScreenWrapper = ({error, loading, children}: ErrorWrapperProps) => {
     <>
       {loading ? (
         <Loading />
-      ) : !!error ? (
+      ) : // eslint-disable-next-line no-extra-boolean-cast
+      !!error ? (
         <View style={style.errorMsg}>
           <ErrorBox />
         </View>

@@ -1,7 +1,7 @@
 import {getGenres} from './GenresActions';
 import {createSlice} from '@reduxjs/toolkit';
 import {RootState} from '../rootReducer';
-import {Genres} from '../../models/Genres';
+import {Genres} from '../../models';
 
 interface GenresState {
   genres: Array<Genres>;

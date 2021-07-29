@@ -2,7 +2,7 @@ import React, {useRef} from 'react';
 import {StyleSheet, Animated, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import colors from '../assets/theme/colors';
-import Container from '../components/atoms/Container';
+import Container from '../components/common/Container';
 
 const Loading = () => {
   const rotateAnim = useRef(new Animated.Value(0)).current;

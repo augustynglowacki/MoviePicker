@@ -1,4 +1,5 @@
-import {Genres} from './Genres';
+import {Genres} from '.';
+
 export interface TvShowsDetailsAxiosResponse {
   name: string;
   number_of_episodes: number;

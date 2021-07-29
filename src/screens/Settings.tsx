@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import SettingsSection from '../components/organisms/SettingsSection';
 import * as Yup from 'yup';
 import {useTranslation} from 'react-i18next';
 import {useDispatch, useSelector} from 'react-redux';
@@ -8,8 +7,9 @@ import {useFormik} from 'formik';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import {PROFILE} from '../models/constants/routeNames';
+import SettingsComponent from '../components/settings/Settings';
 
-export interface IFormValues {
+export interface FormValues {
   email: any;
   newEmail: any;
   password: string;
@@ -42,7 +42,7 @@ const Settings = () => {
     newPassword,
     password,
     email,
-  }: IFormValues) => {
+  }: FormValues) => {
     try {
       setLoading(true);
       await auth().signInWithEmailAndPassword(email, password);
@@ -60,7 +60,7 @@ const Settings = () => {
     email,
     password,
     displayName,
-  }: IFormValues) => {
+  }: FormValues) => {
     try {
       setLoading(true);
       await auth().signInWithEmailAndPassword(email, password);
@@ -78,7 +78,7 @@ const Settings = () => {
       setTimeout(() => setError(''), 4000);
     }
   };
-  const handleUserNameUpdate = async ({displayName}: IFormValues) => {
+  const handleUserNameUpdate = async ({displayName}: FormValues) => {
     await auth().currentUser?.updateProfile({
       displayName,
     });
@@ -115,7 +115,7 @@ const Settings = () => {
   );
 
   return (
-    <SettingsSection
+    <SettingsComponent
       values={values}
       onSubmit={handleSubmit}
       onChange={handleChange}

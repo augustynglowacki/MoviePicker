@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import SectionHeader from '../atoms/SectionHeader';
-import DiscoveryInput from '../atoms/DiscoveryInput';
+import SectionHeader from '../common/SectionHeader';
 import colors from '../../assets/theme/colors';
 import {useTranslation} from 'react-i18next';
+import DiscoveryInput from './DiscoveryInput';
 
-const SearchBox = () => {
+const DiscoveryBox = () => {
   const {t} = useTranslation();
   return (
     <View style={styles.searchBox}>
@@ -22,4 +22,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchBox;
+export default DiscoveryBox;

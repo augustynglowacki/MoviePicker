@@ -6,15 +6,13 @@ import {TextInput} from 'react-native-paper';
 import colors from '../../assets/theme/colors';
 import {LoginForm} from '../../models';
 import {REGISTER} from '../../models/constants/routeNames';
-import Container from '../atoms/Container';
-import CustomButton from '../atoms/CustomButton';
-import Input from '../atoms/Input';
 import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
-import Message from '../atoms/Message';
 import {FormikErrors} from 'formik';
-import SocialBox from '../molecules/SocialBox';
-import RegisterInfo from '../atoms/RegisterInfo';
+import SocialBox from './SocialBox';
+import RegisterInfo from './RegisterInfo';
+import {Container, CustomButton, Input, Message} from '../common';
+
 interface IProps {
   //type from useFormik handleChange
   onChange: {
@@ -29,6 +27,7 @@ interface IProps {
   form: LoginForm;
   errors: FormikErrors<LoginForm>;
   serverError: string;
+  loading: boolean;
 }
 const LoginComponent = ({
   onChange,
@@ -37,6 +36,7 @@ const LoginComponent = ({
   serverError,
   errors,
   signUpWithGoogle,
+  loading,
 }: IProps) => {
   const {t} = useTranslation();
   const {navigate} = useNavigation();
@@ -60,12 +60,14 @@ const LoginComponent = ({
               value={form.email}
               onChangeText={onChange('email')}
               error={errors.email}
+              autoCompleteType="email"
+              keyboardType="email-address"
             />
             <Input
               label={t('common:password')}
               value={form.password}
               onChangeText={onChange('password')}
-              hidePassword={hiddenPassword}
+              secureTextEntry={hiddenPassword}
               error={errors.password}
               right={
                 <TextInput.Icon
@@ -80,6 +82,7 @@ const LoginComponent = ({
               width="small"
               variant="primary"
               onPress={onSubmit}
+              loading={loading}
             />
             {serverError ? <Message label={serverError} /> : null}
             <SocialBox onPress={signUpWithGoogle} />
