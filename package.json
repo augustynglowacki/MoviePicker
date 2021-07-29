@@ -29,6 +29,7 @@
     "react": "17.0.1",
     "react-i18next": "^11.11.3",
     "react-native": "0.64.1",
+    "react-native-bootsplash": "^3.2.4",
     "react-native-dotenv": "^3.0.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-linear-gradient": "^2.5.6",
