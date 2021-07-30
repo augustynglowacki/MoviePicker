@@ -244,6 +244,9 @@ PODS:
   - Firebase/Firestore (8.4.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 8.4.0)
+  - Firebase/Storage (8.4.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 8.4.0)
   - FirebaseAuth (8.4.0):
     - FirebaseCore (~> 8.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
@@ -270,6 +273,8 @@ PODS:
     - "gRPC-C++ (~> 1.28.0)"
     - leveldb-library (~> 1.22)
     - nanopb (~> 2.30908.0)
+  - FirebaseStorage (8.4.0):
+    - FirebaseCore (~> 8.0)
     - GTMSessionFetcher/Core (~> 1.5)
   - Flipper (0.75.1):
     - Flipper-Folly (~> 2.5)
@@ -643,17 +648,19 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
-  - RNFBApp (12.3.0):
+  - RNFBApp (12.4.0):
     - Firebase/CoreOnly (= 8.4.0)
     - React-Core
-  - RNFBAuth (12.3.0):
+  - RNFBAuth (12.4.0):
     - Firebase/Auth (= 8.4.0)
     - React-Core
     - RNFBApp
-  - RNFBStorage (12.3.0):
-    - Firebase/Storage (= 8.4.0)
-  - RNFBFirestore (12.3.0):
+  - RNFBFirestore (12.4.0):
     - Firebase/Firestore (= 8.4.0)
+    - React-Core
+    - RNFBApp
+  - RNFBStorage (12.4.0):
+    - Firebase/Storage (= 8.4.0)
     - React-Core
     - RNFBApp
   - RNGestureHandler (1.10.3):
@@ -765,8 +772,8 @@ DEPENDENCIES:
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
-  - "RNFBStorage (from `../node_modules/@react-native-firebase/storage`)"
   - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
+  - "RNFBStorage (from `../node_modules/@react-native-firebase/storage`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
@@ -786,8 +793,8 @@ SPEC REPOS:
     - FirebaseAuth
     - FirebaseCore
     - FirebaseCoreDiagnostics
-    - FirebaseStorage
     - FirebaseFirestore
+    - FirebaseStorage
     - Flipper
     - Flipper-DoubleConversion
     - Flipper-Folly
@@ -879,10 +886,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/app"
   RNFBAuth:
     :path: "../node_modules/@react-native-firebase/auth"
-  RNFBStorage:
-    :path: "../node_modules/@react-native-firebase/storage"
   RNFBFirestore:
     :path: "../node_modules/@react-native-firebase/firestore"
+  RNFBStorage:
+    :path: "../node_modules/@react-native-firebase/storage"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNGoogleSignin:
@@ -907,13 +914,13 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: 7b423f9e248eae65987838148c36eec1dbfe0b53
-  FBReactNativeSpec: f5032854eb71a69cf8d849067f4ceeb775b7c4da
+  FBReactNativeSpec: 72963c6a7d35a5ca59686f0bd69c940ee5422e27
   Firebase: 54cdc8bc9c9b3de54f43dab86e62f5a76b47034f
   FirebaseAuth: 8ef169751d795f20921d425f7b0131cc1c70935c
   FirebaseCore: 31f389c37ac1ea52454a53d3081f2d7019485a4a
   FirebaseCoreDiagnostics: cad03be1904b975f845e632f2720c3337da27faf
-  FirebaseStorage: e6065bcbf70e2a06a8c3ddc66cbe03a395bbddc4
   FirebaseFirestore: 99613cefa9102c08da94f584faa5adfaf21f31da
+  FirebaseStorage: e6065bcbf70e2a06a8c3ddc66cbe03a395bbddc4
   Flipper: d3da1aa199aad94455ae725e9f3aa43f3ec17021
   Flipper-DoubleConversion: 38631e41ef4f9b12861c67d17cb5518d06badc41
   Flipper-Folly: 755929a4f851b2fb2c347d533a23f191b008554c
@@ -961,10 +968,10 @@ SPEC CHECKSUMS:
   ReactCommon: bedc99ed4dae329c4fcf128d0c31b9115e5365ca
   RNBootSplash: 4844706cbb56a3270556c9b94e59dedadccd47e4
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
-  RNFBApp: 64c90ab78b6010ed5c3ade026dfe5ff6442c21fd
-  RNFBAuth: 59fe503707ab7bd2c2790ac5b7a11d4e14b44452
-  RNFBStorage: f61af0a8c39c38e828747af586f63d450e99866a
-  RNFBFirestore: 52169edf8775af42dd8c84f14a6ca963316b30d7
+  RNFBApp: 97b2da195d4606716b284a7c8a988dd8ed5cec41
+  RNFBAuth: 63a3ca8a290937f73fa90d3bf37766458ce03e17
+  RNFBFirestore: 9ff0a5bac2c5acddb8de7a64d4d8eb38c49604bf
+  RNFBStorage: b1d69650fc4220804b082165c10023abc5efcca5
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNGoogleSignin: e64616a4080cf7d83f4b292fad82d174587444e2
   RNImageCropPicker: 35a3ceb837446fa11547704709bb22b5fac6d584
