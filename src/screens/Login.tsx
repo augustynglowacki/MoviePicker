@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
-import LoginComponent from '../components/organisms/Login';
+import React, {useEffect} from 'react';
+import LoginComponent from '../components/auth/Login';
 import {LoginForm} from '../models';
 import {PROFILE} from '../models/constants/routeNames';
 import auth from '@react-native-firebase/auth';
@@ -11,21 +11,19 @@ import {
 } from '../redux/user/UserAction';
 import {useSelector} from 'react-redux';
 import {userThunkSelector} from '../redux/user/UserSlice';
-
-const initialState = {email: '', password: ''};
+import {useTranslation} from 'react-i18next';
+import {useFormik} from 'formik';
+let Yup = require('yup');
 
 const Login = () => {
-  const [form, setForm] = useState<LoginForm>(initialState);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [errors, setErrors] = useState<LoginForm>(initialState);
+  const {error, loading} = useSelector(userThunkSelector);
+  const dispatch = useDispatch();
   const {navigate} = useNavigation();
-  const {error} = useSelector(userThunkSelector);
+  const {t} = useTranslation();
 
   const goToProfile = React.useCallback(() => {
     navigate(PROFILE);
   }, [navigate]);
-
-  const dispatch = useDispatch();
 
   const handleLoginUser = (login: LoginForm) => {
     console.log(login);
@@ -50,24 +48,39 @@ const Login = () => {
     return subscriber;
   }, [goToProfile]);
 
-  //real-time validation
-  const onChange = ({name, value}: {name: string; value: string}) => {
-    setForm({...form, [name]: value});
-  };
-
   const onSubmit = () => {
     console.log('login>>', form);
-    console.log(error);
     handleLoginUser(form);
   };
 
+  const validationSchema = Yup.object({
+    email: Yup.string().email(t('form:email')).required(t('form:required')),
+    password: Yup.string().min(6, t('form:short')).required(t('form:required')),
+  });
+
+  const {
+    handleChange,
+    handleSubmit,
+    values: form,
+    errors,
+  } = useFormik<LoginForm>({
+    initialValues: {email: '', password: ''},
+    validationSchema, //yup object
+    //validate only after submit click
+    validateOnChange: false,
+    validateOnBlur: false,
+    onSubmit: onSubmit,
+  });
+
   return (
     <LoginComponent
-      onSubmit={onSubmit}
-      signUpWithGoogle={handleSignInWithGoogle}
-      onChange={onChange}
+      onSubmit={handleSubmit}
+      onChange={handleChange}
       form={form}
-      error={error}
+      serverError={error}
+      errors={errors}
+      signUpWithGoogle={handleSignInWithGoogle}
+      loading={loading}
     />
   );
 };

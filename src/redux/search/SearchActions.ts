@@ -27,7 +27,7 @@ export const getSearchedTvShows = createAsyncThunk<Movie[]>(
     const res = await axiosInstance.get<MovieAxiosResponse>(
       `search/tv?api_key=${API_KEY}&query=${query}&page=1`,
     );
-    const newResult: Movie[] = convertResponseToMovie(res.data.results);
+    const newResult: Movie[] = convertResponseToMovie(res.data.results, false);
     return newResult;
   },
 );

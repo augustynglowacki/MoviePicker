@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
   ImageBackground,
@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
 import {API_IMAGES} from '@env';
 import {Platform} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -18,34 +17,55 @@ import {
   getMovieDetails,
   movieDetailsSelector,
 } from '../redux/movieDetails/movieDetailsSlice';
-import {getMovieActors} from '../redux/movieDetails/movieDetailsActions';
-import {Rating} from 'react-native-ratings';
-import ActorsBox from '../components/molecules/ActorsBox';
-import {convertToHours} from '../helpers/convertToHours';
+import {
+  getMovieActors,
+  getTvShows,
+} from '../redux/movieDetails/movieDetailsActions';
+import ActorsBox from '../components/actors/ActorList';
+import RatingBox from '../components/details/RatingBox';
+import MovieDetailsInfoBox from '../components/details/DetailsInfoBox';
+import {MovieDetails, TvShowsDetails} from '../models';
+import {Container} from '../components/common';
 
 const HEIGHT = Dimensions.get('window').height;
 
+type CombineTypes = MovieDetails | TvShowsDetails;
+
 const Details = ({route, navigation}: any) => {
+  const [active, setActive] = useState<CombineTypes>();
   const distpach = useDispatch();
-  const {title, poster_path, id} = route.params;
-  const {fetchedMovies, movieActors} = useSelector(movieDetailsSelector);
+  const {poster_path, id, isMovie} = route.params;
+  const {fetchedMovies, fetchedTvShows, movieActors} =
+    useSelector(movieDetailsSelector);
 
   const movie = fetchedMovies[id];
-  const genres = movie?.genres.map(genre => genre.name);
+  const show = fetchedTvShows[id];
 
   useEffect(() => {
-    if (!fetchedMovies[id]) {
-      distpach(getMovieDetails(id));
-      distpach(getMovieActors(id));
+    if (isMovie) {
+      if (!fetchedMovies[id]) {
+        distpach(getMovieDetails(id));
+        distpach(getMovieActors(id));
+      }
+    } else {
+      distpach(getTvShows(id));
     }
-  }, [distpach, id, fetchedMovies]);
+  }, [distpach, id, isMovie, fetchedMovies]);
 
-  if (!movie) {
-    return <Text>Loading</Text>;
+  useEffect(() => {
+    if (movie) {
+      setActive(movie);
+    } else {
+      setActive(show);
+    }
+  }, [movie, show]);
+
+  if (!show && !movie) {
+    return <Text>Loading dupa</Text>;
   }
 
-  return (
-    <ScrollView style={styles.container}>
+  const renderMovieDetails = () => (
+    <Container disableSafeArea style={styles.container}>
       <ImageBackground
         style={styles.imageBackground}
         source={{uri: `${API_IMAGES}${poster_path}`}}>
@@ -67,39 +87,20 @@ const Details = ({route, navigation}: any) => {
       </ImageBackground>
 
       <View style={styles.bottomWrapper}>
-        <Text style={styles.title}>{title}</Text>
-        <View style={styles.movieInfoWrapper}>
-          <Text style={styles.movieInfoItem}>{movie.release_date}</Text>
-          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
-
-          <Text style={styles.genreText}>{`${genres[0]}, `}</Text>
-          <Text style={styles.genreText}>{genres[1]}</Text>
-
-          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
-          <Text style={styles.movieInfoItem}>
-            {convertToHours(movie.runtime)}
-          </Text>
-        </View>
-        <View style={styles.ratingWrapper}>
-          <Text style={styles.ratingText}>{movie.vote_average}</Text>
-          <Rating
-            type="star"
-            ratingCount={5}
-            imageSize={25}
-            tintColor="black"
-            startingValue={movie.vote_average / 2}
-            fractions={5}
-            readonly={true}
-          />
-        </View>
-
+        <Text style={styles.title}>{active?.title!}</Text>
+        <MovieDetailsInfoBox isMovie={isMovie} data={isMovie ? movie : show} />
+        {active?.vote_average ? (
+          <RatingBox voteAverage={active?.vote_average} />
+        ) : null}
         <View style={styles.descriptionWrapper}>
-          <Text style={styles.descriptionText}>{movie.overview}</Text>
+          <Text style={styles.descriptionText}>{active?.overview}</Text>
         </View>
+        <ActorsBox data={movieActors} error="" />
       </View>
-      <ActorsBox data={movieActors} error="" />
-    </ScrollView>
+    </Container>
   );
+
+  return <>{renderMovieDetails()}</>;
 };
 
 export default Details;
@@ -109,6 +110,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.strongBlack,
   },
+  title: {
+    color: colors.white,
+    fontSize: 40,
+    fontWeight: '800',
+    textAlign: 'center',
+    marginBottom: 15,
+  },
   imageBackground: {
     width: '100%',
     height: HEIGHT * 0.6,
@@ -117,7 +125,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: Platform.OS === 'ios' ? 40 : 30,
-    marginHorizontal: 20,
+    marginHorizontal: 16,
   },
   contentWrapper: {
     flex: 1,
@@ -133,16 +141,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
   },
-  title: {
-    color: colors.white,
-    fontSize: 40,
-    fontWeight: '800',
-    textAlign: 'center',
-    marginBottom: 15,
-  },
+
   descriptionWrapper: {
     marginTop: 20,
     marginBottom: 30,
+    paddingHorizontal: 14,
+    alignSelf: 'center',
   },
   descriptionText: {
     color: colors.white,
@@ -155,34 +159,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-    paddingHorizontal: 30,
+    paddingHorizontal: 16,
     marginTop: -40,
-  },
-  movieInfoWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    marginBottom: 20,
-  },
-  movieInfoItem: {
-    color: colors.lightGrey,
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  genreText: {
-    color: colors.lightGrey,
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  ratingWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  ratingText: {
-    color: '#F1CB00',
-    fontSize: 20,
-    marginRight: 10,
-    fontWeight: '600',
   },
 });

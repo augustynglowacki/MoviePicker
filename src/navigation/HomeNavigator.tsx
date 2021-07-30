@@ -31,7 +31,11 @@ const HomeNavigator = () => {
         component={Details}
         options={{headerShown: false}}
       />
-      <Stack.Screen name={SETTINGS} component={Settings} />
+      <Stack.Screen
+        name={SETTINGS}
+        component={Settings}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };

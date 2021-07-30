@@ -1,24 +1,56 @@
-import React from 'react';
-import {View, StyleSheet} from 'react-native';
-
-import LikedContentBox from '../components/molecules/LikedContentBox';
+import React, {useEffect, useState} from 'react';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
+import {BackendEntity, Movie} from '../models';
+import LikedComponent from '../components/liked/Liked';
 
 const Liked = () => {
-  return (
-    <View style={styles.wrapper}>
-      <LikedContentBox />
-    </View>
-  );
+  const [backendMovies, setBackendMovies] = useState<BackendEntity[]>([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const userId = auth().currentUser?.uid ?? 'none';
+      const db = firestore();
+      db.collection('users')
+        .doc(userId)
+        .collection('likedMovies')
+        .onSnapshot(snap => {
+          const newww = snap.docs.map(doc => ({
+            id: doc.id,
+            movieId: doc.data().movieId,
+            title: doc.data().title,
+            vote_average: doc.data().number,
+            poster_path: doc.data().poster_path,
+            overview: doc.data().overview,
+            genre_ids: doc.data().genre_ids,
+            isMovie: doc.data().isMovie,
+          }));
+          setBackendMovies(newww);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const convertEntityToMovie = (data: BackendEntity[]) => {
+    const newResult: Movie[] = data.map((movie: BackendEntity) => ({
+      id: movie.movieId,
+      title: movie.title,
+      vote_average: movie.vote_average,
+      poster_path: movie.poster_path,
+      overview: movie.overview,
+      genre_ids: movie.genre_ids,
+      isMovie: movie.isMovie,
+    }));
+    console.log(newResult);
+    return newResult;
+  };
+
+  return <LikedComponent movies={convertEntityToMovie(backendMovies)} />;
 };
 
 export default Liked;
-
-const styles = StyleSheet.create({
-  wrapper: {
-    backgroundColor: 'black',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingBottom: 0,
-  },
-});
