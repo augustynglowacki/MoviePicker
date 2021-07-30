@@ -16,9 +16,11 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {Genres, Movie} from '../../models';
 import Heart from '../likeHeart/Heart';
+import GenreBox from './GenreBox';
+import {Button} from 'react-native-paper';
 
 interface MovieItemProps {
-  mergeGenresWithMovies: (Genres | undefined)[];
+  mergeGenresWithMovies: Genres[];
   movie: Movie;
 }
 
@@ -30,13 +32,15 @@ export const MOVIE_HEIGHT = Math.ceil(
   Dimensions.get('window').height - BOTTOM_TABS_HEIGHT,
 );
 
-console.log('Movie height', MOVIE_HEIGHT);
-
-const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
+const MovieItem: React.FC<MovieItemProps> = ({
+  movie,
+  mergeGenresWithMovies,
+}) => {
   const {loading} = useSelector(genresSelector);
   const {t} = useTranslation();
   const {navigate} = useNavigation();
-  const {poster_path, overview, title, id, vote_average, isMovie} = movie;
+  const {poster_path, overview, title, id, vote_average, isMovie, genre_ids} =
+    movie;
   const doubleTapRef = useRef();
   const [isLiked, setLiked] = useState<boolean>(false);
   const {
@@ -45,27 +49,28 @@ const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
 
   const setData = () => {
     const db = firestore();
-    const userId = auth().currentUser?.uid ?? 'none';
-    db.collection('users').doc(userId).collection('likedMovies').add({
-      movieId: movie.id,
-      title: movie.title,
-      vote_average: movie.vote_average,
-      poster_path: movie.poster_path,
-      overview: movie.overview,
-      genre_ids: movie.genre_ids,
-      isMovie: movie.isMovie,
-    });
+    const userId = auth().currentUser?.uid;
+    userId
+      ? db.collection('users').doc(userId).collection('likedMovies').add({
+          movieId: id,
+          title,
+          vote_average,
+          poster_path,
+          overview,
+          genre_ids,
+          isMovie,
+        })
+      : null;
   };
 
   const handleOnActivated = () => {
-    if (email !== '') {
+    if (email) {
       if (!isLiked) {
         setLiked(true);
         setData();
         setTimeout(() => setLiked(false), 1200);
       }
-    }
-    if (email === '') {
+    } else {
       Alert.alert(t('common:login'), t('common:loginSuggestion'), [
         {
           text: t('common:cancel'),
@@ -118,19 +123,18 @@ const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
             end={{x: 0, y: 0}}
             style={styles.linearGradient}
           />
-          <View style={styles.contentContainer}>
-            <View style={styles.titles}>
+          <View style={styles.movieInfoContainer}>
+            <View style={styles.movieInfo}>
               <Text style={styles.title}>{title}</Text>
-
-              <View style={styles.subtitle}>
+              <View style={styles.genres}>
                 {loading ? (
-                  <Text>Loading </Text>
+                  <Button loading disabled>
+                    Loading
+                  </Button>
                 ) : (
-                  mergeGenresWithMovies.slice(0, 2).map((genre: any) => (
-                    <View key={genre.name} style={styles.categoryContainer}>
-                      <Text style={styles.categoryItem}>{genre.name}</Text>
-                    </View>
-                  ))
+                  mergeGenresWithMovies
+                    .slice(0, 2)
+                    .map((genre: any) => <GenreBox name={genre.name} />)
                 )}
               </View>
               <RatingBox voteAverage={vote_average} />
@@ -149,18 +153,25 @@ export const styles = StyleSheet.create({
   movieContainer: {
     width: '100%',
     height: MOVIE_HEIGHT,
-    position: 'relative',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.black,
   },
-  contentContainer: {
+  image: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    position: 'absolute',
+  },
+  linearGradient: {
+    height: '100%',
+    position: 'absolute',
+    width: '100%',
+  },
+  movieInfoContainer: {
     height: '100%',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  titles: {
+  movieInfo: {
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
@@ -172,44 +183,14 @@ export const styles = StyleSheet.create({
     color: colors.white,
     textAlign: 'center',
   },
-  subtitle: {
+  genres: {
     maxWidth: 350,
     fontSize: 14,
-    letterSpacing: 0.76,
-    lineHeight: 21,
     color: colors.white,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     flexWrap: 'wrap',
     marginBottom: 20,
-  },
-  categoryContainer: {
-    marginRight: 6,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 12,
-    paddingVertical: 5,
-    borderRadius: 2,
-    backgroundColor: colors.white,
-    marginTop: 6,
-  },
-  categoryItem: {
-    color: colors.black,
-    fontWeight: '600',
-    fontSize: 13,
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-    position: 'absolute',
-  },
-  linearGradient: {
-    height: '100%',
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
   },
 });
