@@ -18,7 +18,7 @@ const StatBox = ({value, label}: StatBoxProps) => {
 };
 
 const ProfileStatsContainer = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation(); // pass key
   return (
     <View style={styles.statsContainer}>
       <View style={styles.statsBox}>

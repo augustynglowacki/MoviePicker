@@ -12,6 +12,7 @@ const ProfileComponent = () => {
     <Container>
       <ProfileHeader />
       <Container withPadding disableScroll disableSafeArea>
+        {/* u can generate it from some kind of config const */}
         <CollectionContentBox
           title={t('movies:liked')}
           data={movies}
@@ -27,7 +28,7 @@ const ProfileComponent = () => {
         <CollectionContentBox
           title={t('movies:toWatch')}
           data={movies}
-          error=""
+          error="" // shouldn't be optional ?
           loading={false}
         />
       </Container>

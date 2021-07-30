@@ -65,14 +65,14 @@ const SettingsComponent: React.FC<SettingsSectionProps> = ({
     <Container flexStart>
       <Avatar uri={profileURI} editable />
       <ChangeBackground />
-      {serverError ? <Message label={serverError} /> : null}
+      {!!serverError && <Message label={serverError} />}
       <SettingBox
         label="Username"
         startingValue={values.displayName}
         onChange={onChange('displayName')}
         error={errors.displayName}
       />
-      {editData === 1 ? (
+      {editData === 1 ? ( //why 0 | 1 ?
         <>
           <SettingBox
             label="E-mail"
@@ -99,7 +99,7 @@ const SettingsComponent: React.FC<SettingsSectionProps> = ({
         <>
           <SettingBox
             label="E-mail"
-            startingValue={values.email}
+            startingValue={values.email} //initialValue
             onChange={onChange('email')}
             error={errors.email}
           />
@@ -137,7 +137,7 @@ const SettingsComponent: React.FC<SettingsSectionProps> = ({
             setEditData(0);
             fieldValue('password', '');
             fieldValue('newEmail', '');
-          }}
+          }} //create new function above return
           width="small"
         />
       </View>
@@ -155,7 +155,7 @@ const SettingsComponent: React.FC<SettingsSectionProps> = ({
           label="Save"
           onPress={onSubmit}
           width="small"
-          loading={loading ? true : false}
+          loading={loading ? true : false} // 🤦🤦🤦🤦🤦🤦🤦🤦🤦🤦🤦🤦🤦🤦🤦🤦
         />
       </View>
     </Container>

@@ -11,6 +11,7 @@ interface ActorsBoxProps {
   error: string;
 }
 
+// why outside component ?
 const renderItem: ListRenderItem<Actor> = ({item}) => (
   <View>
     {/* // unnecessary view ? */}

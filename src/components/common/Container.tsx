@@ -28,14 +28,14 @@ interface ContainerProps {
 const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
   style,
   children,
-  withKeyboard = false,
-  withPadding = false,
-  flexStart = false,
-  disableScroll = false,
-  disableSafeArea = false,
+  withKeyboard,
+  withPadding,
+  flexStart,
+  disableScroll,
+  disableSafeArea,
 }) => {
   useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']); // 👎
   }, []);
 
   const getJustifyContent = (): StyleProp<ViewStyle> => {

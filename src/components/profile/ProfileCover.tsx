@@ -3,7 +3,7 @@ import {ImageBackground, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 interface ContainerProps {
-  img: any;
+  img: any; // any
 }
 
 const ProfileCover: React.FC<React.PropsWithChildren<ContainerProps>> = ({
@@ -17,7 +17,7 @@ const ProfileCover: React.FC<React.PropsWithChildren<ContainerProps>> = ({
   return (
     <ImageBackground source={imageBackground} style={styles.coverPhoto}>
       <LinearGradient
-        colors={['#050404b2', 'rgba(0,0,0,0.4)', 'rgba(0,0,0,0)']}
+        colors={['#050404b2', 'rgba(0,0,0,0.4)', 'rgba(0,0,0,0)']} //same
         start={{x: 0, y: 1}}
         end={{x: 0, y: 0}}
         style={styles.linearGradient}>

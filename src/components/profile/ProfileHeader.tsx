@@ -11,7 +11,7 @@ const ProfileHeader = () => {
   const photoURI = auth().currentUser?.photoURL;
   const [profileURI, setProfileURI] = useState<string>(
     'https://st.depositphotos.com/1522993/4737/v/600/depositphotos_47372005-stock-illustration-orange-blue-background-with-triagles.jpg',
-  );
+  ); // const
 
   const fetchAvatar = async () => {
     try {
@@ -36,7 +36,7 @@ const ProfileHeader = () => {
           uri:
             photoURI ||
             'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultProfile.jpeg?alt=media&token=bc972054-6f70-4339-a72d-4a6c89be93a2',
-        }}
+        }} // const
         style={styles.avatar}
       />
       <ProfileInfoContainer />

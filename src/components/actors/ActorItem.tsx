@@ -4,28 +4,28 @@ import {View, StyleSheet, ImageBackground} from 'react-native';
 import {Text} from 'react-native';
 import colors from '../../assets/theme/colors';
 
-interface ActorBoxProps {
+interface Props {
   profile_path: string;
   name: string;
 }
 
-const ActorBox = ({profile_path, name}: ActorBoxProps) => {
+const ActorBox: React.FC<Props> = ({profile_path, name}) => {
+  if (!profile_path) {
+    return null;
+  }
+
   return (
-    <>
-      {!!profile_path && (
-        <View style={styles.wrapper}>
-          <View style={styles.actorBox}>
-            <ImageBackground
-              source={{uri: `${API_IMAGES}${profile_path}`}}
-              style={styles.actorImage}
-            />
-          </View>
-          <View>
-            <Text style={styles.actorName}>{name}</Text>
-          </View>
-        </View>
-      )}
-    </>
+    <View style={styles.wrapper}>
+      <View style={styles.actorBox}>
+        <ImageBackground
+          source={{uri: `${API_IMAGES}${profile_path}`}}
+          style={styles.actorImage}
+        />
+      </View>
+      <View>
+        <Text style={styles.actorName}>{name}</Text>
+      </View>
+    </View>
   );
 };
 

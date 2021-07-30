@@ -3,6 +3,7 @@ import {ImageSourcePropType} from 'react-native';
 import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import colors from '../../assets/theme/colors';
 interface SocilaButtonProps {
+  //🤦‍♂️
   icon: ImageSourcePropType;
   onPress: () => void;
 }

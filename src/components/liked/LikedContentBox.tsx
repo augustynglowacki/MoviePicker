@@ -9,6 +9,7 @@ interface LikedProps {
   movies: Movie[];
 }
 
+// why here ?
 const renderItem: ListRenderItem<Movie> = ({item}) => <MovieBox movie={item} />;
 
 const LikedContentBox = ({movies}: LikedProps) => {

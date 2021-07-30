@@ -5,6 +5,10 @@ import auth from '@react-native-firebase/auth';
 import {CustomButton} from '../common';
 
 const ChangeBackground = () => {
+  //add try catch to every async
+
+  //u added a new component for one use?
+
   const handlePicMovie = async () => {
     const res = await ImagePicker.openPicker({multiple: false});
     console.log(res.path);
@@ -12,9 +16,9 @@ const ChangeBackground = () => {
   };
 
   const saveToFirestore = async () => {
-    const newRes = await handlePicMovie();
-    console.log('newRes', newRes);
     try {
+      const newRes = await handlePicMovie();
+      console.log('newRes', newRes);
       console.log('try');
       await storage()
         .ref('users/' + auth().currentUser?.uid + '/background.jpg')

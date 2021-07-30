@@ -6,10 +6,10 @@ import {useTranslation} from 'react-i18next';
 import DiscoveryInput from './DiscoveryInput';
 
 const DiscoveryBox = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation('movies');
   return (
     <View style={styles.searchBox}>
-      <SectionHeader text={t('movies:search')} color={colors.white} />
+      <SectionHeader text={t('search')} color={colors.white} />
       <DiscoveryInput />
     </View>
   );

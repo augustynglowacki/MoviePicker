@@ -8,10 +8,10 @@ import {Input} from '../common';
 
 const DiscoveryInput = () => {
   const dispatch = useDispatch();
-  const {t} = useTranslation();
+  const {t} = useTranslation('movies');
   return (
     <Input
-      label={t('movies:searchPlaceholder')}
+      label={t('searchPlaceholder')}
       onChangeText={text => dispatch(setQuery(text))}
       left={<TextInput.Icon name="magnify" color={colors.grey} />}
       fullWidth

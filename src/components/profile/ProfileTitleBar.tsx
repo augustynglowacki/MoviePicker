@@ -11,7 +11,7 @@ import {logOutUser} from '../../redux/user/UserAction';
 const ProfileTitleBar = () => {
   const {navigate} = useNavigation();
   const dispatch = useDispatch();
-  const {t} = useTranslation();
+  const {t} = useTranslation(); // key
 
   const navigateTo = () => {
     navigate(SETTINGS);
@@ -35,6 +35,7 @@ const ProfileTitleBar = () => {
       <TouchableOpacity onPress={handleLogOut}>
         <MaterialIcon color={colors.white} name="logout" size={26} />
       </TouchableOpacity>
+      {/* new component ?  */}
       <TouchableOpacity onPress={navigateTo}>
         <MaterialIcon color={colors.white} name="more-vert" size={26} />
       </TouchableOpacity>

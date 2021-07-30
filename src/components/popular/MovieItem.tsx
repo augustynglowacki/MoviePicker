@@ -42,7 +42,7 @@ const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
   } = useSelector(userThunkSelector);
 
   const setData = () => {
-    const db = firestore();
+    const db = firestore(); //should be removed into service
     const userId = auth().currentUser?.uid ?? 'none';
     db.collection('users').doc(userId).collection('likedMovies').add({
       movieId: movie.id,
@@ -60,6 +60,7 @@ const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
       //  TODO:
       setData();
     }
+    // do it cleaner
     if (email === '') {
       Alert.alert(t('common:login'), t('common:loginSuggestion'), [
         {
@@ -108,7 +109,7 @@ const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
               'rgba(0,0,0,0.4)',
               'rgba(0,0,0,0.65)',
               'rgba(0,0,0,0.75)',
-            ]}
+            ]} // remove to const and import it
             start={{x: 0, y: 1}}
             end={{x: 0, y: 0}}
             style={styles.linearGradient}
@@ -125,7 +126,7 @@ const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
                     <View key={genre.name} style={styles.categoryContainer}>
                       <Text style={styles.categoryItem}>{genre.name}</Text>
                     </View>
-                  ))
+                  )) // make const
                 )}
               </View>
               <RatingBox voteAverage={vote_average} />

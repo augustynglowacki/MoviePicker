@@ -18,9 +18,9 @@ const Avatar: React.FC<AvatarProps> = ({editable, uri}) => {
   };
 
   const saveToFirestore = async () => {
-    const newRes = await handlePicMovie();
-    console.log('newRes', newRes);
     try {
+      const newRes = await handlePicMovie();
+      console.log('newRes', newRes);
       console.log('try');
       await storage()
         .ref('users/' + auth().currentUser?.uid + '/profile.jpg')
@@ -34,16 +34,16 @@ const Avatar: React.FC<AvatarProps> = ({editable, uri}) => {
     <View style={styles.avatarBox}>
       <Image
         source={{
-          uri: uri,
+          uri,
         }}
         style={styles.avatar}
       />
 
-      {editable ? (
+      {!!editable && (
         <TouchableOpacity onPress={saveToFirestore} style={styles.icon}>
           <Icon name="pluscircle" size={20} color="white" />
-        </TouchableOpacity>
-      ) : null}
+        </TouchableOpacity> // new component
+      )}
     </View>
   );
 };

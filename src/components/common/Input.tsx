@@ -25,6 +25,7 @@ const Input = ({
   autoFocus = false,
   autoCapitalize = 'none', //if u want input with automatic capital letter use autoCapitalize = 'words',
 }: MyInputProps) => {
+  //fix typing in every component
   const getWidth = () => {
     return {width: fullWidth ? '100%' : '80%'};
   };
@@ -51,7 +52,7 @@ const Input = ({
         autoCapitalize={autoCapitalize}
         autoCorrect={false}
       />
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+      {!!error && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 };

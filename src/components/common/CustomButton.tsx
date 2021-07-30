@@ -20,27 +20,28 @@ const CustomButton = ({
   width,
   onPress,
 }: MyButtonProps) => {
-  //background color based on variant
+  // u should set default colors/styles for primary property in StyleSheet
+  // and then use in style={} smth like that
+  // !isPrimary && styles.secondaryText
+  const isPrimary = variant === 'primary';
+
   const getBackgroundColor = () => {
     if (disabled) {
       return colors.grey;
     }
-    if (variant === 'primary') {
-      return colors.primary;
-    }
-    if (variant === 'secondary') {
-      return colors.darkGrey;
-    }
+    return isPrimary ? colors.primary : colors.darkGrey;
   };
-  //label color based on variant
+
   const getColor = () => {
-    if (variant === 'secondary') {
+    if (!isPrimary) {
+      // this is interesting
       return colors.primary;
     }
     return colors.darkGrey;
   };
-  //button width based on variant
+
   const getWidth = () => {
+    //switch case is more readable
     if (width === 'small') {
       return '45%';
     }
@@ -49,6 +50,7 @@ const CustomButton = ({
     }
     return '70%';
   };
+
   return (
     <Button
       mode="contained"

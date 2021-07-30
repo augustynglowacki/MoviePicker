@@ -27,6 +27,7 @@ const MovieBox = ({movie}: MovieBoxProps) => {
 
   return (
     <>
+      {/* create if guard above */}
       {!!movie.poster_path && (
         <TapGestureHandler
           onActivated={() => {

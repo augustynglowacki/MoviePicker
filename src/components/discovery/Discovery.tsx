@@ -19,6 +19,7 @@ const DiscoveryComponent = () => {
 
   useEffect(() => {
     if (query.length > 3) {
+      // add constant for min query length
       dispatch(getSearchedMovies());
       dispatch(getSearchedTvShows());
       dispatch(getSearchedActor());

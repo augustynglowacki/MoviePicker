@@ -10,6 +10,7 @@ interface ErrorWrapperProps {
 }
 
 const ScreenWrapper = ({error, loading, children}: ErrorWrapperProps) => {
+  // this is the same component like SearchErrorBox
   return (
     <>
       {loading ? (

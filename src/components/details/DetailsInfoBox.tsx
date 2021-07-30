@@ -12,10 +12,9 @@ interface MovieDetailsInfoBoxProps {
   isMovie: boolean;
 }
 
-const MovieDetailsInfoBox = ({
-  data: {release_date, runtime, genres, number_of_seasons, number_of_episodes},
-  isMovie,
-}: MovieDetailsInfoBoxProps) => {
+const MovieDetailsInfoBox = ({data, isMovie}: MovieDetailsInfoBoxProps) => {
+  const {release_date, runtime, genres, number_of_seasons, number_of_episodes} =
+    data;
   const genresArray = genres.map(genre => genre.name);
   const firstGenre = genresArray[0];
   const SecondGenre = genresArray[1];

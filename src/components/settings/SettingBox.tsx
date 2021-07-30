@@ -18,7 +18,7 @@ const SettingBox: React.FC<SettingBoxProps> = ({
   error,
 }) => {
   const [text, setText] = useState(startingValue);
-
+  // is this correct name? Shouldn't be StyledInput or smth ?
   return (
     <View style={styles.settingBox}>
       <Input
