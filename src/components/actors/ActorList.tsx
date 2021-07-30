@@ -13,6 +13,7 @@ interface ActorsBoxProps {
 
 const renderItem: ListRenderItem<Actor> = ({item}) => (
   <View>
+    {/* // unnecessary view ? */}
     <ActorBox name={item.name} profile_path={item.profile_path} />
   </View>
 );
@@ -21,7 +22,7 @@ const ActorsBox = ({data, error}: ActorsBoxProps) => {
   const {t} = useTranslation();
   return (
     <View style={styles.actorsBox}>
-      {data.length === 0 ? null : (
+      {data.length === 0 ? null : ( // do it cleaner
         <SectionHeader
           text={t('movies:actors')}
           color={colors.white}
@@ -34,7 +35,7 @@ const ActorsBox = ({data, error}: ActorsBoxProps) => {
           renderItem={renderItem}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item, index) => index.toString()} //ts
         />
       </SearchErrorBox>
     </View>

@@ -17,7 +17,7 @@ const Register = () => {
   const dispatch = useDispatch();
   // Hook needed to navigate to login after succesful register
   const {navigate} = useNavigation();
-  const {t} = useTranslation();
+  const {t} = useTranslation(); //pass key from en.ts
 
   const goToProfile = useCallback(() => {
     navigate(PROFILE);
@@ -43,7 +43,7 @@ const Register = () => {
   }, [goToProfile]);
 
   const onSubmit = () => {
-    console.log('form:>>', form);
+    console.log('form:>>', form); // out
     handleCreateUser(form);
   };
 
@@ -59,7 +59,7 @@ const Register = () => {
     values: form,
     errors,
   } = useFormik<RegisterForm>({
-    initialValues: {username: '', email: '', password: ''},
+    initialValues: {username: '', email: '', password: ''}, // create initial const above component
     validationSchema, //yup object
     //validate only after submit click
     validateOnChange: false,
@@ -68,7 +68,7 @@ const Register = () => {
   });
 
   // useEffect(() => {
-  //   console.log(form, errors);
+  //   console.log(form, errors);    out
   // }, [form, errors]);
 
   return (

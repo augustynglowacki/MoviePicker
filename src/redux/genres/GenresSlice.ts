@@ -29,6 +29,7 @@ const genresSlice = createSlice({
   extraReducers: builder => {
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(getGenres.fulfilled, (state, action) => {
+      // addCase should be enough so remove each builder
       // Add user to the state array
       state.genres = action.payload;
       state.loading = false;
@@ -40,7 +41,7 @@ const genresSlice = createSlice({
     builder.addCase(getGenres.rejected, (state, action) => {
       // Add user to the state array
       state.loading = false;
-      console.log(action.error.message);
+      console.log(action.error.message); // out
       state.error = action.error.message ?? 'error';
     });
   },

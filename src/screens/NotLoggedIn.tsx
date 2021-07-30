@@ -13,7 +13,7 @@ import {CustomButton} from '../components/common';
 
 const NotLoggedIn = ({isLiked}: {isLiked: boolean}) => {
   const {navigate} = useNavigation();
-  const {t} = useTranslation();
+  const {t} = useTranslation('profile');
 
   const goToAuth = useCallback(() => {
     navigate(AUTH);
@@ -23,14 +23,15 @@ const NotLoggedIn = ({isLiked}: {isLiked: boolean}) => {
 
   return (
     <View style={styles.container}>
+      {/* isFavorite */}
       {isLiked ? <Liked movies={movies} /> : <Profile />}
       <BlurView style={styles.absolute} blurType="dark" blurAmount={5} />
       <View style={styles.box}>
-        <Text style={styles.text}>{t('profile:explore')}</Text>
-        <Text style={styles.subText}>{t('profile:exploreSub')}</Text>
+        <Text style={styles.text}>{t('explore')}</Text>
+        <Text style={styles.subText}>{t('exploreSub')}</Text>
         <View style={styles.buttons}>
           <CustomButton
-            label={t('profile:button')}
+            label={t('button')}
             variant="primary"
             onPress={goToAuth}
           />

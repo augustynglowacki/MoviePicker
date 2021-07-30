@@ -28,7 +28,7 @@ const BottomTabsNavigator = () => {
         name={HOME}
         component={Popular}
         options={{
-          tabBarIcon: ({focused}) => TabIcon(focused, 'home'),
+          tabBarIcon: ({focused}) => TabIcon(focused, 'home'), // fix ts
         }}
       />
       <Tab.Screen
@@ -39,7 +39,7 @@ const BottomTabsNavigator = () => {
         }}
       />
 
-      {email !== '' ? (
+      {email !== '' ? ( // u can do it cleaner
         <>
           <Tab.Screen
             name={LIKED}

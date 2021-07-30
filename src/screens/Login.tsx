@@ -13,7 +13,7 @@ import {useSelector} from 'react-redux';
 import {userThunkSelector} from '../redux/user/UserSlice';
 import {useTranslation} from 'react-i18next';
 import {useFormik} from 'formik';
-let Yup = require('yup');
+let Yup = require('yup'); //use import
 
 const Login = () => {
   const {error, loading} = useSelector(userThunkSelector);
@@ -22,6 +22,7 @@ const Login = () => {
   const {t} = useTranslation();
 
   const goToProfile = React.useCallback(() => {
+    //redirectToProfileScreen
     navigate(PROFILE);
   }, [navigate]);
 
@@ -49,7 +50,7 @@ const Login = () => {
   }, [goToProfile]);
 
   const onSubmit = () => {
-    console.log('login>>', form);
+    console.log('login>>', form); //trash
     handleLoginUser(form);
   };
 
@@ -69,7 +70,7 @@ const Login = () => {
     //validate only after submit click
     validateOnChange: false,
     validateOnBlur: false,
-    onSubmit: onSubmit,
+    onSubmit, //it is enough
   });
 
   return (

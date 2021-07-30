@@ -25,7 +25,9 @@ const Popular = () => {
 
   useEffect(() => {
     if (email === '') {
+      //u know what
       const subscriber = auth().onAuthStateChanged(user => {
+        //ts + move into service
         if (user) {
           dispatch(
             setActiveUser({

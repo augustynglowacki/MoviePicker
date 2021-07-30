@@ -8,3 +8,9 @@ export const AUTH: string = 'Auth';
 export const HOME_NAVIGATOR: string = 'HomeNavigator';
 export const DETAILS: string = 'Details';
 export const SETTINGS: string = 'Settings';
+
+// use enum
+// export enum Route {
+//   Login = 'Login',
+//   Home = 'Home',
+// }

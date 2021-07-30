@@ -11,7 +11,7 @@ export const getMovies = createAsyncThunk<Movie[]>(
   'movie/getMovies',
   async () => {
     const res = await axiosInstance.get<MovieAxiosResponse>(
-      `movie/popular?api_key=${API_KEY}&language=en-US&page=${randomItem}`,
+      `movie/popular?api_key=${API_KEY}&language=en-US&page=${randomItem}`, //same
     );
 
     const newresult: Movie[] = convertResponseToMovie(res.data.results);

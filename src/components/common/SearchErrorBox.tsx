@@ -6,7 +6,7 @@ import colors from '../../assets/theme/colors';
 interface SearchErrorBoxProps {
   loading: boolean;
   error: string;
-  children: React.ReactNode;
+  children: React.ReactNode; // :facepalm:
 }
 
 const SearchErrorBox = ({loading, error, children}: SearchErrorBoxProps) => {

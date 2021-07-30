@@ -20,7 +20,7 @@ import {
 import {
   getMovieActors,
   getTvShows,
-} from '../redux/movieDetails/movieDetailsActions';
+} from '../redux/movieDetails/movieDetailsActions'; //absolute paths
 import ActorsBox from '../components/actors/ActorList';
 import RatingBox from '../components/details/RatingBox';
 import MovieDetailsInfoBox from '../components/details/DetailsInfoBox';
@@ -29,11 +29,10 @@ import {Container} from '../components/common';
 
 const HEIGHT = Dimensions.get('window').height;
 
-type CombineTypes = MovieDetails | TvShowsDetails;
-
+// keep screen names like that -> DetailsScreen
 const Details = ({route, navigation}: any) => {
-  const [active, setActive] = useState<CombineTypes>();
-  const distpach = useDispatch();
+  const [active, setActive] = useState<MovieDetails | TvShowsDetails>();
+  const distpach = useDispatch(); //install extension for typos
   const {poster_path, id, isMovie} = route.params;
   const {fetchedMovies, fetchedTvShows, movieActors} =
     useSelector(movieDetailsSelector);
@@ -42,26 +41,22 @@ const Details = ({route, navigation}: any) => {
   const show = fetchedTvShows[id];
 
   useEffect(() => {
-    if (isMovie) {
-      if (!fetchedMovies[id]) {
-        distpach(getMovieDetails(id));
-        distpach(getMovieActors(id));
-      }
+    // is this works correctly ? 🤔
+    if (isMovie && !fetchedMovies[id]) {
+      distpach(getMovieDetails(id));
+      distpach(getMovieActors(id));
     } else {
       distpach(getTvShows(id));
     }
   }, [distpach, id, isMovie, fetchedMovies]);
 
   useEffect(() => {
-    if (movie) {
-      setActive(movie);
-    } else {
-      setActive(show);
-    }
+    setActive(movie ? movie : show); // looks better
   }, [movie, show]);
 
   if (!show && !movie) {
-    return <Text>Loading dupa</Text>;
+    // should be loading prop from store
+    return <Text>Loading dupa</Text>; // should be loading indicator
   }
 
   const renderMovieDetails = () => (
@@ -75,6 +70,7 @@ const Details = ({route, navigation}: any) => {
               <Entypo name="chevron-left" size={35} color={colors.white} />
             </TouchableOpacity>
           </View>
+          {/* this gradient looks like separated component */}
           <View style={styles.linearWrapper}>
             <LinearGradient
               start={{x: 0, y: 0}}
@@ -87,19 +83,22 @@ const Details = ({route, navigation}: any) => {
       </ImageBackground>
 
       <View style={styles.bottomWrapper}>
-        <Text style={styles.title}>{active?.title!}</Text>
+        <Text style={styles.title}>{active?.title!}</Text> {/*do not use !*/}
         <MovieDetailsInfoBox isMovie={isMovie} data={isMovie ? movie : show} />
         {active?.vote_average ? (
           <RatingBox voteAverage={active?.vote_average} />
-        ) : null}
+        ) : null}{' '}
+        {/* use && instead of ? () : () */}
         <View style={styles.descriptionWrapper}>
           <Text style={styles.descriptionText}>{active?.overview}</Text>
         </View>
         <ActorsBox data={movieActors} error="" />
+        {/* error should be optional prop */}
       </View>
     </Container>
   );
 
+  // remove this function and return normal JSX
   return <>{renderMovieDetails()}</>;
 };
 
@@ -124,7 +123,7 @@ const styles = StyleSheet.create({
   headerWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: Platform.OS === 'ios' ? 40 : 30,
+    marginTop: Platform.OS === 'ios' ? 40 : 30, // u can create helper isIOS
     marginHorizontal: 16,
   },
   contentWrapper: {
