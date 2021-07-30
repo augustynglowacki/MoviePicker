@@ -1,5 +1,5 @@
 import React from 'react';
-import {Movie} from '../../models';
+import {Movie} from 'src/models';
 import LikedContentBox from './LikedContentBox';
 
 interface LikedProps {

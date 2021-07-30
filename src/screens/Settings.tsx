@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import * as Yup from 'yup';
 import {useTranslation} from 'react-i18next';
 import {useDispatch, useSelector} from 'react-redux';
-import {setActiveUser, userThunkSelector} from '../redux/user/UserSlice';
+import {setActiveUser, userThunkSelector} from 'src/redux/user/UserSlice';
 import {useFormik} from 'formik';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
-import {PROFILE} from '../models/constants/routeNames';
-import SettingsComponent from '../components/settings/Settings';
+import {PROFILE} from 'src/models/constants/routeNames';
+import SettingsComponent from 'src/components/settings/Settings';
 
 export interface FormValues {
   email: any;
@@ -20,9 +20,9 @@ export interface FormValues {
 const Settings = () => {
   const {user} = useSelector(userThunkSelector);
   const dispatch = useDispatch();
-  const {t} = useTranslation();
+  const {t} = useTranslation('form');
   const {navigate} = useNavigation();
-  const [error, setError] = useState<any>('');
+  const [error, setError] = useState<any>(''); // any
   const [loading, setLoading] = useState<boolean>(false);
 
   const onSubmit = () => {
@@ -31,9 +31,11 @@ const Settings = () => {
       handleUserNameUpdate(values);
     }
     if (values.newEmail !== '') {
+      // u know what
       handleUserEmailUpdate(values);
     }
     if (values.newPassword !== '') {
+      // u know what
       handlePasswordUpdate(values);
     }
   };
@@ -47,11 +49,12 @@ const Settings = () => {
       setLoading(true);
       await auth().signInWithEmailAndPassword(email, password);
       await auth().currentUser?.updatePassword(newPassword);
-      setLoading(false);
       navigate(PROFILE);
     } catch (err) {
       setError(err.message);
-      setTimeout(() => setError(''), 4000);
+      setTimeout(() => setError(''), 4000); // ????
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -76,7 +79,7 @@ const Settings = () => {
     } catch (err) {
       setError(err.message);
       setTimeout(() => setError(''), 4000);
-    }
+    } // add finally
   };
   const handleUserNameUpdate = async ({displayName}: FormValues) => {
     await auth().currentUser?.updateProfile({
@@ -91,11 +94,11 @@ const Settings = () => {
   };
 
   const validationSchema = Yup.object({
-    displayName: Yup.string().min(3),
-    email: Yup.string().email(t('form:email')),
-    newEmail: Yup.string().email(t('form:email')),
-    password: Yup.string().min(6, t('form:short')).required(),
-    newPassword: Yup.string().min(6, t('form:short')),
+    displayName: Yup.string().min(3), // add const for this min values
+    email: Yup.string().email(t('email')),
+    newEmail: Yup.string().email(t('email')),
+    password: Yup.string().min(6, t('short')).required(),
+    newPassword: Yup.string().min(6, t('short')),
   });
 
   const {setFieldValue, handleChange, handleSubmit, errors, values} = useFormik(
@@ -106,11 +109,11 @@ const Settings = () => {
         password: '',
         newPassword: '',
         displayName: user.userName,
-      },
+      }, // create initial const
       validationSchema,
       validateOnChange: false,
       validateOnBlur: false,
-      onSubmit: onSubmit,
+      onSubmit, // u know what
     },
   );
 

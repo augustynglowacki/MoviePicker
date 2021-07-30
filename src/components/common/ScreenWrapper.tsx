@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
+import Loading from 'src/screens/Loading';
 import ErrorBox from './ErrorBox';
-import Loading from '../../screens/Loading';
 
 interface ErrorWrapperProps {
   error: string;

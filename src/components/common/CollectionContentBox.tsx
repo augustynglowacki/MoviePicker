@@ -2,8 +2,8 @@ import React from 'react';
 import {ListRenderItem, StyleSheet, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {MovieBox, SearchErrorBox, SectionHeader} from '.';
-import colors from '../../assets/theme/colors';
-import {Movie} from '../../models';
+import palette from 'src/styles/palette';
+import {Movie} from 'src/models';
 
 interface DiscoveryContentBoxProps {
   title: string;
@@ -22,7 +22,7 @@ const CollectionContentBox = ({
   return (
     <View style={styles.discoveryContentBox}>
       {data.length === 0 ? null : (
-        <SectionHeader text={title} size={20} color={colors.white} />
+        <SectionHeader text={title} size={20} color={palette.white} />
       )}
       <SearchErrorBox error={error} loading={false}>
         <FlatList

@@ -1,8 +1,8 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {View, StyleSheet, ListRenderItem, FlatList} from 'react-native';
-import colors from '../../assets/theme/colors';
-import {Movie} from '../../models';
+import {Movie} from 'src/models';
+import palette from 'src/styles/palette';
 import {Container, MovieBox, SectionHeader} from '../common';
 
 interface LikedProps {
@@ -12,10 +12,10 @@ interface LikedProps {
 const renderItem: ListRenderItem<Movie> = ({item}) => <MovieBox movie={item} />;
 
 const LikedContentBox = ({movies}: LikedProps) => {
-  const {t} = useTranslation();
+  const {t} = useTranslation('movies');
   return (
     <Container flexStart withPadding disableScroll>
-      <SectionHeader text={t('movies:liked')} color={colors.white} />
+      <SectionHeader text={t('liked')} color={palette.white} />
       <View style={styles.likedContentBox}>
         <FlatList
           data={movies}

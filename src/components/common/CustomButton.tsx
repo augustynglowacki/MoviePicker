@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
-import colors from '../../assets/theme/colors';
+import palette from 'src/styles/palette';
 
 interface MyButtonProps {
   disabled?: boolean;
@@ -23,21 +23,21 @@ const CustomButton = ({
   //background color based on variant
   const getBackgroundColor = () => {
     if (disabled) {
-      return colors.grey;
+      return palette.grey;
     }
     if (variant === 'primary') {
-      return colors.primary;
+      return palette.primary;
     }
     if (variant === 'secondary') {
-      return colors.darkGrey;
+      return palette.darkGrey;
     }
   };
   //label color based on variant
   const getColor = () => {
     if (variant === 'secondary') {
-      return colors.primary;
+      return palette.primary;
     }
-    return colors.darkGrey;
+    return palette.darkGrey;
   };
   //button width based on variant
   const getWidth = () => {

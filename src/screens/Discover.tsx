@@ -1,5 +1,5 @@
 import React from 'react';
-import Discovery from '../components/discovery/Discovery';
+import Discovery from 'src/components/discovery/Discovery';
 
 const Discover = () => {
   return <Discovery />;

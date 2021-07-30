@@ -5,15 +5,15 @@ import {
   getSearchedActor,
   getSearchedMovies,
   getSearchedTvShows,
-} from '../../redux/search/SearchActions';
-import {SearchSelector} from '../../redux/search/SearchSlice';
-import ActorsBox from '../actors/ActorList';
+} from 'src/redux/search/SearchActions';
+import {SearchSelector} from 'src/redux/search/SearchSlice';
+import ActorList from '../actors/ActorList';
 import {CollectionContentBox, Container} from '../common';
 import DiscoveryBox from './DiscoveryBox';
 
 const DiscoveryComponent = () => {
   const dispatch = useDispatch();
-  const {t} = useTranslation();
+  const {t} = useTranslation('movies');
   const {query, foundMovies, foundTvShows, foundActors} =
     useSelector(SearchSelector);
 
@@ -29,18 +29,18 @@ const DiscoveryComponent = () => {
     <Container withPadding flexStart withKeyboard>
       <DiscoveryBox />
       <CollectionContentBox
-        title={t('movies:movies')}
+        title={t('movies')}
         data={foundMovies.movies}
         error={foundMovies.error}
         loading={foundMovies.loading}
       />
       <CollectionContentBox
-        title={t('movies:tvShows')}
+        title={t('tvShows')}
         data={foundTvShows.movies}
         error={foundTvShows.error}
         loading={foundTvShows.loading}
       />
-      <ActorsBox data={foundActors.actors} error={foundActors.error} />
+      <ActorList data={foundActors.actors} error={foundActors.error} />
     </Container>
   );
 };

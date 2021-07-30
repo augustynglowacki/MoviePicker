@@ -1,30 +1,31 @@
-import React from 'react';
+import React, {PropsWithChildren} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import colors from '../../assets/theme/colors';
+import palette from 'src/styles/palette';
 
 interface SearchErrorBoxProps {
   loading: boolean;
-  error: string;
-  children: React.ReactNode;
+  error?: string;
 }
 
-const SearchErrorBox = ({loading, error, children}: SearchErrorBoxProps) => {
-  return (
-    <View>
-      {/* to do: loading */}
-      {loading ? (
-        <Text>Loading...</Text>
-      ) : error ? (
-        <View style={styles.searchErrorBox}>
-          <Icon name="times-circle-o" color={colors.danger} size={50} />
-          <Text style={{color: colors.danger}}>{error}</Text>
-        </View>
-      ) : (
-        <>{children}</>
-      )}
-    </View>
-  );
+const SearchErrorBox: React.FC<PropsWithChildren<SearchErrorBoxProps>> = ({
+  loading,
+  error,
+  children,
+}) => {
+  if (loading) {
+    return <Text>Loading...</Text>;
+  }
+  if (error) {
+    return (
+      //TODO: use ErrorBox, duplicated component
+      <View style={styles.searchErrorBox}>
+        <Icon name="times-circle-o" color={palette.danger} size={50} />
+        <Text style={{color: palette.danger}}>{error}</Text>
+      </View>
+    );
+  }
+  return <>{children}</>;
 };
 
 const styles = StyleSheet.create({

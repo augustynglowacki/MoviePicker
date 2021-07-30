@@ -6,8 +6,9 @@ export interface TvShowsDetailsAxiosResponse {
   number_of_seasons: number;
   vote_average: number;
   poster_path: string;
-  seasons: [];
+  seasons: []; // add type for array
   id: number;
   overview: string;
   genres: Genres[];
 }
+// same as TvShowsDetails

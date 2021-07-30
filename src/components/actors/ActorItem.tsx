@@ -2,19 +2,19 @@ import {API_IMAGES} from '@env';
 import React from 'react';
 import {View, StyleSheet, ImageBackground} from 'react-native';
 import {Text} from 'react-native';
-import colors from '../../assets/theme/colors';
+import palette from 'src/styles/palette';
 
-interface ActorBoxProps {
+interface ActorItemProps {
   profile_path: string;
   name: string;
 }
 
-const ActorBox = ({profile_path, name}: ActorBoxProps) => {
+const ActorItem = ({profile_path, name}: ActorItemProps) => {
   return (
     <>
       {!!profile_path && (
         <View style={styles.wrapper}>
-          <View style={styles.actorBox}>
+          <View style={styles.ActorItem}>
             <ImageBackground
               source={{uri: `${API_IMAGES}${profile_path}`}}
               style={styles.actorImage}
@@ -35,11 +35,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-  actorBox: {
+  ActorItem: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: colors.grey,
+    backgroundColor: palette.grey,
     margin: 5,
   },
   actorImage: {
@@ -51,10 +51,10 @@ const styles = StyleSheet.create({
   },
   actorName: {
     fontSize: 16,
-    color: colors.white,
+    color: palette.white,
     textAlign: 'center',
     width: 70,
   },
 });
 
-export default ActorBox;
+export default ActorItem;

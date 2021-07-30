@@ -1,10 +1,12 @@
 import React, {useRef} from 'react';
 import {StyleSheet, Animated, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import colors from '../assets/theme/colors';
-import Container from '../components/common/Container';
+import palette from 'src/styles/palette';
+// should be from src/styles/palette.ts
+import Container from 'src/components/common/Container';
 
 const Loading = () => {
+  // ts
   const rotateAnim = useRef(new Animated.Value(0)).current;
 
   Animated.loop(
@@ -23,7 +25,7 @@ const Loading = () => {
     <Container>
       <View style={styles.loadingBox}>
         <Animated.View style={{transform: [{rotate: spin}]}}>
-          <Icon name="loading1" size={100} color={colors.primary} />
+          <Icon name="loading1" size={100} color={palette.primary} />
         </Animated.View>
       </View>
     </Container>
@@ -36,7 +38,7 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.black,
+    backgroundColor: palette.black,
     position: 'absolute',
     flex: 1,
   },

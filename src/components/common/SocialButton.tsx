@@ -1,7 +1,7 @@
 import React from 'react';
 import {ImageSourcePropType} from 'react-native';
 import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
-import colors from '../../assets/theme/colors';
+import palette from 'src/styles/palette';
 interface SocilaButtonProps {
   icon: ImageSourcePropType;
   onPress: () => void;
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 100,
-    backgroundColor: colors.white,
+    backgroundColor: palette.white,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',

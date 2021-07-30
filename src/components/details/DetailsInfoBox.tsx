@@ -2,9 +2,9 @@ import {format, parseISO} from 'date-fns';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
-import colors from '../../assets/theme/colors';
-import {convertToHours} from '../../helpers/convertToHours';
-import {MovieDetails, TvShowsDetails} from '../../models';
+import {convertToHours} from 'src/helpers/convertToHours';
+import {MovieDetails, TvShowsDetails} from 'src/models';
+import palette from 'src/styles/palette';
 
 interface MovieAndShows extends MovieDetails, TvShowsDetails {}
 interface MovieDetailsInfoBoxProps {
@@ -24,7 +24,7 @@ const MovieDetailsInfoBox = ({
     if (isMovie && runtime) {
       return (
         <>
-          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
+          <Entypo name="dot-single" size={32} color={palette.lightGrey} />
           <Text style={styles.movieInfoItem}>{convertToHours(runtime)}</Text>
         </>
       );
@@ -32,7 +32,7 @@ const MovieDetailsInfoBox = ({
     if (!isMovie && number_of_seasons) {
       return (
         <>
-          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
+          <Entypo name="dot-single" size={32} color={palette.lightGrey} />
           <Text
             style={styles.movieInfoItem}>{`${number_of_seasons} seasons`}</Text>
         </>
@@ -46,7 +46,7 @@ const MovieDetailsInfoBox = ({
           <Text style={styles.movieInfoItem}>
             {format(parseISO(release_date), 'yyyy')}
           </Text>
-          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
+          <Entypo name="dot-single" size={32} color={palette.lightGrey} />
         </>
       );
     }
@@ -56,7 +56,7 @@ const MovieDetailsInfoBox = ({
           <Text style={styles.movieInfoItem}>
             {`${number_of_episodes} episodes`}
           </Text>
-          <Entypo name="dot-single" size={32} color={colors.lightGrey} />
+          <Entypo name="dot-single" size={32} color={palette.lightGrey} />
         </>
       );
     }
@@ -82,12 +82,12 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   movieInfoItem: {
-    color: colors.lightGrey,
+    color: palette.lightGrey,
     fontSize: 15,
     fontWeight: '600',
   },
   genreText: {
-    color: colors.lightGrey,
+    color: palette.lightGrey,
     fontSize: 15,
     fontWeight: '600',
   },

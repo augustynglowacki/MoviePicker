@@ -5,16 +5,16 @@ import {API_IMAGES} from '@env';
 import {StyleSheet, Dimensions} from 'react-native';
 import {TapGestureHandler} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
-import {AUTH, DETAILS} from '../../models/constants/routeNames';
-import colors from '../../assets/theme/colors';
+import palette from 'src/styles/palette';
 import {useSelector} from 'react-redux';
-import {genresSelector} from '../../redux/genres/GenresSlice';
+import {genresSelector} from 'src/redux/genres/GenresSlice';
 import {useTranslation} from 'react-i18next';
-import {userThunkSelector} from '../../redux/user/UserSlice';
+import {userThunkSelector} from 'src/redux/user/UserSlice';
 import RatingBox from '../details/RatingBox';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-import {Genres, Movie} from '../../models';
+import {Genres, Movie} from 'src/models';
+import {AUTH, DETAILS} from 'src/models/constants/routeNames';
 
 interface MovieItemProps {
   mergeGenresWithMovies: (Genres | undefined)[];
@@ -33,7 +33,7 @@ console.log('Movie height', MOVIE_HEIGHT);
 
 const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
   const {loading} = useSelector(genresSelector);
-  const {t} = useTranslation();
+  const {t} = useTranslation('common');
   const {navigate} = useNavigation();
   const {poster_path, overview, title, id, vote_average, isMovie} = movie;
   const doubleTapRef = useRef();
@@ -61,13 +61,13 @@ const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
       setData();
     }
     if (email === '') {
-      Alert.alert(t('common:login'), t('common:loginSuggestion'), [
+      Alert.alert(t('login'), t('loginSuggestion'), [
         {
-          text: t('common:cancel'),
+          text: t('cancel'),
           onPress: () => {},
         },
         {
-          text: t('common:ok'),
+          text: t('ok'),
           onPress: () => navigate(AUTH),
         },
       ]);
@@ -146,7 +146,7 @@ export const styles = StyleSheet.create({
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.black,
+    backgroundColor: palette.black,
   },
   contentContainer: {
     height: '100%',
@@ -163,7 +163,7 @@ export const styles = StyleSheet.create({
     fontWeight: '800',
     fontSize: 42,
     marginBottom: 15,
-    color: colors.white,
+    color: palette.white,
     textAlign: 'center',
   },
   subtitle: {
@@ -171,7 +171,7 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     letterSpacing: 0.76,
     lineHeight: 21,
-    color: colors.white,
+    color: palette.white,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -186,11 +186,11 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 5,
     borderRadius: 2,
-    backgroundColor: colors.white,
+    backgroundColor: palette.white,
     marginTop: 6,
   },
   categoryItem: {
-    color: colors.black,
+    color: palette.black,
     fontWeight: '600',
     fontSize: 13,
   },

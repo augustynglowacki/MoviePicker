@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {MovieState} from '../../models';
+import {MovieState} from 'src/models';
 import {RootState} from '../rootReducer';
 import {getMovies} from './MovieActions';
 

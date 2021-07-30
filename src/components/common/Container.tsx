@@ -9,7 +9,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import colors from '../../assets/theme/colors';
+import palette from 'src/styles/palette';
 import {LogBox} from 'react-native';
 
 interface ContainerProps {
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: colors.black,
+    backgroundColor: palette.black,
     justifyContent: 'center',
   },
 });

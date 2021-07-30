@@ -3,15 +3,15 @@ import * as React from 'react';
 import {useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {TextInput} from 'react-native-paper';
-import colors from '../../assets/theme/colors';
-import {LoginForm} from '../../models';
-import {REGISTER} from '../../models/constants/routeNames';
 import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
 import {FormikErrors} from 'formik';
 import SocialBox from './SocialBox';
 import RegisterInfo from './RegisterInfo';
 import {Container, CustomButton, Input, Message} from '../common';
+import {LoginForm} from 'src/models';
+import {REGISTER} from 'src/models/constants/routeNames';
+import palette from 'src/styles/palette';
 
 interface IProps {
   //type from useFormik handleChange
@@ -38,7 +38,7 @@ const LoginComponent = ({
   signUpWithGoogle,
   loading,
 }: IProps) => {
-  const {t} = useTranslation();
+  const {t} = useTranslation('common');
   const {navigate} = useNavigation();
   const goToRegister = () => navigate(REGISTER);
   const [hiddenPassword, setHiddenPassword] = useState(true);
@@ -53,10 +53,10 @@ const LoginComponent = ({
           />
         </Animated.View>
         <View>
-          <Text style={styles.title}>{t('common:welcomeMessage')}</Text>
+          <Text style={styles.title}>{t('welcomeMessage')}</Text>
           <View style={styles.form}>
             <Input
-              label={t('common:email')}
+              label={t('email')}
               value={form.email}
               onChangeText={onChange('email')}
               error={errors.email}
@@ -64,7 +64,7 @@ const LoginComponent = ({
               keyboardType="email-address"
             />
             <Input
-              label={t('common:password')}
+              label={t('password')}
               value={form.password}
               onChangeText={onChange('password')}
               secureTextEntry={hiddenPassword}
@@ -72,13 +72,13 @@ const LoginComponent = ({
               right={
                 <TextInput.Icon
                   name="eye"
-                  color={colors.grey}
+                  color={palette.grey}
                   onPress={handleHide}
                 />
               }
             />
             <CustomButton
-              label={t('common:login')}
+              label={t('login')}
               width="small"
               variant="primary"
               onPress={onSubmit}
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: 'center',
     paddingTop: 10,
-    color: colors.white,
+    color: palette.white,
   },
   form: {
     paddingTop: 20,

@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {TextInputProps} from 'react-native';
 import {TextInput} from 'react-native-paper';
-import colors from '../../assets/theme/colors';
+import palette from 'src/styles/palette';
 
 interface MyInputProps extends TextInputProps {
   right?: React.ReactNode;
@@ -36,12 +36,12 @@ const Input = ({
         value={value}
         theme={{
           colors: {
-            primary: colors.primary,
-            text: colors.white,
-            placeholder: colors.grey,
+            primary: palette.primary,
+            text: palette.white,
+            placeholder: palette.grey,
           },
         }}
-        placeholderTextColor={colors.white}
+        placeholderTextColor={palette.white}
         label={label}
         right={right}
         left={left}
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     height: 60,
     width: '80%',
     alignSelf: 'center',
-    backgroundColor: colors.darkGrey,
+    backgroundColor: palette.darkGrey,
     borderRadius: 4,
   },
   wrap: {
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   error: {
     alignSelf: 'center',
     width: '80%',
-    color: colors.danger,
+    color: palette.danger,
     fontSize: 12,
     marginTop: 1,
   },

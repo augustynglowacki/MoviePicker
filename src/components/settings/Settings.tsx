@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {PROFILE} from '../../models/constants/routeNames';
+import {PROFILE} from 'src/models/constants/routeNames';
 import {useNavigation} from '@react-navigation/native';
 import {FormikErrors} from 'formik';
 import storage from '@react-native-firebase/storage';
@@ -9,7 +9,7 @@ import {Container, CustomButton, Message} from '../common';
 import SettingBox from './SettingBox';
 import Avatar from './Avatar';
 import ChangeBackground from './ChangeBackground';
-import {FormValues} from '../../screens/Settings';
+import {FormValues} from 'src/screens/Settings';
 
 interface SettingsSectionProps {
   onChange: {

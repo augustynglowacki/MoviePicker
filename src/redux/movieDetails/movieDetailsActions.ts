@@ -1,12 +1,12 @@
 import {API_KEY} from '@env';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import axiosInstance from '../../helpers/axiosInstance';
+import axiosInstance from 'src/helpers/axiosInstance';
 import {
   Actor,
   MovieDetails,
   TvShowsDetails,
   TvShowsDetailsAxiosResponse,
-} from '../../models';
+} from 'src/models';
 
 interface MovieActorsAxiosResponse {
   cast: Actor[];
@@ -25,7 +25,7 @@ export const getMovieDetails = createAsyncThunk<MovieDetails, number>(
       runtime: res.data.runtime,
       title: res.data.title,
       vote_average: res.data.vote_average,
-      poster_path: res.data.poster_path,
+      poster_path: res.data.poster_path, //camels
       revenue: res.data.revenue,
       release_date: res.data.release_date,
       genres: res.data.genres,
@@ -43,6 +43,7 @@ export const getMovieActors = createAsyncThunk<Actor[], number>(
     );
 
     const newresult: Actor[] = res.data.cast.map(actor => ({
+      //bad naming and ts problems
       id: actor.id,
       name: actor.name,
       profile_path: actor.profile_path,
@@ -55,7 +56,7 @@ export const getMovieActors = createAsyncThunk<Actor[], number>(
 export const getTvShows = createAsyncThunk<TvShowsDetails, number>(
   'tvShowDetails/getTvShowDetails',
   async id => {
-    console.log(id);
+    console.log(id); //set ur eslint to prevent those shits
 
     const res = await axiosInstance.get<TvShowsDetailsAxiosResponse>(
       `tv/${id}?api_key=${API_KEY}&language=en-US`,

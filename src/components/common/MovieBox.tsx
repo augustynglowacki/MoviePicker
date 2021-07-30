@@ -1,13 +1,13 @@
 import {API_IMAGES} from '@env';
 import {useNavigation} from '@react-navigation/native';
-import {DETAILS} from '../../models/constants/routeNames';
 import React, {useEffect, useRef} from 'react';
 import {StyleSheet, ImageBackground, Animated} from 'react-native';
 import {TapGestureHandler} from 'react-native-gesture-handler';
-import colors from '../../assets/theme/colors';
-import {Movie} from '../../models';
+import palette from 'src/styles/palette';
 import LinearGradient from 'react-native-linear-gradient';
 import {Dimensions} from 'react-native';
+import {Movie} from 'src/models';
+import {DETAILS} from 'src/models/constants/routeNames';
 
 interface MovieBoxProps {
   movie: Movie;
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     height: HEIGHT,
     minWidth: WIDTH,
     margin: 3,
-    backgroundColor: colors.black,
+    backgroundColor: palette.black,
     borderRadius: BORDER_RADIUS,
   },
   movieImage: {
