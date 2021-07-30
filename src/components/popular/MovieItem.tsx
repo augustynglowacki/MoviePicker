@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {Text, View, ImageBackground, Alert} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {API_IMAGES} from '@env';
@@ -15,6 +15,7 @@ import RatingBox from '../details/RatingBox';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {Genres, Movie} from '../../models';
+import Heart from '../likeHeart/Heart';
 
 interface MovieItemProps {
   mergeGenresWithMovies: (Genres | undefined)[];
@@ -32,6 +33,7 @@ export const MOVIE_HEIGHT = Math.ceil(
 console.log('Movie height', MOVIE_HEIGHT);
 
 const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
+  const [isLiked, setLiked] = useState<boolean>(false);
   const {loading} = useSelector(genresSelector);
   const {t} = useTranslation();
   const {navigate} = useNavigation();
@@ -56,9 +58,10 @@ const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
   };
 
   const handleOnActivated = () => {
-    if (email !== '') {
-      //  TODO:
+    if (!isLiked) {
+      setLiked(true);
       setData();
+      setTimeout(() => setLiked(false), 1200);
     }
     if (email === '') {
       Alert.alert(t('common:login'), t('common:loginSuggestion'), [
@@ -129,6 +132,7 @@ const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
                 )}
               </View>
               <RatingBox voteAverage={vote_average} />
+              {isLiked ? <Heart /> : null}
             </View>
           </View>
         </View>
