@@ -3,13 +3,13 @@ import {RootState} from '../rootReducer';
 import {
   getMovieActors,
   getMovieDetails,
-  getTvShows,
+  getTvSeries,
 } from './movieDetailsActions';
-import {Actor, MovieDetails, TvShowsDetails} from '../../models';
+import {Actor, MovieDetails, TvSeriesDetails} from '../../models';
 
 interface MovieDetailsState {
   fetchedMovies: Record<number, MovieDetails>;
-  fetchedTvShows: Record<number, TvShowsDetails>;
+  fetchedTvSeries: Record<number, TvSeriesDetails>;
   loading: boolean;
   error: string;
   movieActors: Actor[];
@@ -17,7 +17,7 @@ interface MovieDetailsState {
 
 const initialState: MovieDetailsState = {
   fetchedMovies: {},
-  fetchedTvShows: {},
+  fetchedTvSeries: {},
   loading: false,
   error: '',
   movieActors: [],
@@ -46,17 +46,17 @@ const movieDetailsSlice = createSlice({
       state.error = action.error.message ?? 'error';
     });
 
-    builder.addCase(getTvShows.fulfilled, (state, action) => {
-      state.fetchedTvShows = {
-        ...state.fetchedTvShows,
+    builder.addCase(getTvSeries.fulfilled, (state, action) => {
+      state.fetchedTvSeries = {
+        ...state.fetchedTvSeries,
         [action.payload.id]: action.payload,
       };
     });
 
-    builder.addCase(getTvShows.pending, state => {
+    builder.addCase(getTvSeries.pending, state => {
       state.loading = true;
     });
-    builder.addCase(getTvShows.rejected, (state, action) => {
+    builder.addCase(getTvSeries.rejected, (state, action) => {
       // Add user to the state array
       state.loading = false;
       console.log(action.error.message);

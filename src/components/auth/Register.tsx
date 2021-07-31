@@ -9,7 +9,7 @@ import {RegisterForm} from 'src/models';
 import palette from 'src/styles/palette';
 import {Container, CustomButton, Input, Message} from '../common';
 
-interface IProps {
+interface Props {
   //type from useFormik handleChange
   onChange: {
     <T_1 = string | React.ChangeEvent<any>>(
@@ -32,7 +32,7 @@ const RegisterComponent = ({
   serverError,
   errors,
   loading,
-}: IProps) => {
+}: Props) => {
   const {t} = useTranslation('common');
   const [hiddenPassword, setHiddenPassword] = useState(true);
   const handleHide = () => setHiddenPassword(!hiddenPassword);

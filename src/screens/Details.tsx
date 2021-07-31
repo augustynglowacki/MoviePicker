@@ -19,26 +19,26 @@ import {
 } from 'src/redux/movieDetails/movieDetailsSlice';
 import {
   getMovieActors,
-  getTvShows,
+  getTvSeries,
 } from 'src/redux/movieDetails/movieDetailsActions'; //absolute paths
 import ActorList from 'src/components/actors/ActorList';
 import RatingBox from 'src/components/details/RatingBox';
 import MovieDetailsInfoBox from 'src/components/details/DetailsInfoBox';
-import {MovieDetails, TvShowsDetails} from 'src/models';
+import {MovieDetails, TvSeriesDetails} from 'src/models';
 import {Container} from 'src/components/common';
 
 const HEIGHT = Dimensions.get('window').height;
 
 // keep screen names like that -> DetailsScreen
 const Details = ({route, navigation}: any) => {
-  const [active, setActive] = useState<MovieDetails | TvShowsDetails>();
+  const [active, setActive] = useState<MovieDetails | TvSeriesDetails>();
   const distpach = useDispatch(); //install extension for typos
   const {poster_path, id, isMovie} = route.params;
-  const {fetchedMovies, fetchedTvShows, movieActors} =
+  const {fetchedMovies, fetchedTvSeries, movieActors} =
     useSelector(movieDetailsSelector);
 
   const movie = fetchedMovies[id];
-  const show = fetchedTvShows[id];
+  const show = fetchedTvSeries[id];
 
   useEffect(() => {
     // is this works correctly ? 🤔
@@ -46,7 +46,7 @@ const Details = ({route, navigation}: any) => {
       distpach(getMovieDetails(id));
       distpach(getMovieActors(id));
     } else {
-      distpach(getTvShows(id));
+      distpach(getTvSeries(id));
     }
   }, [distpach, id, isMovie, fetchedMovies]);
 

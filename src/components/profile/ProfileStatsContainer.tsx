@@ -3,12 +3,12 @@ import {useTranslation} from 'react-i18next';
 import {View, Text, StyleSheet} from 'react-native';
 import palette from 'src/styles/palette';
 
-interface StatBoxProps {
+interface Props {
   value: number;
   label: string;
 }
 
-const StatBox = ({value, label}: StatBoxProps) => {
+const StatBox = ({value, label}: Props) => {
   return (
     <>
       <Text style={[styles.text, styles.numberText]}>{value}</Text>

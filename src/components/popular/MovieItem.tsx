@@ -16,7 +16,7 @@ import auth from '@react-native-firebase/auth';
 import {Genres, Movie} from 'src/models';
 import {AUTH, DETAILS} from 'src/models/constants/routeNames';
 
-interface MovieItemProps {
+interface Props {
   mergeGenresWithMovies: (Genres | undefined)[];
   movie: Movie;
 }
@@ -31,7 +31,7 @@ export const MOVIE_HEIGHT = Math.ceil(
 
 console.log('Movie height', MOVIE_HEIGHT);
 
-const MovieItem = ({movie, mergeGenresWithMovies}: MovieItemProps) => {
+const MovieItem = ({movie, mergeGenresWithMovies}: Props) => {
   const {loading} = useSelector(genresSelector);
   const {t} = useTranslation('common');
   const {navigate} = useNavigation();

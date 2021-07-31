@@ -3,12 +3,12 @@ import {View, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import palette from 'src/styles/palette';
 
-interface SearchErrorBoxProps {
+interface Props {
   loading: boolean;
   error?: string;
 }
 
-const SearchErrorBox: React.FC<PropsWithChildren<SearchErrorBoxProps>> = ({
+const SearchErrorBox: React.FC<PropsWithChildren<Props>> = ({
   loading,
   error,
   children,

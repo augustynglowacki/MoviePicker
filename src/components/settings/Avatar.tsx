@@ -5,12 +5,12 @@ import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
 
-interface AvatarProps {
+interface Props {
   uri: string;
   editable?: boolean;
 }
 
-const Avatar: React.FC<AvatarProps> = ({editable, uri}) => {
+const Avatar: React.FC<Props> = ({editable, uri}) => {
   const handlePicMovie = async () => {
     const res = await ImagePicker.openPicker({multiple: false});
     console.log(res.path);

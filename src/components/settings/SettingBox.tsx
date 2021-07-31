@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Input} from '../common';
 
-interface SettingBoxProps {
+interface Props {
   label: string;
   startingValue?: string;
   secureTextEntry?: boolean;
@@ -10,7 +10,7 @@ interface SettingBoxProps {
   error: any;
 }
 
-const SettingBox: React.FC<SettingBoxProps> = ({
+const SettingBox: React.FC<Props> = ({
   label,
   startingValue,
   secureTextEntry,

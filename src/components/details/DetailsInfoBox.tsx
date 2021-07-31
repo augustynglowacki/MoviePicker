@@ -3,11 +3,11 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {convertToHours} from 'src/helpers/convertToHours';
-import {MovieDetails, TvShowsDetails} from 'src/models';
+import {MovieDetails, TvSeriesDetails} from 'src/models';
 import palette from 'src/styles/palette';
 
-interface MovieAndShows extends MovieDetails, TvShowsDetails {}
-interface MovieDetailsInfoBoxProps {
+interface MovieAndShows extends MovieDetails, TvSeriesDetails {}
+interface Props {
   data: MovieAndShows;
   isMovie: boolean;
 }
@@ -15,7 +15,7 @@ interface MovieDetailsInfoBoxProps {
 const MovieDetailsInfoBox = ({
   data: {release_date, runtime, genres, number_of_seasons, number_of_episodes},
   isMovie,
-}: MovieDetailsInfoBoxProps) => {
+}: Props) => {
   const genresArray = genres.map(genre => genre.name);
   const firstGenre = genresArray[0];
   const SecondGenre = genresArray[1];

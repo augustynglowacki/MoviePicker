@@ -11,7 +11,7 @@ import Avatar from './Avatar';
 import ChangeBackground from './ChangeBackground';
 import {FormValues} from 'src/screens/Settings';
 
-interface SettingsSectionProps {
+interface Props {
   onChange: {
     <T_1 = string | React.ChangeEvent<any>>(
       field: T_1,
@@ -27,7 +27,7 @@ interface SettingsSectionProps {
   loading: boolean;
 }
 
-const SettingsComponent: React.FC<SettingsSectionProps> = ({
+const SettingsComponent: React.FC<Props> = ({
   onChange,
   values,
   onSubmit,

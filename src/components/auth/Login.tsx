@@ -13,7 +13,7 @@ import {LoginForm} from 'src/models';
 import {REGISTER} from 'src/models/constants/routeNames';
 import palette from 'src/styles/palette';
 
-interface IProps {
+interface Props {
   //type from useFormik handleChange
   onChange: {
     <T_1 = string | React.ChangeEvent<any>>(
@@ -37,7 +37,7 @@ const LoginComponent = ({
   errors,
   signUpWithGoogle,
   loading,
-}: IProps) => {
+}: Props) => {
   const {t} = useTranslation('common');
   const {navigate} = useNavigation();
   const goToRegister = () => navigate(REGISTER);

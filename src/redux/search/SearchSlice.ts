@@ -4,19 +4,19 @@ import {RootState} from '../rootReducer';
 import {
   getSearchedActor,
   getSearchedMovies,
-  getSearchedTvShows,
+  getSearchedTvSeries,
 } from './SearchActions';
 interface SearchState {
   query: string;
   foundMovies: MovieState;
-  foundTvShows: MovieState;
+  foundTvSeries: MovieState;
   foundActors: {actors: Actor[]; error: string};
 }
 
 const initialState: SearchState = {
   query: '',
   foundMovies: {movies: [], error: '', loading: false},
-  foundTvShows: {movies: [], error: '', loading: false},
+  foundTvSeries: {movies: [], error: '', loading: false},
   foundActors: {actors: [], error: ''},
 };
 
@@ -44,20 +44,20 @@ const SearchSlice = createSlice({
       state.foundMovies.error = action.error.message ?? 'error';
       state.foundMovies.loading = false;
     });
-    builder.addCase(getSearchedTvShows.pending, state => {
-      state.foundTvShows.error = '';
-      state.foundTvShows.loading = true;
+    builder.addCase(getSearchedTvSeries.pending, state => {
+      state.foundTvSeries.error = '';
+      state.foundTvSeries.loading = true;
     });
     builder.addCase(
-      getSearchedTvShows.fulfilled,
+      getSearchedTvSeries.fulfilled,
       (state, action: PayloadAction<Movie[]>) => {
-        state.foundTvShows.movies = action.payload;
-        state.foundTvShows.loading = false;
+        state.foundTvSeries.movies = action.payload;
+        state.foundTvSeries.loading = false;
       },
     );
-    builder.addCase(getSearchedTvShows.rejected, (state, action) => {
-      state.foundTvShows.error = action.error.message ?? 'error';
-      state.foundTvShows.loading = false;
+    builder.addCase(getSearchedTvSeries.rejected, (state, action) => {
+      state.foundTvSeries.error = action.error.message ?? 'error';
+      state.foundTvSeries.loading = false;
     });
     builder.addCase(getSearchedActor.pending, state => {
       state.foundActors.error = '';

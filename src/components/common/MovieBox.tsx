@@ -9,11 +9,11 @@ import {Dimensions} from 'react-native';
 import {Movie} from 'src/models';
 import {DETAILS} from 'src/models/constants/routeNames';
 
-interface MovieBoxProps {
+interface Props {
   movie: Movie;
 }
 
-const MovieBox = ({movie}: MovieBoxProps) => {
+const MovieBox = ({movie}: Props) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const {navigate} = useNavigation();
 

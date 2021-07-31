@@ -3,11 +3,11 @@ import {StyleSheet, Text, View} from 'react-native';
 import {AirbnbRating} from 'react-native-ratings';
 import palette from 'src/styles/palette';
 
-interface RatingProps {
+interface Props {
   voteAverage: number;
 }
 
-const RatingBox = ({voteAverage}: RatingProps) => {
+const RatingBox = ({voteAverage}: Props) => {
   return (
     <View style={styles.ratingWrapper}>
       <Text style={styles.ratingText}>{voteAverage}</Text>

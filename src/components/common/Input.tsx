@@ -4,7 +4,7 @@ import {TextInputProps} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import palette from 'src/styles/palette';
 
-interface MyInputProps extends TextInputProps {
+interface Props extends TextInputProps {
   right?: React.ReactNode;
   label: string;
   error?: string;
@@ -24,7 +24,7 @@ const Input = ({
   fullWidth = false,
   autoFocus = false,
   autoCapitalize = 'none', //if u want input with automatic capital letter use autoCapitalize = 'words',
-}: MyInputProps) => {
+}: Props) => {
   const getWidth = () => {
     return {width: fullWidth ? '100%' : '80%'};
   };

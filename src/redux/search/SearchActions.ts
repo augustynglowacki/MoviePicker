@@ -18,8 +18,8 @@ export const getSearchedMovies = createAsyncThunk<Movie[]>(
   },
 );
 
-export const getSearchedTvShows = createAsyncThunk<Movie[]>(
-  'search/getTvShows',
+export const getSearchedTvSeries = createAsyncThunk<Movie[]>(
+  'search/getTvSeries',
   async (_, {getState}) => {
     const state: any = getState();
     const query = state.searchedData.query;

@@ -5,7 +5,7 @@ import {MovieBox, SearchErrorBox, SectionHeader} from '.';
 import palette from 'src/styles/palette';
 import {Movie} from 'src/models';
 
-interface DiscoveryContentBoxProps {
+interface Props {
   title: string;
   data: Movie[];
   error: string;
@@ -14,11 +14,7 @@ interface DiscoveryContentBoxProps {
 
 const renderItem: ListRenderItem<Movie> = ({item}) => <MovieBox movie={item} />;
 
-const CollectionContentBox = ({
-  title,
-  data,
-  error,
-}: DiscoveryContentBoxProps) => {
+const CollectionContentBox = ({title, data, error}: Props) => {
   return (
     <View style={styles.discoveryContentBox}>
       {data.length === 0 ? null : (

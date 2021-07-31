@@ -3,13 +3,13 @@ import {View, StyleSheet} from 'react-native';
 import Loading from 'src/screens/Loading';
 import ErrorBox from './ErrorBox';
 
-interface ErrorWrapperProps {
+interface Props {
   error: string;
   loading: boolean;
   children: React.ReactNode;
 }
 
-const ScreenWrapper = ({error, loading, children}: ErrorWrapperProps) => {
+const ScreenWrapper = ({error, loading, children}: Props) => {
   return (
     <>
       {loading ? (

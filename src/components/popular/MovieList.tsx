@@ -5,12 +5,12 @@ import palette from 'src/styles/palette';
 import {Genres, Movie} from 'src/models';
 import MovieItem, {MOVIE_HEIGHT} from './MovieItem';
 
-interface MovieListProps {
+interface Props {
   moviesList: Movie[];
   genres: Genres[];
 }
 
-const MovieList = ({moviesList, genres}: MovieListProps) => {
+const MovieList = ({moviesList, genres}: Props) => {
   const {t} = useTranslation('movies');
   const renderItem: ListRenderItem<Movie> = ({item}) => {
     const mergeGenresWithMovies = item.genre_ids.map(movie =>

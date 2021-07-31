@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
 import palette from 'src/styles/palette';
 
-interface MyButtonProps {
+interface Props {
   disabled?: boolean;
   label: string;
   loading?: boolean;
@@ -19,7 +19,7 @@ const CustomButton = ({
   variant,
   width,
   onPress,
-}: MyButtonProps) => {
+}: Props) => {
   //background color based on variant
   const getBackgroundColor = () => {
     if (disabled) {

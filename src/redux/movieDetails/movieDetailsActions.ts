@@ -4,8 +4,8 @@ import axiosInstance from 'src/helpers/axiosInstance';
 import {
   Actor,
   MovieDetails,
-  TvShowsDetails,
-  TvShowsDetailsAxiosResponse,
+  TvSeriesDetails,
+  TvSeriesDetailsAxiosResponse,
 } from 'src/models';
 
 interface MovieActorsAxiosResponse {
@@ -53,16 +53,16 @@ export const getMovieActors = createAsyncThunk<Actor[], number>(
   },
 );
 
-export const getTvShows = createAsyncThunk<TvShowsDetails, number>(
-  'tvShowDetails/getTvShowDetails',
+export const getTvSeries = createAsyncThunk<TvSeriesDetails, number>(
+  'tvSerieDetails/getTvSerieDetails',
   async id => {
     console.log(id); //set ur eslint to prevent those shits
 
-    const res = await axiosInstance.get<TvShowsDetailsAxiosResponse>(
+    const res = await axiosInstance.get<TvSeriesDetailsAxiosResponse>(
       `tv/${id}?api_key=${API_KEY}&language=en-US`,
     );
 
-    const newResult: TvShowsDetails = {
+    const newResult: TvSeriesDetails = {
       title: res.data.name,
       number_of_episodes: res.data.number_of_episodes,
       number_of_seasons: res.data.number_of_seasons,

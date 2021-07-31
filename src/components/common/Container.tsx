@@ -12,7 +12,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import palette from 'src/styles/palette';
 import {LogBox} from 'react-native';
 
-interface ContainerProps {
+interface Props {
   //pass normal stylesheet object to change backgroundColor
   style?: StyleProp<ViewStyle>;
   //specify withKeyboard prop when using Container if you want KeyboardAvoidingView
@@ -25,7 +25,7 @@ interface ContainerProps {
   disableSafeArea?: boolean;
 }
 
-const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
+const Container: React.FC<React.PropsWithChildren<Props>> = ({
   style,
   children,
   withKeyboard = false,

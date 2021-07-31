@@ -3,11 +3,11 @@ import {useTranslation} from 'react-i18next';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import palette from 'src/styles/palette';
 
-interface RegisterInfoProps {
+interface Props {
   onPress: () => void;
 }
 
-const RegisterInfo = ({onPress}: RegisterInfoProps) => {
+const RegisterInfo = ({onPress}: Props) => {
   const {t} = useTranslation('common');
   return (
     <View style={styles.registerBox}>

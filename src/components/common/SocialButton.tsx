@@ -2,12 +2,12 @@ import React from 'react';
 import {ImageSourcePropType} from 'react-native';
 import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import palette from 'src/styles/palette';
-interface SocilaButtonProps {
+interface Props {
   icon: ImageSourcePropType;
   onPress: () => void;
 }
 
-const SocialButton = ({onPress, icon}: SocilaButtonProps) => {
+const SocialButton = ({onPress, icon}: Props) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.button}>
@@ -18,6 +18,7 @@ const SocialButton = ({onPress, icon}: SocilaButtonProps) => {
 };
 
 export default SocialButton;
+
 const styles = StyleSheet.create({
   button: {
     width: 40,

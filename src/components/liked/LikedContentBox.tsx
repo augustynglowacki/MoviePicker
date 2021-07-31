@@ -5,13 +5,13 @@ import {Movie} from 'src/models';
 import palette from 'src/styles/palette';
 import {Container, MovieBox, SectionHeader} from '../common';
 
-interface LikedProps {
+interface Props {
   movies: Movie[];
 }
 
 const renderItem: ListRenderItem<Movie> = ({item}) => <MovieBox movie={item} />;
 
-const LikedContentBox = ({movies}: LikedProps) => {
+const LikedContentBox = ({movies}: Props) => {
   const {t} = useTranslation('movies');
   return (
     <Container flexStart withPadding disableScroll>

@@ -4,7 +4,7 @@ import {View, StyleSheet, Text, Alert} from 'react-native';
 import palette from 'src/styles/palette';
 import {SocialButton} from '../common';
 
-interface MyButtonProps {
+interface Props {
   onPress: () => void;
 }
 //temporary alert facebook SignIn to implement
@@ -13,7 +13,7 @@ const handleFacebookSignIn = () => {
     {text: 'OK', onPress: () => console.log('OK Pressed')},
   ]);
 };
-const SocialBox = ({onPress}: MyButtonProps) => {
+const SocialBox = ({onPress}: Props) => {
   const {t} = useTranslation('common');
   return (
     <View style={styles.wrapper}>

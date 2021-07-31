@@ -5,11 +5,11 @@ import {useDispatch} from 'react-redux';
 import {setErrorNull} from 'src/redux/user/UserSlice';
 import palette from 'src/styles/palette';
 
-interface MessageProps {
+interface Props {
   label: string;
 }
 
-const Message = ({label}: MessageProps) => {
+const Message = ({label}: Props) => {
   const dispatch = useDispatch();
   const onDismissSnackBar = () => dispatch(setErrorNull());
 

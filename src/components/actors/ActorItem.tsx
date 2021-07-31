@@ -4,12 +4,12 @@ import {View, StyleSheet, ImageBackground} from 'react-native';
 import {Text} from 'react-native';
 import palette from 'src/styles/palette';
 
-interface ActorItemProps {
+interface Props {
   profile_path: string;
   name: string;
 }
 
-const ActorItem = ({profile_path, name}: ActorItemProps) => {
+const ActorItem = ({profile_path, name}: Props) => {
   return (
     <>
       {!!profile_path && (

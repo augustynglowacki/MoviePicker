@@ -6,7 +6,7 @@ import palette from 'src/styles/palette';
 import {SearchErrorBox, SectionHeader} from '../common';
 import ActorItem from './ActorItem';
 
-interface ActorListProps {
+interface Props {
   data: Actor[];
   error?: string;
 }
@@ -15,7 +15,7 @@ const renderItem: ListRenderItem<Actor> = ({item}) => (
   <ActorItem name={item.name} profile_path={item.profile_path} />
 );
 
-const ActorList = ({data, error}: ActorListProps) => {
+const ActorList = ({data, error}: Props) => {
   const {t} = useTranslation('movies');
   return (
     <View style={styles.ActorList}>
