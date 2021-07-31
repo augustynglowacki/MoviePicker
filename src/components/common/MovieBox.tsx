@@ -13,7 +13,7 @@ interface Props {
   movie: Movie;
 }
 
-const MovieBox = ({movie}: Props) => {
+const MovieBox: React.FC<Props> = ({movie}) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const {navigate} = useNavigation();
 
@@ -25,34 +25,33 @@ const MovieBox = ({movie}: Props) => {
     }).start();
   }, [fadeAnim]);
 
+  if (!movie.poster_path) {
+    return null;
+  }
   return (
-    <>
-      {!!movie.poster_path && (
-        <TapGestureHandler
-          onActivated={() => {
-            navigate(DETAILS, {
-              poster_path: movie.poster_path,
-              overview: movie.overview,
-              title: movie.title,
-              id: movie.id,
-              isMovie: movie.isMovie,
-            });
-          }}>
-          <Animated.View style={{...styles.movieBox, opacity: fadeAnim}}>
-            <ImageBackground
-              source={{uri: `${API_IMAGES}${movie.poster_path}`}}
-              style={styles.movieImage}
-            />
-            <LinearGradient
-              colors={['rgba(0,0,0,0.4)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.1)']}
-              start={{x: 0, y: 1}}
-              end={{x: 0, y: 0}}
-              style={styles.linearGradient}
-            />
-          </Animated.View>
-        </TapGestureHandler>
-      )}
-    </>
+    <TapGestureHandler
+      onActivated={() => {
+        navigate(DETAILS, {
+          poster_path: movie.poster_path,
+          overview: movie.overview,
+          title: movie.title,
+          id: movie.id,
+          isMovie: movie.isMovie,
+        });
+      }}>
+      <Animated.View style={{...styles.movieBox, opacity: fadeAnim}}>
+        <ImageBackground
+          source={{uri: `${API_IMAGES}${movie.poster_path}`}}
+          style={styles.movieImage}
+        />
+        <LinearGradient
+          colors={['rgba(0,0,0,0.4)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.1)']}
+          start={{x: 0, y: 1}}
+          end={{x: 0, y: 0}}
+          style={styles.linearGradient}
+        />
+      </Animated.View>
+    </TapGestureHandler>
   );
 };
 const WIDTH = Dimensions.get('window').width / 2 - 22;

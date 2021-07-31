@@ -7,7 +7,7 @@ interface Props {
   onPress: () => void;
 }
 
-const SocialButton = ({onPress, icon}: Props) => {
+const SocialButton: React.FC<Props> = ({onPress, icon}) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.button}>

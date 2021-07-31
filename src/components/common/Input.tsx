@@ -11,7 +11,7 @@ interface Props extends TextInputProps {
   left?: React.ReactNode;
   fullWidth?: boolean;
 }
-const Input = ({
+const Input: React.FC<Props> = ({
   onChangeText,
   style,
   value,
@@ -20,11 +20,11 @@ const Input = ({
   right,
   left,
   clearButtonMode,
-  secureTextEntry = false,
-  fullWidth = false,
-  autoFocus = false,
+  secureTextEntry,
+  fullWidth,
+  autoFocus,
   autoCapitalize = 'none', //if u want input with automatic capital letter use autoCapitalize = 'words',
-}: Props) => {
+}) => {
   const getWidth = () => {
     return {width: fullWidth ? '100%' : '80%'};
   };
@@ -51,7 +51,7 @@ const Input = ({
         autoCapitalize={autoCapitalize}
         autoCorrect={false}
       />
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+      {!!error && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 };

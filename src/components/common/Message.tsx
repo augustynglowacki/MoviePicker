@@ -9,7 +9,7 @@ interface Props {
   label: string;
 }
 
-const Message = ({label}: Props) => {
+const Message: React.FC<Props> = ({label}) => {
   const dispatch = useDispatch();
   const onDismissSnackBar = () => dispatch(setErrorNull());
 

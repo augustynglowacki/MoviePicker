@@ -14,7 +14,7 @@ interface Props {
 
 const renderItem: ListRenderItem<Movie> = ({item}) => <MovieBox movie={item} />;
 
-const CollectionContentBox = ({title, data, error}: Props) => {
+const CollectionContentBox: React.FC<Props> = ({title, data, error}) => {
   return (
     <View style={styles.discoveryContentBox}>
       {data.length === 0 ? null : (

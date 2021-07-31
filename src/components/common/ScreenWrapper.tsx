@@ -8,22 +8,18 @@ interface Props {
   loading: boolean;
   children: React.ReactNode;
 }
-
-const ScreenWrapper = ({error, loading, children}: Props) => {
-  return (
-    <>
-      {loading ? (
-        <Loading />
-      ) : // eslint-disable-next-line no-extra-boolean-cast
-      !!error ? (
-        <View style={style.errorMsg}>
-          <ErrorBox />
-        </View>
-      ) : (
-        <>{children}</>
-      )}
-    </>
-  );
+const ScreenWrapper: React.FC<Props> = ({error, loading, children}) => {
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) {
+    return (
+      <View style={style.errorMsg}>
+        <ErrorBox />
+      </View>
+    );
+  }
+  return <>{children}</>;
 };
 
 const style = StyleSheet.create({

@@ -9,7 +9,7 @@ interface Props {
   size?: number;
 }
 
-const SectionHeader = ({text, color, size}: Props) => (
+const SectionHeader: React.FC<Props> = ({text, color, size}) => (
   <Text style={[styles.sectionHeader, {color: color, fontSize: size || 36}]}>
     {text}
   </Text>

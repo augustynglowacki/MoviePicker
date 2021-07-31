@@ -32,7 +32,7 @@ const NotLoggedIn = ({isLiked}: {isLiked: boolean}) => {
         <View style={styles.buttons}>
           <CustomButton
             label={t('button')}
-            variant="primary"
+            variant="secondary"
             onPress={goToAuth}
           />
         </View>
