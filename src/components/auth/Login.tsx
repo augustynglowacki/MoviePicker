@@ -16,7 +16,7 @@ import SocialBox from './SocialBox';
 import RegisterInfo from './RegisterInfo';
 import {Container, CustomButton, Input, Message} from '../common';
 import {LoginForm} from 'src/models';
-import {REGISTER} from 'src/models/constants/routeNames';
+import {Route} from 'src/models/constants/routeNames';
 import palette from 'src/styles/palette';
 
 interface Props {
@@ -46,7 +46,7 @@ const LoginComponent: React.FC<Props> = ({
 }) => {
   const {t} = useTranslation('common');
   const {navigate} = useNavigation();
-  const goToRegister = () => navigate(REGISTER);
+  const goToRegister = () => navigate(Route.REGISTER);
   const [hiddenPassword, setHiddenPassword] = useState(true);
   const handleHide = () => setHiddenPassword(!hiddenPassword);
   return (

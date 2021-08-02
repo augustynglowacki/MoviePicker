@@ -8,7 +8,7 @@ import {getGenres} from 'src/redux/genres/GenresSlice';
 import {setActiveUser, userThunkSelector} from 'src/redux/user/UserSlice';
 import {Container, ErrorWrapper} from 'src/components/common';
 
-const Popular = () => {
+const Popular: React.FC = () => {
   const dispatch = useDispatch();
   //To select whatever elements we want from the state, we pass the state (exported as movieSelector) to our useSelector hook.
   const {movies, loading, error} = useSelector(movieSelector);

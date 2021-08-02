@@ -7,7 +7,7 @@ GoogleSignin.configure({
   offlineAccess: true,
 });
 
-export const getGoogleCredencial = async () => {
+export const getGoogleCredential = async () => {
   const {idToken} = await GoogleSignin.signIn();
   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
   return googleCredential;
