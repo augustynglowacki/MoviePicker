@@ -46,17 +46,16 @@ const MovieItem: React.FC<Props> = ({movie, mergeGenresWithMovies}) => {
   const setData = () => {
     const db = firestore();
     const userId = auth().currentUser?.uid;
-    userId
-      ? db.collection('users').doc(userId).collection('likedMovies').add({
-          movieId: id,
-          title,
-          vote_average,
-          poster_path,
-          overview,
-          genre_ids,
-          isMovie,
-        })
-      : null;
+    userId &&
+      db.collection('users').doc(userId).collection('likedMovies').add({
+        movieId: id,
+        title,
+        vote_average,
+        poster_path,
+        overview,
+        genre_ids,
+        isMovie,
+      });
   };
 
   const handleOnActivated = () => {

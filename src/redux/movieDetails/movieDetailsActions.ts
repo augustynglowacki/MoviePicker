@@ -56,8 +56,6 @@ export const getMovieActors = createAsyncThunk<Actor[], number>(
 export const getTvSeries = createAsyncThunk<TvSeriesDetails, number>(
   'tvSerieDetails/getTvSerieDetails',
   async id => {
-    console.log(id); //set ur eslint to prevent those shits
-
     const res = await axiosInstance.get<TvSeriesDetailsAxiosResponse>(
       `tv/${id}?api_key=${API_KEY}&language=en-US`,
     );
