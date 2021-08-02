@@ -9,7 +9,7 @@ interface Props {
   movies: Movie[];
 }
 
-const LikedContentBox: React.FC<Props> = ({movies}) => {
+const FavoriteContentBox: React.FC<Props> = ({movies}) => {
   const {t} = useTranslation('movies');
 
   const renderItem: ListRenderItem<Movie> = ({item}) => (
@@ -18,7 +18,7 @@ const LikedContentBox: React.FC<Props> = ({movies}) => {
   return (
     <Container flexStart withPadding disableScroll>
       <SectionHeader text={t('liked')} color={palette.white} />
-      <View style={styles.likedContentBox}>
+      <View style={styles.favoriteContentBox}>
         <FlatList
           data={movies}
           renderItem={renderItem}
@@ -33,7 +33,7 @@ const LikedContentBox: React.FC<Props> = ({movies}) => {
 };
 
 const styles = StyleSheet.create({
-  likedContentBox: {
+  favoriteContentBox: {
     minWidth: '100%',
     alignItems: 'center',
     paddingBottom: '12%',
@@ -43,4 +43,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LikedContentBox;
+export default FavoriteContentBox;

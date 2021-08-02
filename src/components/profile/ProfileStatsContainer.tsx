@@ -22,7 +22,7 @@ const ProfileStatsContainer = () => {
   return (
     <View style={styles.statsContainer}>
       <View style={styles.statsBox}>
-        <StatBox value={50} label={t('liked')} />
+        <StatBox value={50} label={t('favorite')} />
       </View>
       <View style={[styles.statsBox, styles.statsBoxBorder]}>
         <StatBox value={112} label={t('watched')} />

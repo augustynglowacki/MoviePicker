@@ -18,7 +18,7 @@ const translations = {
   movies: {
     movies: 'Movies',
     tvSeries: 'TV Shows',
-    liked: 'Liked',
+    favorite: 'Favorite',
     watched: 'Watched',
     toWatch: 'To watch',
     search: 'Search',

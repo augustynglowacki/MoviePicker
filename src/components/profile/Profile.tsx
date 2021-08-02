@@ -14,7 +14,7 @@ const ProfileComponent: React.FC = () => {
       <Container withPadding disableScroll disableSafeArea>
         {/* u can generate it from some kind of config const */}
         <CollectionContentBox
-          title={t('liked')}
+          title={t('favorite')}
           data={movies}
           loading={false}
         />

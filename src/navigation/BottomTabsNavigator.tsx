@@ -2,8 +2,12 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Popular from 'src/screens/Popular';
 import Discover from 'src/screens/Discover';
-import Liked from 'src/screens/Liked';
-import {DISCOVER, HOME, LIKED, PROFILE} from '../models/constants/routeNames';
+import {
+  DISCOVER,
+  FAVORITE,
+  HOME,
+  PROFILE,
+} from 'src/models/constants/routeNames';
 import {StyleSheet} from 'react-native';
 import Profile from 'src/screens/Profile';
 import {useSelector} from 'react-redux';
@@ -11,6 +15,7 @@ import {userThunkSelector} from 'src/redux/user/UserSlice';
 import NotLoggedIn from 'src/screens/NotLoggedIn';
 import {BOTTOM_TABS_HEIGHT} from 'src/components/popular/MovieItem';
 import {TabIcon} from 'src/components/common';
+import Favorite from 'src/screens/Favorite';
 
 const Tab = createBottomTabNavigator();
 
@@ -42,8 +47,8 @@ const BottomTabsNavigator = () => {
       {email !== '' ? ( // u can do it cleaner
         <>
           <Tab.Screen
-            name={LIKED}
-            component={Liked}
+            name={FAVORITE}
+            component={Favorite}
             options={{
               tabBarIcon: ({focused}) => TabIcon(focused, 'favorite-outline'),
             }}
@@ -59,7 +64,7 @@ const BottomTabsNavigator = () => {
       ) : (
         <>
           <Tab.Screen
-            name={LIKED}
+            name={FAVORITE}
             children={() => <NotLoggedIn isLiked={true} />}
             options={{
               tabBarIcon: ({focused}) => TabIcon(focused, 'favorite-outline'),
