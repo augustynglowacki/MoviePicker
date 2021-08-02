@@ -17,24 +17,27 @@ const ActorList: React.FC<Props> = ({data, error}) => {
     <ActorItem name={item.name} profile_path={item.profile_path} />
   );
 
+  if (error) {
+    return <ErrorWrapper error={error} loading={false} />;
+  }
+  if (!data.length) {
+    return null;
+  }
+
   return (
     <View style={styles.ActorList}>
-      {!!data.length && (
-        <SectionHeader
-          text={t('movies:actors')}
-          color={palette.white}
-          size={20}
-        />
-      )}
-      <ErrorWrapper error={error} loading={false}>
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={(item, index) => index.toString()}
-        />
-      </ErrorWrapper>
+      <SectionHeader
+        text={t('movies:actors')}
+        color={palette.white}
+        size={20}
+      />
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={(item, index) => index.toString()}
+      />
     </View>
   );
 };

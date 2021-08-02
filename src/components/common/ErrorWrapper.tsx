@@ -4,25 +4,22 @@ import Loading from 'src/screens/Loading';
 import ErrorBox from './ErrorBox';
 
 interface Props {
-  error: string | undefined;
+  error: string;
   loading: boolean;
 }
 
 const ErrorWrapper: React.FC<Props> = ({error, loading, children}) => {
-  return (
-    <>
-      {loading ? (
-        <Loading />
-      ) : // eslint-disable-next-line no-extra-boolean-cast
-      !!error ? (
-        <View style={style.errorMsg}>
-          <ErrorBox errorMsg={error} />
-        </View>
-      ) : (
-        <>{children}</>
-      )}
-    </>
-  );
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) {
+    return (
+      <View style={style.errorMsg}>
+        <ErrorBox errorMsg={error} />
+      </View>
+    );
+  }
+  return <>{children}</>;
 };
 
 const style = StyleSheet.create({

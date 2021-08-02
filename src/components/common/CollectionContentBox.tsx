@@ -12,24 +12,28 @@ interface Props {
   loading: boolean;
 }
 
-const renderItem: ListRenderItem<Movie> = ({item}) => <MovieBox movie={item} />;
-
-const CollectionContentBox = ({title, data, error, loading}: Props) => {
+const CollectionContentBox: React.FC<Props> = ({title, data, error}) => {
+  const renderItem: ListRenderItem<Movie> = ({item}) => (
+    <MovieBox movie={item} />
+  );
+  if (error) {
+    return <ErrorWrapper error={error} loading={false} />;
+  }
+  if (!data.length) {
+    return null;
+  }
   return (
     <View style={styles.discoveryContentBox}>
-      {data.length === 0 ? null : (
-        <SectionHeader text={title} size={20} color={palette.white} />
-      )}
-      <ErrorWrapper error={error} loading={loading}>
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          maxToRenderPerBatch={5}
-          initialNumToRender={10}
-        />
-      </ErrorWrapper>
+      <SectionHeader text={title} size={20} color={palette.white} />
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        maxToRenderPerBatch={5}
+        initialNumToRender={10}
+        keyExtractor={(item, index) => index.toString()}
+      />
     </View>
   );
 };
