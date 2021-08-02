@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
-import colors from '../../assets/theme/colors';
-import {userThunkSelector} from '../../redux/user/UserSlice';
+import palette from 'src/styles/palette';
+import {userThunkSelector} from 'src/redux/user/UserSlice';
 
-const ProfileInfoContainer = () => {
+const ProfileInfoContainer: React.FC = () => {
   const {
     user: {userName},
   } = useSelector(userThunkSelector);
@@ -23,13 +23,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    color: colors.white,
+    color: palette.white,
   },
   titleText: {
     fontSize: 30,
   },
   subText: {
     fontSize: 12,
-    color: colors.primary,
+    color: palette.primary,
   },
 });

@@ -4,23 +4,24 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   getSearchedActor,
   getSearchedMovies,
-  getSearchedTvShows,
-} from '../../redux/search/SearchActions';
-import {SearchSelector} from '../../redux/search/SearchSlice';
-import ActorsBox from '../actors/ActorList';
+  getSearchedTvSeries,
+} from 'src/redux/search/SearchActions';
+import {SearchSelector} from 'src/redux/search/SearchSlice';
+import ActorList from '../actors/ActorList';
 import {CollectionContentBox, Container} from '../common';
 import DiscoveryBox from './DiscoveryBox';
 
-const DiscoveryComponent = () => {
+const DiscoveryComponent: React.FC = () => {
+  const MIN_QUERY_LENGTH = 3;
   const dispatch = useDispatch();
-  const {t} = useTranslation();
-  const {query, foundMovies, foundTvShows, foundActors} =
+  const {t} = useTranslation('movies');
+  const {query, foundMovies, foundTvSeries, foundActors} =
     useSelector(SearchSelector);
 
   useEffect(() => {
-    if (query.length > 3) {
+    if (query.length > MIN_QUERY_LENGTH) {
       dispatch(getSearchedMovies());
-      dispatch(getSearchedTvShows());
+      dispatch(getSearchedTvSeries());
       dispatch(getSearchedActor());
     }
   }, [dispatch, query]);
@@ -29,18 +30,18 @@ const DiscoveryComponent = () => {
     <Container withPadding flexStart withKeyboard>
       <DiscoveryBox />
       <CollectionContentBox
-        title={t('movies:movies')}
+        title={t('movies')}
         data={foundMovies.movies}
         error={foundMovies.error}
         loading={foundMovies.loading}
       />
       <CollectionContentBox
-        title={t('movies:tvShows')}
-        data={foundTvShows.movies}
-        error={foundTvShows.error}
-        loading={foundTvShows.loading}
+        title={t('tvSeries')}
+        data={foundTvSeries.movies}
+        error={foundTvSeries.error}
+        loading={foundTvSeries.loading}
       />
-      <ActorsBox data={foundActors.actors} error={foundActors.error} />
+      <ActorList data={foundActors.actors} error={foundActors.error} />
     </Container>
   );
 };

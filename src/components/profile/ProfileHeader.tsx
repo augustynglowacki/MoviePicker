@@ -7,12 +7,13 @@ import ProfileStatsContainer from './ProfileStatsContainer';
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
 
-const ProfileHeader = () => {
+const ProfileHeader: React.FC = () => {
+  const backgroundPlaceholder =
+    'https://st.depositphotos.com/1522993/4737/v/600/depositphotos_47372005-stock-illustration-orange-blue-background-with-triagles.jpg';
+  const placeholder =
+    'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultProfile.jpeg?alt=media&token=bc972054-6f70-4339-a72d-4a6c89be93a2';
   const photoURI = auth().currentUser?.photoURL;
-  const [profileURI, setProfileURI] = useState<string>(
-    'https://st.depositphotos.com/1522993/4737/v/600/depositphotos_47372005-stock-illustration-orange-blue-background-with-triagles.jpg',
-  );
-
+  const [profileURI, setProfileURI] = useState<string>(backgroundPlaceholder);
   const fetchAvatar = async () => {
     try {
       const userId = auth().currentUser?.uid;
@@ -33,9 +34,7 @@ const ProfileHeader = () => {
       <ProfileTitleBar />
       <Image
         source={{
-          uri:
-            photoURI ||
-            'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultProfile.jpeg?alt=media&token=bc972054-6f70-4339-a72d-4a6c89be93a2',
+          uri: photoURI || placeholder,
         }}
         style={styles.avatar}
       />

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {PROFILE} from '../../models/constants/routeNames';
+import {PROFILE} from 'src/models/constants/routeNames';
 import {useNavigation} from '@react-navigation/native';
 import {FormikErrors} from 'formik';
 import storage from '@react-native-firebase/storage';
@@ -9,9 +9,9 @@ import {Container, CustomButton, Message} from '../common';
 import SettingBox from './SettingBox';
 import Avatar from './Avatar';
 import ChangeBackground from './ChangeBackground';
-import {FormValues} from '../../screens/Settings';
+import {FormValues} from 'src/screens/Settings';
 
-interface SettingsSectionProps {
+interface Props {
   onChange: {
     <T_1 = string | React.ChangeEvent<any>>(
       field: T_1,
@@ -27,7 +27,7 @@ interface SettingsSectionProps {
   loading: boolean;
 }
 
-const SettingsComponent: React.FC<SettingsSectionProps> = ({
+const SettingsComponent: React.FC<Props> = ({
   onChange,
   values,
   onSubmit,
@@ -65,7 +65,7 @@ const SettingsComponent: React.FC<SettingsSectionProps> = ({
     <Container flexStart>
       <Avatar uri={profileURI} editable />
       <ChangeBackground />
-      {serverError ? <Message label={serverError} /> : null}
+      {!!serverError && <Message label={serverError} />}
       <SettingBox
         label="Username"
         startingValue={values.displayName}

@@ -5,11 +5,11 @@ import {useTranslation} from 'react-i18next';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import Animated, {AnimatedLayout, StretchInX} from 'react-native-reanimated';
-import colors from '../../assets/theme/colors';
-import {RegisterForm} from '../../models';
+import {RegisterForm} from 'src/models';
+import palette from 'src/styles/palette';
 import {Container, CustomButton, Input, Message} from '../common';
 
-interface IProps {
+interface Props {
   //type from useFormik handleChange
   onChange: {
     <T_1 = string | React.ChangeEvent<any>>(
@@ -25,15 +25,15 @@ interface IProps {
   loading: boolean;
 }
 
-const RegisterComponent = ({
+const RegisterComponent: React.FC<Props> = ({
   onChange,
   onSubmit,
   form,
   serverError,
   errors,
   loading,
-}: IProps) => {
-  const {t} = useTranslation();
+}) => {
+  const {t} = useTranslation('common');
   const [hiddenPassword, setHiddenPassword] = useState(true);
   const handleHide = () => setHiddenPassword(!hiddenPassword);
   return (
@@ -47,17 +47,17 @@ const RegisterComponent = ({
         </Animated.View>
 
         <View>
-          <Text style={styles.title}>{t('common:welcomeMessage')}</Text>
+          <Text style={styles.title}>{t('welcomeMessage')}</Text>
           <View style={styles.form}>
             <Input
-              label={t('common:userName')}
+              label={t('userName')}
               value={form.username}
               onChangeText={onChange('username')}
               error={errors.username}
               autoCapitalize="words"
             />
             <Input
-              label={t('common:email')}
+              label={t('email')}
               value={form.email}
               onChangeText={onChange('email')}
               error={errors.email}
@@ -65,7 +65,7 @@ const RegisterComponent = ({
               keyboardType="email-address"
             />
             <Input
-              label={t('common:password')}
+              label={t('password')}
               value={form.password}
               onChangeText={onChange('password')}
               secureTextEntry={hiddenPassword}
@@ -73,19 +73,19 @@ const RegisterComponent = ({
               right={
                 <TextInput.Icon
                   name="eye"
-                  color={colors.grey}
+                  color={palette.grey}
                   onPress={handleHide}
                 />
               }
             />
             <CustomButton
               onPress={onSubmit}
-              label={t('common:register')}
+              label={t('register')}
               width="medium"
               variant="primary"
               loading={loading}
             />
-            {serverError ? <Message label={serverError} /> : null}
+            {!!serverError && <Message label={serverError} />}
           </View>
         </View>
       </AnimatedLayout>
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: 'center',
     paddingTop: 10,
-    color: colors.white,
+    color: palette.white,
   },
   form: {
     paddingTop: 20,

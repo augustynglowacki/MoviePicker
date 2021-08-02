@@ -1,34 +1,33 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import LoginComponent from '../components/auth/Login';
-import {LoginForm} from '../models';
-import {PROFILE} from '../models/constants/routeNames';
+import LoginComponent from 'src/components/auth/Login';
+import {LoginForm} from 'src/models';
+import {PROFILE} from 'src/models/constants/routeNames';
 import auth from '@react-native-firebase/auth';
 import {useDispatch} from 'react-redux';
 import {
   signInWithEmailAndPassword,
   signInWithGoogle,
-} from '../redux/user/UserAction';
+} from 'src/redux/user/UserAction';
 import {useSelector} from 'react-redux';
-import {userThunkSelector} from '../redux/user/UserSlice';
+import {userThunkSelector} from 'src/redux/user/UserSlice';
 import {useTranslation} from 'react-i18next';
 import {useFormik} from 'formik';
 import {getGoogleCredencial} from '../service/firestore/getGoogleCredential';
-
-let Yup = require('yup');
+import Yup from 'yup';
 
 const Login = () => {
   const {error, loading} = useSelector(userThunkSelector);
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
-  const {t} = useTranslation();
+  const {t} = useTranslation('form');
 
   const goToProfile = React.useCallback(() => {
+    //redirectToProfileScreen
     navigate(PROFILE);
   }, [navigate]);
 
   const handleLoginUser = (login: LoginForm) => {
-    console.log(login);
     dispatch(
       signInWithEmailAndPassword({
         email: login.email,
@@ -54,13 +53,12 @@ const Login = () => {
   }, [goToProfile]);
 
   const onSubmit = () => {
-    console.log('login>>', form);
     handleLoginUser(form);
   };
 
   const validationSchema = Yup.object({
-    email: Yup.string().email(t('form:email')).required(t('form:required')),
-    password: Yup.string().min(6, t('form:short')).required(t('form:required')),
+    email: Yup.string().email(t('email')).required(t('required')),
+    password: Yup.string().min(6, t('short')).required(t('required')),
   });
 
   const {
@@ -74,7 +72,7 @@ const Login = () => {
     //validate only after submit click
     validateOnChange: false,
     validateOnBlur: false,
-    onSubmit: onSubmit,
+    onSubmit, //it is enough
   });
 
   return (

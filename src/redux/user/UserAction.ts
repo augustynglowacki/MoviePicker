@@ -45,12 +45,12 @@ export const logOutUser = createAsyncThunk(
   async () => await auth().signOut(),
 );
 
-export const createUserWithEmailAndPassword = createAsyncThunk(
+export const createUserWithEmailAndPassword = createAsyncThunk<
+  User,
+  BackendUser
+>(
   'auth/register',
-  async (
-    {email: registerEmail, password, displayName}: BackendUser,
-    {rejectWithValue},
-  ) => {
+  async ({email: registerEmail, password, displayName}, {rejectWithValue}) => {
     const {user} = await auth().createUserWithEmailAndPassword(
       registerEmail,
       password,

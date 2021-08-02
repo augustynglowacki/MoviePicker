@@ -1,17 +1,17 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {StyleSheet, View, FlatList, Text, ListRenderItem} from 'react-native';
-import colors from '../../assets/theme/colors';
-import {Genres, Movie} from '../../models';
+import palette from 'src/styles/palette';
+import {Genres, Movie} from 'src/models';
 import MovieItem, {MOVIE_HEIGHT} from './MovieItem';
 
-interface MovieListProps {
+interface Props {
   moviesList: Movie[];
   genres: Genres[];
 }
 
-const MovieList = ({moviesList, genres}: MovieListProps) => {
-  const {t} = useTranslation();
+const MovieList: React.FC<Props> = ({moviesList, genres}) => {
+  const {t} = useTranslation('movies');
   const renderItem: ListRenderItem<Movie> = ({item}) => {
     const mergeGenresWithMovies = item.genre_ids.map(movie =>
       genres.find(genre => genre.id === movie),
@@ -27,7 +27,7 @@ const MovieList = ({moviesList, genres}: MovieListProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.heading}>
-        <Text style={styles.headingText}>{t('movies:popular')}</Text>
+        <Text style={styles.headingText}>{t('popular')}</Text>
       </View>
       <FlatList<Movie>
         data={moviesList}
@@ -46,7 +46,7 @@ const MovieList = ({moviesList, genres}: MovieListProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.black,
+    backgroundColor: palette.black,
   },
   heading: {
     alignSelf: 'center',
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   headingText: {
-    color: colors.white,
+    color: palette.white,
     fontWeight: 'bold',
     fontSize: 17,
   },

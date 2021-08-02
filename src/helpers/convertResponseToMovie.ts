@@ -1,4 +1,4 @@
-import {Movie} from '../models';
+import {Movie} from 'src/models';
 
 export const convertResponseToMovie = (
   data: Movie[],
@@ -7,10 +7,10 @@ export const convertResponseToMovie = (
   const newResult: Movie[] = data.map((movie: Movie) => ({
     id: movie.id,
     title: movie.title,
-    vote_average: movie.vote_average,
-    poster_path: movie.poster_path,
+    vote_average: movie.vote_average, //should be in camelCase
+    poster_path: movie.poster_path, //should be in camelCase
     overview: movie.overview,
-    genre_ids: movie.genre_ids,
+    genre_ids: movie.genre_ids, //should be in camelCase
     isMovie: isMovie,
   }));
   return newResult;

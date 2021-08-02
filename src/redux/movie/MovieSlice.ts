@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {MovieState} from '../../models';
+import {MovieState} from 'src/models';
 import {RootState} from '../rootReducer';
 import {getMovies} from './MovieActions';
 
@@ -39,7 +39,6 @@ const movieSlice = createSlice({
     builder.addCase(getMovies.rejected, (state, action) => {
       // Add user to the state array
       state.loading = false;
-      console.log(action.error.message);
       state.error = action.error.message ?? 'error';
     });
   },

@@ -1,39 +1,39 @@
 import React from 'react';
 import {ListRenderItem, StyleSheet, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
-import {MovieBox, SearchErrorBox, SectionHeader} from '.';
-import colors from '../../assets/theme/colors';
-import {Movie} from '../../models';
+import {MovieBox, ErrorWrapper, SectionHeader} from '.';
+import palette from 'src/styles/palette';
+import {Movie} from 'src/models';
 
-interface DiscoveryContentBoxProps {
+interface Props {
   title: string;
   data: Movie[];
-  error: string;
+  error?: string;
   loading: boolean;
 }
 
-const renderItem: ListRenderItem<Movie> = ({item}) => <MovieBox movie={item} />;
-
-const CollectionContentBox = ({
-  title,
-  data,
-  error,
-}: DiscoveryContentBoxProps) => {
+const CollectionContentBox: React.FC<Props> = ({title, data, error}) => {
+  const renderItem: ListRenderItem<Movie> = ({item}) => (
+    <MovieBox movie={item} />
+  );
+  if (error) {
+    return <ErrorWrapper error={error} loading={false} />;
+  }
+  if (!data.length) {
+    return null;
+  }
   return (
     <View style={styles.discoveryContentBox}>
-      {data.length === 0 ? null : (
-        <SectionHeader text={title} size={20} color={colors.white} />
-      )}
-      <SearchErrorBox error={error} loading={false}>
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          maxToRenderPerBatch={5}
-          initialNumToRender={10}
-        />
-      </SearchErrorBox>
+      <SectionHeader text={title} size={20} color={palette.white} />
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        maxToRenderPerBatch={5}
+        initialNumToRender={10}
+        keyExtractor={(item, index) => index.toString()}
+      />
     </View>
   );
 };

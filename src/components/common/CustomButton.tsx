@@ -1,9 +1,15 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {
+  FlexStyle,
+  StyleProp,
+  StyleSheet,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
 import {Button} from 'react-native-paper';
-import colors from '../../assets/theme/colors';
+import palette from 'src/styles/palette';
 
-interface MyButtonProps {
+interface Props {
   disabled?: boolean;
   label: string;
   loading?: boolean;
@@ -12,60 +18,45 @@ interface MyButtonProps {
   onPress: () => void;
 }
 
-const CustomButton = ({
+const CustomButton: React.FC<Props> = ({
   disabled,
   loading,
   label,
-  variant,
+  variant = 'primary',
   width,
   onPress,
-}: MyButtonProps) => {
-  //background color based on variant
-  const getBackgroundColor = () => {
-    if (disabled) {
-      return colors.grey;
-    }
-    if (variant === 'primary') {
-      return colors.primary;
-    }
-    if (variant === 'secondary') {
-      return colors.darkGrey;
+}) => {
+  const isPrimary = variant === 'primary';
+  const {primary, darkGrey} = palette;
+
+  const getColor = (): StyleProp<TextStyle> => {
+    return {color: isPrimary ? primary : darkGrey};
+  };
+  const getBackground = (): StyleProp<ViewStyle> => {
+    return {backgroundColor: isPrimary ? darkGrey : primary};
+  };
+
+  const getWidth = (): StyleProp<FlexStyle> => {
+    switch (width) {
+      case 'small': {
+        return {width: '45%'};
+      }
+      case 'medium': {
+        return {width: '60%'};
+      }
+      default:
+        return {width: '70%'};
     }
   };
-  //label color based on variant
-  const getColor = () => {
-    if (variant === 'secondary') {
-      return colors.primary;
-    }
-    return colors.darkGrey;
-  };
-  //button width based on variant
-  const getWidth = () => {
-    if (width === 'small') {
-      return '45%';
-    }
-    if (width === 'medium') {
-      return '60%';
-    }
-    return '70%';
-  };
+
   return (
     <Button
       mode="contained"
       disabled={disabled}
       loading={loading}
       onPress={onPress}
-      style={[
-        styles.wrapper,
-        {backgroundColor: getBackgroundColor()},
-        {width: getWidth()},
-      ]}
-      labelStyle={[styles.text, {color: getColor()}]}
-      theme={{
-        colors: {
-          text: 'black',
-        },
-      }}>
+      style={[styles.background, getBackground(), getWidth()]}
+      labelStyle={[styles.text, getColor()]}>
       {label}
     </Button>
   );
@@ -74,7 +65,7 @@ const CustomButton = ({
 export default CustomButton;
 
 const styles = StyleSheet.create({
-  wrapper: {
+  background: {
     borderRadius: 16,
     marginVertical: 24,
     alignItems: 'center',

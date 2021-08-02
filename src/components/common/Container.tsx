@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
   View,
   ScrollView,
@@ -6,15 +6,13 @@ import {
   KeyboardAvoidingView,
   Platform,
   StyleProp,
-  ViewStyle,
+  FlexStyle,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import colors from '../../assets/theme/colors';
-import {LogBox} from 'react-native';
-
-interface ContainerProps {
+import palette from 'src/styles/palette';
+interface Props {
   //pass normal stylesheet object to change backgroundColor
-  style?: StyleProp<ViewStyle>;
+  style?: StyleProp<FlexStyle>;
   //specify withKeyboard prop when using Container if you want KeyboardAvoidingView
   withKeyboard?: boolean;
   //specify withPadding prop when using Container if you want additional padding
@@ -25,24 +23,20 @@ interface ContainerProps {
   disableSafeArea?: boolean;
 }
 
-const Container: React.FC<React.PropsWithChildren<ContainerProps>> = ({
+const Container: React.FC<Props> = ({
   style,
   children,
-  withKeyboard = false,
-  withPadding = false,
-  flexStart = false,
-  disableScroll = false,
-  disableSafeArea = false,
+  withKeyboard,
+  withPadding,
+  flexStart,
+  disableScroll,
+  disableSafeArea,
 }) => {
-  useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-  }, []);
-
-  const getJustifyContent = (): StyleProp<ViewStyle> => {
+  const getJustifyContent = (): StyleProp<FlexStyle> => {
     return {justifyContent: flexStart ? 'flex-start' : 'center'};
   };
 
-  const getPadding = (): StyleProp<ViewStyle> => {
+  const getPadding = (): StyleProp<FlexStyle> => {
     return {padding: withPadding ? 16 : 0};
   };
 
@@ -94,7 +88,7 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: colors.black,
+    backgroundColor: palette.black,
     justifyContent: 'center',
   },
 });

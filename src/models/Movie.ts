@@ -1,9 +1,28 @@
-export interface Movie {
-  id: number; //id filmu
-  title: string; //tytul
-  vote_average: number; //srednia ocen
-  poster_path: string; //ściezka do zdjęcia
-  overview: string; //opis filmu
-  genre_ids: number[]; // gatunki
-  isMovie?: boolean; //w naszym api filmy i seriale to różne kolekcje, które mogą posiadać to samo id, przez co potrzebujemy flagi, by je rozróżnić w przypadku tego samego id.
+import {Genres} from '.';
+
+interface Base {
+  id: number;
+  title: string;
+  vote_average: number;
+  poster_path: string;
+  overview: string;
+}
+export interface Movie extends Base {
+  genre_ids: number[];
+  isMovie?: boolean;
+}
+export interface MovieDetails extends Base {
+  runtime?: number;
+  revenue?: number;
+  release_date?: string;
+  genres: Genres[];
+}
+export interface MovieState {
+  movies: Movie[];
+  loading: boolean;
+  error: string;
+}
+
+export interface MovieAxiosResponse {
+  results: Movie[];
 }

@@ -2,14 +2,11 @@ import React from 'react';
 import {ImageBackground, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-interface ContainerProps {
-  img: any;
+interface Props {
+  img: string;
 }
 
-const ProfileCover: React.FC<React.PropsWithChildren<ContainerProps>> = ({
-  children,
-  img,
-}) => {
+const ProfileCover: React.FC<Props> = ({children, img}) => {
   const imageBackground = {
     uri: img,
   };

@@ -1,19 +1,19 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useCallback} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import Profile from '../components/profile/Profile';
-import {AUTH} from '../models/constants/routeNames';
+import Profile from 'src/components/profile/Profile';
+import {AUTH} from 'src/models/constants/routeNames';
 import {BlurView} from '@react-native-community/blur';
-import colors from '../assets/theme/colors';
-import Liked from '../components/liked/Liked';
+import palette from 'src/styles/palette';
 import {useTranslation} from 'react-i18next';
-import {movieSelector} from '../redux/movie/MovieSlice';
+import {movieSelector} from 'src/redux/movie/MovieSlice';
 import {useSelector} from 'react-redux';
-import {CustomButton} from '../components/common';
+import {CustomButton} from 'src/components/common';
+import FavoriteContentBox from 'src/components/favorite/FavoriteContentBox';
 
 const NotLoggedIn = ({isLiked}: {isLiked: boolean}) => {
   const {navigate} = useNavigation();
-  const {t} = useTranslation();
+  const {t} = useTranslation('profile');
 
   const goToAuth = useCallback(() => {
     navigate(AUTH);
@@ -23,15 +23,15 @@ const NotLoggedIn = ({isLiked}: {isLiked: boolean}) => {
 
   return (
     <View style={styles.container}>
-      {isLiked ? <Liked movies={movies} /> : <Profile />}
+      {isLiked ? <FavoriteContentBox movies={movies} /> : <Profile />}
       <BlurView style={styles.absolute} blurType="dark" blurAmount={5} />
       <View style={styles.box}>
-        <Text style={styles.text}>{t('profile:explore')}</Text>
-        <Text style={styles.subText}>{t('profile:exploreSub')}</Text>
+        <Text style={styles.text}>{t('explore')}</Text>
+        <Text style={styles.subText}>{t('exploreSub')}</Text>
         <View style={styles.buttons}>
           <CustomButton
-            label={t('profile:button')}
-            variant="primary"
+            label={t('button')}
+            variant="secondary"
             onPress={goToAuth}
           />
         </View>
@@ -44,7 +44,7 @@ export default NotLoggedIn;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.black,
+    backgroundColor: palette.black,
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
@@ -62,13 +62,13 @@ const styles = StyleSheet.create({
   text: {
     paddingTop: 50,
     fontSize: 32,
-    color: colors.white,
+    color: palette.white,
     textAlign: 'center',
   },
   subText: {
     fontSize: 10,
     marginVertical: 10,
-    color: colors.white,
+    color: palette.white,
     textAlign: 'center',
   },
   buttons: {
