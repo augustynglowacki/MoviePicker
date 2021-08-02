@@ -62,13 +62,13 @@ export const createUserWithEmailAndPassword = createAsyncThunk<
         'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultProfile.jpeg?alt=media&token=bc972054-6f70-4339-a72d-4a6c89be93a2',
     });
 
-    const displayNameFirebase = auth().currentUser?.displayName || '';
-    const photoURLFirebase = auth().currentUser?.photoURL || '';
+    const displayNameFirebase = auth().currentUser?.displayName;
+    const photoURLFirebase = auth().currentUser?.photoURL;
 
     //TODO: save user path to firestore with photo and cover
 
     const {uid, email} = user;
-    if (!uid || !email) {
+    if (!uid || !email || !displayNameFirebase || !photoURLFirebase) {
       return rejectWithValue('Error');
     }
 

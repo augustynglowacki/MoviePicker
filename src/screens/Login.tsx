@@ -14,7 +14,7 @@ import {userThunkSelector} from 'src/redux/user/UserSlice';
 import {useTranslation} from 'react-i18next';
 import {useFormik} from 'formik';
 import {getGoogleCredencial} from '../service/firestore/getGoogleCredential';
-import Yup from 'yup';
+import * as Yup from 'yup';
 
 const Login = () => {
   const {error, loading} = useSelector(userThunkSelector);

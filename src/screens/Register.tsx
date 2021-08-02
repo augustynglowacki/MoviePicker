@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import * as React from 'react';
+import React from 'react';
 import {useCallback, useEffect} from 'react';
 import {RegisterForm} from 'src/models';
 import {PROFILE} from 'src/models/constants/routeNames';
@@ -10,7 +10,7 @@ import {userThunkSelector} from 'src/redux/user/UserSlice';
 import {useFormik} from 'formik';
 import {useTranslation} from 'react-i18next';
 import RegisterComponent from 'src/components/auth/Register';
-import Yup from 'yup';
+import * as Yup from 'yup';
 
 const Register = () => {
   const {error, loading} = useSelector(userThunkSelector);
