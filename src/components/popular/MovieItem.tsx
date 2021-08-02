@@ -1,5 +1,12 @@
 import React, {useRef, useState} from 'react';
-import {Text, View, ImageBackground, Alert} from 'react-native';
+import {
+  Text,
+  View,
+  ImageBackground,
+  Alert,
+  StyleProp,
+  FlexStyle,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {API_IMAGES} from '@env';
 import {StyleSheet, Dimensions} from 'react-native';
@@ -17,6 +24,8 @@ import {Genres, Movie} from 'src/models';
 import Heart from '../likeHeart/Heart';
 import GenreBox from './GenreBox';
 import {Button} from 'react-native-paper';
+import {WINDOW_HEIGHT} from 'src/models/constants/common';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Route} from 'src/models/constants/routeNames';
 interface Props {
   mergeGenresWithMovies: (Genres | undefined)[];
@@ -27,14 +36,12 @@ export const BOTTOM_TABS_HEIGHT = Math.floor(
   Dimensions.get('window').height / 12.5,
 );
 
-export const MOVIE_HEIGHT = Math.ceil(
-  Dimensions.get('window').height - BOTTOM_TABS_HEIGHT,
-);
-
 const MovieItem: React.FC<Props> = ({movie, mergeGenresWithMovies}) => {
   const {loading} = useSelector(genresSelector);
   const {t} = useTranslation('common');
   const {navigate} = useNavigation();
+  const {bottom} = useSafeAreaInsets();
+
   const {poster_path, overview, title, id, vote_average, isMovie, genre_ids} =
     movie;
   const doubleTapRef = useRef();
@@ -97,7 +104,7 @@ const MovieItem: React.FC<Props> = ({movie, mergeGenresWithMovies}) => {
         ref={doubleTapRef}
         numberOfTaps={2}
         onActivated={handleOnActivated}>
-        <View style={styles.movieContainer}>
+        <View style={getMovieHeight(bottom)}>
           <ImageBackground
             source={{uri: `${API_IMAGES}${poster_path}`}}
             style={styles.image}
@@ -148,10 +155,6 @@ const MovieItem: React.FC<Props> = ({movie, mergeGenresWithMovies}) => {
 export default MovieItem;
 
 export const styles = StyleSheet.create({
-  movieContainer: {
-    width: '100%',
-    height: MOVIE_HEIGHT,
-  },
   image: {
     width: '100%',
     height: '100%',
@@ -192,3 +195,6 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
+const getMovieHeight = (safeAreaBottom: number): StyleProp<FlexStyle> => {
+  return {width: '100%', height: WINDOW_HEIGHT - safeAreaBottom};
+};
