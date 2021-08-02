@@ -7,7 +7,7 @@ import {useFormik} from 'formik';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import SettingsComponent from 'src/components/settings/Settings';
-import {Route} from 'src/models/constants/routeNames';
+import {Route} from 'src/constants';
 
 export interface FormValues {
   email: any;

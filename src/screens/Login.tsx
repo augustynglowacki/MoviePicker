@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import LoginComponent from 'src/components/auth/Login';
 import {LoginForm} from 'src/models';
-import {Route} from 'src/models/constants/routeNames';
+import {Route} from 'src/constants';
 import auth from '@react-native-firebase/auth';
 import {useDispatch} from 'react-redux';
 import {

@@ -2,11 +2,12 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {Alert, StyleSheet, TouchableOpacity, View} from 'react-native';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch} from 'react-redux';
 import palette from 'src/styles/palette';
 import {logOutUser} from 'src/redux/user/UserAction';
-import {Route} from 'src/models/constants/routeNames';
+import {Route} from 'src/constants';
+import {Icon} from '../common';
+import {IconTypes} from '../common/Icons';
 
 const ProfileTitleBar: React.FC = () => {
   const {navigate} = useNavigation();
@@ -33,10 +34,20 @@ const ProfileTitleBar: React.FC = () => {
   return (
     <View style={styles.titleBar}>
       <TouchableOpacity onPress={handleLogOut}>
-        <MaterialIcon color={palette.white} name="logout" size={26} />
+        <Icon
+          type={IconTypes.MATERIAL}
+          color={palette.white}
+          name="logout"
+          size={26}
+        />
       </TouchableOpacity>
       <TouchableOpacity onPress={navigateTo}>
-        <MaterialIcon color={palette.white} name="more-vert" size={26} />
+        <Icon
+          type={IconTypes.MATERIAL}
+          color={palette.white}
+          name="more-vert"
+          size={26}
+        />
       </TouchableOpacity>
     </View>
   );

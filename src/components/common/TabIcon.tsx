@@ -1,10 +1,17 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import palette from 'src/styles/palette';
+import Icon, {IconTypes} from './Icons';
 
 const TabIcon = (focused: boolean, name: string) => {
-  return <MaterialIcon style={styles(focused).icon} name={name} size={26} />;
+  return (
+    <Icon
+      type={IconTypes.MATERIAL}
+      style={styles(focused).icon}
+      name={name}
+      size={26}
+    />
+  );
 };
 
 export default TabIcon;

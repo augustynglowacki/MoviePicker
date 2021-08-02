@@ -1,7 +1,8 @@
 import React, {useEffect, useRef} from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {StyleSheet, Animated} from 'react-native';
 import palette from 'src/styles/palette';
+import {Icon} from '../common';
+import {IconTypes} from '../common/Icons';
 
 const Heart: React.FC = () => {
   const maxValue = 1.5;
@@ -41,7 +42,12 @@ const Heart: React.FC = () => {
         styles.heartIconBox,
         {opacity: fadeAnim, transform: [{scale: beatAnim}]},
       ]}>
-      <Icon color={palette.primary} name="heart" size={200} />
+      <Icon
+        type={IconTypes.FA}
+        color={palette.primary}
+        name="heart"
+        size={200}
+      />
     </Animated.View>
   );
 };

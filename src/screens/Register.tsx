@@ -10,7 +10,7 @@ import {useFormik} from 'formik';
 import {useTranslation} from 'react-i18next';
 import RegisterComponent from 'src/components/auth/Register';
 import * as Yup from 'yup';
-import {Route} from 'src/models/constants/routeNames';
+import {Route} from 'src/constants';
 
 export const MIN_PASSWORD_LENGTH = 6;
 const initialState = {username: '', email: '', password: ''};

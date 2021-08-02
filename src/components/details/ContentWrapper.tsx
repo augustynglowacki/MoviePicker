@@ -7,10 +7,11 @@ import {
   Platform,
   Dimensions,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Entypo';
 import LinearGradientCover from './LinearGradientCover';
 import palette from 'src/styles/palette';
 import {API_IMAGES} from '@env';
+import {Icon} from '../common';
+import {IconTypes} from '../common/Icons';
 
 interface Props {
   poster_path: string;
@@ -27,7 +28,12 @@ const ContentWrapper: React.FC<Props> = ({navigation, poster_path}) => {
       <View style={styles.contentWrapper}>
         <View style={styles.headerWrapper}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Icon name="chevron-left" size={35} color={palette.white} />
+            <Icon
+              type={IconTypes.ENTYPO}
+              name="chevron-left"
+              size={35}
+              color={palette.white}
+            />
           </TouchableOpacity>
         </View>
         <LinearGradientCover />
