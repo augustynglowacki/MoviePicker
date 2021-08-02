@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Snackbar} from 'react-native-paper';
 import {useDispatch} from 'react-redux';

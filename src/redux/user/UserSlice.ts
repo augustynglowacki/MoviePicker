@@ -17,12 +17,15 @@ interface UserState {
 const initialState: UserState = {
   loading: false,
   error: '',
-  user: {email: '', userName: ''},
+  user: {id: '', email: '', userName: '', avatar: '', coverPhoto: ''},
 };
 
 export interface User {
-  email: string | null;
-  userName: string | null;
+  id: string;
+  email: string;
+  userName: string;
+  avatar: string;
+  coverPhoto: string;
 }
 
 const userSlice = createSlice({

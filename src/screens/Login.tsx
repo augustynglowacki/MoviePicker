@@ -13,7 +13,8 @@ import {useSelector} from 'react-redux';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 import {useTranslation} from 'react-i18next';
 import {useFormik} from 'formik';
-import Yup from 'yup';
+import {getGoogleCredencial} from '../service/firestore/getGoogleCredential';
+import * as Yup from 'yup';
 
 const Login = () => {
   const {error, loading} = useSelector(userThunkSelector);
@@ -35,8 +36,11 @@ const Login = () => {
     );
   };
 
-  const handleSignInWithGoogle = () => {
-    dispatch(signInWithGoogle());
+  const handleSignInWithGoogle = async () => {
+    const googleCredencial = await getGoogleCredencial();
+    if (googleCredencial) {
+      dispatch(signInWithGoogle(googleCredencial));
+    }
   };
 
   useEffect(() => {
