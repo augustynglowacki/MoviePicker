@@ -1,28 +1,32 @@
-import auth from '@react-native-firebase/auth';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {BackendUser} from '../../models';
 import {User} from './UserSlice';
-import storage from '@react-native-firebase/storage';
 
 interface LoginUser {
   email: string;
   password: string;
 }
 
-GoogleSignin.configure({
-  webClientId:
-    '1049524813514-pg8k5nj0jgoh4ir1uj3vikflo6q0r44k.apps.googleusercontent.com',
-  offlineAccess: true,
-});
-
-export const signInWithEmailAndPassword = createAsyncThunk(
+export const signInWithEmailAndPassword = createAsyncThunk<User, LoginUser>(
   'auth/signIn',
-  async ({email, password}: LoginUser) => {
-    const res = await auth().signInWithEmailAndPassword(email, password);
+  async ({email: loginEmail, password}, {rejectWithValue}) => {
+    const {
+      user: {uid, email, displayName, photoURL},
+    } = await auth().signInWithEmailAndPassword(loginEmail, password);
+
+    //TODO: set cover photo from firestore
+
+    if (!email || !displayName || !photoURL) {
+      return rejectWithValue('Error');
+    }
     const newUser: User = {
-      email: res.user.email,
-      userName: res.user.displayName,
+      id: uid,
+      email,
+      userName: displayName,
+      avatar: photoURL,
+      coverPhoto:
+        'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultBackground.jpg?alt=media&token=2194f500-dc89-40e4-bc4c-97a4c3f62d82',
     };
     return newUser;
   },
@@ -43,46 +47,64 @@ export const logOutUser = createAsyncThunk(
 
 export const createUserWithEmailAndPassword = createAsyncThunk(
   'auth/register',
-  async ({email, password, displayName}: BackendUser) => {
-    const authUser = await auth().createUserWithEmailAndPassword(
-      email,
+  async (
+    {email: registerEmail, password, displayName}: BackendUser,
+    {rejectWithValue},
+  ) => {
+    const {user} = await auth().createUserWithEmailAndPassword(
+      registerEmail,
       password,
     );
-    const imageURL = await storage()
-      .ref('/users/default/defaultProfile.jpeg')
-      .getDownloadURL();
 
-    console.log(imageURL);
-
-    await authUser.user.updateProfile({
+    await user.updateProfile({
       displayName: displayName,
-      photoURL: imageURL,
+      photoURL:
+        'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultProfile.jpeg?alt=media&token=bc972054-6f70-4339-a72d-4a6c89be93a2',
     });
 
-    const displayNameFirebase = auth().currentUser?.displayName;
+    const displayNameFirebase = auth().currentUser?.displayName || '';
+    const photoURLFirebase = auth().currentUser?.photoURL || '';
+
+    //TODO: save user path to firestore with photo and cover
+
+    const {uid, email} = user;
+    if (!uid || !email) {
+      return rejectWithValue('Error');
+    }
 
     const newUser: User = {
-      email: authUser.user.email,
-      userName: displayNameFirebase ?? 'None',
+      id: uid,
+      email,
+      userName: displayNameFirebase,
+      avatar: photoURLFirebase,
+      coverPhoto:
+        'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultBackground.jpg?alt=media&token=2194f500-dc89-40e4-bc4c-97a4c3f62d82',
     };
 
     return newUser;
   },
 );
 
-export const signInWithGoogle = createAsyncThunk(
-  'auth/signInWithGoogle',
-  async () => {
-    // Get the users ID token
-    const {idToken} = await GoogleSignin.signIn();
-    // Create a Google credential with the token
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    const response = await auth().signInWithCredential(googleCredential);
-    // console.log(response.user);
-    const newUser: User = {
-      email: response.user.email,
-      userName: response.user.displayName,
-    };
-    return newUser;
-  },
-);
+export const signInWithGoogle = createAsyncThunk<
+  User,
+  FirebaseAuthTypes.AuthCredential
+>('auth/signInWithGoogle', async (googleCredential, {rejectWithValue}) => {
+  const {
+    user: {uid, email, displayName, photoURL},
+  } = await auth().signInWithCredential(googleCredential);
+
+  //TODO: save user path to firestore with photo and cover
+
+  if (!email || !displayName || !photoURL) {
+    return rejectWithValue('Error');
+  }
+  const newUser: User = {
+    id: uid,
+    email,
+    userName: displayName,
+    avatar: photoURL,
+    coverPhoto:
+      'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultBackground.jpg?alt=media&token=2194f500-dc89-40e4-bc4c-97a4c3f62d82',
+  };
+  return newUser;
+});
