@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
-import MovieList from '../components/popular/MovieList';
-import {getMovies, movieSelector} from '../redux/movie/MovieSlice';
+import MovieList from 'src/components/popular/MovieList';
+import {getMovies, movieSelector} from 'src/redux/movie/MovieSlice';
 import {useDispatch, useSelector} from 'react-redux';
 import auth from '@react-native-firebase/auth';
-import {genresSelector} from '../redux/genres/GenresSlice';
-import {getGenres} from '../redux/genres/GenresSlice';
-import {setActiveUser, userThunkSelector} from '../redux/user/UserSlice';
-import {Container, ErrorWrapper} from '../components/common';
+import {genresSelector} from 'src/redux/genres/GenresSlice';
+import {getGenres} from 'src/redux/genres/GenresSlice';
+import {setActiveUser, userThunkSelector} from 'src/redux/user/UserSlice';
+import {Container, ErrorWrapper} from 'src/components/common';
 
 const Popular = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,9 @@ const Popular = () => {
 
   useEffect(() => {
     if (email === '') {
+      //u know what
       const subscriber = auth().onAuthStateChanged(user => {
+        //ts + move into service
         if (user) {
           dispatch(
             setActiveUser({

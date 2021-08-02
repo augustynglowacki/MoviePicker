@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-import {BackendEntity, Movie} from '../models';
-import FavoriteContentBox from '../components/favorite/FavoriteContentBox';
+import {BackendEntity, Movie} from 'src/models';
+import FavoriteContentBox from 'src/components/favorite/FavoriteContentBox';
 
 const Favorite: React.FC = () => {
   const [backendMovies, setBackendMovies] = useState<BackendEntity[]>([]);
@@ -14,12 +14,13 @@ const Favorite: React.FC = () => {
   const fetchData = async () => {
     try {
       const userId = auth().currentUser?.uid ?? 'none';
-      const db = firestore();
+      const db = firestore(); //create service for firebase
       db.collection('users')
         .doc(userId)
         .collection('likedMovies')
         .onSnapshot(snap => {
           const newww = snap.docs.map(doc => ({
+            // nice
             id: doc.id,
             movieId: doc.data().movieId,
             title: doc.data().title,
@@ -38,6 +39,7 @@ const Favorite: React.FC = () => {
 
   const convertEntityToMovie = (data: BackendEntity[]) => {
     const newResult: Movie[] = data.map((movie: BackendEntity) => ({
+      //shitty name
       id: movie.movieId,
       title: movie.title,
       vote_average: movie.vote_average,

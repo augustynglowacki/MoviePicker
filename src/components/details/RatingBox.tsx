@@ -1,13 +1,13 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {AirbnbRating} from 'react-native-ratings';
-import colors from '../../assets/theme/colors';
+import palette from 'src/styles/palette';
 
-interface RatingProps {
+interface Props {
   voteAverage: number;
 }
 
-const RatingBox = ({voteAverage}: RatingProps) => {
+const RatingBox: React.FC<Props> = ({voteAverage}) => {
   return (
     <View style={styles.ratingWrapper}>
       <Text style={styles.ratingText}>{voteAverage}</Text>
@@ -17,7 +17,7 @@ const RatingBox = ({voteAverage}: RatingProps) => {
         size={20}
         isDisabled
         showRating={false}
-        selectedColor={colors.primary}
+        selectedColor={palette.primary}
       />
     </View>
   );
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   ratingText: {
-    color: colors.primary,
+    color: palette.primary,
     fontSize: 20,
     marginRight: 10,
     fontWeight: '700',

@@ -5,22 +5,21 @@ import {API_IMAGES} from '@env';
 import {StyleSheet, Dimensions} from 'react-native';
 import {TapGestureHandler} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
-import {AUTH, DETAILS} from '../../models/constants/routeNames';
-import colors from '../../assets/theme/colors';
+import palette from 'src/styles/palette';
 import {useSelector} from 'react-redux';
-import {genresSelector} from '../../redux/genres/GenresSlice';
+import {genresSelector} from 'src/redux/genres/GenresSlice';
 import {useTranslation} from 'react-i18next';
-import {userThunkSelector} from '../../redux/user/UserSlice';
+import {userThunkSelector} from 'src/redux/user/UserSlice';
 import RatingBox from '../details/RatingBox';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-import {Genres, Movie} from '../../models';
+import {Genres, Movie} from 'src/models';
+import {AUTH, DETAILS} from 'src/models/constants/routeNames';
 import Heart from '../likeHeart/Heart';
 import GenreBox from './GenreBox';
 import {Button} from 'react-native-paper';
-
-interface MovieItemProps {
-  mergeGenresWithMovies: Genres[];
+interface Props {
+  mergeGenresWithMovies: (Genres | undefined)[];
   movie: Movie;
 }
 
@@ -32,12 +31,9 @@ export const MOVIE_HEIGHT = Math.ceil(
   Dimensions.get('window').height - BOTTOM_TABS_HEIGHT,
 );
 
-const MovieItem: React.FC<MovieItemProps> = ({
-  movie,
-  mergeGenresWithMovies,
-}) => {
+const MovieItem: React.FC<Props> = ({movie, mergeGenresWithMovies}) => {
   const {loading} = useSelector(genresSelector);
-  const {t} = useTranslation();
+  const {t} = useTranslation('common');
   const {navigate} = useNavigation();
   const {poster_path, overview, title, id, vote_average, isMovie, genre_ids} =
     movie;
@@ -73,11 +69,11 @@ const MovieItem: React.FC<MovieItemProps> = ({
     } else {
       Alert.alert(t('common:login'), t('common:loginSuggestion'), [
         {
-          text: t('common:cancel'),
+          text: t('cancel'),
           onPress: () => {},
         },
         {
-          text: t('common:ok'),
+          text: t('ok'),
           onPress: () => navigate(AUTH),
         },
       ]);
@@ -140,7 +136,7 @@ const MovieItem: React.FC<MovieItemProps> = ({
                 )}
               </View>
               <RatingBox voteAverage={vote_average} />
-              {isLiked ? <Heart /> : null}
+              {!!isLiked && <Heart />}
             </View>
           </View>
         </View>
@@ -182,13 +178,13 @@ export const styles = StyleSheet.create({
     fontWeight: '800',
     fontSize: 42,
     marginBottom: 15,
-    color: colors.white,
+    color: palette.white,
     textAlign: 'center',
   },
   genres: {
     maxWidth: 350,
     fontSize: 14,
-    color: colors.white,
+    color: palette.white,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

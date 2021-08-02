@@ -1,21 +1,23 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {View, StyleSheet, ListRenderItem, FlatList} from 'react-native';
-import colors from '../../assets/theme/colors';
-import {Movie} from '../../models';
+import {Movie} from 'src/models';
+import palette from 'src/styles/palette';
 import {Container, MovieBox, SectionHeader} from '../common';
 
 interface Props {
   movies: Movie[];
 }
 
-const renderItem: ListRenderItem<Movie> = ({item}) => <MovieBox movie={item} />;
+const FavoriteContentBox: React.FC<Props> = ({movies}) => {
+  const {t} = useTranslation('movies');
 
-const FavoriteContentBox = ({movies}: Props) => {
-  const {t} = useTranslation();
+  const renderItem: ListRenderItem<Movie> = ({item}) => (
+    <MovieBox movie={item} />
+  );
   return (
     <Container flexStart withPadding disableScroll>
-      <SectionHeader text={t('movies:favorite')} color={colors.white} />
+      <SectionHeader text={t('liked')} color={palette.white} />
       <View style={styles.favoriteContentBox}>
         <FlatList
           data={movies}

@@ -1,13 +1,13 @@
 import React from 'react';
-import {ImageSourcePropType} from 'react-native';
+import {GestureResponderEvent, ImageSourcePropType} from 'react-native';
 import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
-import colors from '../../assets/theme/colors';
-interface SocilaButtonProps {
+import palette from 'src/styles/palette';
+interface Props {
   icon: ImageSourcePropType;
-  onPress: () => void;
+  onPress: ((event: GestureResponderEvent) => void) | undefined;
 }
 
-const SocialButton = ({onPress, icon}: SocilaButtonProps) => {
+const SocialButton: React.FC<Props> = ({onPress, icon}) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.button}>
@@ -18,12 +18,13 @@ const SocialButton = ({onPress, icon}: SocilaButtonProps) => {
 };
 
 export default SocialButton;
+
 const styles = StyleSheet.create({
   button: {
     width: 40,
     height: 40,
     borderRadius: 100,
-    backgroundColor: colors.white,
+    backgroundColor: palette.white,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',

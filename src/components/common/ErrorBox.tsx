@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import colors from '../../assets/theme/colors';
+import palette from 'src/styles/palette';
 
 interface Props {
   errorMsg: string;
@@ -10,7 +10,7 @@ interface Props {
 const ErrorBox: React.FC<Props> = ({errorMsg}) => {
   return (
     <View style={styles.errorBox}>
-      <Icon name="times-circle-o" color={colors.danger} size={100} />
+      <Icon name="times-circle-o" color={palette.danger} size={100} />
       <Text style={styles.errorText}>{errorMsg}</Text>
     </View>
   );
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   errorText: {
-    color: colors.danger,
+    color: palette.danger,
     fontSize: 22,
   },
 });

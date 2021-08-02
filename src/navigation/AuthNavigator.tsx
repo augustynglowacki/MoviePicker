@@ -1,8 +1,8 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import {LOGIN, REGISTER} from '../models/constants/routeNames';
-import Login from '../screens/Login';
-import Register from '../screens/Register';
+import Login from 'src/screens/Login';
+import Register from 'src/screens/Register';
 
 const AuthNavigator = () => {
   const AuthStack = createStackNavigator();

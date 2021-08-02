@@ -4,27 +4,27 @@ import {useTranslation} from 'react-i18next';
 import {Alert, StyleSheet, TouchableOpacity, View} from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch} from 'react-redux';
-import colors from '../../assets/theme/colors';
-import {SETTINGS} from '../../models/constants/routeNames';
-import {logOutUser} from '../../redux/user/UserAction';
+import palette from 'src/styles/palette';
+import {SETTINGS} from 'src/models/constants/routeNames';
+import {logOutUser} from 'src/redux/user/UserAction';
 
-const ProfileTitleBar = () => {
+const ProfileTitleBar: React.FC = () => {
   const {navigate} = useNavigation();
   const dispatch = useDispatch();
-  const {t} = useTranslation();
+  const {t} = useTranslation('common');
 
   const navigateTo = () => {
     navigate(SETTINGS);
   };
 
   const handleLogOut = () => {
-    Alert.alert(t('common:logout'), t('common:logoutWarning'), [
+    Alert.alert(t('logout'), t('logoutWarning'), [
       {
-        text: t('common:cancel'),
+        text: t('cancel'),
         onPress: () => {},
       },
       {
-        text: t('common:ok'),
+        text: t('ok'),
         onPress: () => dispatch(logOutUser()),
       },
     ]);
@@ -33,10 +33,10 @@ const ProfileTitleBar = () => {
   return (
     <View style={styles.titleBar}>
       <TouchableOpacity onPress={handleLogOut}>
-        <MaterialIcon color={colors.white} name="logout" size={26} />
+        <MaterialIcon color={palette.white} name="logout" size={26} />
       </TouchableOpacity>
       <TouchableOpacity onPress={navigateTo}>
-        <MaterialIcon color={colors.white} name="more-vert" size={26} />
+        <MaterialIcon color={palette.white} name="more-vert" size={26} />
       </TouchableOpacity>
     </View>
   );
