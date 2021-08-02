@@ -3,11 +3,15 @@ import {View, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import palette from 'src/styles/palette';
 
-const ErrorBox: React.FC = () => {
+interface Props {
+  errorMsg: string;
+}
+
+const ErrorBox: React.FC<Props> = ({errorMsg}) => {
   return (
     <View style={styles.errorBox}>
       <Icon name="times-circle-o" color={palette.danger} size={100} />
-      <Text style={styles.errorText}>Couldn't load movies</Text>
+      <Text style={styles.errorText}>{errorMsg}</Text>
     </View>
   );
 };

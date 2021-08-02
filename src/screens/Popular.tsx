@@ -6,7 +6,7 @@ import auth from '@react-native-firebase/auth';
 import {genresSelector} from 'src/redux/genres/GenresSlice';
 import {getGenres} from 'src/redux/genres/GenresSlice';
 import {setActiveUser, userThunkSelector} from 'src/redux/user/UserSlice';
-import {Container, ScreenWrapper} from 'src/components/common';
+import {Container, ErrorWrapper} from 'src/components/common';
 
 const Popular = () => {
   const dispatch = useDispatch();
@@ -42,11 +42,11 @@ const Popular = () => {
   }, [dispatch, email]);
 
   return (
-    <ScreenWrapper error={error} loading={loading}>
+    <ErrorWrapper error={error} loading={loading}>
       <Container disableScroll disableSafeArea>
         <MovieList moviesList={movies} genres={genres.genres} />
       </Container>
-    </ScreenWrapper>
+    </ErrorWrapper>
   );
 };
 

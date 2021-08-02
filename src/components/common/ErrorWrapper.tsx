@@ -7,14 +7,15 @@ interface Props {
   error: string;
   loading: boolean;
 }
-const ScreenWrapper: React.FC<Props> = ({error, loading, children}) => {
+
+const ErrorWrapper: React.FC<Props> = ({error, loading, children}) => {
   if (loading) {
     return <Loading />;
   }
   if (error) {
     return (
       <View style={style.errorMsg}>
-        <ErrorBox />
+        <ErrorBox errorMsg={error} />
       </View>
     );
   }
@@ -27,4 +28,4 @@ const style = StyleSheet.create({
     flex: 1,
   },
 });
-export default ScreenWrapper;
+export default ErrorWrapper;
