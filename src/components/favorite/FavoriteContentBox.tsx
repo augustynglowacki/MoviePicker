@@ -5,18 +5,18 @@ import colors from '../../assets/theme/colors';
 import {Movie} from '../../models';
 import {Container, MovieBox, SectionHeader} from '../common';
 
-interface LikedProps {
+interface Props {
   movies: Movie[];
 }
 
 const renderItem: ListRenderItem<Movie> = ({item}) => <MovieBox movie={item} />;
 
-const LikedContentBox = ({movies}: LikedProps) => {
+const FavoriteContentBox = ({movies}: Props) => {
   const {t} = useTranslation();
   return (
     <Container flexStart withPadding disableScroll>
-      <SectionHeader text={t('movies:liked')} color={colors.white} />
-      <View style={styles.likedContentBox}>
+      <SectionHeader text={t('movies:favorite')} color={colors.white} />
+      <View style={styles.favoriteContentBox}>
         <FlatList
           data={movies}
           renderItem={renderItem}
@@ -31,7 +31,7 @@ const LikedContentBox = ({movies}: LikedProps) => {
 };
 
 const styles = StyleSheet.create({
-  likedContentBox: {
+  favoriteContentBox: {
     minWidth: '100%',
     alignItems: 'center',
     paddingBottom: '12%',
@@ -41,4 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LikedContentBox;
+export default FavoriteContentBox;

@@ -13,7 +13,7 @@ const ProfileComponent = () => {
       <ProfileHeader />
       <Container withPadding disableScroll disableSafeArea>
         <CollectionContentBox
-          title={t('movies:liked')}
+          title={t('movies:favorite')}
           data={movies}
           error=""
           loading={false}

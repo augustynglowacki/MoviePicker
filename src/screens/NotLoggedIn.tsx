@@ -5,11 +5,11 @@ import Profile from '../components/profile/Profile';
 import {AUTH} from '../models/constants/routeNames';
 import {BlurView} from '@react-native-community/blur';
 import colors from '../assets/theme/colors';
-import Liked from '../components/liked/Liked';
 import {useTranslation} from 'react-i18next';
 import {movieSelector} from '../redux/movie/MovieSlice';
 import {useSelector} from 'react-redux';
 import {CustomButton} from '../components/common';
+import FavoriteContentBox from '../components/favorite/FavoriteContentBox';
 
 const NotLoggedIn = ({isLiked}: {isLiked: boolean}) => {
   const {navigate} = useNavigation();
@@ -23,7 +23,7 @@ const NotLoggedIn = ({isLiked}: {isLiked: boolean}) => {
 
   return (
     <View style={styles.container}>
-      {isLiked ? <Liked movies={movies} /> : <Profile />}
+      {isLiked ? <FavoriteContentBox movies={movies} /> : <Profile />}
       <BlurView style={styles.absolute} blurType="dark" blurAmount={5} />
       <View style={styles.box}>
         <Text style={styles.text}>{t('profile:explore')}</Text>

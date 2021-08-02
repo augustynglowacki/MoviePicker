@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {BackendEntity, Movie} from '../models';
-import LikedComponent from '../components/liked/Liked';
+import FavoriteContentBox from '../components/favorite/FavoriteContentBox';
 
-const Liked = () => {
+const Favorite: React.FC = () => {
   const [backendMovies, setBackendMovies] = useState<BackendEntity[]>([]);
 
   useEffect(() => {
@@ -46,11 +46,10 @@ const Liked = () => {
       genre_ids: movie.genre_ids,
       isMovie: movie.isMovie,
     }));
-    console.log(newResult);
     return newResult;
   };
 
-  return <LikedComponent movies={convertEntityToMovie(backendMovies)} />;
+  return <FavoriteContentBox movies={convertEntityToMovie(backendMovies)} />;
 };
 
-export default Liked;
+export default Favorite;

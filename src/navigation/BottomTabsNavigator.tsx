@@ -2,8 +2,13 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Popular from '../screens/Popular';
 import Discover from '../screens/Discover';
-import Liked from '../screens/Liked';
-import {DISCOVER, HOME, LIKED, PROFILE} from '../models/constants/routeNames';
+import Favorite from '../screens/Favorite';
+import {
+  DISCOVER,
+  HOME,
+  FAVORITE,
+  PROFILE,
+} from '../models/constants/routeNames';
 import {StyleSheet} from 'react-native';
 import Profile from '../screens/Profile';
 import {useSelector} from 'react-redux';
@@ -42,8 +47,8 @@ const BottomTabsNavigator = () => {
       {email !== '' ? (
         <>
           <Tab.Screen
-            name={LIKED}
-            component={Liked}
+            name={FAVORITE}
+            component={Favorite}
             options={{
               tabBarIcon: ({focused}) => TabIcon(focused, 'favorite-outline'),
             }}
@@ -59,7 +64,7 @@ const BottomTabsNavigator = () => {
       ) : (
         <>
           <Tab.Screen
-            name={LIKED}
+            name={FAVORITE}
             children={() => <NotLoggedIn isLiked={true} />}
             options={{
               tabBarIcon: ({focused}) => TabIcon(focused, 'favorite-outline'),
