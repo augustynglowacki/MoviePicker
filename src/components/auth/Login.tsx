@@ -90,7 +90,7 @@ const LoginComponent: React.FC<Props> = ({
               onPress={onSubmit}
               loading={loading}
             />
-            {serverError ? <Message label={serverError} /> : null}
+            {!!serverError && <Message label={serverError} />}
             <SocialBox onPress={signUpWithGoogle} />
             <RegisterInfo onPress={goToRegister} />
           </View>

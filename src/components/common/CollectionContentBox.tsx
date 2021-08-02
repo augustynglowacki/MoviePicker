@@ -12,14 +12,16 @@ interface Props {
   loading: boolean;
 }
 
-const renderItem: ListRenderItem<Movie> = ({item}) => <MovieBox movie={item} />;
-
 const CollectionContentBox: React.FC<Props> = ({title, data, error}) => {
+  const renderItem: ListRenderItem<Movie> = ({item}) => (
+    <MovieBox movie={item} />
+  );
+  if (!data.length) {
+    return null;
+  }
   return (
     <View style={styles.discoveryContentBox}>
-      {data.length === 0 ? null : (
-        <SectionHeader text={title} size={20} color={palette.white} />
-      )}
+      <SectionHeader text={title} size={20} color={palette.white} />
       <SearchErrorBox error={error} loading={false}>
         <FlatList
           data={data}

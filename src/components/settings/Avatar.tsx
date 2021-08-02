@@ -38,11 +38,11 @@ const Avatar: React.FC<Props> = ({editable, uri}) => {
         style={styles.avatar}
       />
 
-      {editable ? (
+      {!!editable && (
         <TouchableOpacity onPress={saveToFirestore} style={styles.icon}>
           <Icon name="pluscircle" size={20} color="white" />
         </TouchableOpacity>
-      ) : null}
+      )}
     </View>
   );
 };

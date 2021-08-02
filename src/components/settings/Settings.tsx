@@ -65,7 +65,7 @@ const SettingsComponent: React.FC<Props> = ({
     <Container flexStart>
       <Avatar uri={profileURI} editable />
       <ChangeBackground />
-      {serverError ? <Message label={serverError} /> : null}
+      {!!serverError && <Message label={serverError} />}
       <SettingBox
         label="Username"
         startingValue={values.displayName}

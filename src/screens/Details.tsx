@@ -83,9 +83,9 @@ const Details = ({route, navigation}: any) => {
       </ImageBackground>
 
       <View style={styles.bottomWrapper}>
-        <Text style={styles.title}>{active?.title ? active?.title : null}</Text>
+        <Text style={styles.title}>{!!active?.title && active?.title}</Text>
         <MovieDetailsInfoBox isMovie={isMovie} data={isMovie ? movie : show} />
-        {active?.vote_average && (
+        {!!active?.vote_average && (
           <RatingBox voteAverage={active?.vote_average} />
         )}
         <View style={styles.descriptionWrapper}>

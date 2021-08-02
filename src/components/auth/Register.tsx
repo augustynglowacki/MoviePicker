@@ -85,7 +85,7 @@ const RegisterComponent: React.FC<Props> = ({
               variant="primary"
               loading={loading}
             />
-            {serverError ? <Message label={serverError} /> : null}
+            {!!serverError && <Message label={serverError} />}
           </View>
         </View>
       </AnimatedLayout>

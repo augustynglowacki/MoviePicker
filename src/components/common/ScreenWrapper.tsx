@@ -6,7 +6,6 @@ import ErrorBox from './ErrorBox';
 interface Props {
   error: string;
   loading: boolean;
-  children: React.ReactNode;
 }
 const ScreenWrapper: React.FC<Props> = ({error, loading, children}) => {
   if (loading) {
