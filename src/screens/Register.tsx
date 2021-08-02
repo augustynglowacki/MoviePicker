@@ -10,7 +10,7 @@ import {userThunkSelector} from 'src/redux/user/UserSlice';
 import {useFormik} from 'formik';
 import {useTranslation} from 'react-i18next';
 import RegisterComponent from 'src/components/auth/Register';
-let Yup = require('yup');
+import Yup from 'yup';
 
 const Register = () => {
   const {error, loading} = useSelector(userThunkSelector);
@@ -42,7 +42,6 @@ const Register = () => {
   }, [goToProfile]);
 
   const onSubmit = () => {
-    console.log('form:>>', form); // out
     handleCreateUser(form);
   };
 
@@ -65,10 +64,6 @@ const Register = () => {
     validateOnBlur: false,
     onSubmit,
   });
-
-  // useEffect(() => {
-  //   console.log(form, errors);    out
-  // }, [form, errors]);
 
   return (
     <RegisterComponent

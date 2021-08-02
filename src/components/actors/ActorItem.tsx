@@ -9,23 +9,23 @@ interface Props {
   name: string;
 }
 
-const ActorItem = ({profile_path, name}: Props) => {
+const ActorItem: React.FC<Props> = ({profile_path, name}) => {
+  if (!profile_path) {
+    return null;
+  }
+
   return (
-    <>
-      {!!profile_path && (
-        <View style={styles.wrapper}>
-          <View style={styles.ActorItem}>
-            <ImageBackground
-              source={{uri: `${API_IMAGES}${profile_path}`}}
-              style={styles.actorImage}
-            />
-          </View>
-          <View>
-            <Text style={styles.actorName}>{name}</Text>
-          </View>
-        </View>
-      )}
-    </>
+    <View style={styles.wrapper}>
+      <View style={styles.ActorItem}>
+        <ImageBackground
+          source={{uri: `${API_IMAGES}${profile_path}`}}
+          style={styles.actorImage}
+        />
+      </View>
+      <View>
+        <Text style={styles.actorName}>{name}</Text>
+      </View>
+    </View>
   );
 };
 

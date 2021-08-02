@@ -5,7 +5,7 @@ import palette from 'src/styles/palette';
 import {useTranslation} from 'react-i18next';
 import DiscoveryInput from './DiscoveryInput';
 
-const DiscoveryBox = () => {
+const DiscoveryBox: React.FC = () => {
   const {t} = useTranslation('movies');
   return (
     <View style={styles.searchBox}>

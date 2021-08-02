@@ -8,7 +8,7 @@ import {Movie} from 'src/models';
 interface Props {
   title: string;
   data: Movie[];
-  error: string;
+  error?: string;
   loading: boolean;
 }
 

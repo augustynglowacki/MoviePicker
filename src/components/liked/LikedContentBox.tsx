@@ -9,10 +9,12 @@ interface Props {
   movies: Movie[];
 }
 
-const renderItem: ListRenderItem<Movie> = ({item}) => <MovieBox movie={item} />;
-
-const LikedContentBox = ({movies}: Props) => {
+const LikedContentBox: React.FC<Props> = ({movies}) => {
   const {t} = useTranslation('movies');
+
+  const renderItem: ListRenderItem<Movie> = ({item}) => (
+    <MovieBox movie={item} />
+  );
   return (
     <Container flexStart withPadding disableScroll>
       <SectionHeader text={t('liked')} color={palette.white} />

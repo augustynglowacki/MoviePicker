@@ -10,7 +10,7 @@ interface Props {
   genres: Genres[];
 }
 
-const MovieList = ({moviesList, genres}: Props) => {
+const MovieList: React.FC<Props> = ({moviesList, genres}) => {
   const {t} = useTranslation('movies');
   const renderItem: ListRenderItem<Movie> = ({item}) => {
     const mergeGenresWithMovies = item.genre_ids.map(movie =>

@@ -1,5 +1,5 @@
 import {Movie} from 'src/models';
-// dont make separated files for each function
+
 export const convertResponseToMovie = (
   data: Movie[],
   isMovie: boolean = true,

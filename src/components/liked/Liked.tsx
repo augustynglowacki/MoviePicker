@@ -6,7 +6,7 @@ interface Props {
   movies: Movie[];
 }
 
-const LikedComponent = ({movies}: Props) => {
+const LikedComponent: React.FC<Props> = ({movies}) => {
   return <LikedContentBox movies={movies} />;
 };
 

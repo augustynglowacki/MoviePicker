@@ -42,7 +42,6 @@ const movieDetailsSlice = createSlice({
     builder.addCase(getMovieDetails.rejected, (state, action) => {
       // Add user to the state array
       state.loading = false;
-      console.log(action.error.message);
       state.error = action.error.message ?? 'error';
     });
 
@@ -59,7 +58,6 @@ const movieDetailsSlice = createSlice({
     builder.addCase(getTvSeries.rejected, (state, action) => {
       // Add user to the state array
       state.loading = false;
-      console.log(action.error.message);
       state.error = action.error.message ?? 'error';
     });
 

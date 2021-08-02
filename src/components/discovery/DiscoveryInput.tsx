@@ -6,7 +6,7 @@ import palette from 'src/styles/palette';
 import {setQuery} from 'src/redux/search/SearchSlice';
 import {Input} from '../common';
 
-const DiscoveryInput = () => {
+const DiscoveryInput: React.FC = () => {
   const dispatch = useDispatch();
   const {t} = useTranslation('movies');
   return (

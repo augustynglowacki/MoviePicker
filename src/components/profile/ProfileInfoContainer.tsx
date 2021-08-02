@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 import palette from 'src/styles/palette';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 
-const ProfileInfoContainer = () => {
+const ProfileInfoContainer: React.FC = () => {
   const {
     user: {userName},
   } = useSelector(userThunkSelector);

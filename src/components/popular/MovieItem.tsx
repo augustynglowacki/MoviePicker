@@ -29,9 +29,7 @@ export const MOVIE_HEIGHT = Math.ceil(
   Dimensions.get('window').height - BOTTOM_TABS_HEIGHT,
 );
 
-console.log('Movie height', MOVIE_HEIGHT);
-
-const MovieItem = ({movie, mergeGenresWithMovies}: Props) => {
+const MovieItem: React.FC<Props> = ({movie, mergeGenresWithMovies}) => {
   const {loading} = useSelector(genresSelector);
   const {t} = useTranslation('common');
   const {navigate} = useNavigation();

@@ -34,7 +34,7 @@ const Liked = () => {
           setBackendMovies(newww);
         });
     } catch (error) {
-      console.log(error); // 👎
+      console.log(error);
     }
   };
 
@@ -49,7 +49,6 @@ const Liked = () => {
       genre_ids: movie.genre_ids,
       isMovie: movie.isMovie,
     }));
-    console.log(newResult); // out
     return newResult;
   };
 

@@ -1,7 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
 import * as React from 'react';
 import {useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {
+  GestureResponderEvent,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
@@ -23,13 +29,13 @@ interface Props {
       : (e: string | React.ChangeEvent<any>) => void;
   };
   onSubmit: () => void;
-  signUpWithGoogle: () => void;
+  signUpWithGoogle: ((event: GestureResponderEvent) => void) | undefined;
   form: LoginForm;
   errors: FormikErrors<LoginForm>;
   serverError: string;
   loading: boolean;
 }
-const LoginComponent = ({
+const LoginComponent: React.FC<Props> = ({
   onChange,
   onSubmit,
   form,
@@ -37,7 +43,7 @@ const LoginComponent = ({
   errors,
   signUpWithGoogle,
   loading,
-}: Props) => {
+}) => {
   const {t} = useTranslation('common');
   const {navigate} = useNavigation();
   const goToRegister = () => navigate(REGISTER);
@@ -110,6 +116,5 @@ const styles = StyleSheet.create({
   },
   form: {
     paddingTop: 20,
-    paddingBottom: 35,
   },
 });

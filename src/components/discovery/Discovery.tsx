@@ -11,14 +11,15 @@ import ActorList from '../actors/ActorList';
 import {CollectionContentBox, Container} from '../common';
 import DiscoveryBox from './DiscoveryBox';
 
-const DiscoveryComponent = () => {
+const DiscoveryComponent: React.FC = () => {
+  const MIN_QUERY_LENGTH = 3;
   const dispatch = useDispatch();
   const {t} = useTranslation('movies');
   const {query, foundMovies, foundTvSeries, foundActors} =
     useSelector(SearchSelector);
 
   useEffect(() => {
-    if (query.length > 3) {
+    if (query.length > MIN_QUERY_LENGTH) {
       dispatch(getSearchedMovies());
       dispatch(getSearchedTvSeries());
       dispatch(getSearchedActor());

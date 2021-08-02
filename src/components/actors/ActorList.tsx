@@ -11,12 +11,12 @@ interface Props {
   error?: string;
 }
 
-const renderItem: ListRenderItem<Actor> = ({item}) => (
-  <ActorItem name={item.name} profile_path={item.profile_path} />
-);
-
-const ActorList = ({data, error}: Props) => {
+const ActorList: React.FC<Props> = ({data, error}) => {
   const {t} = useTranslation('movies');
+  const renderItem: ListRenderItem<Actor> = ({item}) => (
+    <ActorItem name={item.name} profile_path={item.profile_path} />
+  );
+
   return (
     <View style={styles.ActorList}>
       {!!data.length && (

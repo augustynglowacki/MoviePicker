@@ -13,7 +13,7 @@ import {useSelector} from 'react-redux';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 import {useTranslation} from 'react-i18next';
 import {useFormik} from 'formik';
-let Yup = require('yup'); //use import
+import Yup from 'yup';
 
 const Login = () => {
   const {error, loading} = useSelector(userThunkSelector);
@@ -27,7 +27,6 @@ const Login = () => {
   }, [navigate]);
 
   const handleLoginUser = (login: LoginForm) => {
-    console.log(login);
     dispatch(
       signInWithEmailAndPassword({
         email: login.email,
@@ -50,7 +49,6 @@ const Login = () => {
   }, [goToProfile]);
 
   const onSubmit = () => {
-    console.log('login>>', form); //trash
     handleLoginUser(form);
   };
 

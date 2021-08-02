@@ -8,7 +8,7 @@ interface Props {
   label: string;
 }
 
-const StatBox = ({value, label}: Props) => {
+const StatBox: React.FC<Props> = ({value, label}) => {
   return (
     <>
       <Text style={[styles.text, styles.numberText]}>{value}</Text>

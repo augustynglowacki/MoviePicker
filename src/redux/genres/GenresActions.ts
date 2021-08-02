@@ -4,7 +4,7 @@ import axiosInstance from 'src/helpers/axiosInstance';
 import {Genres} from 'src/models';
 
 interface GenresAxiosResponse {
-  genres: Array<Genres>; // Genres[]
+  genres: Genres[]; // Genres[]
 }
 
 export const getGenres = createAsyncThunk('genres/getGenres', async () => {

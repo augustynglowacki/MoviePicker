@@ -7,7 +7,7 @@ interface Props {
   voteAverage: number;
 }
 
-const RatingBox = ({voteAverage}: Props) => {
+const RatingBox: React.FC<Props> = ({voteAverage}) => {
   return (
     <View style={styles.ratingWrapper}>
       <Text style={styles.ratingText}>{voteAverage}</Text>

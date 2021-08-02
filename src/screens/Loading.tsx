@@ -2,7 +2,6 @@ import React, {useRef} from 'react';
 import {StyleSheet, Animated, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import palette from 'src/styles/palette';
-// should be from src/styles/palette.ts
 import Container from 'src/components/common/Container';
 
 const Loading = () => {

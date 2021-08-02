@@ -25,14 +25,14 @@ interface Props {
   loading: boolean;
 }
 
-const RegisterComponent = ({
+const RegisterComponent: React.FC<Props> = ({
   onChange,
   onSubmit,
   form,
   serverError,
   errors,
   loading,
-}: Props) => {
+}) => {
   const {t} = useTranslation('common');
   const [hiddenPassword, setHiddenPassword] = useState(true);
   const handleHide = () => setHiddenPassword(!hiddenPassword);

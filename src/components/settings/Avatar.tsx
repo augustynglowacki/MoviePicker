@@ -13,7 +13,6 @@ interface Props {
 const Avatar: React.FC<Props> = ({editable, uri}) => {
   const handlePicMovie = async () => {
     const res = await ImagePicker.openPicker({multiple: false});
-    console.log(res.path);
     return res.path;
   };
 

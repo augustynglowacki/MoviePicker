@@ -1,11 +1,17 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {View, StyleSheet, Text, Alert} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Alert,
+  GestureResponderEvent,
+} from 'react-native';
 import palette from 'src/styles/palette';
 import {SocialButton} from '../common';
 
 interface Props {
-  onPress: () => void;
+  onPress: ((event: GestureResponderEvent) => void) | undefined;
 }
 //temporary alert facebook SignIn to implement
 const handleFacebookSignIn = () => {
@@ -13,7 +19,8 @@ const handleFacebookSignIn = () => {
     {text: 'OK', onPress: () => console.log('OK Pressed')},
   ]);
 };
-const SocialBox = ({onPress}: Props) => {
+
+const SocialBox: React.FC<Props> = ({onPress}) => {
   const {t} = useTranslation('common');
   return (
     <View style={styles.wrapper}>

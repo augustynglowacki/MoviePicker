@@ -68,7 +68,6 @@ export const getTvSeries = createAsyncThunk<TvSeriesDetails, number>(
       number_of_seasons: res.data.number_of_seasons,
       vote_average: res.data.vote_average,
       poster_path: res.data.poster_path,
-      seasons: res.data.seasons,
       id: res.data.id,
       overview: res.data.overview,
       genres: res.data.genres,

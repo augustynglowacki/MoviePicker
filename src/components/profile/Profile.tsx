@@ -5,29 +5,27 @@ import {movieSelector} from 'src/redux/movie/MovieSlice';
 import {CollectionContentBox, Container} from '../common';
 import ProfileHeader from './ProfileHeader';
 
-const ProfileComponent = () => {
+const ProfileComponent: React.FC = () => {
   const {movies} = useSelector(movieSelector);
   const {t} = useTranslation('movies');
   return (
     <Container>
       <ProfileHeader />
       <Container withPadding disableScroll disableSafeArea>
+        {/* u can generate it from some kind of config const */}
         <CollectionContentBox
           title={t('liked')}
           data={movies}
-          error=""
           loading={false}
         />
         <CollectionContentBox
           title={t('watched')}
           data={movies}
-          error=""
           loading={false}
         />
         <CollectionContentBox
           title={t('toWatch')}
           data={movies}
-          error=""
           loading={false}
         />
       </Container>

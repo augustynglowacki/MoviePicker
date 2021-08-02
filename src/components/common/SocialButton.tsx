@@ -1,10 +1,10 @@
 import React from 'react';
-import {ImageSourcePropType} from 'react-native';
+import {GestureResponderEvent, ImageSourcePropType} from 'react-native';
 import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import palette from 'src/styles/palette';
 interface Props {
   icon: ImageSourcePropType;
-  onPress: () => void;
+  onPress: ((event: GestureResponderEvent) => void) | undefined;
 }
 
 const SocialButton: React.FC<Props> = ({onPress, icon}) => {

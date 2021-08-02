@@ -4,10 +4,9 @@ import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
 import {CustomButton} from '../common';
 
-const ChangeBackground = () => {
+const ChangeBackground: React.FC = () => {
   const handlePicMovie = async () => {
     const res = await ImagePicker.openPicker({multiple: false});
-    console.log(res.path);
     return res.path;
   };
 

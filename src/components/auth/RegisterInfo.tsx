@@ -1,13 +1,19 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  GestureResponderEvent,
+} from 'react-native';
 import palette from 'src/styles/palette';
 
 interface Props {
-  onPress: () => void;
+  onPress: ((event: GestureResponderEvent) => void) | undefined;
 }
 
-const RegisterInfo = ({onPress}: Props) => {
+const RegisterInfo: React.FC<Props> = ({onPress}) => {
   const {t} = useTranslation('common');
   return (
     <View style={styles.registerBox}>
@@ -28,7 +34,8 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: palette.white,
     justifyContent: 'center',
-    margin: 3,
+    marginTop: 3,
+    marginHorizontal: 3,
   },
   register: {
     color: palette.primary,

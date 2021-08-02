@@ -8,7 +8,7 @@ import palette from 'src/styles/palette';
 import {SETTINGS} from 'src/models/constants/routeNames';
 import {logOutUser} from 'src/redux/user/UserAction';
 
-const ProfileTitleBar = () => {
+const ProfileTitleBar: React.FC = () => {
   const {navigate} = useNavigation();
   const dispatch = useDispatch();
   const {t} = useTranslation('common');

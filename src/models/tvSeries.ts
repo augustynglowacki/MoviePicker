@@ -5,7 +5,6 @@ interface Base {
   number_of_seasons?: number;
   vote_average: number;
   poster_path: string;
-  seasons?: []; // type
   id: number;
   overview: string;
   genres: Genres[];

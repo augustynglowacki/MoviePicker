@@ -6,10 +6,7 @@ interface Props {
   img: string;
 }
 
-const ProfileCover: React.FC<React.PropsWithChildren<Props>> = ({
-  children,
-  img,
-}) => {
+const ProfileCover: React.FC<Props> = ({children, img}) => {
   const imageBackground = {
     uri: img,
   };
