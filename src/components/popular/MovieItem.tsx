@@ -134,7 +134,9 @@ const MovieItem: React.FC<MovieItemProps> = ({
                 ) : (
                   mergeGenresWithMovies
                     .slice(0, 2)
-                    .map((genre: any) => <GenreBox name={genre.name} />)
+                    .map((genre: any) => (
+                      <GenreBox key={genre.name} name={genre.name} />
+                    ))
                 )}
               </View>
               <RatingBox voteAverage={vote_average} />
