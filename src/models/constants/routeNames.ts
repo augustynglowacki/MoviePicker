@@ -1,16 +1,13 @@
-export const LOGIN: string = 'Login';
-export const REGISTER: string = 'Register';
-export const HOME: string = 'Popular';
-export const DISCOVER: string = 'Discover';
-export const FAVORITE: string = 'Favorite';
-export const PROFILE: string = 'Profile';
-export const AUTH: string = 'Auth';
-export const HOME_NAVIGATOR: string = 'HomeNavigator';
-export const DETAILS: string = 'Details';
-export const SETTINGS: string = 'Settings';
-
 // TODO: use enum
-// export enum Route {
-//   Login = 'Login',
-//   Home = 'Home',
-// }
+export enum Route {
+  LOGIN = 'Login',
+  REGISTER = 'Register',
+  HOME = 'Popular',
+  DISCOVER = 'Discover',
+  FAVORITE = 'Favorite',
+  PROFILE = 'Profile',
+  AUTH = 'Auth',
+  HOME_NAVIGATOR = 'HomeNavigator',
+  DETAILS = 'Details',
+  SETTINGS = 'Settings',
+}

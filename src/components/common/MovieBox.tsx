@@ -7,7 +7,7 @@ import palette from 'src/styles/palette';
 import LinearGradient from 'react-native-linear-gradient';
 import {Dimensions} from 'react-native';
 import {Movie} from 'src/models';
-import {DETAILS} from 'src/models/constants/routeNames';
+import {Route} from 'src/models/constants/routeNames';
 
 interface Props {
   movie: Movie;
@@ -31,7 +31,7 @@ const MovieBox: React.FC<Props> = ({movie}) => {
   return (
     <TapGestureHandler
       onActivated={() => {
-        navigate(DETAILS, {
+        navigate(Route.DETAILS, {
           poster_path: movie.poster_path,
           overview: movie.overview,
           title: movie.title,

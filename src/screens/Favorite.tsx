@@ -17,7 +17,7 @@ const Favorite: React.FC = () => {
       const db = firestore(); //create service for firebase
       db.collection('users')
         .doc(userId)
-        .collection('likedMovies')
+        .collection('favoriteMovies')
         .onSnapshot(snap => {
           const newww = snap.docs.map(doc => ({
             // nice

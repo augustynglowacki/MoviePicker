@@ -2,7 +2,6 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useCallback} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Profile from 'src/components/profile/Profile';
-import {AUTH} from 'src/models/constants/routeNames';
 import {BlurView} from '@react-native-community/blur';
 import palette from 'src/styles/palette';
 import {useTranslation} from 'react-i18next';
@@ -10,13 +9,18 @@ import {movieSelector} from 'src/redux/movie/MovieSlice';
 import {useSelector} from 'react-redux';
 import {CustomButton} from 'src/components/common';
 import FavoriteContentBox from 'src/components/favorite/FavoriteContentBox';
+import {Route} from 'src/models/constants/routeNames';
 
-const NotLoggedIn = ({isLiked}: {isLiked: boolean}) => {
+interface Props {
+  isLiked: boolean;
+}
+
+const NotLoggedIn: React.FC<Props> = ({isLiked}) => {
   const {navigate} = useNavigation();
   const {t} = useTranslation('profile');
 
   const goToAuth = useCallback(() => {
-    navigate(AUTH);
+    navigate(Route.AUTH);
   }, [navigate]);
 
   const {movies} = useSelector(movieSelector);

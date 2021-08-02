@@ -17,7 +17,7 @@ const FavoriteContentBox: React.FC<Props> = ({movies}) => {
   );
   return (
     <Container flexStart withPadding disableScroll>
-      <SectionHeader text={t('liked')} color={palette.white} />
+      <SectionHeader text={t('favorite')} color={palette.white} />
       <View style={styles.favoriteContentBox}>
         <FlatList
           data={movies}
