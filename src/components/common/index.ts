@@ -5,8 +5,7 @@ import ErrorBox from './ErrorBox';
 import Input from './Input';
 import Message from './Message';
 import MovieBox from './MovieBox';
-import ScreenWrapper from './ScreenWrapper';
-import SearchErrorBox from './SearchErrorBox';
+import ErrorWrapper from './ErrorWrapper';
 import SectionHeader from './SectionHeader';
 import SocialButton from './SocialButton';
 import TabIcon from './TabIcon';
@@ -22,6 +21,5 @@ export {
   SectionHeader,
   SocialButton,
   TabIcon,
-  SearchErrorBox,
-  ScreenWrapper,
+  ErrorWrapper,
 };

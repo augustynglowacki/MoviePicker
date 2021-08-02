@@ -3,13 +3,13 @@ import {View, StyleSheet} from 'react-native';
 import ErrorBox from './ErrorBox';
 import Loading from '../../screens/Loading';
 
-interface ErrorWrapperProps {
+interface Props {
   error: string;
   loading: boolean;
   children: React.ReactNode;
 }
 
-const ScreenWrapper = ({error, loading, children}: ErrorWrapperProps) => {
+const ErrorWrapper: React.FC<Props> = ({error, loading, children}) => {
   return (
     <>
       {loading ? (
@@ -17,7 +17,7 @@ const ScreenWrapper = ({error, loading, children}: ErrorWrapperProps) => {
       ) : // eslint-disable-next-line no-extra-boolean-cast
       !!error ? (
         <View style={style.errorMsg}>
-          <ErrorBox />
+          <ErrorBox errorMsg={error} />
         </View>
       ) : (
         <>{children}</>
@@ -32,4 +32,4 @@ const style = StyleSheet.create({
     flex: 1,
   },
 });
-export default ScreenWrapper;
+export default ErrorWrapper;

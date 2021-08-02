@@ -3,10 +3,10 @@ import {useTranslation} from 'react-i18next';
 import {FlatList, ListRenderItem, StyleSheet, View} from 'react-native';
 import colors from '../../assets/theme/colors';
 import {Actor} from '../../models';
-import {SearchErrorBox, SectionHeader} from '../common';
+import {ErrorWrapper, SectionHeader} from '../common';
 import ActorBox from './ActorItem';
 
-interface ActorsBoxProps {
+interface Props {
   data: Actor[];
   error: string;
 }
@@ -17,7 +17,7 @@ const renderItem: ListRenderItem<Actor> = ({item}) => (
   </View>
 );
 
-const ActorsBox = ({data, error}: ActorsBoxProps) => {
+const ActorsBox: React.FC<Props> = ({data, error}) => {
   const {t} = useTranslation();
   return (
     <View style={styles.actorsBox}>
@@ -28,7 +28,7 @@ const ActorsBox = ({data, error}: ActorsBoxProps) => {
           size={20}
         />
       )}
-      <SearchErrorBox error={error} loading={false}>
+      <ErrorWrapper error={error} loading={false}>
         <FlatList
           data={data}
           renderItem={renderItem}
@@ -36,7 +36,7 @@ const ActorsBox = ({data, error}: ActorsBoxProps) => {
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item, index) => index.toString()}
         />
-      </SearchErrorBox>
+      </ErrorWrapper>
     </View>
   );
 };

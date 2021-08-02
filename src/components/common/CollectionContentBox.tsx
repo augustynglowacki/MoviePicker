@@ -1,11 +1,11 @@
 import React from 'react';
 import {ListRenderItem, StyleSheet, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
-import {MovieBox, SearchErrorBox, SectionHeader} from '.';
+import {MovieBox, ErrorWrapper, SectionHeader} from '.';
 import colors from '../../assets/theme/colors';
 import {Movie} from '../../models';
 
-interface DiscoveryContentBoxProps {
+interface CollectionContentBoxProps {
   title: string;
   data: Movie[];
   error: string;
@@ -18,13 +18,14 @@ const CollectionContentBox = ({
   title,
   data,
   error,
-}: DiscoveryContentBoxProps) => {
+  loading,
+}: CollectionContentBoxProps) => {
   return (
     <View style={styles.discoveryContentBox}>
       {data.length === 0 ? null : (
         <SectionHeader text={title} size={20} color={colors.white} />
       )}
-      <SearchErrorBox error={error} loading={false}>
+      <ErrorWrapper error={error} loading={loading}>
         <FlatList
           data={data}
           renderItem={renderItem}
@@ -33,7 +34,7 @@ const CollectionContentBox = ({
           maxToRenderPerBatch={5}
           initialNumToRender={10}
         />
-      </SearchErrorBox>
+      </ErrorWrapper>
     </View>
   );
 };
