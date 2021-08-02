@@ -29,7 +29,7 @@ const translations = {
   form: {
     required: 'Required!',
     email: 'Email must be a valid email!',
-    short: 'Password must be at least 6 characters long!',
+    short: 'Password must be at least {{MIN_PASSWORD_LENGTH}} characters long!',
     // should be created a const MIN_PASSWORD_LENGTH and passed here {{  }}
   },
   profile: {

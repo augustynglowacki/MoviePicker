@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import LoginComponent from 'src/components/auth/Login';
 import {LoginForm} from 'src/models';
-import {PROFILE} from 'src/models/constants/routeNames';
+import {Route} from 'src/models/constants/routeNames';
 import auth from '@react-native-firebase/auth';
 import {useDispatch} from 'react-redux';
 import {
@@ -13,40 +13,42 @@ import {useSelector} from 'react-redux';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 import {useTranslation} from 'react-i18next';
 import {useFormik} from 'formik';
-import Yup from 'yup';
+import {MIN_PASSWORD_LENGTH} from './Register';
+import {getGoogleCredential} from '../service/firestore/getGoogleCredential';
+import * as Yup from 'yup';
 
-const Login = () => {
+const initialState = {email: '', password: ''};
+
+const Login: React.FC = () => {
   const {error, loading} = useSelector(userThunkSelector);
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
   const {t} = useTranslation('form');
 
-  const goToProfile = React.useCallback(() => {
-    //redirectToProfileScreen
-    navigate(PROFILE);
-  }, [navigate]);
-
-  const handleLoginUser = (login: LoginForm) => {
-    dispatch(
-      signInWithEmailAndPassword({
-        email: login.email,
-        password: login.password,
-      }),
-    );
-  };
-
-  const handleSignInWithGoogle = () => {
-    dispatch(signInWithGoogle());
-  };
-
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(user => {
       if (user) {
-        goToProfile();
+        navigate(Route.PROFILE);
       }
     });
     return subscriber;
-  }, [goToProfile]);
+  }, [navigate]);
+
+  const handleSignInWithGoogle = async () => {
+    const googleCredential = await getGoogleCredential();
+    if (googleCredential) {
+      dispatch(signInWithGoogle(googleCredential));
+    }
+  };
+
+  const handleLoginUser = ({email, password}: LoginForm) => {
+    dispatch(
+      signInWithEmailAndPassword({
+        email,
+        password,
+      }),
+    );
+  };
 
   const onSubmit = () => {
     handleLoginUser(form);
@@ -54,7 +56,9 @@ const Login = () => {
 
   const validationSchema = Yup.object({
     email: Yup.string().email(t('email')).required(t('required')),
-    password: Yup.string().min(6, t('short')).required(t('required')),
+    password: Yup.string()
+      .min(MIN_PASSWORD_LENGTH, t('short', {MIN_PASSWORD_LENGTH}))
+      .required(t('required')),
   });
 
   const {
@@ -63,12 +67,12 @@ const Login = () => {
     values: form,
     errors,
   } = useFormik<LoginForm>({
-    initialValues: {email: '', password: ''},
-    validationSchema, //yup object
+    initialValues: initialState,
+    validationSchema,
     //validate only after submit click
     validateOnChange: false,
     validateOnBlur: false,
-    onSubmit, //it is enough
+    onSubmit,
   });
 
   return (

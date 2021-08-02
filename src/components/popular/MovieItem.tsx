@@ -14,10 +14,10 @@ import RatingBox from '../details/RatingBox';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {Genres, Movie} from 'src/models';
-import {AUTH, DETAILS} from 'src/models/constants/routeNames';
 import Heart from '../likeHeart/Heart';
 import GenreBox from './GenreBox';
 import {Button} from 'react-native-paper';
+import {Route} from 'src/models/constants/routeNames';
 interface Props {
   mergeGenresWithMovies: (Genres | undefined)[];
   movie: Movie;
@@ -73,7 +73,7 @@ const MovieItem: React.FC<Props> = ({movie, mergeGenresWithMovies}) => {
         },
         {
           text: t('ok'),
-          onPress: () => navigate(AUTH),
+          onPress: () => navigate(Route.AUTH),
         },
       ]);
     }
@@ -83,7 +83,7 @@ const MovieItem: React.FC<Props> = ({movie, mergeGenresWithMovies}) => {
     <TapGestureHandler
       waitFor={doubleTapRef}
       onActivated={() => {
-        navigate(DETAILS, {
+        navigate(Route.DETAILS, {
           poster_path,
           overview,
           title,

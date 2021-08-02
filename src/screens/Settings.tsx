@@ -6,8 +6,8 @@ import {setActiveUser, userThunkSelector} from 'src/redux/user/UserSlice';
 import {useFormik} from 'formik';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
-import {PROFILE} from 'src/models/constants/routeNames';
 import SettingsComponent from 'src/components/settings/Settings';
+import {Route} from 'src/models/constants/routeNames';
 
 export interface FormValues {
   email: any;
@@ -17,7 +17,7 @@ export interface FormValues {
   displayName: any;
 }
 
-const Settings = () => {
+const Settings: React.FC = () => {
   const {user} = useSelector(userThunkSelector);
   const dispatch = useDispatch();
   const {t} = useTranslation('form');
@@ -49,7 +49,7 @@ const Settings = () => {
       setLoading(true);
       await auth().signInWithEmailAndPassword(email, password);
       await auth().currentUser?.updatePassword(newPassword);
-      navigate(PROFILE);
+      navigate(Route.PROFILE);
     } catch (err) {
       setError(err.message);
       setTimeout(() => setError(''), 4000); // ????
@@ -75,7 +75,7 @@ const Settings = () => {
         }),
       );
       setLoading(false);
-      navigate(PROFILE);
+      navigate(Route.PROFILE);
     } catch (err) {
       setError(err.message);
       setTimeout(() => setError(''), 4000);
@@ -90,7 +90,7 @@ const Settings = () => {
         userName: displayName,
       }),
     );
-    navigate(PROFILE);
+    navigate(Route.PROFILE);
   };
 
   const validationSchema = Yup.object({

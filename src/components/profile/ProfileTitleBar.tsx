@@ -5,8 +5,8 @@ import {Alert, StyleSheet, TouchableOpacity, View} from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch} from 'react-redux';
 import palette from 'src/styles/palette';
-import {SETTINGS} from 'src/models/constants/routeNames';
 import {logOutUser} from 'src/redux/user/UserAction';
+import {Route} from 'src/models/constants/routeNames';
 
 const ProfileTitleBar: React.FC = () => {
   const {navigate} = useNavigation();
@@ -14,7 +14,7 @@ const ProfileTitleBar: React.FC = () => {
   const {t} = useTranslation('common');
 
   const navigateTo = () => {
-    navigate(SETTINGS);
+    navigate(Route.SETTINGS);
   };
 
   const handleLogOut = () => {

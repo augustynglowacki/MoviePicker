@@ -1,7 +1,7 @@
 import React from 'react';
 import Discovery from 'src/components/discovery/Discovery';
 
-const Discover = () => {
+const Discover: React.FC = () => {
   return <Discovery />;
 };
 

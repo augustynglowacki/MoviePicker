@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import palette from 'src/styles/palette';
 import Container from 'src/components/common/Container';
 
-const Loading = () => {
+const Loading: React.FC = () => {
   // ts
   const rotateAnim = useRef(new Animated.Value(0)).current;
 

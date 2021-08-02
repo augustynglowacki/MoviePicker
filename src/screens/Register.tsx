@@ -1,8 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
-import * as React from 'react';
-import {useCallback, useEffect} from 'react';
+import React from 'react';
+import {useEffect} from 'react';
 import {RegisterForm} from 'src/models';
-import {PROFILE} from 'src/models/constants/routeNames';
 import auth from '@react-native-firebase/auth';
 import {createUserWithEmailAndPassword} from 'src/redux/user/UserAction';
 import {useDispatch, useSelector} from 'react-redux';
@@ -10,36 +9,36 @@ import {userThunkSelector} from 'src/redux/user/UserSlice';
 import {useFormik} from 'formik';
 import {useTranslation} from 'react-i18next';
 import RegisterComponent from 'src/components/auth/Register';
-import Yup from 'yup';
+import * as Yup from 'yup';
+import {Route} from 'src/models/constants/routeNames';
 
-const Register = () => {
+export const MIN_PASSWORD_LENGTH = 6;
+const initialState = {username: '', email: '', password: ''};
+
+const Register: React.FC = () => {
   const {error, loading} = useSelector(userThunkSelector);
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
   const {t} = useTranslation('form');
 
-  const goToProfile = useCallback(() => {
-    navigate(PROFILE);
-  }, [navigate]);
-
-  const handleCreateUser = (register: RegisterForm) => {
-    dispatch(
-      createUserWithEmailAndPassword({
-        email: register.email,
-        password: register.password,
-        displayName: register.username,
-      }),
-    );
-  };
-
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(user => {
       if (user) {
-        goToProfile();
+        navigate(Route.PROFILE);
       }
     });
     return subscriber;
-  }, [goToProfile]);
+  }, [navigate]);
+
+  const handleCreateUser = ({email, password, username}: RegisterForm) => {
+    dispatch(
+      createUserWithEmailAndPassword({
+        email,
+        password,
+        displayName: username,
+      }),
+    );
+  };
 
   const onSubmit = () => {
     handleCreateUser(form);
@@ -48,7 +47,9 @@ const Register = () => {
   const validationSchema = Yup.object({
     username: Yup.string().required(t('required')),
     email: Yup.string().email(t('email')).required(t('required')),
-    password: Yup.string().min(6, t('short')).required(t('required')),
+    password: Yup.string()
+      .min(MIN_PASSWORD_LENGTH, t('short', {MIN_PASSWORD_LENGTH}))
+      .required(t('required')),
   });
 
   const {
@@ -57,8 +58,8 @@ const Register = () => {
     values: form,
     errors,
   } = useFormik<RegisterForm>({
-    initialValues: {username: '', email: '', password: ''}, // create initial const above component
-    validationSchema, //yup object
+    initialValues: initialState,
+    validationSchema,
     //validate only after submit click
     validateOnChange: false,
     validateOnBlur: false,

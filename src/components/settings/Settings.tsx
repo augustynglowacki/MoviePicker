@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {PROFILE} from 'src/models/constants/routeNames';
 import {useNavigation} from '@react-navigation/native';
 import {FormikErrors} from 'formik';
 import storage from '@react-native-firebase/storage';
@@ -10,6 +9,7 @@ import SettingBox from './SettingBox';
 import Avatar from './Avatar';
 import ChangeBackground from './ChangeBackground';
 import {FormValues} from 'src/screens/Settings';
+import {Route} from 'src/models/constants/routeNames';
 
 interface Props {
   onChange: {
@@ -146,7 +146,7 @@ const SettingsComponent: React.FC<Props> = ({
           variant="secondary"
           label="Cancel"
           onPress={() => {
-            navigate(PROFILE);
+            navigate(Route.PROFILE);
           }}
           width="small"
         />
