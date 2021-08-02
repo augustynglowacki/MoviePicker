@@ -1,21 +1,20 @@
-import {BackendUser} from './BackendUser';
-import {LoginForm} from './LoginForm';
-import {Movie} from './Movie';
-import {RegisterForm} from './RegisterForm';
-import {TvShow} from './TvShow';
-import {Actor} from './Actor';
-import {MovieAxiosResponse} from './MovieAxiosResponse';
-import {MovieState} from './MovieState';
-import {BackendEntity} from './BackendEntity';
-import {Genres} from './Genres';
-import {TvShowsDetails} from './TvShowsDetails';
-import {TvShowsDetailsAxiosResponse} from './TvShowsDetailsAxiosResponse';
-import {MovieDetails} from './MovieDetails';
+import {BackendUser} from './backendUser';
+import {LoginForm} from './loginForm';
+import {Movie, MovieAxiosResponse, MovieDetails, MovieState} from './movie';
+import {RegisterForm} from './registerForm';
+import {
+  TvSeries,
+  TvSeriesDetails,
+  TvSeriesDetailsAxiosResponse,
+} from './TvSeries';
+import {Actor} from './actor';
+import {BackendEntity} from './backendEntity';
+import {Genres} from './genres';
 
 export type {
   Movie,
   RegisterForm,
-  TvShow,
+  TvSeries,
   Actor,
   LoginForm,
   BackendUser,
@@ -23,7 +22,7 @@ export type {
   MovieState,
   BackendEntity,
   Genres,
-  TvShowsDetails,
-  TvShowsDetailsAxiosResponse,
+  TvSeriesDetails,
+  TvSeriesDetailsAxiosResponse,
   MovieDetails,
 };

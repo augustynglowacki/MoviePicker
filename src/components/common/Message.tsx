@@ -2,14 +2,14 @@ import * as React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Snackbar} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
-import colors from '../../assets/theme/colors';
-import {setErrorNull} from '../../redux/user/UserSlice';
+import {setErrorNull} from 'src/redux/user/UserSlice';
+import palette from 'src/styles/palette';
 
-interface MessageProps {
+interface Props {
   label: string;
 }
 
-const Message = ({label}: MessageProps) => {
+const Message: React.FC<Props> = ({label}) => {
   const dispatch = useDispatch();
   const onDismissSnackBar = () => dispatch(setErrorNull());
 
@@ -18,7 +18,7 @@ const Message = ({label}: MessageProps) => {
       <Snackbar
         theme={{
           colors: {
-            onSurface: colors.danger,
+            onSurface: palette.danger,
           },
         }}
         duration={4000}
@@ -28,7 +28,7 @@ const Message = ({label}: MessageProps) => {
         action={{
           label: 'x',
           onPress: onDismissSnackBar,
-          color: colors.white,
+          color: palette.white,
         }}>
         {label}
       </Snackbar>

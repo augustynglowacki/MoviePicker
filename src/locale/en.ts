@@ -17,7 +17,7 @@ const translations = {
   },
   movies: {
     movies: 'Movies',
-    tvShows: 'TV Shows',
+    tvSeries: 'TV Shows',
     favorite: 'Favorite',
     watched: 'Watched',
     toWatch: 'To watch',
@@ -30,6 +30,7 @@ const translations = {
     required: 'Required!',
     email: 'Email must be a valid email!',
     short: 'Password must be at least 6 characters long!',
+    // should be created a const MIN_PASSWORD_LENGTH and passed here {{  }}
   },
   profile: {
     explore: 'Explore your profile.',

@@ -5,9 +5,9 @@ import {
   DETAILS,
   HOME_NAVIGATOR,
   SETTINGS,
-} from '../models/constants/routeNames';
-import Details from '../screens/Details';
-import Settings from '../screens/Settings';
+} from 'src/models/constants/routeNames';
+import Details from 'src/screens/Details';
+import Settings from 'src/screens/Settings';
 import AuthNavigator from './AuthNavigator';
 import BottomTabsNavigator from './BottomTabsNavigator';
 

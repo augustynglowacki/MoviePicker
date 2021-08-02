@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
-import colors from '../../assets/theme/colors';
+import palette from 'src/styles/palette';
 
-interface GenreBoxProps {
+interface Props {
   name: string;
 }
 
-const GenreBox: React.FC<GenreBoxProps> = ({name}) => (
+const GenreBox: React.FC<Props> = ({name}) => (
   <View key={name} style={styles.categoryContainer}>
     <Text style={styles.categoryText}>{name}</Text>
   </View>
@@ -21,10 +21,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 12,
     paddingVertical: 5,
-    backgroundColor: colors.white,
+    backgroundColor: palette.white,
   },
   categoryText: {
-    color: colors.black,
+    color: palette.black,
     fontWeight: '600',
     fontSize: 13,
   },

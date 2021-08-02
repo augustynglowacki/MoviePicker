@@ -1,14 +1,14 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {View, Text, StyleSheet} from 'react-native';
-import colors from '../../assets/theme/colors';
+import palette from 'src/styles/palette';
 
-interface StatBoxProps {
+interface Props {
   value: number;
   label: string;
 }
 
-const StatBox = ({value, label}: StatBoxProps) => {
+const StatBox: React.FC<Props> = ({value, label}) => {
   return (
     <>
       <Text style={[styles.text, styles.numberText]}>{value}</Text>
@@ -18,24 +18,24 @@ const StatBox = ({value, label}: StatBoxProps) => {
 };
 
 const ProfileStatsContainer = () => {
-  const {t} = useTranslation();
+  const {t} = useTranslation('movies');
   return (
     <View style={styles.statsContainer}>
       <View style={styles.statsBox}>
-        <StatBox value={50} label={t('movies:favorite')} />
+        <StatBox value={50} label={t('favorite')} />
       </View>
       <View style={[styles.statsBox, styles.statsBoxBorder]}>
-        <StatBox value={112} label={t('movies:watched')} />
+        <StatBox value={112} label={t('watched')} />
       </View>
       <View style={styles.statsBox}>
-        <StatBox value={22} label={t('movies:toWatch')} />
+        <StatBox value={22} label={t('toWatch')} />
       </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
   text: {
-    color: colors.white,
+    color: palette.white,
   },
   titleText: {
     fontSize: 30,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   subText: {
     fontSize: 12,
-    color: colors.primary,
+    color: palette.primary,
   },
   statsContainer: {
     flexDirection: 'row',
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   statsBoxBorder: {
-    borderColor: colors.grey,
+    borderColor: palette.grey,
     borderLeftWidth: 1,
     borderRightWidth: 1,
   },

@@ -1,30 +1,28 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {FlatList, ListRenderItem, StyleSheet, View} from 'react-native';
-import colors from '../../assets/theme/colors';
-import {Actor} from '../../models';
+import {Actor} from 'src/models';
+import palette from 'src/styles/palette';
 import {SearchErrorBox, SectionHeader} from '../common';
-import ActorBox from './ActorItem';
+import ActorItem from './ActorItem';
 
-interface ActorsBoxProps {
+interface Props {
   data: Actor[];
-  error: string;
+  error?: string;
 }
 
-const renderItem: ListRenderItem<Actor> = ({item}) => (
-  <View>
-    <ActorBox name={item.name} profile_path={item.profile_path} />
-  </View>
-);
+const ActorList: React.FC<Props> = ({data, error}) => {
+  const {t} = useTranslation('movies');
+  const renderItem: ListRenderItem<Actor> = ({item}) => (
+    <ActorItem name={item.name} profile_path={item.profile_path} />
+  );
 
-const ActorsBox = ({data, error}: ActorsBoxProps) => {
-  const {t} = useTranslation();
   return (
-    <View style={styles.actorsBox}>
-      {data.length === 0 ? null : (
+    <View style={styles.ActorList}>
+      {!!data.length && (
         <SectionHeader
           text={t('movies:actors')}
-          color={colors.white}
+          color={palette.white}
           size={20}
         />
       )}
@@ -42,9 +40,9 @@ const ActorsBox = ({data, error}: ActorsBoxProps) => {
 };
 
 const styles = StyleSheet.create({
-  actorsBox: {
+  ActorList: {
     marginTop: 20,
   },
 });
 
-export default ActorsBox;
+export default ActorList;
