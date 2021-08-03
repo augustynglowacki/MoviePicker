@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import {Text, View, ImageBackground, Alert} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {API_IMAGES} from '@env';
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {TapGestureHandler} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import palette from 'src/styles/palette';
@@ -17,24 +17,17 @@ import {Genres, Movie} from 'src/models';
 import Heart from '../likeHeart/Heart';
 import GenreBox from './GenreBox';
 import {Button} from 'react-native-paper';
-import {Route} from 'src/models/constants/routeNames';
+import {Route, WINDOW_HEIGHT, BOTTOM_TABS_HEIGHT} from 'src/constants';
 interface Props {
   mergeGenresWithMovies: (Genres | undefined)[];
   movie: Movie;
 }
 
-export const BOTTOM_TABS_HEIGHT = Math.floor(
-  Dimensions.get('window').height / 12.5,
-);
-
-export const MOVIE_HEIGHT = Math.ceil(
-  Dimensions.get('window').height - BOTTOM_TABS_HEIGHT,
-);
-
 const MovieItem: React.FC<Props> = ({movie, mergeGenresWithMovies}) => {
   const {loading} = useSelector(genresSelector);
   const {t} = useTranslation('common');
   const {navigate} = useNavigation();
+
   const {poster_path, overview, title, id, vote_average, isMovie, genre_ids} =
     movie;
   const doubleTapRef = useRef();
@@ -150,7 +143,7 @@ export default MovieItem;
 export const styles = StyleSheet.create({
   movieContainer: {
     width: '100%',
-    height: MOVIE_HEIGHT,
+    height: WINDOW_HEIGHT - BOTTOM_TABS_HEIGHT,
   },
   image: {
     width: '100%',

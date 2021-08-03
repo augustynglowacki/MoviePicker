@@ -7,7 +7,7 @@ import palette from 'src/styles/palette';
 import LinearGradient from 'react-native-linear-gradient';
 import {Dimensions} from 'react-native';
 import {Movie} from 'src/models';
-import {Route} from 'src/models/constants/routeNames';
+import {Route} from 'src/constants';
 
 interface Props {
   movie: Movie;

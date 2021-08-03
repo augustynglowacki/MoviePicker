@@ -7,28 +7,28 @@ import Profile from 'src/screens/Profile';
 import {useSelector} from 'react-redux';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 import NotLoggedIn from 'src/screens/NotLoggedIn';
-import {BOTTOM_TABS_HEIGHT} from 'src/components/popular/MovieItem';
 import {TabIcon} from 'src/components/common';
 import Favorite from 'src/screens/Favorite';
-import {Route} from 'src/models/constants/routeNames';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {BOTTOM_TABS_HEIGHT, Route} from 'src/constants';
 
 const Tab = createBottomTabNavigator();
-
 const BottomTabsNavigator = () => {
   const {
     user: {email},
   } = useSelector(userThunkSelector);
+  const {bottom} = useSafeAreaInsets();
   return (
     <Tab.Navigator
       tabBarOptions={{
         showLabel: false,
-        style: styles.tab,
+        style: styles(bottom).tab,
       }}>
       <Tab.Screen
         name={Route.LOGIN}
         component={Popular}
         options={{
-          tabBarIcon: ({focused}) => TabIcon(focused, 'home'), // TODO fix ts
+          tabBarIcon: ({focused}) => TabIcon(focused, 'home'),
         }}
       />
       <Tab.Screen
@@ -38,8 +38,7 @@ const BottomTabsNavigator = () => {
           tabBarIcon: ({focused}) => TabIcon(focused, 'search'),
         }}
       />
-
-      {email !== '' ? ( // u can do it cleaner
+      {email ? (
         <>
           <Tab.Screen
             name={Route.FAVORITE}
@@ -80,10 +79,11 @@ const BottomTabsNavigator = () => {
 
 export default BottomTabsNavigator;
 
-const styles = StyleSheet.create({
-  tab: {
-    backgroundColor: '#000',
-    borderTopWidth: 0,
-    height: BOTTOM_TABS_HEIGHT,
-  },
-});
+const styles = (safeAreaBottom: number) =>
+  StyleSheet.create({
+    tab: {
+      backgroundColor: '#000',
+      borderTopWidth: 0,
+      height: BOTTOM_TABS_HEIGHT + safeAreaBottom,
+    },
+  });

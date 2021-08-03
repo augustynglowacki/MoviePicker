@@ -9,7 +9,7 @@ import {movieSelector} from 'src/redux/movie/MovieSlice';
 import {useSelector} from 'react-redux';
 import {CustomButton} from 'src/components/common';
 import FavoriteContentBox from 'src/components/favorite/FavoriteContentBox';
-import {Route} from 'src/models/constants/routeNames';
+import {Route} from 'src/constants';
 
 interface Props {
   isLiked: boolean;

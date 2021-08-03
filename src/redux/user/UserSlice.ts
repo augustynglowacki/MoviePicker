@@ -62,6 +62,7 @@ const userSlice = createSlice({
     });
     builder.addCase(updateEmail.fulfilled, (state, action) => {
       state.user.email = action.payload;
+      state.loading = false;
     });
     builder.addCase(updateEmail.pending, state => {
       state.loading = true;

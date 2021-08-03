@@ -16,7 +16,7 @@ import SocialBox from './SocialBox';
 import RegisterInfo from './RegisterInfo';
 import {Container, CustomButton, Input, Message} from '../common';
 import {LoginForm} from 'src/models';
-import {Route} from 'src/models/constants/routeNames';
+import {Route} from 'src/constants';
 import palette from 'src/styles/palette';
 
 interface Props {

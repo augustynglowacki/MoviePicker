@@ -3,7 +3,8 @@ import {useTranslation} from 'react-i18next';
 import {StyleSheet, View, FlatList, Text, ListRenderItem} from 'react-native';
 import palette from 'src/styles/palette';
 import {Genres, Movie} from 'src/models';
-import MovieItem, {MOVIE_HEIGHT} from './MovieItem';
+import MovieItem from './MovieItem';
+import {BOTTOM_TABS_HEIGHT, WINDOW_HEIGHT} from 'src/constants';
 
 interface Props {
   moviesList: Movie[];
@@ -34,7 +35,7 @@ const MovieList: React.FC<Props> = ({moviesList, genres}) => {
         renderItem={renderItem}
         snapToAlignment="start"
         decelerationRate="fast"
-        snapToInterval={MOVIE_HEIGHT}
+        snapToInterval={WINDOW_HEIGHT - BOTTOM_TABS_HEIGHT}
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
         initialNumToRender={7}
