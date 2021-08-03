@@ -46,8 +46,7 @@ const MovieDetailsInfoBox: React.FC<Props> = ({data, isMovie}) => {
             color={palette.lightGrey}
           />
           <Text style={styles.movieInfoItem}>
-            {`${number_of_seasons} `}
-            {t('seasons')}
+            {t('seasons', {number: number_of_seasons})}
           </Text>
         </>
       );
@@ -73,8 +72,7 @@ const MovieDetailsInfoBox: React.FC<Props> = ({data, isMovie}) => {
       return (
         <>
           <Text style={styles.movieInfoItem}>
-            {`${number_of_episodes} `}
-            {t('episodes')}
+            {t('episodes', {number: number_of_episodes})}
           </Text>
           <Icon
             type={IconTypes.ENTYPO}

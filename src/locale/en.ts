@@ -25,14 +25,13 @@ const translations = {
     searchPlaceholder: "What's on your mind?",
     actors: 'Actors',
     popular: 'Popular',
-    seasons: 'seasons',
-    episodes: 'episodes',
+    seasons: '{{number}} seasons',
+    episodes: '{{number}} episodes',
   },
   form: {
     required: 'Required!',
     email: 'Email must be a valid email!',
     short: 'Password must be at least {{MIN_PASSWORD_LENGTH}} characters long!',
-    // should be created a const MIN_PASSWORD_LENGTH and passed here {{  }}
   },
   profile: {
     explore: 'Explore your profile.',
