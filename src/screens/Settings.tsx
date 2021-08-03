@@ -32,7 +32,7 @@ const Settings: React.FC = () => {
     if (values.displayName !== displayNameFirebase) {
       handleUserNameUpdate(values);
     }
-    if (values.newEmail !== '') {
+    if (values.newEmail) {
       handleUserEmailUpdate(values);
     }
   };
