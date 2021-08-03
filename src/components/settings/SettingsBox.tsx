@@ -4,10 +4,10 @@ import {useNavigation} from '@react-navigation/native';
 import {FormikErrors} from 'formik';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
-import {Container, CustomButton, Message} from '../common';
-import SettingBox from './SettingBox';
+import {Container, CustomButton, Message} from 'src/components/common';
+import SettingInput from './SettingInput';
 import Avatar from './Avatar';
-import ChangeBackground from './ChangeBackground';
+import ChangeBackground from 'src/components/settings/ChangeBackground';
 import {FormValues} from 'src/screens/Settings';
 import {Route} from 'src/models/constants/routeNames';
 
@@ -21,8 +21,23 @@ interface Props {
   };
   onSubmit: () => void;
   errors: FormikErrors<FormValues>;
-  values: any;
-  fieldValue: any;
+  values: FormValues;
+  fieldValue: (
+    field: string,
+    value: any,
+    shouldValidate?: boolean | undefined,
+  ) =>
+    | Promise<void>
+    | Promise<
+        FormikErrors<{
+          displayEmail: boolean;
+          email: string;
+          newEmail: string;
+          password: string;
+          newPassword: string;
+          displayName: string;
+        }>
+      >;
   serverError: string;
   loading: boolean;
 }
@@ -36,7 +51,6 @@ const SettingsComponent: React.FC<Props> = ({
   serverError,
   loading,
 }) => {
-  const [editData, setEditData] = useState(0);
   const [profileURI, setProfileURI] = useState<string>(
     'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultProfile.jpeg?alt=media&token=bc972054-6f70-4339-a72d-4a6c89be93a2',
   );
@@ -57,76 +71,71 @@ const SettingsComponent: React.FC<Props> = ({
     fetchAvatar();
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const validateError = Object.keys(errors);
-  console.log('URL: ', profileURI);
-
   return (
     <Container flexStart>
       <Avatar uri={profileURI} editable />
       <ChangeBackground />
       {!!serverError && <Message label={serverError} />}
-      <SettingBox
+      <SettingInput
         label="Username"
         startingValue={values.displayName}
         onChange={onChange('displayName')}
         error={errors.displayName}
       />
-      {editData === 1 ? (
+      {values.displayEmail ? (
         <>
-          <SettingBox
+          <SettingInput
             label="E-mail"
             startingValue={values.email}
             onChange={onChange('email')}
             error={errors.email}
           />
-          <SettingBox
+          <SettingInput
             label="New e-mail"
             startingValue={values.newEmail}
             onChange={onChange('newEmail')}
             error={errors.newEmail}
           />
-          <SettingBox
+          <SettingInput
             label="Password"
-            startingValue={''}
+            startingValue={values.password}
             secureTextEntry
             onChange={onChange('password')}
             error={errors.password}
           />
         </>
-      ) : null}
-      {editData === 0 ? (
+      ) : (
         <>
-          <SettingBox
+          <SettingInput
             label="E-mail"
             startingValue={values.email}
             onChange={onChange('email')}
             error={errors.email}
           />
-          <SettingBox
+          <SettingInput
             label="Password"
-            startingValue={''}
+            startingValue={values.password}
             secureTextEntry
             onChange={onChange('password')}
             error={errors.password}
           />
-          <SettingBox
+          <SettingInput
             label="New Password"
-            startingValue={''}
+            startingValue={values.newPassword}
             secureTextEntry
             onChange={onChange('newPassword')}
             error={errors.newPassword}
           />
         </>
-      ) : null}
+      )}
       <View style={styles.buttonsBox}>
         <CustomButton
           variant="secondary"
           label="Change email"
           onPress={() => {
-            setEditData(1);
             fieldValue('password', '');
             fieldValue('newPassword', '');
+            fieldValue('displayEmail', true);
           }}
           width="small"
         />
@@ -134,9 +143,9 @@ const SettingsComponent: React.FC<Props> = ({
           variant="secondary"
           label="Change password"
           onPress={() => {
-            setEditData(0);
             fieldValue('password', '');
             fieldValue('newEmail', '');
+            fieldValue('displayEmail', false);
           }}
           width="small"
         />
@@ -155,7 +164,7 @@ const SettingsComponent: React.FC<Props> = ({
           label="Save"
           onPress={onSubmit}
           width="small"
-          loading={loading ? true : false}
+          loading={loading}
         />
       </View>
     </Container>

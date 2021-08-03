@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Input} from '../common';
 
@@ -17,18 +17,15 @@ const SettingBox: React.FC<Props> = ({
   onChange,
   error,
 }) => {
-  const [text, setText] = useState(startingValue);
-
   return (
     <View style={styles.settingBox}>
       <Input
         error={error}
         label={label}
         onChangeText={valueText => {
-          setText(valueText);
           onChange(valueText);
         }}
-        value={text}
+        value={startingValue}
         secureTextEntry={secureTextEntry}
       />
     </View>
