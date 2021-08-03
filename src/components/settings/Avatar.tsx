@@ -1,9 +1,10 @@
 import React from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
+import {Icon} from '../common';
+import {IconTypes} from 'src/constants';
 
 interface Props {
   uri: string;
@@ -40,7 +41,12 @@ const Avatar: React.FC<Props> = ({editable, uri}) => {
 
       {!!editable && (
         <TouchableOpacity onPress={saveToFirestore} style={styles.icon}>
-          <Icon name="pluscircle" size={20} color="white" />
+          <Icon
+            type={IconTypes.ANT}
+            name="pluscircle"
+            size={20}
+            color="white"
+          />
         </TouchableOpacity>
       )}
     </View>

@@ -10,8 +10,7 @@ import NotLoggedIn from 'src/screens/NotLoggedIn';
 import {TabIcon} from 'src/components/common';
 import Favorite from 'src/screens/Favorite';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {BOTTOM_TABS_HEIGHT} from 'src/models/constants/common';
-import {Route} from 'src/models/constants/routeNames';
+import {BOTTOM_TABS_HEIGHT, Route} from 'src/constants';
 
 const Tab = createBottomTabNavigator();
 const BottomTabsNavigator = () => {

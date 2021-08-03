@@ -4,8 +4,7 @@ import {StyleSheet, View, FlatList, Text, ListRenderItem} from 'react-native';
 import palette from 'src/styles/palette';
 import {Genres, Movie} from 'src/models';
 import MovieItem from './MovieItem';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {WINDOW_HEIGHT} from 'src/models/constants/common';
+import {BOTTOM_TABS_HEIGHT, WINDOW_HEIGHT} from 'src/constants';
 
 interface Props {
   moviesList: Movie[];
@@ -25,7 +24,6 @@ const MovieList: React.FC<Props> = ({moviesList, genres}) => {
   };
 
   const keyExtractor = (item: Movie) => item.id.toString();
-  const {bottom} = useSafeAreaInsets();
 
   return (
     <View style={styles.container}>
@@ -37,7 +35,7 @@ const MovieList: React.FC<Props> = ({moviesList, genres}) => {
         renderItem={renderItem}
         snapToAlignment="start"
         decelerationRate="fast"
-        snapToInterval={WINDOW_HEIGHT - bottom}
+        snapToInterval={WINDOW_HEIGHT - BOTTOM_TABS_HEIGHT}
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
         initialNumToRender={7}

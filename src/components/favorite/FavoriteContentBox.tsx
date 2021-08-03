@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
   favoriteContentBox: {
     minWidth: '100%',
     alignItems: 'center',
-    paddingBottom: '12%',
   },
   tagView: {
     flexWrap: 'wrap',

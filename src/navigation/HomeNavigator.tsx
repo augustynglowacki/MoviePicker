@@ -1,6 +1,6 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
-import {Route} from 'src/models/constants/routeNames';
+import {Route} from 'src/constants';
 import Details from 'src/screens/Details';
 import Settings from 'src/screens/Settings';
 import AuthNavigator from './AuthNavigator';

@@ -9,7 +9,7 @@ import SettingBox from './SettingBox';
 import Avatar from './Avatar';
 import ChangeBackground from './ChangeBackground';
 import {FormValues} from 'src/screens/Settings';
-import {Route} from 'src/models/constants/routeNames';
+import {Route} from 'src/constants';
 
 interface Props {
   onChange: {
