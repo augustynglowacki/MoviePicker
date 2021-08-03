@@ -1,7 +1,8 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
+import {IconTypes} from 'src/constants';
 import palette from 'src/styles/palette';
-import Icon, {IconTypes} from './Icons';
+import Icon from './Icon';
 
 const TabIcon = (focused: boolean, name: string) => {
   return (

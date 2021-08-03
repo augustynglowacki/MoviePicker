@@ -13,24 +13,8 @@ import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-
-export enum IconTypes {
-  FONTISTO = 'fontisto',
-  MATERIAL = 'material',
-  EVIL = 'evil',
-  FEATHER = 'feather',
-  ANT = 'ant',
-  SIMPLELINE = 'simpleLine',
-  ZOCIAL = 'zocial',
-  SIMPLEL = 'simplel',
-  FOUNDATION = 'foundation',
-  FA5 = 'fa5',
-  FA = 'fa',
-  IONICON = 'ionicon',
-  MATERIAL_COMMUNITY = 'materialCommunity',
-  ENTYPO = 'entypo',
-  OCTICON = 'octicon',
-}
+import {IconTypes} from 'src/constants';
+import {StyleProp, TextStyle, ViewStyle} from 'react-native';
 
 const getIconFont = (type: IconTypes) => {
   switch (type) {
@@ -69,6 +53,9 @@ const getIconFont = (type: IconTypes) => {
 interface Props {
   type: IconTypes;
   name: string;
+  size?: number;
+  color?: string;
+  style?: StyleProp<ViewStyle | TextStyle>;
 }
 
 const Icon: React.FC<Props> = ({type, ...props}) => {

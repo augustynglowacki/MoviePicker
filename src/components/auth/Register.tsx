@@ -1,5 +1,5 @@
 import {FormikErrors} from 'formik';
-import * as React from 'react';
+import React from 'react';
 import {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Image, StyleSheet, Text, View} from 'react-native';

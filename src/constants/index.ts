@@ -1,4 +1,3 @@
-import * as Common from './common';
-import {Route} from './routeNames';
-
-export {Common, Route};
+export * from './common';
+export * from './routeNames';
+export * from './iconNames';

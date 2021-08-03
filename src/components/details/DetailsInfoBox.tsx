@@ -1,11 +1,12 @@
 import {format, parseISO} from 'date-fns';
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import {StyleSheet, Text, View} from 'react-native';
+import {IconTypes} from 'src/constants';
 import {convertToHours} from 'src/helpers/convertToHours';
 import {MovieDetails, TvSeriesDetails} from 'src/models';
 import palette from 'src/styles/palette';
 import {Icon} from '../common';
-import {IconTypes} from '../common/Icons';
 
 interface MovieAndShows extends MovieDetails, TvSeriesDetails {}
 interface Props {
@@ -16,7 +17,7 @@ interface Props {
 const MovieDetailsInfoBox: React.FC<Props> = ({data, isMovie}) => {
   const {release_date, runtime, genres, number_of_seasons, number_of_episodes} =
     data;
-
+  const {t} = useTranslation('movies');
   const genresArray = genres.map(genre => genre.name);
   const firstGenre = genresArray[0];
   const SecondGenre = genresArray[1];
@@ -44,8 +45,10 @@ const MovieDetailsInfoBox: React.FC<Props> = ({data, isMovie}) => {
             size={32}
             color={palette.lightGrey}
           />
-          <Text
-            style={styles.movieInfoItem}>{`${number_of_seasons} seasons`}</Text>
+          <Text style={styles.movieInfoItem}>
+            {`${number_of_seasons} `}
+            {t('seasons')}
+          </Text>
         </>
       );
     }
@@ -70,7 +73,8 @@ const MovieDetailsInfoBox: React.FC<Props> = ({data, isMovie}) => {
       return (
         <>
           <Text style={styles.movieInfoItem}>
-            {`${number_of_episodes} episodes`}
+            {`${number_of_episodes} `}
+            {t('episodes')}
           </Text>
           <Icon
             type={IconTypes.ENTYPO}

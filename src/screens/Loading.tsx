@@ -3,7 +3,7 @@ import {StyleSheet, Animated, View} from 'react-native';
 import palette from 'src/styles/palette';
 import Container from 'src/components/common/Container';
 import {Icon} from 'src/components/common';
-import {IconTypes} from 'src/components/common/Icons';
+import {IconTypes} from 'src/constants';
 
 const Loading: React.FC = () => {
   // ts

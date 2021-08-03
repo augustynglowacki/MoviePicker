@@ -1,7 +1,8 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import palette from 'src/styles/palette';
-import Icon, {IconTypes} from './Icons';
+import Icon from './Icon';
+import {IconTypes} from 'src/constants';
 
 interface Props {
   errorMsg: string;

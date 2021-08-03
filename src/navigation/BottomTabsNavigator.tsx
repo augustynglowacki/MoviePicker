@@ -10,8 +10,7 @@ import NotLoggedIn from 'src/screens/NotLoggedIn';
 import {TabIcon} from 'src/components/common';
 import Favorite from 'src/screens/Favorite';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {Common} from 'src/constants';
-import {Route} from 'src/constants';
+import {BOTTOM_TABS_HEIGHT, Route} from 'src/constants';
 
 const Tab = createBottomTabNavigator();
 const BottomTabsNavigator = () => {
@@ -85,6 +84,6 @@ const styles = (safeAreaBottom: number) =>
     tab: {
       backgroundColor: '#000',
       borderTopWidth: 0,
-      height: Common.BOTTOM_TABS_HEIGHT + safeAreaBottom,
+      height: BOTTOM_TABS_HEIGHT + safeAreaBottom,
     },
   });

@@ -4,7 +4,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
 import {Icon} from '../common';
-import {IconTypes} from '../common/Icons';
+import {IconTypes} from 'src/constants';
 
 interface Props {
   uri: string;

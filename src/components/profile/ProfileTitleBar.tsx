@@ -5,9 +5,8 @@ import {Alert, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import palette from 'src/styles/palette';
 import {logOutUser} from 'src/redux/user/UserAction';
-import {Route} from 'src/constants';
+import {IconTypes, Route} from 'src/constants';
 import {Icon} from '../common';
-import {IconTypes} from '../common/Icons';
 
 const ProfileTitleBar: React.FC = () => {
   const {navigate} = useNavigation();

@@ -17,8 +17,7 @@ import {Genres, Movie} from 'src/models';
 import Heart from '../likeHeart/Heart';
 import GenreBox from './GenreBox';
 import {Button} from 'react-native-paper';
-import {Route} from 'src/constants';
-import {Common} from 'src/constants';
+import {Route, WINDOW_HEIGHT, BOTTOM_TABS_HEIGHT} from 'src/constants';
 interface Props {
   mergeGenresWithMovies: (Genres | undefined)[];
   movie: Movie;
@@ -144,7 +143,7 @@ export default MovieItem;
 export const styles = StyleSheet.create({
   movieContainer: {
     width: '100%',
-    height: Common.WINDOW_HEIGHT - Common.BOTTOM_TABS_HEIGHT,
+    height: WINDOW_HEIGHT - BOTTOM_TABS_HEIGHT,
   },
   image: {
     width: '100%',

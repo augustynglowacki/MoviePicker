@@ -11,7 +11,7 @@ import LinearGradientCover from './LinearGradientCover';
 import palette from 'src/styles/palette';
 import {API_IMAGES} from '@env';
 import {Icon} from '../common';
-import {IconTypes} from '../common/Icons';
+import {IconTypes} from 'src/constants';
 
 interface Props {
   poster_path: string;
