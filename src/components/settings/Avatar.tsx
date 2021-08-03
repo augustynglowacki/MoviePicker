@@ -19,9 +19,7 @@ const Avatar: React.FC<Props> = ({editable, uri}) => {
 
   const saveToFirestore = async () => {
     const newRes = await handlePicMovie();
-    console.log('newRes', newRes);
     try {
-      console.log('try');
       await storage()
         .ref('users/' + auth().currentUser?.uid + '/profile.jpg')
         .putFile(newRes);

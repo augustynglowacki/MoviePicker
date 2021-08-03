@@ -8,6 +8,14 @@ interface LoginUser {
   password: string;
 }
 
+interface UpdateUser {
+  email: string;
+  newEmail?: string;
+  password: string;
+  newPassword?: string;
+  callback: () => void;
+}
+
 export const signInWithEmailAndPassword = createAsyncThunk<User, LoginUser>(
   'auth/signIn',
   async ({email: loginEmail, password}, {rejectWithValue}) => {
@@ -32,11 +40,16 @@ export const signInWithEmailAndPassword = createAsyncThunk<User, LoginUser>(
   },
 );
 
-export const updateEmail = createAsyncThunk(
+export const updateEmail = createAsyncThunk<string, UpdateUser>(
   'auth/updateEmail',
-  async ({email}: LoginUser) => {
-    await auth().currentUser?.updateEmail(email);
-    return email;
+  async ({email, password, newEmail, callback}, {rejectWithValue}) => {
+    if (newEmail) {
+      await auth().signInWithEmailAndPassword(email, password);
+      await auth().currentUser?.updateEmail(newEmail);
+      callback();
+      return newEmail;
+    }
+    return rejectWithValue('Error');
   },
 );
 

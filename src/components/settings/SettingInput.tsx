@@ -1,34 +1,31 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Input} from '../common';
 
 interface Props {
   label: string;
-  startingValue?: string;
+  initialValue: string;
   secureTextEntry?: boolean;
   onChange: (text: string) => void;
   error: any;
 }
 
-const SettingBox: React.FC<Props> = ({
+const SettingInput: React.FC<Props> = ({
   label,
-  startingValue,
+  initialValue,
   secureTextEntry,
   onChange,
   error,
 }) => {
-  const [text, setText] = useState(startingValue);
-
   return (
     <View style={styles.settingBox}>
       <Input
         error={error}
         label={label}
         onChangeText={valueText => {
-          setText(valueText);
           onChange(valueText);
         }}
-        value={text}
+        value={initialValue}
         secureTextEntry={secureTextEntry}
       />
     </View>
@@ -47,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SettingBox;
+export default SettingInput;
