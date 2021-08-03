@@ -1,4 +1,3 @@
-// TODO: use enum
 export enum Route {
   LOGIN = 'Login',
   REGISTER = 'Register',

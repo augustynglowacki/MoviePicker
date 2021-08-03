@@ -7,9 +7,9 @@ import auth from '@react-native-firebase/auth';
 import {Container, CustomButton, Message} from 'src/components/common';
 import SettingInput from './SettingInput';
 import Avatar from './Avatar';
-import ChangeBackground from 'src/components/settings/ChangeBackground';
+import ChangeBackground from './ChangeBackground';
 import {UpdateUserFormValues} from 'src/screens/Settings';
-import {Route} from 'src/models/constants/routeNames';
+import {Route} from 'src/constants';
 
 interface Props {
   onChange: {
