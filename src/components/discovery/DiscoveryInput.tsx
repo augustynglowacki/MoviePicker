@@ -11,14 +11,14 @@ const DiscoveryInput: React.FC = () => {
   const dispatch = useDispatch();
   const {t} = useTranslation('movies');
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handler = useCallback(
+  const setQueryWithDelay = useCallback(
     debounce(text => dispatch(setQuery(text)), 400),
     [],
   );
   return (
     <Input
       label={t('searchPlaceholder')}
-      onChangeText={text => handler(text)}
+      onChangeText={text => setQueryWithDelay(text)}
       left={<TextInput.Icon name="magnify" color={palette.grey} />}
       fullWidth
       clearButtonMode="always"
