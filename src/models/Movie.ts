@@ -8,12 +8,11 @@ interface Base {
   overview: string;
 }
 export interface Movie extends Base {
-  genre_ids: number[];
+  genres: string[];
   isMovie?: boolean;
 }
 export interface MovieDetails extends Base {
   runtime?: number;
-  revenue?: number;
   release_date?: string;
   genres: Genres[];
 }
@@ -22,7 +21,21 @@ export interface MovieState {
   loading: boolean;
   error: string;
 }
-
+interface BaseApi {
+  id: number;
+  title: string;
+  vote_average: number;
+  poster_path: string;
+  overview: string;
+}
+export interface MovieApi extends BaseApi {
+  genre_ids: number[];
+}
 export interface MovieAxiosResponse {
-  results: Movie[];
+  results: MovieApi[];
+}
+export interface MovieDetailsApi extends BaseApi {
+  runtime?: number;
+  release_date?: string;
+  genres: Genres[];
 }

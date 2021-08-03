@@ -32,23 +32,24 @@ const HEIGHT = Dimensions.get('window').height;
 // keep screen names like that -> DetailsScreen
 const Details = ({route, navigation}: any) => {
   const [active, setActive] = useState<MovieDetails | TvSeriesDetails>();
-  const distpach = useDispatch(); //install extension for typos
+  const dispatch = useDispatch(); //install extension for typos
   const {poster_path, id, isMovie} = route.params;
   const {fetchedMovies, fetchedTvSeries, movieActors} =
     useSelector(movieDetailsSelector);
 
   const movie = fetchedMovies[id];
   const show = fetchedTvSeries[id];
+  // console.log(movie);
 
   useEffect(() => {
     // is this works correctly ? 🤔
     if (isMovie && !fetchedMovies[id]) {
-      distpach(getMovieDetails(id));
-      distpach(getMovieActors(id));
+      dispatch(getMovieDetails(id));
+      dispatch(getMovieActors(id));
     } else {
-      distpach(getTvSeries(id));
+      dispatch(getTvSeries(id));
     }
-  }, [distpach, id, isMovie, fetchedMovies]);
+  }, [dispatch, id, isMovie, fetchedMovies]);
 
   useEffect(() => {
     setActive(movie ? movie : show); // looks better
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
 
   descriptionWrapper: {
     marginTop: 20,
-    marginBottom: 30,
+    marginBottom: 20,
     paddingHorizontal: 14,
     alignSelf: 'center',
   },
@@ -158,6 +159,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'column',
     paddingHorizontal: 16,
+    paddingBottom: 16,
     marginTop: -40,
   },
 });

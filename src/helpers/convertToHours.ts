@@ -1,6 +1,9 @@
 export const convertToHours = (time: number) => {
-  const hour = Math.round(time / 60);
+  const hour = Math.floor(time / 60);
   const minutes = time % 60;
 
-  return `${hour}h ${minutes}min`;
+  if (hour === 0) {
+    return `${minutes} min`;
+  }
+  return `${hour}h ${minutes} min`;
 };

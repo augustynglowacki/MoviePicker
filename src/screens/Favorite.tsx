@@ -27,7 +27,7 @@ const Favorite: React.FC = () => {
             vote_average: doc.data().number,
             poster_path: doc.data().poster_path,
             overview: doc.data().overview,
-            genre_ids: doc.data().genre_ids,
+            genres: doc.data().genres,
             isMovie: doc.data().isMovie,
           }));
           setBackendMovies(newww);
@@ -45,7 +45,7 @@ const Favorite: React.FC = () => {
       vote_average: movie.vote_average,
       poster_path: movie.poster_path,
       overview: movie.overview,
-      genre_ids: movie.genre_ids,
+      genres: movie.genres,
       isMovie: movie.isMovie,
     }));
     return newResult;

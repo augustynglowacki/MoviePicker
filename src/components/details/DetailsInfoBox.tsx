@@ -6,7 +6,7 @@ import {convertToHours} from 'src/helpers/convertToHours';
 import {MovieDetails, TvSeriesDetails} from 'src/models';
 import palette from 'src/styles/palette';
 
-interface MovieAndShows extends MovieDetails, TvSeriesDetails {}
+type MovieAndShows = MovieDetails & TvSeriesDetails;
 interface Props {
   data: MovieAndShows;
   isMovie: boolean;
@@ -16,9 +16,7 @@ const MovieDetailsInfoBox: React.FC<Props> = ({data, isMovie}) => {
   const {release_date, runtime, genres, number_of_seasons, number_of_episodes} =
     data;
   const genresArray = genres.map(genre => genre.name);
-  const firstGenre = genresArray[0];
-  const SecondGenre = genresArray[1];
-
+  console.log(genresArray);
   const getDuration = () => {
     if (isMovie && runtime) {
       return (
@@ -60,11 +58,17 @@ const MovieDetailsInfoBox: React.FC<Props> = ({data, isMovie}) => {
       );
     }
   };
+
   return (
     <View style={styles.movieInfoWrapper}>
       {getDate()}
-      <Text style={styles.genreText}>{`${firstGenre}, `}</Text>
-      <Text style={styles.genreText}>{SecondGenre}</Text>
+      <Text style={styles.genreText}>
+        {`${genresArray[0]}`}
+        {genres.length > 1 && <Text style={styles.genreText}>{', '}</Text>}
+      </Text>
+      {genres.length > 1 && (
+        <Text style={styles.genreText}>{`${genresArray[1]}`}</Text>
+      )}
       {getDuration()}
     </View>
   );

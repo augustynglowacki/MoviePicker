@@ -7,6 +7,7 @@ import {
   TvSeriesDetails,
   TvSeriesDetailsAxiosResponse,
 } from 'src/models';
+import {MovieDetailsApi} from 'src/models/movie';
 
 interface MovieActorsAxiosResponse {
   cast: Actor[];
@@ -15,18 +16,17 @@ interface MovieActorsAxiosResponse {
 export const getMovieDetails = createAsyncThunk<MovieDetails, number>(
   'movieDetails/getMovieDetails',
   async id => {
-    const res = await axiosInstance.get<MovieDetails>(
+    const res = await axiosInstance.get<MovieDetailsApi>(
       `movie/${id}?api_key=${API_KEY}&language=en-US`,
     );
 
     const newresult: MovieDetails = {
       id: res.data.id,
       overview: res.data.overview,
-      runtime: res.data.runtime,
       title: res.data.title,
       vote_average: res.data.vote_average,
       poster_path: res.data.poster_path, //camels
-      revenue: res.data.revenue,
+      runtime: res.data.runtime,
       release_date: res.data.release_date,
       genres: res.data.genres,
     };

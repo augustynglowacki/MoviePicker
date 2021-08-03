@@ -2,24 +2,17 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {StyleSheet, View, FlatList, Text, ListRenderItem} from 'react-native';
 import palette from 'src/styles/palette';
-import {Genres, Movie} from 'src/models';
+import {Movie} from 'src/models';
 import MovieItem, {MOVIE_HEIGHT} from './MovieItem';
 
 interface Props {
   moviesList: Movie[];
-  genres: Genres[];
 }
 
-const MovieList: React.FC<Props> = ({moviesList, genres}) => {
+const MovieList: React.FC<Props> = ({moviesList}) => {
   const {t} = useTranslation('movies');
   const renderItem: ListRenderItem<Movie> = ({item}) => {
-    const mergeGenresWithMovies = item.genre_ids.map(movie =>
-      genres.find(genre => genre.id === movie),
-    );
-
-    return (
-      <MovieItem movie={item} mergeGenresWithMovies={mergeGenresWithMovies} />
-    );
+    return <MovieItem movie={item} />;
   };
 
   const keyExtractor = (item: Movie) => item.id.toString();

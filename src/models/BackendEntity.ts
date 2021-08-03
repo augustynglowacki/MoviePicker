@@ -6,6 +6,6 @@ export interface BackendEntity {
   vote_average: number;
   poster_path: string;
   overview: string;
-  genre_ids: number[];
+  genres: string[];
   isMovie?: boolean; // type instead of isMovie
 }
