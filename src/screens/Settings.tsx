@@ -11,7 +11,7 @@ import {Route} from 'src/models/constants/routeNames';
 import {updateEmail} from 'src/redux/user/UserAction';
 import {MIN_PASSWORD_LENGTH} from './Register';
 
-export interface FormValues {
+export interface UpdateUserFormValues {
   displayEmail: boolean;
   email: string;
   newEmail: string;
@@ -25,7 +25,12 @@ const Settings: React.FC = () => {
   const dispatch = useDispatch();
   const {t} = useTranslation('form');
   const {navigate} = useNavigation();
-  const callback = () => navigate(Route.PROFILE);
+  const yupEmail = Yup.string().email(t('email'));
+  const yupPassword = Yup.string().min(
+    MIN_PASSWORD_LENGTH,
+    t('short', {MIN_PASSWORD_LENGTH}),
+  );
+  const redirectToProfile = () => navigate(Route.PROFILE);
 
   const onSubmit = () => {
     const displayNameFirebase = auth().currentUser?.displayName;
@@ -37,18 +42,16 @@ const Settings: React.FC = () => {
     }
   };
 
-  const handleUserEmailUpdate = ({newEmail, email, password}: FormValues) => {
+  const handleUserEmailUpdate = (values: UpdateUserFormValues) => {
     dispatch(
       updateEmail({
-        email,
-        password,
-        newEmail,
-        callback,
+        ...values,
+        callback: redirectToProfile,
       }),
     );
   };
 
-  const handleUserNameUpdate = async ({displayName}: FormValues) => {
+  const handleUserNameUpdate = async ({displayName}: UpdateUserFormValues) => {
     await auth().currentUser?.updateProfile({
       displayName,
     });
@@ -63,21 +66,13 @@ const Settings: React.FC = () => {
   const validationSchema = Yup.object({
     displayEmail: Yup.boolean(),
     displayName: Yup.string().min(3), // add const for this min values
-    email: Yup.string().email(t('email')),
-    newEmail: Yup.string()
-      .email(t('email'))
-      .nope([user.email])
-      .when('displayEmail', {
-        is: (val: boolean) => val,
-        then: Yup.string().email(t('email')).required(),
-      }),
-    password: Yup.string()
-      .min(MIN_PASSWORD_LENGTH, t('short', {MIN_PASSWORD_LENGTH}))
-      .required(t('required')),
-    newPassword: Yup.string().min(
-      MIN_PASSWORD_LENGTH,
-      t('short', {MIN_PASSWORD_LENGTH}),
-    ),
+    email: yupEmail,
+    newEmail: yupEmail.nope([user.email]).when('displayEmail', {
+      is: (val: boolean) => val,
+      then: yupEmail.required(),
+    }),
+    password: yupPassword.required(t('required')),
+    newPassword: yupPassword,
   });
 
   const {setFieldValue, handleChange, handleSubmit, errors, values} = useFormik(

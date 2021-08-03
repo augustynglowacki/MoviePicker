@@ -4,15 +4,15 @@ import {Input} from '../common';
 
 interface Props {
   label: string;
-  startingValue?: string;
+  initialValue: string;
   secureTextEntry?: boolean;
   onChange: (text: string) => void;
   error: any;
 }
 
-const SettingBox: React.FC<Props> = ({
+const SettingInput: React.FC<Props> = ({
   label,
-  startingValue,
+  initialValue,
   secureTextEntry,
   onChange,
   error,
@@ -25,7 +25,7 @@ const SettingBox: React.FC<Props> = ({
         onChangeText={valueText => {
           onChange(valueText);
         }}
-        value={startingValue}
+        value={initialValue}
         secureTextEntry={secureTextEntry}
       />
     </View>
@@ -44,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SettingBox;
+export default SettingInput;

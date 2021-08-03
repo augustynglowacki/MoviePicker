@@ -8,7 +8,7 @@ import {Container, CustomButton, Message} from 'src/components/common';
 import SettingInput from './SettingInput';
 import Avatar from './Avatar';
 import ChangeBackground from 'src/components/settings/ChangeBackground';
-import {FormValues} from 'src/screens/Settings';
+import {UpdateUserFormValues} from 'src/screens/Settings';
 import {Route} from 'src/models/constants/routeNames';
 
 interface Props {
@@ -20,24 +20,13 @@ interface Props {
       : (e: string | React.ChangeEvent<any>) => void;
   };
   onSubmit: () => void;
-  errors: FormikErrors<FormValues>;
-  values: FormValues;
+  errors: FormikErrors<UpdateUserFormValues>;
+  values: UpdateUserFormValues;
   fieldValue: (
     field: string,
-    value: any,
+    value: string | boolean,
     shouldValidate?: boolean | undefined,
-  ) =>
-    | Promise<void>
-    | Promise<
-        FormikErrors<{
-          displayEmail: boolean;
-          email: string;
-          newEmail: string;
-          password: string;
-          newPassword: string;
-          displayName: string;
-        }>
-      >;
+  ) => Promise<void> | Promise<FormikErrors<UpdateUserFormValues>>;
   serverError: string;
   loading: boolean;
 }
@@ -78,7 +67,7 @@ const SettingsComponent: React.FC<Props> = ({
       {!!serverError && <Message label={serverError} />}
       <SettingInput
         label="Username"
-        startingValue={values.displayName}
+        initialValue={values.displayName}
         onChange={onChange('displayName')}
         error={errors.displayName}
       />
@@ -86,19 +75,19 @@ const SettingsComponent: React.FC<Props> = ({
         <>
           <SettingInput
             label="E-mail"
-            startingValue={values.email}
+            initialValue={values.email}
             onChange={onChange('email')}
             error={errors.email}
           />
           <SettingInput
             label="New e-mail"
-            startingValue={values.newEmail}
+            initialValue={values.newEmail}
             onChange={onChange('newEmail')}
             error={errors.newEmail}
           />
           <SettingInput
             label="Password"
-            startingValue={values.password}
+            initialValue={values.password}
             secureTextEntry
             onChange={onChange('password')}
             error={errors.password}
@@ -108,20 +97,20 @@ const SettingsComponent: React.FC<Props> = ({
         <>
           <SettingInput
             label="E-mail"
-            startingValue={values.email}
+            initialValue={values.email}
             onChange={onChange('email')}
             error={errors.email}
           />
           <SettingInput
             label="Password"
-            startingValue={values.password}
+            initialValue={values.password}
             secureTextEntry
             onChange={onChange('password')}
             error={errors.password}
           />
           <SettingInput
             label="New Password"
-            startingValue={values.newPassword}
+            initialValue={values.newPassword}
             secureTextEntry
             onChange={onChange('newPassword')}
             error={errors.newPassword}
