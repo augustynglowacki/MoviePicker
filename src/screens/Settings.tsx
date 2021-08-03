@@ -8,7 +8,7 @@ import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import SettingsComponent from 'src/components/settings/Settings';
 import {Route} from 'src/models/constants/routeNames';
-
+import {MIN_PASSWORD_LENGTH} from './Register';
 export interface FormValues {
   email: any;
   newEmail: any;
@@ -97,8 +97,8 @@ const Settings: React.FC = () => {
     displayName: Yup.string().min(3), // add const for this min values
     email: Yup.string().email(t('email')),
     newEmail: Yup.string().email(t('email')),
-    password: Yup.string().min(6, t('short')).required(),
-    newPassword: Yup.string().min(6, t('short')),
+    password: Yup.string().min(6, t('short', {MIN_PASSWORD_LENGTH})).required(),
+    newPassword: Yup.string().min(6, t('short', {MIN_PASSWORD_LENGTH})),
   });
 
   const {setFieldValue, handleChange, handleSubmit, errors, values} = useFormik(

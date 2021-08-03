@@ -16,7 +16,6 @@ const MovieDetailsInfoBox: React.FC<Props> = ({data, isMovie}) => {
   const {release_date, runtime, genres, number_of_seasons, number_of_episodes} =
     data;
   const genresArray = genres.map(genre => genre.name);
-  console.log(genresArray);
   const getDuration = () => {
     if (isMovie && runtime) {
       return (
@@ -64,9 +63,9 @@ const MovieDetailsInfoBox: React.FC<Props> = ({data, isMovie}) => {
       {getDate()}
       <Text style={styles.genreText}>
         {`${genresArray[0]}`}
-        {genres.length > 1 && <Text style={styles.genreText}>{', '}</Text>}
+        {genresArray.length > 1 && <Text style={styles.genreText}>{', '}</Text>}
       </Text>
-      {genres.length > 1 && (
+      {genresArray.length > 1 && (
         <Text style={styles.genreText}>{`${genresArray[1]}`}</Text>
       )}
       {getDuration()}

@@ -12,7 +12,7 @@ import {Platform} from 'react-native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import LinearGradient from 'react-native-linear-gradient';
 import palette from 'src/styles/palette';
-import {useDispatch, useSelector} from 'react-redux';
+import {batch, useDispatch, useSelector} from 'react-redux';
 import {
   getMovieDetails,
   movieDetailsSelector,
@@ -26,6 +26,8 @@ import RatingBox from 'src/components/details/RatingBox';
 import MovieDetailsInfoBox from 'src/components/details/DetailsInfoBox';
 import {MovieDetails, TvSeriesDetails} from 'src/models';
 import {Container} from 'src/components/common';
+import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
+import Loading from './Loading';
 
 const HEIGHT = Dimensions.get('window').height;
 
@@ -34,18 +36,19 @@ const Details = ({route, navigation}: any) => {
   const [active, setActive] = useState<MovieDetails | TvSeriesDetails>();
   const dispatch = useDispatch(); //install extension for typos
   const {poster_path, id, isMovie} = route.params;
-  const {fetchedMovies, fetchedTvSeries, movieActors} =
+  const {fetchedMovies, fetchedTvSeries, movieActors, error} =
     useSelector(movieDetailsSelector);
 
   const movie = fetchedMovies[id];
   const show = fetchedTvSeries[id];
-  // console.log(movie);
 
   useEffect(() => {
     // is this works correctly ? 🤔
     if (isMovie && !fetchedMovies[id]) {
-      dispatch(getMovieDetails(id));
-      dispatch(getMovieActors(id));
+      batch(() => {
+        dispatch(getMovieDetails(id));
+        dispatch(getMovieActors(id));
+      });
     } else {
       dispatch(getTvSeries(id));
     }
@@ -55,10 +58,16 @@ const Details = ({route, navigation}: any) => {
     setActive(movie ? movie : show); // looks better
   }, [movie, show]);
 
+  // if (loading || (!show && !movie)) {
+  //   return <Loading />;
+  // }
   if (!show && !movie) {
-    // should be loading prop from store
-    return <Text>Loading dupa</Text>; // should be loading indicator
+    return <Loading />;
   }
+  // if (error || (!loading && !movie && !show)) {
+  //   return <ErrorBox errorMsg={error} />;
+  // }
+  console.log('error log->', error);
 
   const renderMovieDetails = () => (
     <Container disableSafeArea style={styles.container}>
@@ -84,13 +93,19 @@ const Details = ({route, navigation}: any) => {
       </ImageBackground>
 
       <View style={styles.bottomWrapper}>
-        <Text style={styles.title}>{!!active?.title && active?.title}</Text>
+        <AnimatedLayout>
+          <Animated.View entering={FlipInXDown.springify().delay(300)}>
+            <Text style={styles.title}>{!!active?.title && active.title}</Text>
+          </Animated.View>
+        </AnimatedLayout>
         <MovieDetailsInfoBox isMovie={isMovie} data={isMovie ? movie : show} />
         {!!active?.vote_average && (
           <RatingBox voteAverage={active?.vote_average} />
         )}
         <View style={styles.descriptionWrapper}>
-          <Text style={styles.descriptionText}>{active?.overview}</Text>
+          <Text style={styles.descriptionText}>
+            {!!active?.overview && active.overview}
+          </Text>
         </View>
         <ActorList data={movieActors} />
         {/* error should be optional prop */}

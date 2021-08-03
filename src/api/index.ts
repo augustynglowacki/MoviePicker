@@ -28,25 +28,15 @@ export const convertResponseToMovie = (
   isMovie: boolean = true,
 ) => {
   const newResult: Movie[] = data.map(
-    ({
-      id,
-      title,
-      poster_path,
-      vote_average,
-      overview,
-      release_date,
-      genre_ids,
-    }) => ({
+    ({id, title, poster_path, vote_average, overview, genre_ids}) => ({
       id: id,
       title: title,
       poster_path: poster_path,
       vote_average: vote_average,
       overview: overview,
-      releaseDate: release_date,
       genres: genre_ids.map(genre => genres[genre]),
       isMovie: isMovie,
     }),
   );
-  console.log(newResult[0].genres);
   return newResult;
 };
