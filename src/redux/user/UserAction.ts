@@ -40,7 +40,7 @@ export const signInWithEmailAndPassword = createAsyncThunk<User, LoginUser>(
   },
 );
 
-export const updateEmail = createAsyncThunk<string, UpdateUser>(
+export const updateUserEmail = createAsyncThunk<string, UpdateUser>(
   'auth/updateEmail',
   async ({email, password, newEmail, callback}, {rejectWithValue}) => {
     if (newEmail) {
@@ -49,7 +49,20 @@ export const updateEmail = createAsyncThunk<string, UpdateUser>(
       callback();
       return newEmail;
     }
-    return rejectWithValue('Error');
+    return rejectWithValue('Error occured when trying to update email');
+  },
+);
+
+export const updateUserPassword = createAsyncThunk<string, UpdateUser>(
+  'auth/updatePassword',
+  async ({email, password, newPassword, callback}, {rejectWithValue}) => {
+    if (newPassword) {
+      await auth().signInWithEmailAndPassword(email, password);
+      await auth().currentUser?.updatePassword(newPassword);
+      callback();
+      return newPassword;
+    }
+    return rejectWithValue('Error occured when trying to update password');
   },
 );
 
