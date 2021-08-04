@@ -5,7 +5,8 @@ import {
   logOutUser,
   signInWithEmailAndPassword,
   signInWithGoogle,
-  updateEmail,
+  updateUserEmail,
+  updateUserPassword,
 } from './UserAction';
 
 interface UserState {
@@ -60,14 +61,27 @@ const userSlice = createSlice({
         state.error = temp[1];
       }
     });
-    builder.addCase(updateEmail.fulfilled, (state, action) => {
+    builder.addCase(updateUserEmail.fulfilled, (state, action) => {
       state.user.email = action.payload;
       state.loading = false;
     });
-    builder.addCase(updateEmail.pending, state => {
+    builder.addCase(updateUserEmail.pending, state => {
       state.loading = true;
     });
-    builder.addCase(updateEmail.rejected, (state, action) => {
+    builder.addCase(updateUserEmail.rejected, (state, action) => {
+      state.loading = false;
+      if (action.error.message) {
+        let temp = action.error.message.split(']');
+        state.error = temp[1];
+      }
+    });
+    builder.addCase(updateUserPassword.fulfilled, state => {
+      state.loading = false;
+    });
+    builder.addCase(updateUserPassword.pending, state => {
+      state.loading = true;
+    });
+    builder.addCase(updateUserPassword.rejected, (state, action) => {
       state.loading = false;
       if (action.error.message) {
         let temp = action.error.message.split(']');
