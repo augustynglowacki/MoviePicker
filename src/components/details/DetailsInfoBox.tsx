@@ -1,10 +1,12 @@
 import {format, parseISO} from 'date-fns';
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import {StyleSheet, Text, View} from 'react-native';
-import Entypo from 'react-native-vector-icons/Entypo';
+import {IconTypes} from 'src/constants';
 import {convertToHours} from 'src/helpers/convertToHours';
 import {MovieDetails, TvSeriesDetails} from 'src/models';
 import palette from 'src/styles/palette';
+import {Icon} from '../common';
 
 type MovieAndShows = MovieDetails & TvSeriesDetails;
 interface Props {
@@ -15,12 +17,18 @@ interface Props {
 const DetailsInfoBox: React.FC<Props> = ({data, isMovie}) => {
   const {release_date, runtime, genres, number_of_seasons, number_of_episodes} =
     data;
+  const {t} = useTranslation('movies');
   const genresArray = genres.map(genre => genre.name);
   const getDuration = () => {
     if (isMovie && runtime) {
       return (
         <>
-          <Entypo name="dot-single" size={32} color={palette.lightGrey} />
+          <Icon
+            type={IconTypes.ENTYPO}
+            name="dot-single"
+            size={32}
+            color={palette.lightGrey}
+          />
           <Text style={styles.text}>{convertToHours(runtime)}</Text>
         </>
       );
@@ -28,8 +36,15 @@ const DetailsInfoBox: React.FC<Props> = ({data, isMovie}) => {
     if (!isMovie && number_of_seasons) {
       return (
         <>
-          <Entypo name="dot-single" size={32} color={palette.lightGrey} />
-          <Text style={styles.text}>{`${number_of_seasons} seasons`}</Text>
+          <Icon
+            type={IconTypes.ENTYPO}
+            name="dot-single"
+            size={32}
+            color={palette.lightGrey}
+          />
+          <Text style={styles.text}>
+            {t('seasons', {number: number_of_seasons})}
+          </Text>
         </>
       );
     }
@@ -41,15 +56,27 @@ const DetailsInfoBox: React.FC<Props> = ({data, isMovie}) => {
           <Text style={styles.text}>
             {format(parseISO(release_date), 'yyyy')}
           </Text>
-          <Entypo name="dot-single" size={32} color={palette.lightGrey} />
+          <Icon
+            type={IconTypes.ENTYPO}
+            name="dot-single"
+            size={32}
+            color={palette.lightGrey}
+          />
         </>
       );
     }
     if (!isMovie && number_of_seasons) {
       return (
         <>
-          <Text style={styles.text}>{`${number_of_episodes} episodes`}</Text>
-          <Entypo name="dot-single" size={32} color={palette.lightGrey} />
+          <Text style={styles.text}>
+            {t('episodes', {number: number_of_episodes})}
+          </Text>
+          <Icon
+            type={IconTypes.ENTYPO}
+            name="dot-single"
+            size={32}
+            color={palette.lightGrey}
+          />
         </>
       );
     }

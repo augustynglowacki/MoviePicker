@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import {Text, View, ImageBackground, Alert} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {API_IMAGES} from '@env';
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {TapGestureHandler} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import palette from 'src/styles/palette';
@@ -15,18 +15,10 @@ import auth from '@react-native-firebase/auth';
 import {Movie} from 'src/models';
 import Heart from '../likeHeart/Heart';
 import GenreBox from './GenreBox';
-import {Route} from 'src/models/constants/routeNames';
+import {Route, WINDOW_HEIGHT, BOTTOM_TABS_HEIGHT} from 'src/constants';
 interface Props {
   movie: Movie;
 }
-
-export const BOTTOM_TABS_HEIGHT = Math.floor(
-  Dimensions.get('window').height / 12.5,
-);
-
-export const MOVIE_HEIGHT = Math.ceil(
-  Dimensions.get('window').height - BOTTOM_TABS_HEIGHT,
-);
 
 const MovieItem: React.FC<Props> = ({movie}) => {
   const {t} = useTranslation('common');
@@ -141,7 +133,7 @@ export default MovieItem;
 export const styles = StyleSheet.create({
   movieContainer: {
     width: '100%',
-    height: MOVIE_HEIGHT,
+    height: WINDOW_HEIGHT - BOTTOM_TABS_HEIGHT,
   },
   image: {
     position: 'absolute',
@@ -158,7 +150,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 160,
+    marginTop: 120,
   },
   movieInfo: {
     padding: 20,

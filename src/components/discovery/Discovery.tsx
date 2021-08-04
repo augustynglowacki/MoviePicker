@@ -12,7 +12,7 @@ import {CollectionContentBox, Container} from '../common';
 import DiscoveryBox from './DiscoveryBox';
 
 const DiscoveryComponent: React.FC = () => {
-  const MIN_QUERY_LENGTH = 3;
+  const MIN_QUERY_LENGTH = 2;
   const dispatch = useDispatch();
   const {t} = useTranslation('movies');
   const {query, foundMovies, foundTvSeries, foundActors} =

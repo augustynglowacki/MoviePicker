@@ -25,6 +25,8 @@ const translations = {
     searchPlaceholder: "What's on your mind?",
     actors: 'Actors',
     popular: 'Popular',
+    seasons: '{{number}} seasons',
+    episodes: '{{number}} episodes',
   },
   form: {
     required: 'Required!',

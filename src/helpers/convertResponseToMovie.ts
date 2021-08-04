@@ -1,4 +1,4 @@
-import {genres} from 'src/api';
+import {genres} from 'src/api/genres';
 import {Movie} from 'src/models';
 import {MovieApi} from 'src/models/movie';
 

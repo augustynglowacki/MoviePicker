@@ -1,8 +1,9 @@
 import React, {useRef} from 'react';
 import {StyleSheet, Animated, View} from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
 import palette from 'src/styles/palette';
 import Container from 'src/components/common/Container';
+import {Icon} from 'src/components/common';
+import {IconTypes} from 'src/constants';
 
 const LoadingScreen: React.FC = () => {
   const rotateAnim = useRef(new Animated.Value(0)).current;
@@ -23,7 +24,12 @@ const LoadingScreen: React.FC = () => {
     <Container>
       <View style={styles.loadingBox}>
         <Animated.View style={{transform: [{rotate: spin}]}}>
-          <Icon name="loading1" size={100} color={palette.primary} />
+          <Icon
+            type={IconTypes.ANT}
+            name="loading1"
+            size={100}
+            color={palette.primary}
+          />
         </Animated.View>
       </View>
     </Container>

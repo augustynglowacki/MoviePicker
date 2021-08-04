@@ -23,7 +23,6 @@ const DetailsScreen: React.FC<Props> = ({route, navigation}) => {
   const {poster_path, id, isMovie} = route.params;
   const {fetchedMovies, fetchedTvSeries, movieActors} =
     useSelector(movieDetailsSelector);
-
   const movie = fetchedMovies[id];
   const show = fetchedTvSeries[id];
 
