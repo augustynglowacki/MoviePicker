@@ -75,9 +75,9 @@ const styles = StyleSheet.create({
   },
   linearGradient: {
     height: '100%',
+    width: '100%',
     position: 'absolute',
     bottom: 0,
-    width: '100%',
     borderRadius: BORDER_RADIUS,
   },
 });

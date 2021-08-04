@@ -6,7 +6,7 @@ import {StyleSheet} from 'react-native';
 import Profile from 'src/screens/Profile';
 import {useSelector} from 'react-redux';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
-import NotLoggedIn from 'src/screens/NotLoggedIn';
+import Explore from 'src/screens/Explore';
 import {TabIcon} from 'src/components/common';
 import Favorite from 'src/screens/Favorite';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -59,14 +59,14 @@ const BottomTabsNavigator = () => {
         <>
           <Tab.Screen
             name={Route.FAVORITE}
-            children={() => <NotLoggedIn isLiked={true} />}
+            children={() => <Explore isLiked={true} />}
             options={{
               tabBarIcon: ({focused}) => TabIcon(focused, 'favorite-outline'),
             }}
           />
           <Tab.Screen
             name={Route.PROFILE}
-            component={NotLoggedIn}
+            component={Explore}
             options={{
               tabBarIcon: ({focused}) => TabIcon(focused, 'person-outline'),
             }}
