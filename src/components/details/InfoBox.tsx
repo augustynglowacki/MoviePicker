@@ -8,20 +8,17 @@ import {MovieDetails, TvSeriesDetails} from 'src/models';
 import palette from 'src/styles/palette';
 import {Icon} from '../common';
 
-interface MovieAndShows extends MovieDetails, TvSeriesDetails {}
+type MovieAndShows = MovieDetails & TvSeriesDetails;
 interface Props {
   data: MovieAndShows;
   isMovie: boolean;
 }
 
-const MovieDetailsInfoBox: React.FC<Props> = ({data, isMovie}) => {
+const InfoBox: React.FC<Props> = ({data, isMovie}) => {
   const {release_date, runtime, genres, number_of_seasons, number_of_episodes} =
     data;
   const {t} = useTranslation('movies');
   const genresArray = genres.map(genre => genre.name);
-  const firstGenre = genresArray[0];
-  const SecondGenre = genresArray[1];
-
   const getDuration = () => {
     if (isMovie && runtime) {
       return (
@@ -32,7 +29,7 @@ const MovieDetailsInfoBox: React.FC<Props> = ({data, isMovie}) => {
             size={32}
             color={palette.lightGrey}
           />
-          <Text style={styles.movieInfoItem}>{convertToHours(runtime)}</Text>
+          <Text style={styles.text}>{convertToHours(runtime)}</Text>
         </>
       );
     }
@@ -45,7 +42,7 @@ const MovieDetailsInfoBox: React.FC<Props> = ({data, isMovie}) => {
             size={32}
             color={palette.lightGrey}
           />
-          <Text style={styles.movieInfoItem}>
+          <Text style={styles.text}>
             {t('seasons', {number: number_of_seasons})}
           </Text>
         </>
@@ -56,7 +53,7 @@ const MovieDetailsInfoBox: React.FC<Props> = ({data, isMovie}) => {
     if (isMovie && release_date) {
       return (
         <>
-          <Text style={styles.movieInfoItem}>
+          <Text style={styles.text}>
             {format(parseISO(release_date), 'yyyy')}
           </Text>
           <Icon
@@ -71,7 +68,7 @@ const MovieDetailsInfoBox: React.FC<Props> = ({data, isMovie}) => {
     if (!isMovie && number_of_seasons) {
       return (
         <>
-          <Text style={styles.movieInfoItem}>
+          <Text style={styles.text}>
             {t('episodes', {number: number_of_episodes})}
           </Text>
           <Icon
@@ -84,32 +81,34 @@ const MovieDetailsInfoBox: React.FC<Props> = ({data, isMovie}) => {
       );
     }
   };
+
   return (
     <View style={styles.movieInfoWrapper}>
       {getDate()}
-      <Text style={styles.genreText}>{`${firstGenre}, `}</Text>
-      <Text style={styles.genreText}>{SecondGenre}</Text>
+      <Text style={styles.text}>
+        {`${genresArray[0]}`}
+        {genresArray.length > 1 && <Text style={styles.text}>{', '}</Text>}
+      </Text>
+      {genresArray.length > 1 && (
+        <Text style={styles.text}>{`${genresArray[1]}`}</Text>
+      )}
       {getDuration()}
     </View>
   );
 };
 
-export default MovieDetailsInfoBox;
+export default InfoBox;
 
 const styles = StyleSheet.create({
   movieInfoWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 20,
+    marginBottom: 4,
+    marginTop: 24,
     flexWrap: 'wrap',
   },
-  movieInfoItem: {
-    color: palette.lightGrey,
-    fontSize: 15,
-    fontWeight: '600',
-  },
-  genreText: {
+  text: {
     color: palette.lightGrey,
     fontSize: 15,
     fontWeight: '600',

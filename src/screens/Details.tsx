@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet} from 'react-native';
-import palette from 'src/styles/palette';
-import {useDispatch, useSelector} from 'react-redux';
+import {batch, useDispatch, useSelector} from 'react-redux';
 import {
   getMovieDetails,
   movieDetailsSelector,
@@ -11,13 +9,35 @@ import {
   getTvSeries,
 } from 'src/redux/movieDetails/movieDetailsActions';
 import {MovieDetails, TvSeriesDetails} from 'src/models';
-import {Container} from 'src/components/common';
-import Loading from './Loading';
-import BottomWrapper from 'src/components/details/BottomWrapper';
-import ContentWrapper from 'src/components/details/ContentWrapper';
+import DetailsComponent from 'src/components/details/Details';
+import {RouteProp} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
-const DetailsScreen: React.FC = ({route, navigation}: any) => {
-  const [active, setActive] = useState<MovieDetails | TvSeriesDetails>();
+interface DetailsScreenParams {
+  poster_path: string;
+  isMovie: boolean;
+  id: number;
+}
+
+type RootStackParamList = {
+  Details: DetailsScreenParams;
+};
+
+type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
+
+type ProfileScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Details'
+>;
+interface Props {
+  route: ProfileScreenRouteProp;
+  navigation: ProfileScreenNavigationProp;
+}
+
+const DetailsScreen: React.FC<Props> = ({navigation, route}) => {
+  const [active, setActive] = useState<MovieDetails | TvSeriesDetails>(
+    {} as MovieDetails | TvSeriesDetails,
+  );
   const dispatch = useDispatch();
   const {poster_path, id, isMovie} = route.params;
   const {fetchedMovies, fetchedTvSeries, movieActors} =
@@ -27,40 +47,32 @@ const DetailsScreen: React.FC = ({route, navigation}: any) => {
 
   useEffect(() => {
     if (isMovie && !fetchedMovies[id]) {
-      dispatch(getMovieDetails(id));
-      dispatch(getMovieActors(id));
-    } else if (!isMovie && !fetchedTvSeries[id]) {
+      batch(() => {
+        dispatch(getMovieDetails(id));
+        dispatch(getMovieActors(id));
+      });
+    } else {
       dispatch(getTvSeries(id));
-      dispatch(getMovieActors(id));
     }
-  }, [dispatch, id, isMovie, fetchedMovies, fetchedTvSeries]);
+  }, [dispatch, id, isMovie, fetchedMovies]);
 
   useEffect(() => {
     setActive(movie ? movie : show);
   }, [movie, show]);
 
-  if (!show && !movie) {
-    return <Loading />;
-  }
+  const goBack = () => navigation.goBack();
 
   return (
-    <Container disableSafeArea style={styles.container}>
-      <ContentWrapper navigation={navigation} poster_path={poster_path} />
-      <BottomWrapper
-        isMovie={isMovie}
-        active={active}
-        actors={movieActors}
-        data={isMovie ? movie : show}
-      />
-    </Container>
+    <DetailsComponent
+      active={active}
+      goBack={goBack}
+      poster_path={poster_path}
+      movieActors={movieActors}
+      isMovie={isMovie}
+      movie={movie}
+      show={show}
+    />
   );
 };
 
 export default DetailsScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: palette.strongBlack,
-  },
-});
