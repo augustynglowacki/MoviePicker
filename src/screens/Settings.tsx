@@ -7,7 +7,7 @@ import {useFormik} from 'formik';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import SettingsBox from 'src/components/settings/SettingsBox';
-import {updateEmail} from 'src/redux/user/UserAction';
+import {updateUserEmail, updateUserPassword} from 'src/redux/user/UserAction';
 import {MIN_PASSWORD_LENGTH} from './Register';
 import {Route} from 'src/constants';
 
@@ -40,11 +40,23 @@ const Settings: React.FC = () => {
     if (values.newEmail) {
       handleUserEmailUpdate(values);
     }
+    if (values.newPassword) {
+      handleUserPasswordUpdate(values);
+    }
   };
 
   const handleUserEmailUpdate = (values: UpdateUserFormValues) => {
     dispatch(
-      updateEmail({
+      updateUserEmail({
+        ...values,
+        callback: redirectToProfile,
+      }),
+    );
+  };
+
+  const handleUserPasswordUpdate = (values: UpdateUserFormValues) => {
+    dispatch(
+      updateUserPassword({
         ...values,
         callback: redirectToProfile,
       }),
@@ -69,10 +81,13 @@ const Settings: React.FC = () => {
     email: yupEmail,
     newEmail: yupEmail.nope([user.email]).when('displayEmail', {
       is: (val: boolean) => val,
-      then: yupEmail.required(),
+      then: yupEmail.required('Insert new email'),
     }),
     password: yupPassword.required(t('required')),
-    newPassword: yupPassword,
+    newPassword: yupPassword.when('displayEmail', {
+      is: (val: boolean) => !val,
+      then: yupPassword.required('Insert new password'),
+    }),
   });
 
   const {setFieldValue, handleChange, handleSubmit, errors, values} = useFormik(
