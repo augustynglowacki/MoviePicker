@@ -15,7 +15,7 @@ interface Props {
   isLiked: boolean;
 }
 
-const NotLoggedIn: React.FC<Props> = ({isLiked}) => {
+const ExploreScreen: React.FC<Props> = ({isLiked}) => {
   const {navigate} = useNavigation();
   const {t} = useTranslation('profile');
 
@@ -44,7 +44,7 @@ const NotLoggedIn: React.FC<Props> = ({isLiked}) => {
   );
 };
 
-export default NotLoggedIn;
+export default ExploreScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -57,8 +57,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-    bottom: 0,
-    right: 0,
   },
   box: {
     position: 'absolute',
@@ -70,7 +68,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   subText: {
-    fontSize: 10,
+    fontSize: 12,
     marginVertical: 10,
     color: palette.white,
     textAlign: 'center',

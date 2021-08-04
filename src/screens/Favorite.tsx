@@ -4,7 +4,7 @@ import auth from '@react-native-firebase/auth';
 import {BackendEntity, Movie} from 'src/models';
 import FavoriteContentBox from 'src/components/favorite/FavoriteContentBox';
 
-const Favorite: React.FC = () => {
+const FavoriteScreen: React.FC = () => {
   const [backendMovies, setBackendMovies] = useState<BackendEntity[]>([]);
 
   useEffect(() => {
@@ -54,4 +54,4 @@ const Favorite: React.FC = () => {
   return <FavoriteContentBox movies={convertEntityToMovie(backendMovies)} />;
 };
 
-export default Favorite;
+export default FavoriteScreen;

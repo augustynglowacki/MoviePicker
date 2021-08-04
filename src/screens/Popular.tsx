@@ -1,14 +1,12 @@
 import React, {useEffect} from 'react';
-import MovieList from 'src/components/popular/MovieList';
 import {getMovies, movieSelector} from 'src/redux/movie/MovieSlice';
 import {useDispatch, useSelector} from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import {setActiveUser, userThunkSelector} from 'src/redux/user/UserSlice';
-import {Container, ErrorWrapper} from 'src/components/common';
+import PopularComponent from 'src/components/popular/Popular';
 
-const Popular: React.FC = () => {
+const PopularScreen: React.FC = () => {
   const dispatch = useDispatch();
-  //To select whatever elements we want from the state, we pass the state (exported as movieSelector) to our useSelector hook.
   const {movies, loading, error} = useSelector(movieSelector);
 
   useEffect(() => {
@@ -20,7 +18,8 @@ const Popular: React.FC = () => {
   } = useSelector(userThunkSelector);
 
   useEffect(() => {
-    if (email === '') {
+    // eslint-disable-next-line no-extra-boolean-cast
+    if (!!email) {
       //u know what
       const subscriber = auth().onAuthStateChanged(user => {
         //ts + move into service
@@ -37,13 +36,7 @@ const Popular: React.FC = () => {
     }
   }, [dispatch, email]);
 
-  return (
-    <ErrorWrapper error={error} loading={loading}>
-      <Container disableScroll disableSafeArea>
-        <MovieList moviesList={movies} />
-      </Container>
-    </ErrorWrapper>
-  );
+  return <PopularComponent loading={loading} error={error} movies={movies} />;
 };
 
-export default Popular;
+export default PopularScreen;

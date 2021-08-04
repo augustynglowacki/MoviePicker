@@ -30,11 +30,10 @@ const translations = {
     required: 'Required!',
     email: 'Email must be a valid email!',
     short: 'Password must be at least {{MIN_PASSWORD_LENGTH}} characters long!',
-    // should be created a const MIN_PASSWORD_LENGTH and passed here {{  }}
   },
   profile: {
     explore: 'Explore your profile.',
-    exploreSub: 'With free account you gain access to your movies collections!',
+    exploreSub: 'With a free account you can do much more stuff!',
     button: 'Sign in now',
   },
 };

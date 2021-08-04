@@ -15,7 +15,7 @@ import {Route} from 'src/models/constants/routeNames';
 export const MIN_PASSWORD_LENGTH = 6;
 const initialState = {username: '', email: '', password: ''};
 
-const Register: React.FC = () => {
+const RegisterScreen: React.FC = () => {
   const {error, loading} = useSelector(userThunkSelector);
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
@@ -78,4 +78,4 @@ const Register: React.FC = () => {
   );
 };
 
-export default Register;
+export default RegisterScreen;
