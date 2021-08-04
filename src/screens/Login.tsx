@@ -19,7 +19,7 @@ import * as Yup from 'yup';
 
 const initialState = {email: '', password: ''};
 
-const Login: React.FC = () => {
+const LoginScreen: React.FC = () => {
   const {error, loading} = useSelector(userThunkSelector);
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
@@ -88,4 +88,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default LoginScreen;
