@@ -7,28 +7,23 @@ import {TapGestureHandler} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import palette from 'src/styles/palette';
 import {useSelector} from 'react-redux';
-import {genresSelector} from 'src/redux/genres/GenresSlice';
 import {useTranslation} from 'react-i18next';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 import RatingBox from '../details/RatingBox';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-import {Genres, Movie} from 'src/models';
+import {Movie} from 'src/models';
 import Heart from '../likeHeart/Heart';
 import GenreBox from './GenreBox';
-import {Button} from 'react-native-paper';
 import {Route, WINDOW_HEIGHT, BOTTOM_TABS_HEIGHT} from 'src/constants';
 interface Props {
-  mergeGenresWithMovies: (Genres | undefined)[];
   movie: Movie;
 }
 
-const MovieItem: React.FC<Props> = ({movie, mergeGenresWithMovies}) => {
-  const {loading} = useSelector(genresSelector);
+const MovieItem: React.FC<Props> = ({movie}) => {
   const {t} = useTranslation('common');
   const {navigate} = useNavigation();
-
-  const {poster_path, overview, title, id, vote_average, isMovie, genre_ids} =
+  const {poster_path, overview, title, id, vote_average, isMovie, genres} =
     movie;
   const doubleTapRef = useRef();
   const [isLiked, setLiked] = useState<boolean>(false);
@@ -46,7 +41,7 @@ const MovieItem: React.FC<Props> = ({movie, mergeGenresWithMovies}) => {
           vote_average,
           poster_path,
           overview,
-          genre_ids,
+          genres,
           isMovie,
         })
       : null;
@@ -78,10 +73,8 @@ const MovieItem: React.FC<Props> = ({movie, mergeGenresWithMovies}) => {
       waitFor={doubleTapRef}
       onActivated={() => {
         navigate(Route.DETAILS, {
-          poster_path,
-          overview,
-          title,
           id,
+          poster_path,
           isMovie,
         });
       }}>
@@ -116,17 +109,14 @@ const MovieItem: React.FC<Props> = ({movie, mergeGenresWithMovies}) => {
             <View style={styles.movieInfo}>
               <Text style={styles.title}>{title}</Text>
               <View style={styles.genres}>
-                {loading ? (
-                  <Button loading disabled>
-                    Loading
-                  </Button>
-                ) : (
-                  mergeGenresWithMovies
-                    .slice(0, 2)
-                    .map((genre: any) => (
-                      <GenreBox key={genre.name} name={genre.name} />
-                    ))
-                )}
+                {genres &&
+                  genres.slice(0, 2).map(genre => {
+                    return (
+                      <View key={genre} style={styles.genres}>
+                        <GenreBox key={genre} name={genre} />
+                      </View>
+                    );
+                  })}
               </View>
               <RatingBox voteAverage={vote_average} />
               {!!isLiked && <Heart />}
@@ -146,42 +136,38 @@ export const styles = StyleSheet.create({
     height: WINDOW_HEIGHT - BOTTOM_TABS_HEIGHT,
   },
   image: {
+    position: 'absolute',
     width: '100%',
     height: '100%',
     resizeMode: 'cover',
-    position: 'absolute',
   },
   linearGradient: {
-    height: '100%',
     position: 'absolute',
+    height: '100%',
     width: '100%',
   },
   movieInfoContainer: {
-    height: '100%',
-    width: '100%',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 120,
   },
   movieInfo: {
-    justifyContent: 'center',
-    alignItems: 'center',
     padding: 20,
   },
   title: {
-    fontWeight: '800',
-    fontSize: 42,
-    marginBottom: 15,
+    fontSize: 34,
     color: palette.white,
     textAlign: 'center',
   },
   genres: {
+    marginTop: 16,
     maxWidth: 350,
     fontSize: 14,
     color: palette.white,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    flexWrap: 'wrap',
-    marginBottom: 20,
+    marginBottom: 8,
   },
 });
