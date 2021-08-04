@@ -1,8 +1,8 @@
 import React from 'react';
 import ProfileComponent from 'src/components/profile/Profile';
 
-const Profile: React.FC = () => {
+const ProfileScreen: React.FC = () => {
   return <ProfileComponent />;
 };
 
-export default Profile;
+export default ProfileScreen;

@@ -20,7 +20,7 @@ export interface UpdateUserFormValues {
   displayName: string;
 }
 
-const Settings: React.FC = () => {
+const SettingsScreen: React.FC = () => {
   const {user, error, loading} = useSelector(userThunkSelector);
   const dispatch = useDispatch();
   const {t} = useTranslation('form');
@@ -105,4 +105,4 @@ const Settings: React.FC = () => {
   );
 };
 
-export default Settings;
+export default SettingsScreen;
