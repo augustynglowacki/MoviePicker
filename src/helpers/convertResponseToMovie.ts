@@ -1,17 +1,21 @@
+import {genres} from 'src/api/genres';
 import {Movie} from 'src/models';
+import {MovieApi} from 'src/models/movie';
 
 export const convertResponseToMovie = (
-  data: Movie[],
+  data: MovieApi[],
   isMovie: boolean = true,
 ) => {
-  const newResult: Movie[] = data.map((movie: Movie) => ({
-    id: movie.id,
-    title: movie.title,
-    vote_average: movie.vote_average, //should be in camelCase
-    poster_path: movie.poster_path, //should be in camelCase
-    overview: movie.overview,
-    genre_ids: movie.genre_ids, //should be in camelCase
-    isMovie: isMovie,
-  }));
+  const newResult: Movie[] = data.map(
+    ({id, title, poster_path, vote_average, overview, genre_ids}) => ({
+      id: id,
+      title: title,
+      poster_path: poster_path,
+      vote_average: vote_average,
+      overview: overview,
+      genres: genre_ids.map(genre => genres[genre]),
+      isMovie: isMovie,
+    }),
+  );
   return newResult;
 };

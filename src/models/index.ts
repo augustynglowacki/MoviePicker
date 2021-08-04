@@ -21,8 +21,8 @@ export type {
   MovieAxiosResponse,
   MovieState,
   BackendEntity,
-  Genres,
   TvSeriesDetails,
   TvSeriesDetailsAxiosResponse,
   MovieDetails,
+  Genres,
 };

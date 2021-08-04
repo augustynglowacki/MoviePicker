@@ -7,8 +7,8 @@ interface Base {
   poster_path: string;
   id: number;
   overview: string;
-  genres: Genres[];
   release_date?: string;
+  genres: Genres[];
 }
 export interface TvSeries {
   id: number;

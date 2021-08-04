@@ -1,6 +1,5 @@
 import {combineReducers} from '@reduxjs/toolkit';
 import MoviesSliceReducer from './movie/MovieSlice';
-import GenresSliceReducer from './genres/GenresSlice';
 import SearchSliceReducer from './search/SearchSlice';
 import MovieDetailsReducer from './movieDetails/movieDetailsSlice';
 import userSliceReducer from './user/UserSlice';
@@ -9,7 +8,6 @@ import userSliceReducer from './user/UserSlice';
 const rootReducer = combineReducers({
   movies: MoviesSliceReducer,
   users: userSliceReducer,
-  genres: GenresSliceReducer,
   searchedData: SearchSliceReducer,
   movieDetails: MovieDetailsReducer,
 });

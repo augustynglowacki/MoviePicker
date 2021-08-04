@@ -9,7 +9,7 @@ const initialState: MovieState = {
       id: 0,
       title: '',
       poster_path: '',
-      genre_ids: [],
+      genres: [],
       overview: '',
       vote_average: 0,
       isMovie: true,
