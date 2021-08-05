@@ -3,12 +3,9 @@ import {useNavigation} from '@react-navigation/native';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
 import {Container, SectionHeader} from 'src/components/common';
-
 import {IconTypes, Route} from 'src/constants';
-
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 import {useSelector} from 'react-redux';
-
 import palette from 'src/styles/palette';
 import UserNameForm from 'src/components/settings/UserNameForm';
 import UserEmailForm from 'src/components/settings/UserEmailForm';
@@ -80,6 +77,7 @@ const Settings: React.FC = () => {
       />
     );
   }
+  console.log(user.email);
   return (
     <Container flexStart>
       <HeaderBar leftIcon={leftIcon} />

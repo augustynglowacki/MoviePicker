@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {IconTypes} from 'src/constants';
 import palette from 'src/styles/palette';
-import {Icon} from '../common';
+import {Icon} from 'src/components/common';
 
 interface Props {
   text: string;

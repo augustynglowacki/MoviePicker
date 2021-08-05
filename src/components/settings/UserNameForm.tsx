@@ -1,5 +1,5 @@
 import React from 'react';
-import SettingInput from './SettingInput';
+import SettingInput from 'src/components/settings/SettingInput';
 import * as Yup from 'yup';
 import {MIN_USERNAME_LENGTH} from 'src/constants/formValues';
 import {useFormik} from 'formik';
@@ -9,8 +9,13 @@ import {setActiveUser, setErrorNull} from 'src/redux/user/UserSlice';
 import {IconTypes} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
 import {Route} from 'src/constants';
-import HeaderBar from '../common/HeaderBar';
-import {Container, CustomButton, Message, SectionHeader} from '../common';
+import {HeaderBar} from 'src/components/common';
+import {
+  Container,
+  CustomButton,
+  Message,
+  SectionHeader,
+} from 'src/components/common';
 import Loading from 'src/screens/Loading';
 import palette from 'src/styles/palette';
 

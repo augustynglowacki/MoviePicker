@@ -3,7 +3,7 @@ import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
-import {Icon} from '../common';
+import {Icon} from 'src/components/common';
 import {IconTypes} from 'src/constants';
 import palette from 'src/styles/palette';
 

@@ -10,6 +10,7 @@ import SectionHeader from './SectionHeader';
 import SocialButton from './SocialButton';
 import TabIcon from './TabIcon';
 import Icon from './Icon';
+import HeaderBar from './HeaderBar';
 
 export {
   CustomButton,
@@ -24,4 +25,5 @@ export {
   TabIcon,
   ErrorWrapper,
   Icon,
+  HeaderBar,
 };

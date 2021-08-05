@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {Input} from '../common';
+import {Input} from 'src/components/common';
 
 interface Props {
   label: string;
