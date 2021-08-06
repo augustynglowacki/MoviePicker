@@ -8,8 +8,8 @@ import {
   MovieDetails,
   TvSeriesDetails,
   TvSeriesDetailsAxiosResponse,
+  MovieDetailsApi,
 } from 'src/models';
-import {MovieDetailsApi} from 'src/models/movies';
 
 export const getMovieDetails = createAsyncThunk<MovieDetails, number>(
   'details/getMovieDetails',
@@ -59,7 +59,7 @@ export const getTvSeriesActors = createAsyncThunk<Actor[], number>(
 );
 
 export const getTvSeriesDetails = createAsyncThunk<TvSeriesDetails, number>(
-  'tvSerieDetails/getTvSerieDetails',
+  'tvSeriesDetails/getTvSeriesDetails',
   async id => {
     const res = await axiosInstance.get<TvSeriesDetailsAxiosResponse>(
       `tv/${id}?api_key=${API_KEY}&language=en-US`,
@@ -73,7 +73,7 @@ export const getTvSeriesDetails = createAsyncThunk<TvSeriesDetails, number>(
       id: res.data.id,
       overview: res.data.overview,
       genres: res.data.genres,
-      contentType: ContentType.TvSerie,
+      contentType: ContentType.TvSeries,
     };
   },
 );

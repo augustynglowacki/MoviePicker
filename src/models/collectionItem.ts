@@ -1,5 +1,4 @@
 import {ContentType} from './contentType';
-
 export interface BackendEntity {
   id: string;
   movieId: number;
