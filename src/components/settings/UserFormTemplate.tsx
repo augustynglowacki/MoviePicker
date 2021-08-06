@@ -44,6 +44,7 @@ const UserFormTemplate: React.FC<Props> = ({
           onChange={formElement.onChange}
           error={formElement.error}
           secureTextEntry={formElement.secure}
+          key={formElement.label}
         />
       ))}
       <CustomButton
