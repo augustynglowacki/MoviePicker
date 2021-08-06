@@ -1,5 +1,5 @@
 export * from './common';
-export * from './routeNames';
+export * from './navigation';
 export * from './iconNames';
 export * from './formValues';
 export * from './formDisplayNames';

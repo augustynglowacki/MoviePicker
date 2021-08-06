@@ -14,7 +14,6 @@ export const getMovies = createAsyncThunk<Movie[]>(
       `movie/popular?api_key=${API_KEY}&language=en-US&page=${randomItem}`, //same
     );
 
-    const newresult: Movie[] = convertResponseToMovie(res.data.results);
-    return newresult;
+    return convertResponseToMovie(res.data.results, true);
   },
 );

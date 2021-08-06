@@ -1,21 +1,25 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
-import {useEffect} from 'react';
-import {RegisterForm} from 'src/models';
-import auth from '@react-native-firebase/auth';
-import {createUserWithEmailAndPassword} from 'src/redux/user/UserAction';
-import {useDispatch, useSelector} from 'react-redux';
-import {userThunkSelector} from 'src/redux/user/UserSlice';
-import {useFormik} from 'formik';
-import {useTranslation} from 'react-i18next';
-import RegisterComponent from 'src/components/auth/Register';
-import * as Yup from 'yup';
+import React, {useEffect} from 'react';
+import LoginComponent from 'src/components/auth/Login';
+import {LoginForm} from 'src/models';
 import {Route} from 'src/constants';
-import {MIN_PASSWORD_LENGTH} from 'src/constants/formValues';
+import auth from '@react-native-firebase/auth';
+import {useDispatch} from 'react-redux';
+import {
+  signInWithEmailAndPassword,
+  signInWithGoogle,
+} from 'src/redux/user/UserAction';
+import {useSelector} from 'react-redux';
+import {userThunkSelector} from 'src/redux/user/UserSlice';
+import {useTranslation} from 'react-i18next';
+import {useFormik} from 'formik';
+import {MIN_PASSWORD_LENGTH} from './RegisterScreen';
+import {getGoogleCredential} from '../service/firestore/getGoogleCredential';
+import * as Yup from 'yup';
 
-const initialState = {username: '', email: '', password: ''};
+const initialState = {email: '', password: ''};
 
-const Register: React.FC = () => {
+const LoginScreen: React.FC = () => {
   const {error, loading} = useSelector(userThunkSelector);
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
@@ -30,22 +34,27 @@ const Register: React.FC = () => {
     return subscriber;
   }, [navigate]);
 
-  const handleCreateUser = ({email, password, username}: RegisterForm) => {
+  const handleSignInWithGoogle = async () => {
+    const googleCredential = await getGoogleCredential();
+    if (googleCredential) {
+      dispatch(signInWithGoogle(googleCredential));
+    }
+  };
+
+  const handleLoginUser = ({email, password}: LoginForm) => {
     dispatch(
-      createUserWithEmailAndPassword({
+      signInWithEmailAndPassword({
         email,
         password,
-        displayName: username,
       }),
     );
   };
 
   const onSubmit = () => {
-    handleCreateUser(form);
+    handleLoginUser(form);
   };
 
   const validationSchema = Yup.object({
-    username: Yup.string().required(t('required')),
     email: Yup.string().email(t('email')).required(t('required')),
     password: Yup.string()
       .min(MIN_PASSWORD_LENGTH, t('short', {MIN_PASSWORD_LENGTH}))
@@ -57,7 +66,7 @@ const Register: React.FC = () => {
     handleSubmit,
     values: form,
     errors,
-  } = useFormik<RegisterForm>({
+  } = useFormik<LoginForm>({
     initialValues: initialState,
     validationSchema,
     //validate only after submit click
@@ -67,15 +76,16 @@ const Register: React.FC = () => {
   });
 
   return (
-    <RegisterComponent
+    <LoginComponent
       onSubmit={handleSubmit}
       onChange={handleChange}
       form={form}
       serverError={error}
       errors={errors}
+      signUpWithGoogle={handleSignInWithGoogle}
       loading={loading}
     />
   );
 };
 
-export default Register;
+export default LoginScreen;

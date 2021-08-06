@@ -15,7 +15,7 @@ import Avatar from 'src/components/settings/Avatar';
 import SettingOptionBox from 'src/components/settings/SettingOptionBox';
 import ChangeBackground from 'src/components/settings/ChangeBackground';
 
-const Settings: React.FC = () => {
+const SettingsScreen: React.FC = () => {
   const [profileURI, setProfileURI] = useState<string>(
     'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultProfile.jpeg?alt=media&token=bc972054-6f70-4339-a72d-4a6c89be93a2',
   );
@@ -101,6 +101,7 @@ const Settings: React.FC = () => {
             <SettingOptionBox
               text={formEl.text}
               navigateTo={formEl.navigateTo}
+              key={formEl.text}
             />
           ))}
         </Container>
@@ -108,4 +109,4 @@ const Settings: React.FC = () => {
   }
 };
 
-export default Settings;
+export default SettingsScreen;

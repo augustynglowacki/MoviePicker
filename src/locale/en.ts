@@ -17,7 +17,7 @@ const translations = {
   },
   movies: {
     movies: 'Movies',
-    tvSeries: 'TV Shows',
+    tvSeries: 'TV Series',
     favorite: 'Favorite',
     watched: 'Watched',
     toWatch: 'To watch',
@@ -35,7 +35,7 @@ const translations = {
   },
   profile: {
     explore: 'Explore your profile.',
-    exploreSub: 'With free account you gain access to your movies collections!',
+    exploreSub: 'With a free account you can do much more stuff!',
     button: 'Sign in now',
   },
 };

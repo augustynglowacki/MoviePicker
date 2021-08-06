@@ -11,6 +11,7 @@ import SocialButton from './SocialButton';
 import TabIcon from './TabIcon';
 import Icon from './Icon';
 import HeaderBar from './HeaderBar';
+import Loading from './Loading';
 
 export {
   CustomButton,
@@ -22,6 +23,7 @@ export {
   MovieBox,
   SectionHeader,
   SocialButton,
+  Loading,
   TabIcon,
   ErrorWrapper,
   Icon,

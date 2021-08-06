@@ -1,30 +1,10 @@
-import {BackendUser} from './backendUser';
-import {LoginForm} from './loginForm';
-import {Movie, MovieAxiosResponse, MovieDetails, MovieState} from './movie';
-import {RegisterForm} from './registerForm';
-import {
-  TvSeries,
-  TvSeriesDetails,
-  TvSeriesDetailsAxiosResponse,
-} from './TvSeries';
-import {Actor} from './actor';
-import {BackendEntity} from './backendEntity';
-import {Genres} from './genres';
-import {UserFormDataTemplate} from './UserFormDataTemplate';
-
-export type {
-  Movie,
-  RegisterForm,
-  TvSeries,
-  Actor,
-  LoginForm,
-  BackendUser,
-  MovieAxiosResponse,
-  MovieState,
-  BackendEntity,
-  Genres,
-  TvSeriesDetails,
-  TvSeriesDetailsAxiosResponse,
-  MovieDetails,
-  UserFormDataTemplate,
-};
+export * from './user';
+export * from './login';
+export * from './movies';
+export * from './register';
+export * from './tvSeries';
+export * from './actors';
+export * from './collectionItem';
+export * from './genre';
+export * from './contentType';
+export * from './userFormDataTemplate';

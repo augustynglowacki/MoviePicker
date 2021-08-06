@@ -5,17 +5,13 @@ import Profile from 'src/components/profile/Profile';
 import {BlurView} from '@react-native-community/blur';
 import palette from 'src/styles/palette';
 import {useTranslation} from 'react-i18next';
-import {movieSelector} from 'src/redux/movie/MovieSlice';
+import {popularSelector} from 'src/redux/popular/PopularSlice';
 import {useSelector} from 'react-redux';
 import {CustomButton} from 'src/components/common';
 import FavoriteContentBox from 'src/components/favorite/FavoriteContentBox';
-import {Route} from 'src/constants';
+import {ExploreScreenParams, Route} from 'src/constants';
 
-interface Props {
-  isLiked: boolean;
-}
-
-const NotLoggedIn: React.FC<Props> = ({isLiked}) => {
+const ExploreScreen: React.FC<ExploreScreenParams> = ({isLiked}) => {
   const {navigate} = useNavigation();
   const {t} = useTranslation('profile');
 
@@ -23,7 +19,7 @@ const NotLoggedIn: React.FC<Props> = ({isLiked}) => {
     navigate(Route.AUTH);
   }, [navigate]);
 
-  const {movies} = useSelector(movieSelector);
+  const {movies} = useSelector(popularSelector);
 
   return (
     <View style={styles.container}>
@@ -44,7 +40,7 @@ const NotLoggedIn: React.FC<Props> = ({isLiked}) => {
   );
 };
 
-export default NotLoggedIn;
+export default ExploreScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -70,7 +66,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   subText: {
-    fontSize: 10,
+    fontSize: 12,
     marginVertical: 10,
     color: palette.white,
     textAlign: 'center',

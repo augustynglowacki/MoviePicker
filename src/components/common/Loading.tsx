@@ -5,8 +5,7 @@ import Container from 'src/components/common/Container';
 import {Icon} from 'src/components/common';
 import {IconTypes} from 'src/constants';
 
-const Loading: React.FC = () => {
-  // ts
+const LoadingScreen: React.FC = () => {
   const rotateAnim = useRef(new Animated.Value(0)).current;
 
   Animated.loop(
@@ -49,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Loading;
+export default LoadingScreen;

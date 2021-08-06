@@ -1,17 +1,15 @@
 import {combineReducers} from '@reduxjs/toolkit';
-import MoviesSliceReducer from './movie/MovieSlice';
-import GenresSliceReducer from './genres/GenresSlice';
+import PopularSliceReducer from './popular/PopularSlice';
 import SearchSliceReducer from './search/SearchSlice';
-import MovieDetailsReducer from './movieDetails/movieDetailsSlice';
+import DetailsSliceReducer from './details/DetailsSlice';
 import userSliceReducer from './user/UserSlice';
 
 // Combining multiple reducers - more will be added in the future
 const rootReducer = combineReducers({
-  movies: MoviesSliceReducer,
+  popular: PopularSliceReducer,
   users: userSliceReducer,
-  genres: GenresSliceReducer,
   searchedData: SearchSliceReducer,
-  movieDetails: MovieDetailsReducer,
+  details: DetailsSliceReducer,
 });
 //We declared RootState, which we’ll use in our selectors, for strongly-typed access to our Redux state.
 export type RootState = ReturnType<typeof rootReducer>;

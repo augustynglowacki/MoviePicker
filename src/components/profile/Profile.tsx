@@ -1,12 +1,12 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
-import {movieSelector} from 'src/redux/movie/MovieSlice';
+import {popularSelector} from 'src/redux/popular/PopularSlice';
 import {CollectionContentBox, Container} from '../common';
 import ProfileHeader from './ProfileHeader';
 
 const ProfileComponent: React.FC = () => {
-  const {movies} = useSelector(movieSelector);
+  const {movies} = useSelector(popularSelector);
   const {t} = useTranslation('movies');
   return (
     <Container>

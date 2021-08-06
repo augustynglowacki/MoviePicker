@@ -1,9 +1,11 @@
 import React from 'react';
 import {ListRenderItem, StyleSheet, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
-import {MovieBox, ErrorWrapper, SectionHeader} from '.';
 import palette from 'src/styles/palette';
 import {Movie} from 'src/models';
+import ErrorWrapper from './ErrorWrapper';
+import MovieBox from './MovieBox';
+import SectionHeader from './SectionHeader';
 
 interface Props {
   title: string;

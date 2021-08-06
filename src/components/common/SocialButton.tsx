@@ -28,11 +28,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 10,
+    marginLeft: 12,
   },
   image: {
     width: 30,
     height: 30,
-    borderRadius: 100,
   },
 });

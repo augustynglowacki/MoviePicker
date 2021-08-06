@@ -53,6 +53,7 @@ const userSlice = createSlice({
     });
     builder.addCase(signInWithEmailAndPassword.pending, state => {
       state.loading = true;
+      state.error = '';
     });
     builder.addCase(signInWithEmailAndPassword.rejected, (state, action) => {
       state.loading = false;
@@ -67,6 +68,7 @@ const userSlice = createSlice({
     });
     builder.addCase(updateUserEmail.pending, state => {
       state.loading = true;
+      state.error = '';
     });
     builder.addCase(updateUserEmail.rejected, (state, action) => {
       state.loading = false;
@@ -80,6 +82,7 @@ const userSlice = createSlice({
     });
     builder.addCase(updateUserPassword.pending, state => {
       state.loading = true;
+      state.error = '';
     });
     builder.addCase(updateUserPassword.rejected, (state, action) => {
       state.loading = false;
@@ -90,6 +93,7 @@ const userSlice = createSlice({
     });
     builder.addCase(logOutUser.pending, state => {
       state.loading = true;
+      state.error = '';
     });
     builder.addCase(logOutUser.fulfilled, state => {
       state.user.email = '';
@@ -112,6 +116,7 @@ const userSlice = createSlice({
     );
     builder.addCase(createUserWithEmailAndPassword.pending, state => {
       state.loading = true;
+      state.error = '';
     });
     builder.addCase(
       createUserWithEmailAndPassword.rejected,
@@ -129,6 +134,7 @@ const userSlice = createSlice({
     });
     builder.addCase(signInWithGoogle.pending, state => {
       state.loading = true;
+      state.error = '';
     });
     builder.addCase(signInWithGoogle.rejected, state => {
       state.loading = false;
