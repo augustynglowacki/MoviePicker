@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-import {BackendEntity, Movie} from 'src/models';
+import {CollectionItem, Movie} from 'src/models';
 import FavoriteContentBox from 'src/components/favorite/FavoriteContentBox';
 
 const FavoriteScreen: React.FC = () => {
-  const [backendMovies, setBackendMovies] = useState<BackendEntity[]>([]);
+  const [backendMovies, setBackendMovies] = useState<CollectionItem[]>([]);
 
   useEffect(() => {
     fetchData();
@@ -19,7 +19,7 @@ const FavoriteScreen: React.FC = () => {
         .doc(userId)
         .collection('favoriteMovies')
         .onSnapshot(snap => {
-          const data: BackendEntity[] = snap.docs.map(doc => ({
+          const data: CollectionItem[] = snap.docs.map(doc => ({
             id: doc.id,
             movieId: doc.data().movieId,
             title: doc.data().title,
@@ -36,8 +36,8 @@ const FavoriteScreen: React.FC = () => {
     }
   };
 
-  const convertEntityToMovie = (data: BackendEntity[]): Movie[] => {
-    return data.map((movie: BackendEntity) => ({
+  const convertEntityToMovie = (data: CollectionItem[]): Movie[] => {
+    return data.map((movie: CollectionItem) => ({
       id: movie.movieId,
       title: movie.title,
       voteAverage: movie.voteAverage,

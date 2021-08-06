@@ -1,5 +1,5 @@
 import {ContentType} from './contentType';
-export interface BackendEntity {
+export interface CollectionItem {
   id: string;
   movieId: number;
   title: string;
