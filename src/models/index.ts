@@ -10,6 +10,7 @@ import {
 import {Actor} from './actor';
 import {BackendEntity} from './backendEntity';
 import {Genres} from './genres';
+import {UserFormDataTemplate} from './UserFormDataTemplate';
 
 export type {
   Movie,
@@ -25,4 +26,5 @@ export type {
   TvSeriesDetails,
   TvSeriesDetailsAxiosResponse,
   MovieDetails,
+  UserFormDataTemplate,
 };
