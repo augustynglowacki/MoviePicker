@@ -1,5 +1,5 @@
-import {Genres} from './genre';
-import {MovieBase} from './movies';
+import {Genres} from './genres';
+import {MovieBase} from './movie';
 export interface TvSeriesDetails extends MovieBase {
   episodesCount?: number;
   seasonsCount?: number;

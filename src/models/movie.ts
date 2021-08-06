@@ -1,5 +1,5 @@
 import {ContentType} from './contentType';
-import {Genres} from './genre';
+import {Genres} from './genres';
 
 export interface MovieBase {
   voteAverage: number;

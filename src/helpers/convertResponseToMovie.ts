@@ -1,6 +1,5 @@
 import {genres} from 'src/api/genres';
-import {ContentType, Movie} from 'src/models';
-import {MovieApi} from 'src/models/movies';
+import {ContentType, Movie, MovieApi} from 'src/models';
 
 export const convertResponseToMovie = (
   data: MovieApi[],
@@ -14,7 +13,7 @@ export const convertResponseToMovie = (
       voteAverage: vote_average,
       overview: overview,
       genres: genre_ids.map(genre => genres[genre]),
-      contentType: isMovie ? ContentType.Movie : ContentType.TvSerie,
+      contentType: isMovie ? ContentType.Movie : ContentType.TvSeries,
     }),
   );
 };
