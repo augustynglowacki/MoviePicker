@@ -30,7 +30,7 @@ const getIconFont = (type: IconTypes) => {
       return AntDesign;
     case IconTypes.ZOCIAL:
       return ZocialIcon;
-    case IconTypes.SIMPLEL:
+    case IconTypes.SIMPLE:
       return SimpleLineIcon;
     case IconTypes.FOUNDATION:
       return FoundationIcon;

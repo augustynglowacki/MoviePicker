@@ -4,7 +4,7 @@ import auth from '@react-native-firebase/auth';
 import {BackendEntity, Movie} from 'src/models';
 import FavoriteContentBox from 'src/components/favorite/FavoriteContentBox';
 
-const Favorite: React.FC = () => {
+const FavoriteScreen: React.FC = () => {
   const [backendMovies, setBackendMovies] = useState<BackendEntity[]>([]);
 
   useEffect(() => {
@@ -14,44 +14,41 @@ const Favorite: React.FC = () => {
   const fetchData = async () => {
     try {
       const userId = auth().currentUser?.uid ?? 'none';
-      const db = firestore(); //create service for firebase
+      const db = firestore();
       db.collection('users')
         .doc(userId)
         .collection('favoriteMovies')
         .onSnapshot(snap => {
-          const newww = snap.docs.map(doc => ({
-            // nice
+          const data: BackendEntity[] = snap.docs.map(doc => ({
             id: doc.id,
             movieId: doc.data().movieId,
             title: doc.data().title,
-            vote_average: doc.data().number,
-            poster_path: doc.data().poster_path,
+            voteAverage: doc.data().voteAverage,
+            posterPath: doc.data().posterPath,
             overview: doc.data().overview,
-            genre_ids: doc.data().genre_ids,
-            isMovie: doc.data().isMovie,
+            genres: doc.data().genres,
+            contentType: doc.data().contentType,
           }));
-          setBackendMovies(newww);
+          setBackendMovies(data);
         });
     } catch (error) {
       console.log(error);
     }
   };
 
-  const convertEntityToMovie = (data: BackendEntity[]) => {
-    const newResult: Movie[] = data.map((movie: BackendEntity) => ({
-      //shitty name
+  const convertEntityToMovie = (data: BackendEntity[]): Movie[] => {
+    return data.map((movie: BackendEntity) => ({
       id: movie.movieId,
       title: movie.title,
-      vote_average: movie.vote_average,
-      poster_path: movie.poster_path,
+      voteAverage: movie.voteAverage,
+      posterPath: movie.posterPath,
       overview: movie.overview,
-      genre_ids: movie.genre_ids,
-      isMovie: movie.isMovie,
+      genres: movie.genres,
+      contentType: movie.contentType,
     }));
-    return newResult;
   };
 
   return <FavoriteContentBox movies={convertEntityToMovie(backendMovies)} />;
 };
 
-export default Favorite;
+export default FavoriteScreen;

@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-const LinearGradientCover = () => (
+const BackgroundGradient: React.FC = () => (
   <View style={styles.linearWrapper}>
     <LinearGradient
       start={{x: 0, y: 0}}
@@ -21,10 +21,8 @@ const styles = StyleSheet.create({
   linearGrandient: {
     width: '100%',
     height: 150,
-    alignItems: 'center',
-    justifyContent: 'center',
     position: 'absolute',
   },
 });
 
-export default LinearGradientCover;
+export default BackgroundGradient;

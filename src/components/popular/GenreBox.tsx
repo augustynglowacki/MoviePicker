@@ -14,18 +14,14 @@ const GenreBox: React.FC<Props> = ({name}) => (
 
 const styles = StyleSheet.create({
   categoryContainer: {
-    marginRight: 6,
-    marginLeft: 6,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 12,
-    paddingVertical: 5,
+    marginHorizontal: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 5,
     backgroundColor: palette.white,
   },
   categoryText: {
-    color: palette.black,
-    fontWeight: '600',
+    color: palette.darkGrey,
     fontSize: 13,
   },
 });

@@ -1,6 +1,6 @@
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {BackendUser} from '../../models';
+import {BackendUser} from 'src/models';
 import {User} from './UserSlice';
 
 interface LoginUser {
@@ -28,7 +28,7 @@ export const signInWithEmailAndPassword = createAsyncThunk<User, LoginUser>(
     if (!email || !displayName || !photoURL) {
       return rejectWithValue('Error');
     }
-    const newUser: User = {
+    return {
       id: uid,
       email,
       userName: displayName,
@@ -36,7 +36,6 @@ export const signInWithEmailAndPassword = createAsyncThunk<User, LoginUser>(
       coverPhoto:
         'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultBackground.jpg?alt=media&token=2194f500-dc89-40e4-bc4c-97a4c3f62d82',
     };
-    return newUser;
   },
 );
 
@@ -98,7 +97,7 @@ export const createUserWithEmailAndPassword = createAsyncThunk<
       return rejectWithValue('Error');
     }
 
-    const newUser: User = {
+    return {
       id: uid,
       email,
       userName: displayNameFirebase,
@@ -106,8 +105,6 @@ export const createUserWithEmailAndPassword = createAsyncThunk<
       coverPhoto:
         'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultBackground.jpg?alt=media&token=2194f500-dc89-40e4-bc4c-97a4c3f62d82',
     };
-
-    return newUser;
   },
 );
 
@@ -124,7 +121,7 @@ export const signInWithGoogle = createAsyncThunk<
   if (!email || !displayName || !photoURL) {
     return rejectWithValue('Error');
   }
-  const newUser: User = {
+  return {
     id: uid,
     email,
     userName: displayName,
@@ -132,5 +129,4 @@ export const signInWithGoogle = createAsyncThunk<
     coverPhoto:
       'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultBackground.jpg?alt=media&token=2194f500-dc89-40e4-bc4c-97a4c3f62d82',
   };
-  return newUser;
 });

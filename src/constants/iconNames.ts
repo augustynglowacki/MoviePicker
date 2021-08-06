@@ -6,7 +6,7 @@ export enum IconTypes {
   ANT = 'ant',
   SIMPLELINE = 'simpleLine',
   ZOCIAL = 'zocial',
-  SIMPLEL = 'simplel',
+  SIMPLE = 'simple',
   FOUNDATION = 'foundation',
   FA5 = 'fa5',
   FA = 'fa',

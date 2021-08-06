@@ -8,7 +8,7 @@ import {Container, CustomButton, Message} from 'src/components/common';
 import SettingInput from './SettingInput';
 import Avatar from './Avatar';
 import ChangeBackground from './ChangeBackground';
-import {UpdateUserFormValues} from 'src/screens/Settings';
+import {UpdateUserFormValues} from 'src/screens/SettingsScreen';
 import {Route} from 'src/constants';
 
 interface Props {

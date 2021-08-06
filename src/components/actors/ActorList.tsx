@@ -14,7 +14,7 @@ interface Props {
 const ActorList: React.FC<Props> = ({data, error}) => {
   const {t} = useTranslation('movies');
   const renderItem: ListRenderItem<Actor> = ({item}) => (
-    <ActorItem name={item.name} profile_path={item.profile_path} />
+    <ActorItem name={item.name} profilePath={item.profilePath} />
   );
 
   if (error) {

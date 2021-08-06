@@ -7,27 +7,27 @@ import {
   Platform,
   Dimensions,
 } from 'react-native';
-import LinearGradientCover from './LinearGradientCover';
+import BackgroundGradient from './BackgroundGradient';
 import palette from 'src/styles/palette';
 import {API_IMAGES} from '@env';
-import {Icon} from '../common';
 import {IconTypes} from 'src/constants';
+import {Icon} from 'src/components/common';
 
 interface Props {
-  poster_path: string;
-  navigation: any;
+  posterPath: string;
+  goBack: () => void;
 }
 
 const HEIGHT = Dimensions.get('window').height;
 
-const ContentWrapper: React.FC<Props> = ({navigation, poster_path}) => {
+const Background: React.FC<Props> = ({goBack, posterPath}) => {
   return (
     <ImageBackground
       style={styles.imageBackground}
-      source={{uri: `${API_IMAGES}${poster_path}`}}>
+      source={{uri: `${API_IMAGES}${posterPath}`}}>
       <View style={styles.contentWrapper}>
         <View style={styles.headerWrapper}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={goBack}>
             <Icon
               type={IconTypes.ENTYPO}
               name="chevron-left"
@@ -36,7 +36,7 @@ const ContentWrapper: React.FC<Props> = ({navigation, poster_path}) => {
             />
           </TouchableOpacity>
         </View>
-        <LinearGradientCover />
+        <BackgroundGradient />
       </View>
     </ImageBackground>
   );
@@ -58,4 +58,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ContentWrapper;
+export default Background;

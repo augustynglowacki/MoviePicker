@@ -1,3 +1,3 @@
 export * from './common';
-export * from './routeNames';
+export * from './navigation';
 export * from './iconNames';

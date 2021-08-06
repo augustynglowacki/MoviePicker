@@ -41,7 +41,7 @@ const RegisterComponent: React.FC<Props> = ({
       <AnimatedLayout>
         <Animated.View entering={StretchInX.springify()}>
           <Image
-            source={require('../../assets/images/logo.png')}
+            source={require('src/assets/images/logo.png')}
             style={styles.logoImage}
           />
         </Animated.View>

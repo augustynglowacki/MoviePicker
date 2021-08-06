@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: palette.white,
     justifyContent: 'center',
-    marginTop: 3,
+    marginTop: 20,
     marginHorizontal: 3,
   },
   register: {

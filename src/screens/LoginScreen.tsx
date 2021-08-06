@@ -13,13 +13,13 @@ import {useSelector} from 'react-redux';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 import {useTranslation} from 'react-i18next';
 import {useFormik} from 'formik';
-import {MIN_PASSWORD_LENGTH} from './Register';
+import {MIN_PASSWORD_LENGTH} from './RegisterScreen';
 import {getGoogleCredential} from '../service/firestore/getGoogleCredential';
 import * as Yup from 'yup';
 
 const initialState = {email: '', password: ''};
 
-const Login: React.FC = () => {
+const LoginScreen: React.FC = () => {
   const {error, loading} = useSelector(userThunkSelector);
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
@@ -88,4 +88,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default LoginScreen;
