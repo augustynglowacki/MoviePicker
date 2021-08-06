@@ -5,17 +5,13 @@ import Profile from 'src/components/profile/Profile';
 import {BlurView} from '@react-native-community/blur';
 import palette from 'src/styles/palette';
 import {useTranslation} from 'react-i18next';
-import {movieSelector} from 'src/redux/movie/MovieSlice';
+import {popularSelector} from 'src/redux/popular/PopularSlice';
 import {useSelector} from 'react-redux';
 import {CustomButton} from 'src/components/common';
 import FavoriteContentBox from 'src/components/favorite/FavoriteContentBox';
-import {Route} from 'src/constants';
+import {ExploreScreenParams, Route} from 'src/constants';
 
-interface Props {
-  isLiked: boolean;
-}
-
-const ExploreScreen: React.FC<Props> = ({isLiked}) => {
+const ExploreScreen: React.FC<ExploreScreenParams> = ({isLiked}) => {
   const {navigate} = useNavigation();
   const {t} = useTranslation('profile');
 
@@ -23,7 +19,7 @@ const ExploreScreen: React.FC<Props> = ({isLiked}) => {
     navigate(Route.AUTH);
   }, [navigate]);
 
-  const {movies} = useSelector(movieSelector);
+  const {movies} = useSelector(popularSelector);
 
   return (
     <View style={styles.container}>

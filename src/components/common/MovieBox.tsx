@@ -25,23 +25,21 @@ const MovieBox: React.FC<Props> = ({movie}) => {
     }).start();
   }, [fadeAnim]);
 
-  if (!movie.poster_path) {
+  if (!movie.posterPath) {
     return null;
   }
   return (
     <TapGestureHandler
       onActivated={() => {
         navigate(Route.DETAILS, {
-          poster_path: movie.poster_path,
-          overview: movie.overview,
-          title: movie.title,
+          posterPath: movie.posterPath,
           id: movie.id,
-          isMovie: movie.isMovie,
+          contentType: movie.contentType,
         });
       }}>
       <Animated.View style={{...styles.movieBox, opacity: fadeAnim}}>
         <ImageBackground
-          source={{uri: `${API_IMAGES}${movie.poster_path}`}}
+          source={{uri: `${API_IMAGES}${movie.posterPath}`}}
           style={styles.movieImage}
         />
         <LinearGradient

@@ -54,7 +54,7 @@ const LoginComponent: React.FC<Props> = ({
       <AnimatedLayout>
         <Animated.View entering={FlipInXDown.springify()}>
           <Image
-            source={require('../../assets/images/logo.png')}
+            source={require('src/assets/images/logo.png')}
             style={styles.logoImage}
           />
         </Animated.View>

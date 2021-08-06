@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Actor, Movie, MovieState} from '../../models';
+import {Actor, Movie, MovieState} from 'src/models';
 import {RootState} from '../rootReducer';
 import {
   getSearchedActor,
@@ -62,9 +62,12 @@ const SearchSlice = createSlice({
     builder.addCase(getSearchedActor.pending, state => {
       state.foundActors.error = '';
     });
-    builder.addCase(getSearchedActor.fulfilled, (state, action) => {
-      state.foundActors.actors = action.payload;
-    });
+    builder.addCase(
+      getSearchedActor.fulfilled,
+      (state, action: PayloadAction<Actor[]>) => {
+        state.foundActors.actors = action.payload;
+      },
+    );
     builder.addCase(getSearchedActor.rejected, (state, action) => {
       state.foundActors.error = action.error.message ?? 'error';
     });

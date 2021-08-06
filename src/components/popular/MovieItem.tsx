@@ -9,7 +9,7 @@ import palette from 'src/styles/palette';
 import {useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
-import RatingBox from '../details/RatingBox';
+import RatingBox from '../common/RatingBox';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {Movie} from 'src/models';
@@ -23,7 +23,7 @@ interface Props {
 const MovieItem: React.FC<Props> = ({movie}) => {
   const {t} = useTranslation('common');
   const {navigate} = useNavigation();
-  const {poster_path, overview, title, id, vote_average, isMovie, genres} =
+  const {posterPath, overview, title, id, voteAverage, genres, contentType} =
     movie;
   const doubleTapRef = useRef();
   const [isLiked, setLiked] = useState<boolean>(false);
@@ -38,11 +38,11 @@ const MovieItem: React.FC<Props> = ({movie}) => {
       ? db.collection('users').doc(userId).collection('favoriteMovies').add({
           movieId: id,
           title,
-          vote_average,
-          poster_path,
+          voteAverage,
+          posterPath,
           overview,
           genres,
-          isMovie,
+          contentType,
         })
       : null;
   };
@@ -74,8 +74,8 @@ const MovieItem: React.FC<Props> = ({movie}) => {
       onActivated={() => {
         navigate(Route.DETAILS, {
           id,
-          poster_path,
-          isMovie,
+          posterPath,
+          contentType,
         });
       }}>
       <TapGestureHandler
@@ -85,7 +85,7 @@ const MovieItem: React.FC<Props> = ({movie}) => {
         onActivated={handleOnActivated}>
         <View style={styles.movieContainer}>
           <ImageBackground
-            source={{uri: `${API_IMAGES}${poster_path}`}}
+            source={{uri: `${API_IMAGES}${posterPath}`}}
             style={styles.image}
           />
           <LinearGradient
@@ -109,16 +109,11 @@ const MovieItem: React.FC<Props> = ({movie}) => {
             <View style={styles.movieInfo}>
               <Text style={styles.title}>{title}</Text>
               <View style={styles.genres}>
-                {genres &&
-                  genres.slice(0, 2).map(genre => {
-                    return (
-                      <View key={genre} style={styles.genres}>
-                        <GenreBox key={genre} name={genre} />
-                      </View>
-                    );
-                  })}
+                {genres.slice(0, 2).map(genre => (
+                  <GenreBox key={genre} name={genre} />
+                ))}
               </View>
-              <RatingBox voteAverage={vote_average} />
+              {!!voteAverage && <RatingBox voteAverage={voteAverage} />}
               {!!isLiked && <Heart />}
             </View>
           </View>
@@ -156,18 +151,18 @@ export const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontSize: 34,
+    fontSize: 33,
     color: palette.white,
     textAlign: 'center',
   },
   genres: {
-    marginTop: 16,
+    marginTop: 32,
     maxWidth: 350,
     fontSize: 14,
     color: palette.white,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: 14,
   },
 });

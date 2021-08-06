@@ -1,19 +1,20 @@
-import {Genres} from '.';
+import {ContentType} from './contentType';
+import {Genres} from './genre';
 
-interface Base {
+export interface MovieBase {
+  voteAverage: number;
+  posterPath: string;
   id: number;
-  title: string;
-  vote_average: number;
-  poster_path: string;
   overview: string;
+  contentType: ContentType;
+  title: string;
 }
-export interface Movie extends Base {
+export interface Movie extends MovieBase {
   genres: string[];
-  isMovie?: boolean;
 }
-export interface MovieDetails extends Base {
+export interface MovieDetails extends MovieBase {
   runtime?: number;
-  release_date?: string;
+  releaseDate?: string;
   genres: Genres[];
 }
 export interface MovieState {

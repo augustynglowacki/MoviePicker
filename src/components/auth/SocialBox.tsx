@@ -15,7 +15,7 @@ const SocialBox: React.FC<Props> = ({onPress}) => {
       <Text style={styles.social}>{t('signInWith')}</Text>
       <SocialButton
         onPress={onPress}
-        icon={require('../../assets/images/google-logo.png')}
+        icon={require('src/assets/images/google-logo.png')}
       />
     </View>
   );

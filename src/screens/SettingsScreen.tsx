@@ -8,7 +8,7 @@ import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import SettingsBox from 'src/components/settings/SettingsBox';
 import {updateUserEmail, updateUserPassword} from 'src/redux/user/UserAction';
-import {MIN_PASSWORD_LENGTH} from './Register';
+import {MIN_PASSWORD_LENGTH} from './RegisterScreen';
 import {Route} from 'src/constants';
 
 export interface UpdateUserFormValues {

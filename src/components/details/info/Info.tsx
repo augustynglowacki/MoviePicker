@@ -1,42 +1,33 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
+import ActorList from 'src/components/actors/ActorList';
+import RatingBox from 'src/components/common/RatingBox';
 import {Actor, MovieDetails, TvSeriesDetails} from 'src/models';
 import palette from 'src/styles/palette';
-import ActorList from '../actors/ActorList';
+
 import InfoBox from './InfoBox';
-import RatingBox from './RatingBox';
 
 interface Props {
-  active: MovieDetails | TvSeriesDetails;
-  isMovie: boolean;
-  movie: MovieDetails;
-  show: TvSeriesDetails;
+  data: MovieDetails | TvSeriesDetails;
   actors: Actor[];
 }
 
-const InfoWrapper: React.FC<Props> = ({
-  isMovie,
-  active,
-  actors,
-  movie,
-  show,
-}) => {
+const Info: React.FC<Props> = ({data, actors}) => {
+  if (!data) {
+    return null;
+  }
   return (
     <View style={styles.bottomWrapper}>
       <AnimatedLayout>
         <Animated.View entering={FlipInXDown.springify().delay(300)}>
-          <Text style={styles.title}>{!!active?.title && active.title}</Text>
+          <Text style={styles.title}>{data.title}</Text>
         </Animated.View>
       </AnimatedLayout>
-      <InfoBox isMovie={isMovie} data={isMovie ? movie : show} />
-      {!!active?.vote_average && (
-        <RatingBox voteAverage={active?.vote_average} />
-      )}
+      <InfoBox data={data} />
+      <RatingBox voteAverage={data.voteAverage} />
       <View style={styles.descriptionWrapper}>
-        <Text style={styles.descriptionText}>
-          {!!active?.overview && active.overview}
-        </Text>
+        <Text style={styles.descriptionText}>{data.overview}</Text>
       </View>
       <ActorList data={actors} />
     </View>
@@ -66,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default InfoWrapper;
+export default Info;

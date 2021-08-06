@@ -2,43 +2,30 @@ import * as React from 'react';
 import {Actor, MovieDetails, TvSeriesDetails} from 'src/models';
 import {StyleSheet} from 'react-native';
 import palette from 'src/styles/palette';
-import {Container} from 'src/components/common';
-import Loading from 'src/screens/Loading';
-import BackgroundWrapper from './BackgroundWrapper';
-import InfoWrapper from './InfoWrapper';
+import {Container, Loading} from 'src/components/common';
+import Background from './background/Background';
+import Info from './info/Info';
 
 interface Props {
-  active: MovieDetails | TvSeriesDetails;
-  poster_path: string;
-  isMovie: boolean;
-  movie: MovieDetails;
-  show: TvSeriesDetails;
+  data: MovieDetails | TvSeriesDetails;
+  posterPath: string;
   movieActors: Actor[];
   goBack: () => void;
 }
 
 const DetailsComponent: React.FC<Props> = ({
-  poster_path,
+  posterPath,
   goBack,
-  active,
-  isMovie,
-  movie,
-  show,
+  data,
   movieActors,
 }) => {
-  if (!show && !movie) {
+  if (!data) {
     return <Loading />;
   }
   return (
     <Container disableSafeArea style={styles.container}>
-      <BackgroundWrapper goBack={goBack} poster_path={poster_path} />
-      <InfoWrapper
-        active={active}
-        actors={movieActors}
-        isMovie={isMovie}
-        movie={movie}
-        show={show}
-      />
+      <Background goBack={goBack} posterPath={posterPath} />
+      <Info actors={movieActors} data={data} />
     </Container>
   );
 };

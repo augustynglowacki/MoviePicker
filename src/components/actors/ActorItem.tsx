@@ -6,12 +6,12 @@ import LinearGradient from 'react-native-linear-gradient';
 import palette from 'src/styles/palette';
 
 interface Props {
-  profile_path: string;
+  profilePath: string;
   name: string;
 }
 
-const ActorItem: React.FC<Props> = ({profile_path, name}) => {
-  if (!profile_path) {
+const ActorItem: React.FC<Props> = ({profilePath, name}) => {
+  if (!profilePath) {
     return null;
   }
 
@@ -19,7 +19,7 @@ const ActorItem: React.FC<Props> = ({profile_path, name}) => {
     <View style={styles.wrapper}>
       <View style={styles.ActorItem}>
         <ImageBackground
-          source={{uri: `${API_IMAGES}${profile_path}`}}
+          source={{uri: `${API_IMAGES}${profilePath}`}}
           style={styles.actorImage}
         />
         <LinearGradient

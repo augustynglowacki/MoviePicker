@@ -14,41 +14,38 @@ const FavoriteScreen: React.FC = () => {
   const fetchData = async () => {
     try {
       const userId = auth().currentUser?.uid ?? 'none';
-      const db = firestore(); //create service for firebase
+      const db = firestore();
       db.collection('users')
         .doc(userId)
         .collection('favoriteMovies')
         .onSnapshot(snap => {
-          const newww = snap.docs.map(doc => ({
-            // nice
+          const data: BackendEntity[] = snap.docs.map(doc => ({
             id: doc.id,
             movieId: doc.data().movieId,
             title: doc.data().title,
-            vote_average: doc.data().number,
-            poster_path: doc.data().poster_path,
+            voteAverage: doc.data().voteAverage,
+            posterPath: doc.data().posterPath,
             overview: doc.data().overview,
             genres: doc.data().genres,
-            isMovie: doc.data().isMovie,
+            contentType: doc.data().contentType,
           }));
-          setBackendMovies(newww);
+          setBackendMovies(data);
         });
     } catch (error) {
       console.log(error);
     }
   };
 
-  const convertEntityToMovie = (data: BackendEntity[]) => {
-    const newResult: Movie[] = data.map((movie: BackendEntity) => ({
-      //shitty name
+  const convertEntityToMovie = (data: BackendEntity[]): Movie[] => {
+    return data.map((movie: BackendEntity) => ({
       id: movie.movieId,
       title: movie.title,
-      vote_average: movie.vote_average,
-      poster_path: movie.poster_path,
+      voteAverage: movie.voteAverage,
+      posterPath: movie.posterPath,
       overview: movie.overview,
       genres: movie.genres,
-      isMovie: movie.isMovie,
+      contentType: movie.contentType,
     }));
-    return newResult;
   };
 
   return <FavoriteContentBox movies={convertEntityToMovie(backendMovies)} />;

@@ -1,4 +1,4 @@
-export const genres: {[key: number]: string} = {
+export const genres: Record<number, string> = {
   12: 'Adventure',
   14: 'Fantasy',
   16: 'Animation',

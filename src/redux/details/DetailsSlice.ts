@@ -3,28 +3,31 @@ import {RootState} from '../rootReducer';
 import {
   getMovieActors,
   getMovieDetails,
-  getTvSeries,
-} from './movieDetailsActions';
-import {Actor, MovieDetails, TvSeriesDetails} from '../../models';
+  getTvSeriesDetails,
+  getTvSeriesActors,
+} from './DetailsActions';
+import {Actor, MovieDetails, TvSeriesDetails} from 'src/models';
 
-interface MovieDetailsState {
+interface DetailsState {
   fetchedMovies: Record<number, MovieDetails>;
   fetchedTvSeries: Record<number, TvSeriesDetails>;
   loading: boolean;
   error: string;
   movieActors: Actor[];
+  tvSeriesActors: Actor[];
 }
 
-const initialState: MovieDetailsState = {
+const initialState: DetailsState = {
   fetchedMovies: {},
   fetchedTvSeries: {},
   loading: false,
   error: '',
   movieActors: [],
+  tvSeriesActors: [],
 };
 
-const movieDetailsSlice = createSlice({
-  name: 'movieDetails',
+const detailsSlice = createSlice({
+  name: 'details',
   initialState,
   reducers: {},
   extraReducers: builder => {
@@ -33,52 +36,58 @@ const movieDetailsSlice = createSlice({
         ...state.fetchedMovies,
         [action.payload.id]: action.payload,
       };
-
       state.loading = false;
     });
     builder.addCase(getMovieDetails.pending, state => {
       state.loading = true;
+      state.error = '';
     });
     builder.addCase(getMovieDetails.rejected, (state, action) => {
-      // Add user to the state array
       state.loading = false;
       state.error = action.error.message ?? 'error';
     });
-
-    builder.addCase(getTvSeries.fulfilled, (state, action) => {
+    builder.addCase(getTvSeriesDetails.fulfilled, (state, action) => {
       state.fetchedTvSeries = {
         ...state.fetchedTvSeries,
         [action.payload.id]: action.payload,
       };
     });
-
-    builder.addCase(getTvSeries.pending, state => {
+    builder.addCase(getTvSeriesDetails.pending, state => {
       state.loading = true;
+      state.error = '';
     });
-    builder.addCase(getTvSeries.rejected, (state, action) => {
-      // Add user to the state array
+    builder.addCase(getTvSeriesDetails.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message ?? 'error';
     });
 
     builder.addCase(getMovieActors.fulfilled, (state, action) => {
-      // Add user to the state array
       state.movieActors = action.payload;
       state.loading = false;
     });
     builder.addCase(getMovieActors.pending, state => {
-      // Add user to the state array
       state.loading = true;
+      state.error = '';
     });
     builder.addCase(getMovieActors.rejected, (state, action) => {
-      // Add user to the state array
+      state.error = action.error.message ?? 'error';
+    });
+
+    builder.addCase(getTvSeriesActors.fulfilled, (state, action) => {
+      state.tvSeriesActors = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(getTvSeriesActors.pending, state => {
+      state.loading = true;
+      state.error = '';
+    });
+    builder.addCase(getTvSeriesActors.rejected, (state, action) => {
       state.error = action.error.message ?? 'error';
     });
   },
 });
 
-//Since createSlice has taken care of building the reducer, we export it via: export default movieSlice.reducer;
-export default movieDetailsSlice.reducer;
+export default detailsSlice.reducer;
 
-export const movieDetailsSelector = (state: RootState) => state.movieDetails;
+export const detailsSelector = (state: RootState) => state.details;
 export {getMovieDetails};

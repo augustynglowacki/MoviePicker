@@ -1,29 +1,19 @@
-import {Genres} from '.';
-
-interface Base {
-  number_of_episodes?: number;
-  number_of_seasons?: number;
+import {Genres} from './genre';
+import {MovieBase} from './movies';
+export interface TvSeriesDetails extends MovieBase {
+  episodesCount?: number;
+  seasonsCount?: number;
+  genres: Genres[];
+}
+interface BaseApi {
   vote_average: number;
   poster_path: string;
   id: number;
   overview: string;
-  release_date?: string;
-  genres: Genres[];
 }
-export interface TvSeries {
-  id: number;
-  title: string;
-  vote_average?: number;
-  poster_path: string;
-  overview: string;
-  // english please and i prefer to change this property into -> type: 'movie' | 'tv-series'
-  isMovie?: boolean;
-}
-
-export interface TvSeriesDetails extends Base {
-  title: string;
-}
-
-export interface TvSeriesDetailsAxiosResponse extends Base {
+export interface TvSeriesDetailsAxiosResponse extends BaseApi {
   name: string;
+  number_of_episodes?: number;
+  number_of_seasons?: number;
+  genres: Genres[];
 }

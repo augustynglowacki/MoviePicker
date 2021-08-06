@@ -1,14 +1,14 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Popular from 'src/screens/Popular';
-import Discover from 'src/screens/Discover';
+import PopularScreen from 'src/screens/PopularScreen';
+import DiscoverScreen from 'src/screens/DiscoverScreen';
 import {StyleSheet} from 'react-native';
-import Profile from 'src/screens/Profile';
+import ProfileScreen from 'src/screens/ProfileScreen';
 import {useSelector} from 'react-redux';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
-import Explore from 'src/screens/Explore';
+import ExploreScreen from 'src/screens/ExploreScreen';
 import {TabIcon} from 'src/components/common';
-import Favorite from 'src/screens/Favorite';
+import FavoriteScreen from 'src/screens/FavoriteScreen';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {BOTTOM_TABS_HEIGHT, Route} from 'src/constants';
 
@@ -26,14 +26,14 @@ const BottomTabsNavigator = () => {
       }}>
       <Tab.Screen
         name={Route.LOGIN}
-        component={Popular}
+        component={PopularScreen}
         options={{
           tabBarIcon: ({focused}) => TabIcon(focused, 'home'),
         }}
       />
       <Tab.Screen
         name={Route.DISCOVER}
-        component={Discover}
+        component={DiscoverScreen}
         options={{
           tabBarIcon: ({focused}) => TabIcon(focused, 'search'),
         }}
@@ -42,14 +42,14 @@ const BottomTabsNavigator = () => {
         <>
           <Tab.Screen
             name={Route.FAVORITE}
-            component={Favorite}
+            component={FavoriteScreen}
             options={{
               tabBarIcon: ({focused}) => TabIcon(focused, 'favorite-outline'),
             }}
           />
           <Tab.Screen
             name={Route.PROFILE}
-            component={Profile}
+            component={ProfileScreen}
             options={{
               tabBarIcon: ({focused}) => TabIcon(focused, 'person-outline'),
             }}
@@ -59,14 +59,14 @@ const BottomTabsNavigator = () => {
         <>
           <Tab.Screen
             name={Route.FAVORITE}
-            children={() => <Explore isLiked={true} />}
+            children={() => <ExploreScreen isLiked={true} />}
             options={{
               tabBarIcon: ({focused}) => TabIcon(focused, 'favorite-outline'),
             }}
           />
           <Tab.Screen
             name={Route.PROFILE}
-            component={Explore}
+            component={ExploreScreen}
             options={{
               tabBarIcon: ({focused}) => TabIcon(focused, 'person-outline'),
             }}
