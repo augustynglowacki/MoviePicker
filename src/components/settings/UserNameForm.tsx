@@ -1,50 +1,38 @@
 import React from 'react';
-import SettingInput from 'src/components/settings/SettingInput';
 import * as Yup from 'yup';
-import {MIN_USERNAME_LENGTH} from 'src/constants/formValues';
 import {useFormik} from 'formik';
 import auth from '@react-native-firebase/auth';
 import {useDispatch} from 'react-redux';
 import {setActiveUser, setErrorNull} from 'src/redux/user/UserSlice';
-import {IconTypes} from 'src/constants';
+import {Route, MIN_USERNAME_LENGTH} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
-import {Route} from 'src/constants';
-import {HeaderBar} from 'src/components/common';
-import {
-  Container,
-  CustomButton,
-  Message,
-  SectionHeader,
-} from 'src/components/common';
-import Loading from 'src/screens/Loading';
-import palette from 'src/styles/palette';
+import {UserFormDataTemplate} from 'src/models';
+import UserFormTemplate from './UserFormTemplate';
 
-interface DisplayNameState {
+interface DisplayNameForm {
   displayName: string;
 }
 
 interface Props {
-  goBackFunction: () => void;
+  goBack: () => void;
   userName: string;
   error: string;
   loading: boolean;
 }
 
-const UserNameForm: React.FC<Props> = ({
-  goBackFunction,
-  userName,
-  error,
-  loading,
-}) => {
+const UserNameForm: React.FC<Props> = ({goBack, userName, error, loading}) => {
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
   const redirectToProfile = () => navigate(Route.PROFILE);
+
   const validationSchema = Yup.object({
     displayName: Yup.string().min(MIN_USERNAME_LENGTH),
   });
-  const initialDisplayNameState = {
+
+  const initialValues = {
     displayName: userName,
   };
+
   const onSubmit = () => {
     const displayNameFirebase = auth().currentUser?.displayName;
     if (values.displayName !== displayNameFirebase) {
@@ -53,19 +41,14 @@ const UserNameForm: React.FC<Props> = ({
   };
 
   const {handleChange, errors, values} = useFormik({
-    initialValues: initialDisplayNameState,
+    initialValues: initialValues,
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit,
   });
-  const leftIcon = {
-    name: 'arrow-back-ios',
-    type: IconTypes.MATERIAL,
-    onPressFunction: goBackFunction,
-  };
 
-  const handleUserNameUpdate = async ({displayName}: DisplayNameState) => {
+  const handleUserNameUpdate = async ({displayName}: DisplayNameForm) => {
     await auth().currentUser?.updateProfile({
       displayName,
     });
@@ -78,28 +61,25 @@ const UserNameForm: React.FC<Props> = ({
     redirectToProfile();
   };
 
-  if (loading) {
-    return <Loading />;
-  }
+  const config: UserFormDataTemplate[] = [
+    {
+      label: 'Username',
+      initialValue: values.displayName,
+      onChange: handleChange('displayName'),
+      error: errors.displayName,
+      secure: false,
+    },
+  ];
+
   return (
-    <Container flexStart>
-      <HeaderBar leftIcon={leftIcon} />
-      <SectionHeader text="Change Username" color={palette.white} center />
-      <SettingInput
-        label="Username"
-        initialValue={values.displayName}
-        onChange={handleChange('displayName')}
-        error={errors.displayName}
-      />
-      <CustomButton
-        variant="primary"
-        label="Save"
-        onPress={onSubmit}
-        width="medium"
-        loading={loading}
-      />
-      {!!error && <Message label={error} />}
-    </Container>
+    <UserFormTemplate
+      formData={config}
+      headerText="Change username"
+      serverError={error}
+      goBack={goBack}
+      onSubmit={onSubmit}
+      loading={loading}
+    />
   );
 };
 

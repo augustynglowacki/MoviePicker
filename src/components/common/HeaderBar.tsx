@@ -28,7 +28,7 @@ const HeaderBar: React.FC<Props> = ({leftIcon, rightIcon}) => {
           size={26}
         />
       </TouchableOpacity>
-      {rightIcon && (
+      {!!rightIcon && (
         <TouchableOpacity onPress={rightIcon.onPressFunction}>
           <Icon
             type={rightIcon.type}

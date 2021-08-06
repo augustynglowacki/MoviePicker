@@ -1,41 +1,28 @@
 import React from 'react';
-import SettingInput from 'src/components/settings/SettingInput';
 import * as Yup from 'yup';
-import {MIN_PASSWORD_LENGTH} from 'src/constants/formValues';
 import {useFormik} from 'formik';
 import {useDispatch} from 'react-redux';
-import {IconTypes} from 'src/constants';
+import {Route, MIN_PASSWORD_LENGTH} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
-import {Route} from 'src/constants';
-import {HeaderBar} from 'src/components/common';
-import {
-  Container,
-  CustomButton,
-  Message,
-  SectionHeader,
-} from 'src/components/common';
 import {updateUserPassword} from 'src/redux/user/UserAction';
 import {useTranslation} from 'react-i18next';
-import palette from 'src/styles/palette';
 import {setErrorNull} from 'src/redux/user/UserSlice';
+import UserFormTemplate from './UserFormTemplate';
+import {UserFormDataTemplate} from 'src/models';
 
-interface PasswordState {
+interface PasswordForm {
   email: string;
   password: string;
   newPassword: string;
 }
 
 interface Props {
-  goBackFunction: () => void;
+  goBack: () => void;
   error: string;
   loading: boolean;
 }
 
-const UserPasswordForm: React.FC<Props> = ({
-  goBackFunction,
-  error,
-  loading,
-}) => {
+const UserPasswordForm: React.FC<Props> = ({goBack, error, loading}) => {
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
   const {t} = useTranslation('form');
@@ -45,12 +32,13 @@ const UserPasswordForm: React.FC<Props> = ({
     t('short', {MIN_PASSWORD_LENGTH}),
   );
   const redirectToProfile = () => navigate(Route.PROFILE);
+
   const validationSchema = Yup.object({
     email: yupEmail,
     password: yupPassword.required(t('required')),
     newPassword: yupPassword.required(t('required')),
   });
-  const initialDisplayNameState: PasswordState = {
+  const initialValues: PasswordForm = {
     email: '',
     password: '',
     newPassword: '',
@@ -66,51 +54,46 @@ const UserPasswordForm: React.FC<Props> = ({
   };
 
   const {handleChange, errors, values} = useFormik({
-    initialValues: initialDisplayNameState,
+    initialValues: initialValues,
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit,
   });
-  const leftIcon = {
-    name: 'arrow-back-ios',
-    type: IconTypes.MATERIAL,
-    onPressFunction: goBackFunction,
-  };
+
+  const config: UserFormDataTemplate[] = [
+    {
+      label: 'E-mail',
+      initialValue: values.email,
+      onChange: handleChange('email'),
+      error: errors.email,
+      secure: false,
+    },
+    {
+      label: 'Password',
+      initialValue: values.password,
+      onChange: handleChange('password'),
+      error: errors.password,
+      secure: true,
+    },
+    {
+      label: 'New password',
+      initialValue: values.newPassword,
+      onChange: handleChange('newPassword'),
+      error: errors.newPassword,
+      secure: true,
+    },
+  ];
 
   return (
-    <Container flexStart>
-      <HeaderBar leftIcon={leftIcon} />
-      <SectionHeader text="Change Password" color={palette.white} center />
-      <SettingInput
-        label="E-mail"
-        initialValue={values.email}
-        onChange={handleChange('email')}
-        error={errors.email}
-      />
-      <SettingInput
-        label="Password"
-        initialValue={values.password}
-        secureTextEntry
-        onChange={handleChange('password')}
-        error={errors.password}
-      />
-      <SettingInput
-        label="New Password"
-        initialValue={values.newPassword}
-        secureTextEntry
-        onChange={handleChange('newPassword')}
-        error={errors.newPassword}
-      />
-      <CustomButton
-        variant="primary"
-        label="Save"
-        onPress={onSubmit}
-        width="medium"
-        loading={loading}
-      />
-      {!!error && <Message label={error} />}
-    </Container>
+    <UserFormTemplate
+      goBack={goBack}
+      formData={config}
+      headerText="Change Password"
+      serverError={error}
+      onSubmit={onSubmit}
+      loading={loading}
+    />
   );
 };
 

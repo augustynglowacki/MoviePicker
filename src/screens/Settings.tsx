@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
 import {Container, SectionHeader} from 'src/components/common';
-import {IconTypes, Route} from 'src/constants';
+import {formDisplayNames, IconTypes, Route} from 'src/constants';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 import {useSelector} from 'react-redux';
 import palette from 'src/styles/palette';
@@ -21,10 +21,7 @@ const Settings: React.FC = () => {
   );
   const {user, error, loading} = useSelector(userThunkSelector);
   const {navigate} = useNavigation();
-  const [displayUserName, setDisplayUserName] = useState<boolean>(false);
-  const [displayUserEmail, setDisplayUserEmail] = useState<boolean>(false);
-  const [displayUserPassword, setDisplayUserPassword] =
-    useState<boolean>(false);
+  const [displayFormName, setName] = useState('');
   const redirectToProfile = () => navigate(Route.PROFILE);
   const leftIcon = {
     name: 'arrow-back-ios',
@@ -35,10 +32,10 @@ const Settings: React.FC = () => {
   const fetchAvatar = async () => {
     try {
       const userId = auth().currentUser?.uid;
-      const results = await storage()
+      const avatar = await storage()
         .ref(`/users/${userId}/profile.jpg`)
         .getDownloadURL();
-      setProfileURI(results);
+      setProfileURI(avatar);
     } catch (err) {
       console.log(err);
     }
@@ -47,57 +44,68 @@ const Settings: React.FC = () => {
     fetchAvatar();
   }, []);
 
-  if (displayUserName) {
-    return (
-      <UserNameForm
-        userName={user.userName}
-        goBackFunction={() => setDisplayUserName(false)}
-        error={error}
-        loading={loading}
-      />
-    );
-  }
+  const config = [
+    {
+      text: 'Change Username',
+      navigateTo: () => setName(formDisplayNames.USERNAME),
+    },
+    {
+      text: 'Change Email',
+      navigateTo: () => setName(formDisplayNames.EMAIL),
+    },
+    {
+      text: 'Change Password',
+      navigateTo: () => setName(formDisplayNames.PASSWORD),
+    },
+  ];
 
-  if (displayUserEmail) {
-    return (
-      <UserEmailForm
-        goBackFunction={() => setDisplayUserEmail(false)}
-        userEmail={user.email}
-        error={error}
-        loading={loading}
-      />
-    );
+  switch (displayFormName) {
+    case formDisplayNames.USERNAME:
+      return (
+        <UserNameForm
+          userName={user.userName}
+          goBack={() => setName('')}
+          error={error}
+          loading={loading}
+        />
+      );
+    case formDisplayNames.EMAIL:
+      return (
+        <UserEmailForm
+          goBack={() => setName('')}
+          userEmail={user.email}
+          error={error}
+          loading={loading}
+        />
+      );
+    case formDisplayNames.PASSWORD:
+      return (
+        <UserPasswordForm
+          goBack={() => setName('')}
+          error={error}
+          loading={loading}
+        />
+      );
+    default:
+      return (
+        <Container flexStart>
+          <HeaderBar leftIcon={leftIcon} />
+          <SectionHeader
+            text="Update your profile"
+            color={palette.white}
+            center
+          />
+          <Avatar uri={profileURI} editable />
+          <ChangeBackground />
+          {config.map(formEl => (
+            <SettingOptionBox
+              text={formEl.text}
+              navigateTo={formEl.navigateTo}
+            />
+          ))}
+        </Container>
+      );
   }
-  if (displayUserPassword) {
-    return (
-      <UserPasswordForm
-        goBackFunction={() => setDisplayUserPassword(false)}
-        error={error}
-        loading={loading}
-      />
-    );
-  }
-  console.log(user.email);
-  return (
-    <Container flexStart>
-      <HeaderBar leftIcon={leftIcon} />
-      <SectionHeader text="Update your profile" color={palette.white} center />
-      <Avatar uri={profileURI} editable />
-      <ChangeBackground />
-      <SettingOptionBox
-        text="Change Username"
-        navigateTo={() => setDisplayUserName(true)}
-      />
-      <SettingOptionBox
-        text="Change Email"
-        navigateTo={() => setDisplayUserEmail(true)}
-      />
-      <SettingOptionBox
-        text="Change Password"
-        navigateTo={() => setDisplayUserPassword(true)}
-      />
-    </Container>
-  );
 };
 
 export default Settings;
