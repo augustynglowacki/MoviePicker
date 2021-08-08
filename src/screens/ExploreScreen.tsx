@@ -1,7 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useCallback} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import Profile from 'src/components/profile/Profile';
 import {BlurView} from '@react-native-community/blur';
 import palette from 'src/styles/palette';
 import {useTranslation} from 'react-i18next';
@@ -10,6 +9,7 @@ import {useSelector} from 'react-redux';
 import {CustomButton} from 'src/components/common';
 import FavoriteContentBox from 'src/components/favorite/FavoriteContentBox';
 import {ExploreScreenParams, Route} from 'src/constants';
+import ProfileComponent from 'src/components/profile/Profile';
 
 const ExploreScreen: React.FC<ExploreScreenParams> = ({isLiked}) => {
   const {navigate} = useNavigation();
@@ -21,9 +21,24 @@ const ExploreScreen: React.FC<ExploreScreenParams> = ({isLiked}) => {
 
   const {movies} = useSelector(popularSelector);
 
+  const collectionContent = [
+    {id: 1, title: t('movies:favorite'), collection: movies},
+    {id: 2, title: t('movies:watched'), collection: movies},
+    {id: 3, title: t('movies:toWatch'), collection: movies},
+  ];
+
   return (
     <View style={styles.container}>
-      {isLiked ? <FavoriteContentBox movies={movies} /> : <Profile />}
+      {isLiked ? (
+        <FavoriteContentBox movies={movies} isExplore />
+      ) : (
+        <ProfileComponent
+          isExplore
+          collectionContent={collectionContent}
+          navigateToSettings={() => {}}
+          logOut={() => {}}
+        />
+      )}
       <BlurView style={styles.absolute} blurType="dark" blurAmount={5} />
       <View style={styles.box}>
         <Text style={styles.text}>{t('explore')}</Text>
