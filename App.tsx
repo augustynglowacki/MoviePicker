@@ -3,7 +3,7 @@ import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import HomeNavigator from './src/navigation/HomeNavigator';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {useEffect} from 'react';
-import RNBootSplash from 'react-native-bootsplash'; //splashScreen
+import RNBootSplash from 'react-native-bootsplash';
 import palette from 'src/styles/palette';
 
 //app background changed to black
@@ -18,9 +18,7 @@ const MyTheme = {
 
 const App = () => {
   useEffect(() => {
-    setTimeout(() => {
-      RNBootSplash.hide({fade: true});
-    }, 2000);
+    RNBootSplash.hide({fade: true});
   }, []);
   return (
     <PaperProvider>
