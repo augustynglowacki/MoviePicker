@@ -8,7 +8,6 @@ import MovieBox from './MovieBox';
 import ErrorWrapper from './ErrorWrapper';
 import SectionHeader from './SectionHeader';
 import SocialButton from './SocialButton';
-import TabIcon from './TabIcon';
 import Icon from './Icon';
 import Loading from './Loading';
 
@@ -23,7 +22,6 @@ export {
   SectionHeader,
   SocialButton,
   Loading,
-  TabIcon,
   ErrorWrapper,
   Icon,
 };
