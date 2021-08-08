@@ -27,6 +27,7 @@ const translations = {
     popular: 'Popular',
     seasons: '{{number}} seasons',
     episodes: '{{number}} episodes',
+    stats: 'YOUR STATS',
   },
   form: {
     required: 'Required!',
@@ -37,6 +38,7 @@ const translations = {
     explore: 'Explore your profile.',
     exploreSub: 'With a free account you can do much more stuff!',
     button: 'Sign in now',
+    premium: 'Premium',
   },
 };
 export default translations;
