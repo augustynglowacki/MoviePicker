@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {CollectionItem, Movie} from 'src/models';
-import FavoriteContentBox from 'src/components/favorite/FavoriteContentBox';
+import Favorite from 'src/components/favorite/Favorite';
 
 const FavoriteScreen: React.FC = () => {
   const [backendMovies, setBackendMovies] = useState<CollectionItem[]>([]);
@@ -48,7 +48,7 @@ const FavoriteScreen: React.FC = () => {
     }));
   };
 
-  return <FavoriteContentBox movies={convertEntityToMovie(backendMovies)} />;
+  return <Favorite movies={convertEntityToMovie(backendMovies)} />;
 };
 
 export default FavoriteScreen;

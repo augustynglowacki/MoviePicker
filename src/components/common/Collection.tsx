@@ -1,11 +1,12 @@
 import React from 'react';
-import {ListRenderItem, StyleSheet, View} from 'react-native';
+import {ListRenderItem, StyleSheet} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import palette from 'src/styles/palette';
 import {Movie} from 'src/models';
 import ErrorWrapper from './ErrorWrapper';
 import MovieBox from './MovieBox';
 import SectionHeader from './SectionHeader';
+import Container from './Container';
 
 interface Props {
   title: string;
@@ -15,12 +16,7 @@ interface Props {
   isExplore?: boolean;
 }
 
-const CollectionContentBox: React.FC<Props> = ({
-  title,
-  data,
-  error,
-  isExplore,
-}) => {
+const Collection: React.FC<Props> = ({title, data, error, isExplore}) => {
   const renderItem: ListRenderItem<Movie> = ({item}) => (
     <MovieBox movie={item} />
   );
@@ -31,7 +27,7 @@ const CollectionContentBox: React.FC<Props> = ({
     return null;
   }
   return (
-    <View style={styles.discoveryContentBox}>
+    <Container padding="small" disableSafeArea style={styles.wrapper}>
       <SectionHeader text={title} size={20} color={palette.white} />
       <FlatList
         scrollEnabled={isExplore ? false : true}
@@ -43,14 +39,14 @@ const CollectionContentBox: React.FC<Props> = ({
         initialNumToRender={10}
         keyExtractor={(item, index) => index.toString()}
       />
-    </View>
+    </Container>
   );
 };
 
 const styles = StyleSheet.create({
-  discoveryContentBox: {
+  wrapper: {
     marginTop: 20,
   },
 });
 
-export default CollectionContentBox;
+export default Collection;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
-import ActorList from 'src/components/actors/ActorList';
+import Actors from 'src/components/actors/Actors';
 import RatingBox from 'src/components/common/RatingBox';
 import {Actor, MovieDetails, TvSeriesDetails} from 'src/models';
 import palette from 'src/styles/palette';
@@ -29,7 +29,7 @@ const Info: React.FC<Props> = ({data, actors}) => {
       <View style={styles.descriptionWrapper}>
         <Text style={styles.descriptionText}>{data.overview}</Text>
       </View>
-      <ActorList data={actors} />
+      <Actors data={actors} />
     </View>
   );
 };
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   bottomWrapper: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 6,
     paddingBottom: 16,
     marginTop: -40,
   },

@@ -7,7 +7,7 @@ import {useTranslation} from 'react-i18next';
 import {popularSelector} from 'src/redux/popular/PopularSlice';
 import {useSelector} from 'react-redux';
 import {CustomButton} from 'src/components/common';
-import FavoriteContentBox from 'src/components/favorite/FavoriteContentBox';
+import Favorite from 'src/components/favorite/Favorite';
 import {ExploreScreenParams, Route} from 'src/constants';
 import ProfileComponent from 'src/components/profile/Profile';
 
@@ -30,7 +30,7 @@ const ExploreScreen: React.FC<ExploreScreenParams> = ({isLiked}) => {
   return (
     <View style={styles.container}>
       {isLiked ? (
-        <FavoriteContentBox movies={movies} isExplore />
+        <Favorite movies={movies} isExplore />
       ) : (
         <ProfileComponent
           isExplore

@@ -3,7 +3,7 @@ import {useRef} from 'react';
 import {View, Animated, StyleSheet} from 'react-native';
 import {Movie} from 'src/models';
 import palette from 'src/styles/palette';
-import {CollectionContentBox} from '../common';
+import {Collection} from '../common';
 import ProfileCardHeader from './ProfileCardHeader';
 import ProfileStatsContainer from './stats/ProfileStatsContainer';
 import ProfileTitleBar from './ProfileTitleBar';
@@ -44,14 +44,12 @@ const ProfileComponent: React.FC<Props> = ({
           {useNativeDriver: true},
         )}
         renderItem={({item: {title, collection}}) => (
-          <View style={styles.padded}>
-            <CollectionContentBox
-              isExplore={isExplore}
-              title={title}
-              data={collection}
-              loading={false}
-            />
-          </View>
+          <Collection
+            isExplore={isExplore}
+            title={title}
+            data={collection}
+            loading={false}
+          />
         )}
       />
       <ProfileTitleBar
@@ -67,7 +65,7 @@ export default ProfileComponent;
 
 const styles = StyleSheet.create({
   padded: {
-    paddingHorizontal: 5,
+    paddingHorizontal: 6,
   },
   wrapper: {backgroundColor: palette.strongBlack},
 });
