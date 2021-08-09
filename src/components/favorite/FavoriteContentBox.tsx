@@ -7,9 +7,10 @@ import {Container, MovieBox, SectionHeader} from '../common';
 
 interface Props {
   movies: Movie[];
+  isExplore?: boolean;
 }
 
-const FavoriteContentBox: React.FC<Props> = ({movies}) => {
+const FavoriteContentBox: React.FC<Props> = ({movies, isExplore}) => {
   const {t} = useTranslation('movies');
 
   const renderItem: ListRenderItem<Movie> = ({item}) => (
@@ -20,6 +21,7 @@ const FavoriteContentBox: React.FC<Props> = ({movies}) => {
       <SectionHeader text={t('favorite')} color={palette.white} />
       <View style={styles.favoriteContentBox}>
         <FlatList
+          scrollEnabled={isExplore ? false : true}
           data={movies}
           renderItem={renderItem}
           showsVerticalScrollIndicator={false}

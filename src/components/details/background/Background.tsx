@@ -1,41 +1,34 @@
 import React from 'react';
-import {
-  ImageBackground,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Platform,
-  Dimensions,
-} from 'react-native';
+import {ImageBackground, StyleSheet, View} from 'react-native';
 import BackgroundGradient from './BackgroundGradient';
-import palette from 'src/styles/palette';
 import {API_IMAGES} from '@env';
-import {IconTypes} from 'src/constants';
-import {Icon} from 'src/components/common';
+import {HeaderBar} from 'src/components/common';
+import {WINDOW_HEIGHT, IconTypes} from 'src/constants';
 
 interface Props {
   posterPath: string;
   goBack: () => void;
+  addToFavorite: () => void;
 }
 
-const HEIGHT = Dimensions.get('window').height;
-
-const Background: React.FC<Props> = ({goBack, posterPath}) => {
+const Background: React.FC<Props> = ({goBack, addToFavorite, posterPath}) => {
   return (
     <ImageBackground
       style={styles.imageBackground}
       source={{uri: `${API_IMAGES}${posterPath}`}}>
       <View style={styles.contentWrapper}>
-        <View style={styles.headerWrapper}>
-          <TouchableOpacity onPress={goBack}>
-            <Icon
-              type={IconTypes.ENTYPO}
-              name="chevron-left"
-              size={35}
-              color={palette.white}
-            />
-          </TouchableOpacity>
-        </View>
+        <HeaderBar
+          leftIcon={{
+            type: IconTypes.MATERIAL,
+            name: 'arrow-back-ios',
+            onPressFunction: goBack,
+          }}
+          rightIcon={{
+            type: IconTypes.IONICON,
+            name: 'ios-heart-outline',
+            onPressFunction: addToFavorite,
+          }}
+        />
         <BackgroundGradient />
       </View>
     </ImageBackground>
@@ -45,13 +38,7 @@ const Background: React.FC<Props> = ({goBack, posterPath}) => {
 const styles = StyleSheet.create({
   imageBackground: {
     width: '100%',
-    height: HEIGHT * 0.6,
-  },
-  headerWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: Platform.OS === 'ios' ? 40 : 30,
-    marginHorizontal: 16,
+    height: WINDOW_HEIGHT * 0.6,
   },
   contentWrapper: {
     flex: 1,

@@ -12,9 +12,15 @@ interface Props {
   data: Movie[];
   error?: string;
   loading: boolean;
+  isExplore?: boolean;
 }
 
-const CollectionContentBox: React.FC<Props> = ({title, data, error}) => {
+const CollectionContentBox: React.FC<Props> = ({
+  title,
+  data,
+  error,
+  isExplore,
+}) => {
   const renderItem: ListRenderItem<Movie> = ({item}) => (
     <MovieBox movie={item} />
   );
@@ -28,6 +34,7 @@ const CollectionContentBox: React.FC<Props> = ({title, data, error}) => {
     <View style={styles.discoveryContentBox}>
       <SectionHeader text={title} size={20} color={palette.white} />
       <FlatList
+        scrollEnabled={isExplore ? false : true}
         data={data}
         renderItem={renderItem}
         horizontal={true}

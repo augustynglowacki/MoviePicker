@@ -43,7 +43,7 @@ const Heart: React.FC = () => {
         {opacity: fadeAnim, transform: [{scale: beatAnim}]},
       ]}>
       <Icon
-        type={IconTypes.FA}
+        type={IconTypes.ANT}
         color={palette.primary}
         name="heart"
         size={200}

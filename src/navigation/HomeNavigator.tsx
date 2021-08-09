@@ -3,8 +3,8 @@ import React from 'react';
 import {Route} from 'src/constants';
 import DetailsScreen from 'src/screens/DetailsScreen';
 import SettingsScreen from 'src/screens/SettingsScreen';
+import BottomTabsNavigator from 'src/navigation/BottomTabs/BottomTabsNavigator';
 import AuthNavigator from './AuthNavigator';
-import BottomTabsNavigator from './BottomTabsNavigator';
 
 const Stack = createStackNavigator();
 

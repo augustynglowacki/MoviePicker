@@ -7,10 +7,10 @@ import ProfileScreen from 'src/screens/ProfileScreen';
 import {useSelector} from 'react-redux';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 import ExploreScreen from 'src/screens/ExploreScreen';
-import {TabIcon} from 'src/components/common';
 import FavoriteScreen from 'src/screens/FavoriteScreen';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {BOTTOM_TABS_HEIGHT, Route} from 'src/constants';
+import {BOTTOM_TABS_HEIGHT, IconTypes, Route} from 'src/constants';
+import TabIcon from './TabIcon';
 
 const Tab = createBottomTabNavigator();
 const BottomTabsNavigator = () => {
@@ -28,14 +28,16 @@ const BottomTabsNavigator = () => {
         name={Route.LOGIN}
         component={PopularScreen}
         options={{
-          tabBarIcon: ({focused}) => TabIcon(focused, 'home'),
+          tabBarIcon: ({focused}) =>
+            TabIcon(focused, 'ios-home', IconTypes.IONICON),
         }}
       />
       <Tab.Screen
         name={Route.DISCOVER}
         component={DiscoverScreen}
         options={{
-          tabBarIcon: ({focused}) => TabIcon(focused, 'search'),
+          tabBarIcon: ({focused}) =>
+            TabIcon(focused, 'ios-search', IconTypes.IONICON),
         }}
       />
       {email ? (
@@ -44,14 +46,16 @@ const BottomTabsNavigator = () => {
             name={Route.FAVORITE}
             component={FavoriteScreen}
             options={{
-              tabBarIcon: ({focused}) => TabIcon(focused, 'favorite-outline'),
+              tabBarIcon: ({focused}) =>
+                TabIcon(focused, 'ios-heart', IconTypes.IONICON),
             }}
           />
           <Tab.Screen
             name={Route.PROFILE}
             component={ProfileScreen}
             options={{
-              tabBarIcon: ({focused}) => TabIcon(focused, 'person-outline'),
+              tabBarIcon: ({focused}) =>
+                TabIcon(focused, 'ios-person', IconTypes.IONICON),
             }}
           />
         </>
@@ -61,14 +65,16 @@ const BottomTabsNavigator = () => {
             name={Route.FAVORITE}
             children={() => <ExploreScreen isLiked={true} />}
             options={{
-              tabBarIcon: ({focused}) => TabIcon(focused, 'favorite-outline'),
+              tabBarIcon: ({focused}) =>
+                TabIcon(focused, 'ios-heart', IconTypes.IONICON),
             }}
           />
           <Tab.Screen
             name={Route.PROFILE}
             component={ExploreScreen}
             options={{
-              tabBarIcon: ({focused}) => TabIcon(focused, 'person-outline'),
+              tabBarIcon: ({focused}) =>
+                TabIcon(focused, 'ios-person', IconTypes.IONICON),
             }}
           />
         </>

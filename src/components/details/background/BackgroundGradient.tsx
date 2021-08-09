@@ -8,7 +8,7 @@ const BackgroundGradient: React.FC = () => (
       start={{x: 0, y: 0}}
       end={{x: 0, y: 1}}
       colors={['transparent', '#000']}
-      style={styles.linearGrandient}
+      style={styles.linearGradient}
     />
   </View>
 );
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
   },
-  linearGrandient: {
+  linearGradient: {
     width: '100%',
     height: 150,
     position: 'absolute',

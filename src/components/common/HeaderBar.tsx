@@ -1,8 +1,8 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, SafeAreaView} from 'react-native';
 import palette from 'src/styles/palette';
 import {IconTypes} from 'src/constants';
-import {Icon} from '../common';
+import {Icon} from '.';
 
 interface Props {
   leftIcon: {
@@ -19,7 +19,7 @@ interface Props {
 
 const HeaderBar: React.FC<Props> = ({leftIcon, rightIcon}) => {
   return (
-    <View style={styles.titleBar}>
+    <SafeAreaView style={styles.wrapper}>
       <TouchableOpacity onPress={leftIcon.onPressFunction}>
         <Icon
           type={leftIcon.type}
@@ -38,17 +38,16 @@ const HeaderBar: React.FC<Props> = ({leftIcon, rightIcon}) => {
           />
         </TouchableOpacity>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  titleBar: {
+  wrapper: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 15,
-    marginHorizontal: 16,
-    color: 'white',
+    marginHorizontal: 20,
   },
 });
 export default HeaderBar;

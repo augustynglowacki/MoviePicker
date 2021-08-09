@@ -13,6 +13,9 @@ import {
 } from 'src/constants';
 import {ContentType} from 'src/models';
 import {useCallback} from 'react';
+import {Alert} from 'react-native';
+import {useTranslation} from 'react-i18next';
+import {userThunkSelector} from 'src/redux/user/UserSlice';
 interface Props {
   route: DetailsScreenRouteProp;
   navigation: DetailsScreenNavigationProp;
@@ -26,6 +29,9 @@ const DetailsScreen: React.FC<Props> = ({navigation, route}) => {
     useSelector(detailsSelector);
   const data = isMovie ? fetchedMovies[id] : fetchedTvSeries[id];
   const actors = isMovie ? movieActors : tvSeriesActors;
+  const {
+    user: {email},
+  } = useSelector(userThunkSelector);
 
   const fetchDetails = useCallback(() => {
     if (data) {
@@ -42,6 +48,24 @@ const DetailsScreen: React.FC<Props> = ({navigation, route}) => {
   }, [fetchDetails]);
 
   const goBack = () => navigation.goBack();
+  const {t} = useTranslation('common');
+
+  const addToFavorite = () => {
+    if (email) {
+      // setData();
+    } else {
+      Alert.alert(t('login'), t('loginSuggestion'), [
+        {
+          text: t('cancel'),
+          onPress: () => {},
+        },
+        {
+          text: t('ok'),
+          onPress: () => {},
+        },
+      ]);
+    }
+  };
 
   return (
     <DetailsComponent
@@ -49,6 +73,7 @@ const DetailsScreen: React.FC<Props> = ({navigation, route}) => {
       goBack={goBack}
       posterPath={posterPath}
       movieActors={actors}
+      addToFavorite={addToFavorite}
     />
   );
 };

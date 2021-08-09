@@ -2,7 +2,6 @@ interface Base {
   name: string;
   id: number;
 }
-
 export interface Actor extends Base {
   profilePath: string;
 }
