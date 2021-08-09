@@ -3,8 +3,10 @@ import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import HomeNavigator from './src/navigation/HomeNavigator';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {useEffect} from 'react';
-import RNBootSplash from 'react-native-bootsplash'; //splashScreen
+import RNBootSplash from 'react-native-bootsplash';
 import palette from 'src/styles/palette';
+import {useDispatch} from 'react-redux';
+import {getMovies} from 'src/redux/popular/PopularSlice';
 
 //app background changed to black
 const MyTheme = {
@@ -12,16 +14,16 @@ const MyTheme = {
   colors: {
     ...DefaultTheme.colors,
     primary: palette.primary,
-    background: palette.black,
+    background: palette.strongBlack,
   },
 };
 
 const App = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
-    setTimeout(() => {
-      RNBootSplash.hide({fade: true});
-    }, 2000);
-  }, []);
+    dispatch(getMovies());
+    RNBootSplash.hide({fade: true});
+  }, [dispatch]);
   return (
     <PaperProvider>
       <NavigationContainer theme={MyTheme}>

@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {getMovies, popularSelector} from 'src/redux/popular/PopularSlice';
+import {popularSelector} from 'src/redux/popular/PopularSlice';
 import {useDispatch, useSelector} from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import {setActiveUser, userThunkSelector} from 'src/redux/user/UserSlice';
@@ -8,10 +8,6 @@ import PopularComponent from 'src/components/popular/Popular';
 const PopularScreen: React.FC = () => {
   const dispatch = useDispatch();
   const {movies, loading, error} = useSelector(popularSelector);
-
-  useEffect(() => {
-    dispatch(getMovies());
-  }, [dispatch]);
 
   const {
     user: {email},
