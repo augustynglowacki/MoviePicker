@@ -7,7 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import {updateUserPassword} from 'src/redux/user/UserAction';
 import {useTranslation} from 'react-i18next';
 import {setErrorNull} from 'src/redux/user/UserSlice';
-import UserFormTemplate from 'src/components/settings/userFroms/UserFormTemplate';
+import Template from 'src/components/settings/userFroms/Template';
 import {UserFormDataTemplate} from 'src/models';
 
 interface PasswordForm {
@@ -16,7 +16,7 @@ interface PasswordForm {
   newPassword: string;
 }
 
-const UserPasswordForm: React.FC = () => {
+const Password: React.FC = () => {
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
   const {t} = useTranslation(['form', 'common']);
@@ -80,12 +80,12 @@ const UserPasswordForm: React.FC = () => {
   ];
 
   return (
-    <UserFormTemplate
-      formData={config}
+    <Template
+      data={config}
       headerText={t('common:changePassword')}
       onSubmit={onSubmit}
     />
   );
 };
 
-export default UserPasswordForm;
+export default Password;

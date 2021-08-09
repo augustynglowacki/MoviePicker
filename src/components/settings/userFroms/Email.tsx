@@ -8,14 +8,14 @@ import {updateUserEmail} from 'src/redux/user/UserAction';
 import {useTranslation} from 'react-i18next';
 import {setErrorNull, userThunkSelector} from 'src/redux/user/UserSlice';
 import {UserFormDataTemplate} from 'src/models';
-import UserFormTemplate from 'src/components/settings/userFroms/UserFormTemplate';
+import Template from 'src/components/settings/userFroms/Template';
 interface EmailForm {
   email: string;
   password: string;
   newEmail: string;
 }
 
-const UserEmailForm: React.FC = () => {
+const Email: React.FC = () => {
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
   const {user} = useSelector(userThunkSelector);
@@ -31,7 +31,7 @@ const UserEmailForm: React.FC = () => {
     email: yupEmail,
     newEmail: yupEmail.nope([user.email]).when('displayEmail', {
       is: (val: boolean) => val,
-      then: yupEmail.required('Insert new email'),
+      then: yupEmail.required(t('required')),
     }),
     password: yupPassword.required(t('required')),
   });
@@ -85,12 +85,12 @@ const UserEmailForm: React.FC = () => {
   ];
 
   return (
-    <UserFormTemplate
-      formData={config}
+    <Template
+      data={config}
       headerText={t('common:changeEmail')}
       onSubmit={onSubmit}
     />
   );
 };
 
-export default UserEmailForm;
+export default Email;

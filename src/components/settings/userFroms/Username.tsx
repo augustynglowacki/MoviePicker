@@ -7,14 +7,14 @@ import {setActiveUser, setErrorNull} from 'src/redux/user/UserSlice';
 import {Route, MIN_USERNAME_LENGTH} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
 import {UserFormDataTemplate} from 'src/models';
-import UserFormTemplate from 'src/components/settings/userFroms/UserFormTemplate';
+import Template from 'src/components/settings/userFroms/Template';
 import {useTranslation} from 'react-i18next';
 
 interface DisplayNameForm {
   displayName: string;
 }
 
-const UserNameForm: React.FC = () => {
+const Username: React.FC = () => {
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
   const {t} = useTranslation('common');
@@ -67,12 +67,12 @@ const UserNameForm: React.FC = () => {
   ];
 
   return (
-    <UserFormTemplate
-      formData={config}
+    <Template
+      data={config}
       headerText={t('changeUserName')}
       onSubmit={onSubmit}
     />
   );
 };
 
-export default UserNameForm;
+export default Username;

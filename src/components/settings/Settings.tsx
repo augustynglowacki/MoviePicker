@@ -7,7 +7,7 @@ import {IconTypes, Route} from 'src/constants';
 import palette from 'src/styles/palette';
 import HeaderBar from 'src/components/common/HeaderBar';
 import Avatar from 'src/components/settings/Avatar';
-import SettingOptionBox from 'src/components/settings/SettingOptionBox';
+import SettingsOptionBox from 'src/components/settings/SettingsOptionBox';
 import ChangeBackground from 'src/components/settings/ChangeBackground';
 import {useTranslation} from 'react-i18next';
 
@@ -60,11 +60,11 @@ const Settings: React.FC = () => {
       <SectionHeader text={t('updateProfile')} color={palette.white} center />
       <Avatar uri={profileURI} editable />
       <ChangeBackground />
-      {config.map(formEl => (
-        <SettingOptionBox
-          text={formEl.text}
-          navigateTo={formEl.navigateTo}
-          key={formEl.text}
+      {config.map(item => (
+        <SettingsOptionBox
+          text={item.text}
+          navigateTo={item.navigateTo}
+          key={item.text}
         />
       ))}
     </Container>

@@ -9,7 +9,7 @@ interface Props {
   navigateTo: () => void;
 }
 
-const SettingOptionBox: React.FC<Props> = ({text, navigateTo}) => {
+const SettingsOptionBox: React.FC<Props> = ({text, navigateTo}) => {
   return (
     <TouchableOpacity onPress={navigateTo}>
       <View style={styles.optionBox}>
@@ -41,4 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SettingOptionBox;
+export default SettingsOptionBox;

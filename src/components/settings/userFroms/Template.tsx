@@ -12,20 +12,16 @@ import {
   HeaderBar,
   Message,
   SectionHeader,
-} from '../../common';
-import SettingInput from '../SettingInput';
+} from 'src/components/common';
+import SettingsInput from 'src/components/settings/SettingsInput';
 
 interface Props {
   onSubmit: () => void;
   headerText: string;
-  formData: UserFormDataTemplate[];
+  data: UserFormDataTemplate[];
 }
 
-const UserFormTemplate: React.FC<Props> = ({
-  headerText,
-  formData,
-  onSubmit,
-}) => {
+const UserFormTemplate: React.FC<Props> = ({headerText, data, onSubmit}) => {
   const {navigate} = useNavigation();
   const {error, loading} = useSelector(userThunkSelector);
   const {t} = useTranslation('common');
@@ -41,14 +37,14 @@ const UserFormTemplate: React.FC<Props> = ({
     <Container flexStart>
       <HeaderBar leftIcon={leftIcon} />
       <SectionHeader text={headerText} color={palette.white} center />
-      {formData.map(formElement => (
-        <SettingInput
-          label={formElement.label}
-          initialValue={formElement.initialValue}
-          onChange={formElement.onChange}
-          error={formElement.error}
-          secureTextEntry={formElement.secure}
-          key={formElement.label}
+      {data.map(item => (
+        <SettingsInput
+          label={item.label}
+          initialValue={item.initialValue}
+          onChange={item.onChange}
+          error={item.error}
+          secureTextEntry={item.secure}
+          key={item.label}
         />
       ))}
       <CustomButton

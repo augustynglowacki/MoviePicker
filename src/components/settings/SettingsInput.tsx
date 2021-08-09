@@ -35,8 +35,7 @@ const SettingInput: React.FC<Props> = ({
 const styles = StyleSheet.create({
   settingInput: {
     borderColor: 'white',
-    marginTop: 10,
-    marginBottom: 10,
+    marginVertical: 10,
     padding: 10,
   },
 });
