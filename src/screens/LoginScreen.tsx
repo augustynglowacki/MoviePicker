@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import LoginComponent from 'src/components/auth/Login';
 import {LoginForm} from 'src/models';
-import {Route} from 'src/constants';
+import {MIN_PASSWORD_LENGTH, Route} from 'src/constants';
 import auth from '@react-native-firebase/auth';
 import {useDispatch} from 'react-redux';
 import {
@@ -13,7 +13,6 @@ import {useSelector} from 'react-redux';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 import {useTranslation} from 'react-i18next';
 import {useFormik} from 'formik';
-import {MIN_PASSWORD_LENGTH} from './RegisterScreen';
 import {getGoogleCredential} from '../service/firestore/getGoogleCredential';
 import * as Yup from 'yup';
 

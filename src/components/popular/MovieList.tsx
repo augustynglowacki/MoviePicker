@@ -5,6 +5,7 @@ import palette from 'src/styles/palette';
 import {Movie} from 'src/models';
 import MovieItem from './MovieItem';
 import {BOTTOM_TABS_HEIGHT, WINDOW_HEIGHT} from 'src/constants';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 interface Props {
   moviesList: Movie[];
@@ -21,7 +22,9 @@ const MovieList: React.FC<Props> = ({moviesList}) => {
   return (
     <View style={styles.container}>
       <View style={styles.heading}>
-        <Text style={styles.headingText}>{t('popular')}</Text>
+        <SafeAreaView>
+          <Text style={styles.headingText}>{t('popular')}</Text>
+        </SafeAreaView>
       </View>
       <FlatList<Movie>
         data={moviesList}
@@ -44,7 +47,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     alignSelf: 'center',
-    top: 40,
+    top: 20,
     position: 'absolute',
     zIndex: 10,
   },

@@ -21,7 +21,7 @@ const Favorite: React.FC<Props> = ({movies, isExplore}) => {
       <SectionHeader text={t('favorite')} color={palette.white} />
       <View style={styles.favorite}>
         <FlatList
-          scrollEnabled={isExplore ? false : true}
+          scrollEnabled={!isExplore}
           data={movies}
           renderItem={renderItem}
           showsVerticalScrollIndicator={false}

@@ -19,8 +19,8 @@ const Settings: React.FC = () => {
   const {t} = useTranslation('common');
   const redirectToProfile = () => navigate(Route.PROFILE);
   const leftIcon = {
-    name: 'arrow-back-ios',
-    type: IconTypes.MATERIAL,
+    type: IconTypes.IONICON,
+    name: 'ios-arrow-back',
     onPressFunction: () => redirectToProfile(),
   };
 

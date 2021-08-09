@@ -16,6 +16,7 @@ import {Movie} from 'src/models';
 import Heart from '../likeHeart/Heart';
 import GenreBox from './GenreBox';
 import {Route, WINDOW_HEIGHT, BOTTOM_TABS_HEIGHT} from 'src/constants';
+import {SafeAreaView} from 'react-native-safe-area-context';
 interface Props {
   movie: Movie;
 }
@@ -105,7 +106,7 @@ const MovieItem: React.FC<Props> = ({movie}) => {
             end={{x: 0, y: 0}}
             style={styles.linearGradient}
           />
-          <View style={styles.movieInfoContainer}>
+          <SafeAreaView style={styles.movieInfoContainer}>
             <View style={styles.movieInfo}>
               <Text style={styles.title}>{title}</Text>
               <View style={styles.genres}>
@@ -116,7 +117,7 @@ const MovieItem: React.FC<Props> = ({movie}) => {
               {!!voteAverage && <RatingBox voteAverage={voteAverage} />}
               {!!isLiked && <Heart />}
             </View>
-          </View>
+          </SafeAreaView>
         </View>
       </TapGestureHandler>
     </TapGestureHandler>
@@ -142,10 +143,10 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   movieInfoContainer: {
+    top: 100,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 120,
   },
   movieInfo: {
     padding: 20,
