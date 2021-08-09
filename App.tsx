@@ -20,7 +20,7 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => {
       RNBootSplash.hide({fade: true});
-    }, 2000);
+    }, 300);
   }, []);
   return (
     <PaperProvider>
