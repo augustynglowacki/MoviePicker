@@ -7,10 +7,19 @@ interface Props {
   text: string;
   color?: string;
   size?: number;
+  center?: boolean;
 }
 
-const SectionHeader: React.FC<Props> = ({text, color, size}) => (
-  <Text style={[styles.sectionHeader, {color: color, fontSize: size || 36}]}>
+const SectionHeader: React.FC<Props> = ({text, color, size, center}) => (
+  <Text
+    style={[
+      styles.sectionHeader,
+      {
+        color: color,
+        fontSize: size || 36,
+        textAlign: center ? 'center' : 'left',
+      },
+    ]}>
     {text}
   </Text>
 );

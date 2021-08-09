@@ -7,3 +7,4 @@ export * from './actor';
 export * from './collectionItem';
 export * from './genres';
 export * from './contentType';
+export * from './userFormDataTemplate';

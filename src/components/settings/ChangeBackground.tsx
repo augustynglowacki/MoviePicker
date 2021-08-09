@@ -2,7 +2,7 @@ import React from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
-import {CustomButton} from '../common';
+import SettingOptionBox from 'src/components/settings/SettingsOptionBox';
 
 const ChangeBackground: React.FC = () => {
   const handlePicMovie = async () => {
@@ -12,9 +12,7 @@ const ChangeBackground: React.FC = () => {
 
   const saveToFirestore = async () => {
     const newRes = await handlePicMovie();
-    console.log('newRes', newRes);
     try {
-      console.log('try');
       await storage()
         .ref('users/' + auth().currentUser?.uid + '/background.jpg')
         .putFile(newRes);
@@ -24,11 +22,7 @@ const ChangeBackground: React.FC = () => {
   };
 
   return (
-    <CustomButton
-      label="Change background photo"
-      onPress={saveToFirestore}
-      variant={'secondary'}
-    />
+    <SettingOptionBox text="Change Background" navigateTo={saveToFirestore} />
   );
 };
 
