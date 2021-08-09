@@ -12,8 +12,8 @@ import {
   HeaderBar,
   Message,
   SectionHeader,
-} from '../common';
-import SettingInput from './SettingInput';
+} from '../../common';
+import SettingInput from '../SettingInput';
 
 interface Props {
   onSubmit: () => void;

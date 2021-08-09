@@ -7,7 +7,7 @@ import {setActiveUser, setErrorNull} from 'src/redux/user/UserSlice';
 import {Route, MIN_USERNAME_LENGTH} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
 import {UserFormDataTemplate} from 'src/models';
-import UserFormTemplate from './UserFormTemplate';
+import UserFormTemplate from 'src/components/settings/userFroms/UserFormTemplate';
 import {useTranslation} from 'react-i18next';
 
 interface DisplayNameForm {

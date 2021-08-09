@@ -1,9 +1,9 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import Settings from 'src/components/settings/Settings';
-import UserEmailForm from 'src/components/settings/UserEmailForm';
-import UserNameForm from 'src/components/settings/UserNameForm';
-import UserPasswordForm from 'src/components/settings/UserPasswordForm';
+import UserEmailForm from 'src/components/settings/userFroms/UserEmailForm';
+import UserNameForm from 'src/components/settings/userFroms/UserNameForm';
+import UserPasswordForm from 'src/components/settings/userFroms/UserPasswordForm';
 import {Route} from 'src/constants';
 
 const Stack = createStackNavigator();
