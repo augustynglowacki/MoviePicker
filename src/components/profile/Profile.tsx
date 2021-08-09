@@ -28,7 +28,7 @@ const ProfileComponent: React.FC<Props> = ({
   return (
     <View style={styles.wrapper}>
       <Animated.FlatList
-        scrollEnabled={isExplore ? false : true}
+        scrollEnabled={!isExplore}
         data={collectionContent}
         keyExtractor={item => `${item.id}`}
         showsVerticalScrollIndicator={false}

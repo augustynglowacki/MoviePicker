@@ -4,6 +4,7 @@ import BackgroundGradient from './BackgroundGradient';
 import {API_IMAGES} from '@env';
 import {HeaderBar} from 'src/components/common';
 import {WINDOW_HEIGHT, IconTypes} from 'src/constants';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 interface Props {
   posterPath: string;
@@ -17,18 +18,20 @@ const Background: React.FC<Props> = ({goBack, addToFavorite, posterPath}) => {
       style={styles.imageBackground}
       source={{uri: `${API_IMAGES}${posterPath}`}}>
       <View style={styles.contentWrapper}>
-        <HeaderBar
-          leftIcon={{
-            type: IconTypes.MATERIAL,
-            name: 'arrow-back-ios',
-            onPressFunction: goBack,
-          }}
-          rightIcon={{
-            type: IconTypes.IONICON,
-            name: 'ios-heart-outline',
-            onPressFunction: addToFavorite,
-          }}
-        />
+        <SafeAreaView>
+          <HeaderBar
+            leftIcon={{
+              type: IconTypes.IONICON,
+              name: 'ios-arrow-back',
+              onPressFunction: goBack,
+            }}
+            rightIcon={{
+              type: IconTypes.IONICON,
+              name: 'ios-heart-outline',
+              onPressFunction: addToFavorite,
+            }}
+          />
+        </SafeAreaView>
         <BackgroundGradient />
       </View>
     </ImageBackground>

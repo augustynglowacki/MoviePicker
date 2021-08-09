@@ -3,12 +3,11 @@ import {Animated, Image, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
 import palette from 'src/styles/palette';
 import {HEADER_HEIGHT, IconTypes} from 'src/constants';
-import {HeaderBar} from 'src/components/common';
 import {Text} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import auth from '@react-native-firebase/auth';
-import {View} from 'react-native';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
+import {HeaderBar} from 'src/components/common';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 interface Props {
   scrollY: Animated.Value;
@@ -30,18 +29,16 @@ const ProfileTitleBar: React.FC<Props> = ({
   const photoURI = auth().currentUser?.photoURL;
 
   return (
-    <View style={styles.headerBar}>
+    <SafeAreaView style={styles.headerBar}>
       <Animated.View style={[styles.overlay, animatedStyle(scrollY)]}>
-        <SafeAreaView>
-          <View style={styles.content}>
-            <Image
-              source={{
-                uri: photoURI || placeholder,
-              }}
-              style={styles.avatar}
-            />
-            <Text style={styles.text}>{userName}</Text>
-          </View>
+        <SafeAreaView style={styles.content}>
+          <Image
+            source={{
+              uri: photoURI || placeholder,
+            }}
+            style={styles.avatar}
+          />
+          <Text style={styles.text}>{userName}</Text>
         </SafeAreaView>
       </Animated.View>
       <HeaderBar
@@ -56,7 +53,7 @@ const ProfileTitleBar: React.FC<Props> = ({
           onPressFunction: navigateToSettings,
         }}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

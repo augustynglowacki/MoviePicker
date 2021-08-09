@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import palette from 'src/styles/palette';
 import {IconTypes} from 'src/constants';
 import {Icon} from '.';
@@ -19,28 +19,30 @@ interface Props {
 
 const HeaderBar: React.FC<Props> = ({leftIcon, rightIcon}) => {
   return (
-    <SafeAreaView>
-      <View style={styles.wrapper}>
-        <TouchableOpacity onPress={leftIcon.onPressFunction}>
+    <View style={styles.wrapper}>
+      <TouchableOpacity onPress={leftIcon.onPressFunction}>
+        <View style={styles.icon}>
           <Icon
             type={leftIcon.type}
             color={palette.white}
             name={leftIcon.name}
-            size={26}
+            size={28}
           />
-        </TouchableOpacity>
-        {!!rightIcon && (
-          <TouchableOpacity onPress={rightIcon.onPressFunction}>
+        </View>
+      </TouchableOpacity>
+      {!!rightIcon && (
+        <TouchableOpacity onPress={rightIcon.onPressFunction}>
+          <View style={styles.icon}>
             <Icon
               type={rightIcon.type}
               color={palette.white}
               name={rightIcon.name}
-              size={26}
+              size={28}
             />
-          </TouchableOpacity>
-        )}
-      </View>
-    </SafeAreaView>
+          </View>
+        </TouchableOpacity>
+      )}
+    </View>
   );
 };
 
@@ -49,7 +51,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginHorizontal: 20,
+  },
+  icon: {
+    height: 50,
+    width: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 10,
   },
 });
 export default HeaderBar;
