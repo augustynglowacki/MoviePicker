@@ -11,7 +11,6 @@ import SocialButton from './SocialButton';
 import Icon from './Icon';
 import HeaderBar from './HeaderBar';
 import Loading from './Loading';
-import HeaderBar from './HeaderBar';
 
 export {
   CustomButton,
@@ -27,5 +26,4 @@ export {
   ErrorWrapper,
   HeaderBar,
   Icon,
-  HeaderBar,
 };
