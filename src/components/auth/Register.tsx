@@ -37,7 +37,7 @@ const RegisterComponent: React.FC<Props> = ({
   const [hiddenPassword, setHiddenPassword] = useState(true);
   const handleHide = () => setHiddenPassword(!hiddenPassword);
   return (
-    <Container withKeyboard withPadding>
+    <Container withKeyboard padding="large">
       <AnimatedLayout>
         <Animated.View entering={StretchInX.springify()}>
           <Image
@@ -81,7 +81,7 @@ const RegisterComponent: React.FC<Props> = ({
             <CustomButton
               onPress={onSubmit}
               label={t('register')}
-              width="medium"
+              width="small"
               variant="primary"
               loading={loading}
             />

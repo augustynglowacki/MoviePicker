@@ -6,6 +6,7 @@ import palette from 'src/styles/palette';
 import {setQuery} from 'src/redux/search/SearchSlice';
 import {Input} from '../common';
 import {debounce} from 'lodash';
+import {StyleSheet} from 'react-native';
 
 const DiscoveryInput: React.FC = () => {
   const dispatch = useDispatch();
@@ -24,8 +25,15 @@ const DiscoveryInput: React.FC = () => {
       clearButtonMode="always"
       autoFocus
       autoCapitalize="words"
+      style={styles.text}
     />
   );
 };
 
 export default DiscoveryInput;
+
+const styles = StyleSheet.create({
+  text: {
+    backgroundColor: palette.black,
+  },
+});

@@ -1,9 +1,9 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {FlatList, ListRenderItem, StyleSheet, View} from 'react-native';
+import {FlatList, ListRenderItem, StyleSheet} from 'react-native';
 import {Actor} from 'src/models';
 import palette from 'src/styles/palette';
-import {ErrorWrapper, SectionHeader} from '../common';
+import {Container, ErrorWrapper, SectionHeader} from '../common';
 import ActorItem from './ActorItem';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
   error?: string;
 }
 
-const ActorList: React.FC<Props> = ({data, error}) => {
+const Actors: React.FC<Props> = ({data, error}) => {
   const {t} = useTranslation('movies');
   const renderItem: ListRenderItem<Actor> = ({item}) => (
     <ActorItem name={item.name} profilePath={item.profilePath} />
@@ -25,7 +25,7 @@ const ActorList: React.FC<Props> = ({data, error}) => {
   }
 
   return (
-    <View style={styles.ActorList}>
+    <Container padding="small" disableSafeArea style={styles.Actors}>
       <SectionHeader
         text={t('movies:actors')}
         color={palette.white}
@@ -38,14 +38,14 @@ const ActorList: React.FC<Props> = ({data, error}) => {
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item, index) => index.toString()}
       />
-    </View>
+    </Container>
   );
 };
 
 const styles = StyleSheet.create({
-  ActorList: {
+  Actors: {
     marginTop: 20,
   },
 });
 
-export default ActorList;
+export default Actors;

@@ -50,7 +50,7 @@ const LoginComponent: React.FC<Props> = ({
   const [hiddenPassword, setHiddenPassword] = useState(true);
   const handleHide = () => setHiddenPassword(!hiddenPassword);
   return (
-    <Container withKeyboard withPadding>
+    <Container withKeyboard padding="large" style={styles.wrapper}>
       <AnimatedLayout>
         <Animated.View entering={FlipInXDown.springify()}>
           <Image
@@ -103,6 +103,9 @@ const LoginComponent: React.FC<Props> = ({
 export default LoginComponent;
 
 const styles = StyleSheet.create({
+  wrapper: {
+    backgroundColor: palette.black,
+  },
   logoImage: {
     height: 120,
     width: 120,

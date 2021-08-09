@@ -1,4 +1,4 @@
-import CollectionContentBox from './CollectionContentBox';
+import Collection from './Collection';
 import Container from './Container';
 import CustomButton from './CustomButton';
 import ErrorBox from './ErrorBox';
@@ -17,7 +17,7 @@ export {
   Input,
   ErrorBox,
   Container,
-  CollectionContentBox,
+  Collection,
   Message,
   MovieBox,
   SectionHeader,

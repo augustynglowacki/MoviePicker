@@ -52,7 +52,7 @@ const MovieBox: React.FC<Props> = ({movie}) => {
     </TapGestureHandler>
   );
 };
-const WIDTH = Dimensions.get('window').width / 2 - 22;
+const WIDTH = Dimensions.get('window').width / 2 - 12;
 const HEIGHT = (WIDTH / 2) * 3;
 const BORDER_RADIUS = 4;
 const styles = StyleSheet.create({

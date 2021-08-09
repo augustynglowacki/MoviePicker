@@ -40,7 +40,7 @@ const MovieList: React.FC<Props> = ({moviesList}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: palette.black,
+    backgroundColor: palette.strongBlack,
   },
   heading: {
     alignSelf: 'center',

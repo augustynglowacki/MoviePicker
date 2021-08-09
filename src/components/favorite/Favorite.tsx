@@ -10,16 +10,16 @@ interface Props {
   isExplore?: boolean;
 }
 
-const FavoriteContentBox: React.FC<Props> = ({movies, isExplore}) => {
+const Favorite: React.FC<Props> = ({movies, isExplore}) => {
   const {t} = useTranslation('movies');
 
   const renderItem: ListRenderItem<Movie> = ({item}) => (
     <MovieBox movie={item} />
   );
   return (
-    <Container flexStart withPadding disableScroll>
+    <Container flexStart padding="small" disableScroll style={styles.wrapper}>
       <SectionHeader text={t('favorite')} color={palette.white} />
-      <View style={styles.favoriteContentBox}>
+      <View style={styles.favorite}>
         <FlatList
           scrollEnabled={isExplore ? false : true}
           data={movies}
@@ -35,13 +35,14 @@ const FavoriteContentBox: React.FC<Props> = ({movies, isExplore}) => {
 };
 
 const styles = StyleSheet.create({
-  favoriteContentBox: {
+  favorite: {
     minWidth: '100%',
     alignItems: 'center',
   },
   tagView: {
     flexWrap: 'wrap',
   },
+  wrapper: {backgroundColor: palette.strongBlack},
 });
 
-export default FavoriteContentBox;
+export default Favorite;
