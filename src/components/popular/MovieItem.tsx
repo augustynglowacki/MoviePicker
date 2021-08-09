@@ -47,7 +47,7 @@ const MovieItem: React.FC<Props> = ({movie}) => {
       : null;
   };
 
-  const handleOnActivated = () => {
+  const addToFavorite = () => {
     if (email) {
       if (!isLiked) {
         setLiked(true);
@@ -82,7 +82,7 @@ const MovieItem: React.FC<Props> = ({movie}) => {
         maxDelayMs={250}
         ref={doubleTapRef}
         numberOfTaps={2}
-        onActivated={handleOnActivated}>
+        onActivated={addToFavorite}>
         <View style={styles.movieContainer}>
           <ImageBackground
             source={{uri: `${API_IMAGES}${posterPath}`}}
@@ -149,6 +149,8 @@ export const styles = StyleSheet.create({
   },
   movieInfo: {
     padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
     fontSize: 33,

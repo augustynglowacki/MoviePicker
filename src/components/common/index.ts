@@ -10,6 +10,7 @@ import SectionHeader from './SectionHeader';
 import SocialButton from './SocialButton';
 import Icon from './Icon';
 import Loading from './Loading';
+import HeaderBar from './HeaderBar';
 
 export {
   CustomButton,
@@ -23,5 +24,6 @@ export {
   SocialButton,
   Loading,
   ErrorWrapper,
+  HeaderBar,
   Icon,
 };

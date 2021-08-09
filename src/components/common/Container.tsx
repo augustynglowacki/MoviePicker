@@ -9,7 +9,6 @@ import {
   FlexStyle,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import palette from 'src/styles/palette';
 interface Props {
   //pass normal stylesheet object to change backgroundColor
   style?: StyleProp<FlexStyle>;
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: palette.black,
+    backgroundColor: 'transparent',
     justifyContent: 'center',
   },
 });
