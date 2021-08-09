@@ -156,6 +156,9 @@ export const styles = StyleSheet.create({
     fontSize: 33,
     color: palette.white,
     textAlign: 'center',
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 3,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
   },
   genres: {
     marginTop: 32,
