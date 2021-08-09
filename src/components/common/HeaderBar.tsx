@@ -1,9 +1,8 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {SafeAreaView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import palette from 'src/styles/palette';
 import {IconTypes} from 'src/constants';
 import {Icon} from '.';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 interface Props {
   leftIcon: {
@@ -20,25 +19,27 @@ interface Props {
 
 const HeaderBar: React.FC<Props> = ({leftIcon, rightIcon}) => {
   return (
-    <SafeAreaView style={styles.wrapper}>
-      <TouchableOpacity onPress={leftIcon.onPressFunction}>
-        <Icon
-          type={leftIcon.type}
-          color={palette.white}
-          name={leftIcon.name}
-          size={26}
-        />
-      </TouchableOpacity>
-      {!!rightIcon && (
-        <TouchableOpacity onPress={rightIcon.onPressFunction}>
+    <SafeAreaView>
+      <View style={styles.wrapper}>
+        <TouchableOpacity onPress={leftIcon.onPressFunction}>
           <Icon
-            type={rightIcon.type}
+            type={leftIcon.type}
             color={palette.white}
-            name={rightIcon.name}
+            name={leftIcon.name}
             size={26}
           />
         </TouchableOpacity>
-      )}
+        {!!rightIcon && (
+          <TouchableOpacity onPress={rightIcon.onPressFunction}>
+            <Icon
+              type={rightIcon.type}
+              color={palette.white}
+              name={rightIcon.name}
+              size={26}
+            />
+          </TouchableOpacity>
+        )}
+      </View>
     </SafeAreaView>
   );
 };
