@@ -39,6 +39,7 @@ const translations = {
     exploreSub: 'With a free account you can do much more stuff!',
     button: 'Sign in now',
     premium: 'Premium',
+    name: 'Your name',
   },
 };
 export default translations;

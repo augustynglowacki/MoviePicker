@@ -25,11 +25,11 @@ const ProfileCardHeader: React.FC<Props> = ({scrollY}: Props) => {
         <LinearGradient
           colors={[
             'rgba(0,0,0,0.1)',
-            'rgba(0,0,0,0.4)',
-            'rgba(0,0,0,0.6)',
+            'rgba(0,0,0,0.2)',
+            'rgba(0,0,0,0.45)',
             'rgba(0,0,0,0.7)',
-            'rgba(0,0,0,0.8)',
             'rgba(0,0,0,0.9)',
+            'rgba(0,0,0,1)',
             'rgba(0,0,0,1)',
           ]}
           start={{x: 0, y: 0}}
@@ -52,15 +52,15 @@ const styles = StyleSheet.create({
     paddingTop: 1000,
   },
   linearGradient: {
-    height: '125%',
-    width: '125%',
+    height: '150%',
+    width: '150%',
     position: 'absolute',
     left: -50,
     top: -50,
   },
   image: {
     height: HEADER_HEIGHT,
-    width: '125%',
+    width: '150%',
   },
   content: {
     position: 'absolute',
