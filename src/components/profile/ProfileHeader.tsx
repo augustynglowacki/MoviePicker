@@ -18,6 +18,7 @@ const ProfileHeader: React.FC = () => {
     user: {userName},
   } = useSelector(userThunkSelector);
   const {t} = useTranslation('profile');
+  const name = userName || t('name');
 
   return (
     <View style={styles.wrapper}>
@@ -27,7 +28,8 @@ const ProfileHeader: React.FC = () => {
         }}
         style={styles.avatar}
       />
-      <Text style={[styles.text, styles.titleText]}>{userName}</Text>
+
+      <Text style={[styles.text, styles.titleText]}>{name}</Text>
       <Text style={[styles.text, styles.subText]}>{t('premium')}</Text>
     </View>
   );

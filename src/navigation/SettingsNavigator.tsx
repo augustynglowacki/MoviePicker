@@ -12,8 +12,8 @@ const SettingsNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name={Route.SETTINGS} component={Settings} />
-      <Stack.Screen name={Route.USERNAME_FORM} component={Email} />
-      <Stack.Screen name={Route.USER_EMAIL_FORM} component={Username} />
+      <Stack.Screen name={Route.USERNAME_FORM} component={Username} />
+      <Stack.Screen name={Route.USER_EMAIL_FORM} component={Email} />
       <Stack.Screen name={Route.USER_PASSWORD_FORM} component={Password} />
     </Stack.Navigator>
   );
