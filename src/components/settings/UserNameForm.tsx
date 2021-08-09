@@ -8,21 +8,16 @@ import {Route, MIN_USERNAME_LENGTH} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
 import {UserFormDataTemplate} from 'src/models';
 import UserFormTemplate from './UserFormTemplate';
+import {useTranslation} from 'react-i18next';
 
 interface DisplayNameForm {
   displayName: string;
 }
 
-interface Props {
-  goBack: () => void;
-  userName: string;
-  error: string;
-  loading: boolean;
-}
-
-const UserNameForm: React.FC<Props> = ({goBack, userName, error, loading}) => {
+const UserNameForm: React.FC = () => {
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
+  const {t} = useTranslation('common');
   const redirectToProfile = () => navigate(Route.PROFILE);
 
   const validationSchema = Yup.object({
@@ -30,7 +25,7 @@ const UserNameForm: React.FC<Props> = ({goBack, userName, error, loading}) => {
   });
 
   const initialValues = {
-    displayName: userName,
+    displayName: '',
   };
 
   const onSubmit = () => {
@@ -74,11 +69,8 @@ const UserNameForm: React.FC<Props> = ({goBack, userName, error, loading}) => {
   return (
     <UserFormTemplate
       formData={config}
-      headerText="Change username"
-      serverError={error}
-      goBack={goBack}
+      headerText={t('changeUserName')}
       onSubmit={onSubmit}
-      loading={loading}
     />
   );
 };

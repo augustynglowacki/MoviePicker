@@ -1,12 +1,12 @@
 import React from 'react';
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Route, MIN_PASSWORD_LENGTH} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
 import {updateUserEmail} from 'src/redux/user/UserAction';
 import {useTranslation} from 'react-i18next';
-import {setErrorNull} from 'src/redux/user/UserSlice';
+import {setErrorNull, userThunkSelector} from 'src/redux/user/UserSlice';
 import {UserFormDataTemplate} from 'src/models';
 import UserFormTemplate from './UserFormTemplate';
 interface EmailForm {
@@ -15,22 +15,11 @@ interface EmailForm {
   newEmail: string;
 }
 
-interface Props {
-  goBack: () => void;
-  userEmail: string;
-  error: string;
-  loading: boolean;
-}
-
-const UserEmailForm: React.FC<Props> = ({
-  goBack,
-  userEmail,
-  error,
-  loading,
-}) => {
+const UserEmailForm: React.FC = () => {
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
-  const {t} = useTranslation('form');
+  const {user} = useSelector(userThunkSelector);
+  const {t} = useTranslation(['form', 'common']);
   const yupEmail = Yup.string().email(t('email'));
   const yupPassword = Yup.string().min(
     MIN_PASSWORD_LENGTH,
@@ -40,7 +29,7 @@ const UserEmailForm: React.FC<Props> = ({
 
   const validationSchema = Yup.object({
     email: yupEmail,
-    newEmail: yupEmail.nope([userEmail]).when('displayEmail', {
+    newEmail: yupEmail.nope([user.email]).when('displayEmail', {
       is: (val: boolean) => val,
       then: yupEmail.required('Insert new email'),
     }),
@@ -98,11 +87,8 @@ const UserEmailForm: React.FC<Props> = ({
   return (
     <UserFormTemplate
       formData={config}
-      headerText="Change Email"
-      goBack={goBack}
+      headerText={t('common:changeEmail')}
       onSubmit={onSubmit}
-      serverError={error}
-      loading={loading}
     />
   );
 };

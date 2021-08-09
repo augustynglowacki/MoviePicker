@@ -1,6 +1,10 @@
+import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {IconTypes} from 'src/constants';
+import {useTranslation} from 'react-i18next';
+import {useSelector} from 'react-redux';
+import {IconTypes, Route} from 'src/constants';
 import {UserFormDataTemplate} from 'src/models';
+import {userThunkSelector} from 'src/redux/user/UserSlice';
 import palette from 'src/styles/palette';
 import {
   Container,
@@ -12,27 +16,27 @@ import {
 import SettingInput from './SettingInput';
 
 interface Props {
-  goBack: () => void;
   onSubmit: () => void;
   headerText: string;
   formData: UserFormDataTemplate[];
-  serverError: string;
-  loading: boolean;
 }
 
 const UserFormTemplate: React.FC<Props> = ({
-  goBack,
   headerText,
   formData,
   onSubmit,
-  loading,
-  serverError,
 }) => {
+  const {navigate} = useNavigation();
+  const {error, loading} = useSelector(userThunkSelector);
+  const {t} = useTranslation('common');
+  const redirectToSettings = () => navigate(Route.SETTINGS);
+
   const leftIcon = {
     name: 'arrow-back-ios',
     type: IconTypes.MATERIAL,
-    onPressFunction: goBack,
+    onPressFunction: redirectToSettings,
   };
+
   return (
     <Container flexStart>
       <HeaderBar leftIcon={leftIcon} />
@@ -49,12 +53,12 @@ const UserFormTemplate: React.FC<Props> = ({
       ))}
       <CustomButton
         variant="primary"
-        label="Save"
+        label={t('save')}
         onPress={onSubmit}
         width="medium"
         loading={loading}
       />
-      {!!serverError && <Message label={serverError} />}
+      {!!error && <Message label={error} />}
     </Container>
   );
 };

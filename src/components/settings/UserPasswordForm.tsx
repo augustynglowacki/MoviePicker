@@ -16,16 +16,10 @@ interface PasswordForm {
   newPassword: string;
 }
 
-interface Props {
-  goBack: () => void;
-  error: string;
-  loading: boolean;
-}
-
-const UserPasswordForm: React.FC<Props> = ({goBack, error, loading}) => {
+const UserPasswordForm: React.FC = () => {
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
-  const {t} = useTranslation('form');
+  const {t} = useTranslation(['form', 'common']);
   const yupEmail = Yup.string().email(t('email'));
   const yupPassword = Yup.string().min(
     MIN_PASSWORD_LENGTH,
@@ -87,12 +81,9 @@ const UserPasswordForm: React.FC<Props> = ({goBack, error, loading}) => {
 
   return (
     <UserFormTemplate
-      goBack={goBack}
       formData={config}
-      headerText="Change Password"
-      serverError={error}
+      headerText={t('common:changePassword')}
       onSubmit={onSubmit}
-      loading={loading}
     />
   );
 };

@@ -14,6 +14,11 @@ const translations = {
     logoutWarning: 'Are you sure want to logout?',
     or: '-OR-',
     signInWith: 'Sign in with',
+    save: 'Save',
+    updateProfile: 'Update your proflie',
+    changeUserName: 'Change username',
+    changeEmail: 'Change Email',
+    changePassword: 'Change Password',
   },
   movies: {
     movies: 'Movies',
