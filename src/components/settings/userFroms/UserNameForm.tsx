@@ -36,7 +36,7 @@ const UserNameForm: React.FC = () => {
   };
 
   const {handleChange, errors, values} = useFormik({
-    initialValues: initialValues,
+    initialValues,
     validationSchema,
     validateOnChange: false,
     validateOnBlur: false,
