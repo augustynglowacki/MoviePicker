@@ -30,7 +30,7 @@ const Collection: React.FC<Props> = ({title, data, error, isExplore}) => {
     <Container padding="small" disableSafeArea style={styles.wrapper}>
       <SectionHeader text={title} size={20} color={palette.white} />
       <FlatList
-        scrollEnabled={isExplore ? false : true}
+        scrollEnabled={!isExplore}
         data={data}
         renderItem={renderItem}
         horizontal={true}

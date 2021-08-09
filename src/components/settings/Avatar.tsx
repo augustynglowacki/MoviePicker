@@ -3,8 +3,9 @@ import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
-import {Icon} from '../common';
+import {Icon} from 'src/components/common';
 import {IconTypes} from 'src/constants';
+import palette from 'src/styles/palette';
 
 interface Props {
   uri: string;
@@ -43,7 +44,7 @@ const Avatar: React.FC<Props> = ({editable, uri}) => {
             type={IconTypes.ANT}
             name="pluscircle"
             size={20}
-            color="white"
+            color={palette.primary}
           />
         </TouchableOpacity>
       )}
@@ -52,7 +53,9 @@ const Avatar: React.FC<Props> = ({editable, uri}) => {
 };
 
 const styles = StyleSheet.create({
-  avatarBox: {},
+  avatarBox: {
+    marginVertical: 30,
+  },
   avatar: {
     width: 100,
     height: 100,
