@@ -1,19 +1,19 @@
 import * as React from 'react';
-import {Movie} from 'src/models';
+import {Popular} from 'src/models';
 import {Container, ErrorWrapper} from 'src/components/common';
-import MovieList from './MovieList';
+import PopularList from './PopularList';
 
 interface Props {
   error: string;
   loading: boolean;
-  movies: Movie[];
+  movies: Popular[];
 }
 
 const PopularComponent: React.FC<Props> = ({error, loading, movies}) => {
   return (
     <ErrorWrapper error={error} loading={loading}>
       <Container disableScroll disableSafeArea>
-        <MovieList moviesList={movies} />
+        <PopularList data={movies} />
       </Container>
     </ErrorWrapper>
   );

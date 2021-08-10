@@ -6,7 +6,7 @@ import {useEffect} from 'react';
 import RNBootSplash from 'react-native-bootsplash';
 import palette from 'src/styles/palette';
 import {useDispatch} from 'react-redux';
-import {getMovies} from 'src/redux/popular/PopularSlice';
+import {getPopular} from 'src/redux/popular/PopularSlice';
 
 //app background changed to black
 const MyTheme = {
@@ -21,7 +21,7 @@ const MyTheme = {
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getMovies());
+    dispatch(getPopular());
     RNBootSplash.hide({fade: true});
   }, [dispatch]);
   return (

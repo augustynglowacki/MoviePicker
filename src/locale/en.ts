@@ -14,6 +14,11 @@ const translations = {
     logoutWarning: 'Are you sure want to logout?',
     or: '-OR-',
     signInWith: 'Sign in with',
+    save: 'Save',
+    updateProfile: 'Update your proflie',
+    changeUserName: 'Change username',
+    changeEmail: 'Change Email',
+    changePassword: 'Change Password',
   },
   movies: {
     movies: 'Movies',
@@ -27,6 +32,7 @@ const translations = {
     popular: 'Popular',
     seasons: '{{number}} seasons',
     episodes: '{{number}} episodes',
+    stats: 'YOUR STATS',
   },
   form: {
     required: 'Required!',
@@ -37,6 +43,8 @@ const translations = {
     explore: 'Explore your profile.',
     exploreSub: 'With a free account you can do much more stuff!',
     button: 'Sign in now',
+    premium: 'Premium',
+    name: 'Your name',
   },
 };
 export default translations;

@@ -7,16 +7,16 @@ import {
   Platform,
   StyleProp,
   FlexStyle,
+  ViewStyle,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import palette from 'src/styles/palette';
 interface Props {
   //pass normal stylesheet object to change backgroundColor
-  style?: StyleProp<FlexStyle>;
+  style?: StyleProp<ViewStyle>;
   //specify withKeyboard prop when using Container if you want KeyboardAvoidingView
   withKeyboard?: boolean;
-  //specify withPadding prop when using Container if you want additional padding
-  withPadding?: boolean;
+  //padding 'small' - 6, 'large'-16, undefined - 0
+  padding?: 'small' | 'large';
   //sticks component to top of the screen
   flexStart?: boolean;
   disableScroll?: boolean;
@@ -27,7 +27,7 @@ const Container: React.FC<Props> = ({
   style,
   children,
   withKeyboard,
-  withPadding,
+  padding,
   flexStart,
   disableScroll,
   disableSafeArea,
@@ -37,7 +37,16 @@ const Container: React.FC<Props> = ({
   };
 
   const getPadding = (): StyleProp<FlexStyle> => {
-    return {padding: withPadding ? 16 : 0};
+    switch (padding) {
+      case 'small': {
+        return {padding: 6};
+      }
+      case 'large': {
+        return {padding: 16};
+      }
+      default:
+        return {padding: 0};
+    }
   };
 
   const safeArea = disableSafeArea ? (
@@ -88,7 +97,7 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: palette.black,
+    backgroundColor: 'transparent',
     justifyContent: 'center',
   },
 });

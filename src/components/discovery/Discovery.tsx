@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
+import {StyleSheet} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   getSearchedActor,
@@ -7,8 +8,9 @@ import {
   getSearchedTvSeries,
 } from 'src/redux/search/SearchActions';
 import {SearchSelector} from 'src/redux/search/SearchSlice';
-import ActorList from '../actors/ActorList';
-import {CollectionContentBox, Container} from '../common';
+import palette from 'src/styles/palette';
+import Actors from '../actors/Actors';
+import {Collection, Container} from '../common';
 import DiscoveryBox from './DiscoveryBox';
 
 const DiscoveryComponent: React.FC = () => {
@@ -27,23 +29,27 @@ const DiscoveryComponent: React.FC = () => {
   }, [dispatch, query]);
 
   return (
-    <Container withPadding flexStart withKeyboard>
+    <Container flexStart withKeyboard style={styles.wrapper}>
       <DiscoveryBox />
-      <CollectionContentBox
+      <Collection
         title={t('movies')}
         data={foundMovies.movies}
         error={foundMovies.error}
         loading={foundMovies.loading}
       />
-      <CollectionContentBox
+      <Collection
         title={t('tvSeries')}
         data={foundTvSeries.movies}
         error={foundTvSeries.error}
         loading={foundTvSeries.loading}
       />
-      <ActorList data={foundActors.actors} error={foundActors.error} />
+      <Actors data={foundActors.actors} error={foundActors.error} />
     </Container>
   );
 };
 
 export default DiscoveryComponent;
+
+const styles = StyleSheet.create({
+  wrapper: {backgroundColor: palette.strongBlack},
+});

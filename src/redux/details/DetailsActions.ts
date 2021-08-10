@@ -7,8 +7,8 @@ import {
   ContentType,
   MovieDetails,
   TvSeriesDetails,
-  TvSeriesDetailsAxiosResponse,
   MovieDetailsApi,
+  TvSeriesDetailsApi,
 } from 'src/models';
 
 export const getMovieDetails = createAsyncThunk<MovieDetails, number>(
@@ -61,7 +61,7 @@ export const getTvSeriesActors = createAsyncThunk<Actor[], number>(
 export const getTvSeriesDetails = createAsyncThunk<TvSeriesDetails, number>(
   'tvSeriesDetails/getTvSeriesDetails',
   async id => {
-    const res = await axiosInstance.get<TvSeriesDetailsAxiosResponse>(
+    const res = await axiosInstance.get<TvSeriesDetailsApi>(
       `tv/${id}?api_key=${API_KEY}&language=en-US`,
     );
     return {

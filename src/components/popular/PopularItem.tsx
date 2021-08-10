@@ -10,48 +10,31 @@ import {useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 import RatingBox from '../common/RatingBox';
-import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
-import {Movie} from 'src/models';
-import Heart from '../likeHeart/Heart';
+import Heart from '../common/Heart';
 import GenreBox from './GenreBox';
 import {Route, WINDOW_HEIGHT, BOTTOM_TABS_HEIGHT} from 'src/constants';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {setData} from 'src/service/firestore/collection';
+import {Popular} from 'src/models';
 interface Props {
-  movie: Movie;
+  movie: Popular;
 }
 
-const MovieItem: React.FC<Props> = ({movie}) => {
+const PopularItem: React.FC<Props> = React.memo(({movie}) => {
   const {t} = useTranslation('common');
   const {navigate} = useNavigation();
-  const {posterPath, overview, title, id, voteAverage, genres, contentType} =
-    movie;
+  const {posterPath, title, id, voteAverage, genres, contentType} = movie;
   const doubleTapRef = useRef();
   const [isLiked, setLiked] = useState<boolean>(false);
   const {
     user: {email},
   } = useSelector(userThunkSelector);
 
-  const setData = () => {
-    const db = firestore();
-    const userId = auth().currentUser?.uid;
-    userId
-      ? db.collection('users').doc(userId).collection('favoriteMovies').add({
-          movieId: id,
-          title,
-          voteAverage,
-          posterPath,
-          overview,
-          genres,
-          contentType,
-        })
-      : null;
-  };
-
-  const handleOnActivated = () => {
+  const addToFavorite = () => {
     if (email) {
       if (!isLiked) {
         setLiked(true);
-        setData();
+        setData(movie);
         setTimeout(() => setLiked(false), 1200);
       }
     } else {
@@ -82,7 +65,7 @@ const MovieItem: React.FC<Props> = ({movie}) => {
         maxDelayMs={250}
         ref={doubleTapRef}
         numberOfTaps={2}
-        onActivated={handleOnActivated}>
+        onActivated={addToFavorite}>
         <View style={styles.movieContainer}>
           <ImageBackground
             source={{uri: `${API_IMAGES}${posterPath}`}}
@@ -105,7 +88,7 @@ const MovieItem: React.FC<Props> = ({movie}) => {
             end={{x: 0, y: 0}}
             style={styles.linearGradient}
           />
-          <View style={styles.movieInfoContainer}>
+          <SafeAreaView style={styles.movieInfoContainer}>
             <View style={styles.movieInfo}>
               <Text style={styles.title}>{title}</Text>
               <View style={styles.genres}>
@@ -116,14 +99,14 @@ const MovieItem: React.FC<Props> = ({movie}) => {
               {!!voteAverage && <RatingBox voteAverage={voteAverage} />}
               {!!isLiked && <Heart />}
             </View>
-          </View>
+          </SafeAreaView>
         </View>
       </TapGestureHandler>
     </TapGestureHandler>
   );
-};
+});
 
-export default MovieItem;
+export default PopularItem;
 
 export const styles = StyleSheet.create({
   movieContainer: {
@@ -142,18 +125,23 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   movieInfoContainer: {
+    top: 100,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 120,
   },
   movieInfo: {
     padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
     fontSize: 33,
     color: palette.white,
     textAlign: 'center',
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 3,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
   },
   genres: {
     marginTop: 32,

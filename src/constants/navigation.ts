@@ -13,6 +13,9 @@ export enum Route {
   HOME_NAVIGATOR = 'HomeNavigator',
   DETAILS = 'Details',
   SETTINGS = 'Settings',
+  USER_EMAIL_FORM = 'UserEmailForm',
+  USER_PASSWORD_FORM = 'UserPasswordForm',
+  USERNAME_FORM = 'UserNameForm',
 }
 
 type DetailsScreenParams = {

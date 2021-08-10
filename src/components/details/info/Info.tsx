@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
-import ActorList from 'src/components/actors/ActorList';
+import Actors from 'src/components/actors/Actors';
 import RatingBox from 'src/components/common/RatingBox';
 import {Actor, MovieDetails, TvSeriesDetails} from 'src/models';
 import palette from 'src/styles/palette';
@@ -25,11 +25,11 @@ const Info: React.FC<Props> = ({data, actors}) => {
         </Animated.View>
       </AnimatedLayout>
       <InfoBox data={data} />
-      <RatingBox voteAverage={data.voteAverage} />
+      {!!data.voteAverage && <RatingBox voteAverage={data.voteAverage} />}
       <View style={styles.descriptionWrapper}>
         <Text style={styles.descriptionText}>{data.overview}</Text>
       </View>
-      <ActorList data={actors} />
+      <Actors data={actors} />
     </View>
   );
 };
@@ -39,6 +39,9 @@ const styles = StyleSheet.create({
     color: palette.white,
     fontSize: 34,
     textAlign: 'center',
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 3,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
   },
   descriptionWrapper: {
     marginTop: 40,
@@ -51,7 +54,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   bottomWrapper: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 6,
     paddingBottom: 16,
     marginTop: -40,
   },

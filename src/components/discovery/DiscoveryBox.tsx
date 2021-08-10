@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
   searchBox: {
     width: '100%',
     justifyContent: 'space-around',
+    padding: 6,
   },
 });
 

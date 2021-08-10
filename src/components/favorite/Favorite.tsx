@@ -1,31 +1,38 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {View, StyleSheet, ListRenderItem, FlatList} from 'react-native';
+import {BOTTOM_TABS_HEIGHT} from 'src/constants';
 import {Movie} from 'src/models';
 import palette from 'src/styles/palette';
-import {Container, MovieBox, SectionHeader} from '../common';
+import {Container, CollectionItem, SectionHeader} from '../common';
 
 interface Props {
   movies: Movie[];
+  isExplore?: boolean;
 }
 
-const FavoriteContentBox: React.FC<Props> = ({movies}) => {
+const Favorite: React.FC<Props> = ({movies, isExplore}) => {
   const {t} = useTranslation('movies');
 
+  const keyExtractor = (item: Movie) => item.id.toString();
+
   const renderItem: ListRenderItem<Movie> = ({item}) => (
-    <MovieBox movie={item} />
+    <CollectionItem movie={item} />
   );
+
   return (
-    <Container flexStart withPadding disableScroll>
+    <Container flexStart padding="small" disableScroll style={styles.wrapper}>
       <SectionHeader text={t('favorite')} color={palette.white} />
-      <View style={styles.favoriteContentBox}>
+      <View style={styles.favorite}>
         <FlatList
+          scrollEnabled={!isExplore}
           data={movies}
           renderItem={renderItem}
           showsVerticalScrollIndicator={false}
           numColumns={2}
           maxToRenderPerBatch={5}
           columnWrapperStyle={styles.tagView}
+          keyExtractor={keyExtractor}
         />
       </View>
     </Container>
@@ -33,13 +40,17 @@ const FavoriteContentBox: React.FC<Props> = ({movies}) => {
 };
 
 const styles = StyleSheet.create({
-  favoriteContentBox: {
+  favorite: {
     minWidth: '100%',
     alignItems: 'center',
   },
   tagView: {
     flexWrap: 'wrap',
   },
+  wrapper: {
+    backgroundColor: palette.strongBlack,
+    paddingBottom: BOTTOM_TABS_HEIGHT,
+  },
 });
 
-export default FavoriteContentBox;
+export default Favorite;

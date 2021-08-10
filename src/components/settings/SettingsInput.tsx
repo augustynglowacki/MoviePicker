@@ -1,13 +1,13 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {Input} from '../common';
+import {Input} from 'src/components/common';
 
 interface Props {
   label: string;
   initialValue: string;
   secureTextEntry?: boolean;
   onChange: (text: string) => void;
-  error: any;
+  error?: string;
 }
 
 const SettingInput: React.FC<Props> = ({
@@ -18,29 +18,25 @@ const SettingInput: React.FC<Props> = ({
   error,
 }) => {
   return (
-    <View style={styles.settingBox}>
+    <View style={styles.settingInput}>
       <Input
         error={error}
         label={label}
+        value={initialValue}
+        secureTextEntry={secureTextEntry}
         onChangeText={valueText => {
           onChange(valueText);
         }}
-        value={initialValue}
-        secureTextEntry={secureTextEntry}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  settingBox: {
+  settingInput: {
     borderColor: 'white',
-    marginTop: 10,
-    marginBottom: 10,
+    marginVertical: 10,
     padding: 10,
-  },
-  settingText: {
-    color: 'white',
   },
 });
 

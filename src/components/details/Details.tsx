@@ -11,11 +11,13 @@ interface Props {
   posterPath: string;
   movieActors: Actor[];
   goBack: () => void;
+  addToFavorite: () => void;
 }
 
 const DetailsComponent: React.FC<Props> = ({
   posterPath,
   goBack,
+  addToFavorite,
   data,
   movieActors,
 }) => {
@@ -24,7 +26,11 @@ const DetailsComponent: React.FC<Props> = ({
   }
   return (
     <Container disableSafeArea style={styles.container}>
-      <Background goBack={goBack} posterPath={posterPath} />
+      <Background
+        goBack={goBack}
+        posterPath={posterPath}
+        addToFavorite={addToFavorite}
+      />
       <Info actors={movieActors} data={data} />
     </Container>
   );

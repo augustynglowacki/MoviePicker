@@ -1,15 +1,15 @@
-import CollectionContentBox from './CollectionContentBox';
+import Collection from '../collection/Collection';
 import Container from './Container';
 import CustomButton from './CustomButton';
-import ErrorBox from './ErrorBox';
+import ErrorBox from '../error/ErrorBox';
 import Input from './Input';
 import Message from './Message';
-import MovieBox from './MovieBox';
-import ErrorWrapper from './ErrorWrapper';
+import CollectionItem from '../collection/CollectionItem';
+import ErrorWrapper from '../error/ErrorWrapper';
 import SectionHeader from './SectionHeader';
 import SocialButton from './SocialButton';
-import TabIcon from './TabIcon';
 import Icon from './Icon';
+import HeaderBar from './HeaderBar';
 import Loading from './Loading';
 
 export {
@@ -17,13 +17,13 @@ export {
   Input,
   ErrorBox,
   Container,
-  CollectionContentBox,
+  Collection,
   Message,
-  MovieBox,
+  CollectionItem,
   SectionHeader,
   SocialButton,
   Loading,
-  TabIcon,
   ErrorWrapper,
+  HeaderBar,
   Icon,
 };

@@ -48,6 +48,11 @@ const CustomButton: React.FC<Props> = ({
         return {width: '70%'};
     }
   };
+  const loadingFix = () => {
+    return {
+      width: loading ? undefined : '100%',
+    };
+  };
 
   return (
     <Button
@@ -56,7 +61,7 @@ const CustomButton: React.FC<Props> = ({
       loading={loading}
       onPress={onPress}
       style={[styles.background, getBackground(), getWidth()]}
-      labelStyle={[styles.text, getColor()]}>
+      labelStyle={[styles.text, getColor(), loadingFix()]}>
       {label}
     </Button>
   );

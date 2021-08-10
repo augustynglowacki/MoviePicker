@@ -11,8 +11,8 @@ import {useTranslation} from 'react-i18next';
 import RegisterComponent from 'src/components/auth/Register';
 import * as Yup from 'yup';
 import {Route} from 'src/constants';
+import {MIN_PASSWORD_LENGTH} from 'src/constants/formValues';
 
-export const MIN_PASSWORD_LENGTH = 6;
 const initialState = {username: '', email: '', password: ''};
 
 const RegisterScreen: React.FC = () => {

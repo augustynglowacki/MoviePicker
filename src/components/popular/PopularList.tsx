@@ -2,29 +2,32 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {StyleSheet, View, FlatList, Text, ListRenderItem} from 'react-native';
 import palette from 'src/styles/palette';
-import {Movie} from 'src/models';
-import MovieItem from './MovieItem';
+import {Popular} from 'src/models';
+import PopularItem from './PopularItem';
 import {BOTTOM_TABS_HEIGHT, WINDOW_HEIGHT} from 'src/constants';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 interface Props {
-  moviesList: Movie[];
+  data: Popular[];
 }
 
-const MovieList: React.FC<Props> = ({moviesList}) => {
+const PopularList: React.FC<Props> = ({data}) => {
   const {t} = useTranslation('movies');
-  const renderItem: ListRenderItem<Movie> = ({item}) => {
-    return <MovieItem movie={item} />;
+  const renderItem: ListRenderItem<Popular> = ({item}) => {
+    return <PopularItem movie={item} />;
   };
 
-  const keyExtractor = (item: Movie) => item.id.toString();
+  const keyExtractor = (item: Popular) => item.id.toString();
 
   return (
     <View style={styles.container}>
       <View style={styles.heading}>
-        <Text style={styles.headingText}>{t('popular')}</Text>
+        <SafeAreaView>
+          <Text style={styles.headingText}>{t('popular')}</Text>
+        </SafeAreaView>
       </View>
-      <FlatList<Movie>
-        data={moviesList}
+      <FlatList<Popular>
+        data={data}
         renderItem={renderItem}
         snapToAlignment="start"
         decelerationRate="fast"
@@ -40,11 +43,11 @@ const MovieList: React.FC<Props> = ({moviesList}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: palette.black,
+    backgroundColor: palette.strongBlack,
   },
   heading: {
     alignSelf: 'center',
-    top: 40,
+    top: 20,
     position: 'absolute',
     zIndex: 10,
   },
@@ -52,7 +55,10 @@ const styles = StyleSheet.create({
     color: palette.white,
     fontWeight: 'bold',
     fontSize: 17,
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 1,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
   },
 });
 
-export default MovieList;
+export default PopularList;
