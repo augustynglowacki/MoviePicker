@@ -4,7 +4,7 @@ import {View, StyleSheet, ListRenderItem, FlatList} from 'react-native';
 import {BOTTOM_TABS_HEIGHT} from 'src/constants';
 import {Movie} from 'src/models';
 import palette from 'src/styles/palette';
-import {Container, MovieBox, SectionHeader} from '../common';
+import {Container, CollectionItem, SectionHeader} from '../common';
 
 interface Props {
   movies: Movie[];
@@ -17,7 +17,7 @@ const Favorite: React.FC<Props> = ({movies, isExplore}) => {
   const keyExtractor = (item: Movie) => item.id.toString();
 
   const renderItem: ListRenderItem<Movie> = ({item}) => (
-    <MovieBox movie={item} />
+    <CollectionItem movie={item} />
   );
 
   return (

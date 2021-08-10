@@ -2,22 +2,22 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {StyleSheet, View, FlatList, Text, ListRenderItem} from 'react-native';
 import palette from 'src/styles/palette';
-import {Movie} from 'src/models';
-import MovieItem from './MovieItem';
+import {Popular} from 'src/models';
+import PopularItem from './PopularItem';
 import {BOTTOM_TABS_HEIGHT, WINDOW_HEIGHT} from 'src/constants';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 interface Props {
-  moviesList: Movie[];
+  data: Popular[];
 }
 
-const MovieList: React.FC<Props> = ({moviesList}) => {
+const PopularList: React.FC<Props> = ({data}) => {
   const {t} = useTranslation('movies');
-  const renderItem: ListRenderItem<Movie> = ({item}) => {
-    return <MovieItem movie={item} />;
+  const renderItem: ListRenderItem<Popular> = ({item}) => {
+    return <PopularItem movie={item} />;
   };
 
-  const keyExtractor = (item: Movie) => item.id.toString();
+  const keyExtractor = (item: Popular) => item.id.toString();
 
   return (
     <View style={styles.container}>
@@ -26,8 +26,8 @@ const MovieList: React.FC<Props> = ({moviesList}) => {
           <Text style={styles.headingText}>{t('popular')}</Text>
         </SafeAreaView>
       </View>
-      <FlatList<Movie>
-        data={moviesList}
+      <FlatList<Popular>
+        data={data}
         renderItem={renderItem}
         snapToAlignment="start"
         decelerationRate="fast"
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MovieList;
+export default PopularList;

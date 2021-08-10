@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import Loading from './Loading';
+import Loading from '../common/Loading';
 import ErrorBox from './ErrorBox';
 
 interface Props {

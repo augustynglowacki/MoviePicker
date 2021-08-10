@@ -1,4 +1,4 @@
-import {convertResponseToMovie} from '../src/helpers/convertResponseToMovie';
+import {convertResponseToMovie} from '../src/helpers/convertResponse';
 import {Movie} from '../src/models';
 
 test('Checks if Conversion to array of movies is succeeded', () => {
