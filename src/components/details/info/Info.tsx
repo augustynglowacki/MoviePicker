@@ -25,7 +25,7 @@ const Info: React.FC<Props> = ({data, actors}) => {
         </Animated.View>
       </AnimatedLayout>
       <InfoBox data={data} />
-      <RatingBox voteAverage={data.voteAverage} />
+      {!!data.voteAverage && <RatingBox voteAverage={data.voteAverage} />}
       <View style={styles.descriptionWrapper}>
         <Text style={styles.descriptionText}>{data.overview}</Text>
       </View>
