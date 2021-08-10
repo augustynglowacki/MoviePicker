@@ -48,7 +48,7 @@ export const updateUserEmail = createAsyncThunk<string, UpdateUser>(
       callback();
       return newEmail;
     }
-    return rejectWithValue('Error occured when trying to update email');
+    return rejectWithValue('Error occurred when trying to update email');
   },
 );
 
@@ -61,7 +61,7 @@ export const updateUserPassword = createAsyncThunk<string, UpdateUser>(
       callback();
       return newPassword;
     }
-    return rejectWithValue('Error occured when trying to update password');
+    return rejectWithValue('Error occurred when trying to update password');
   },
 );
 
