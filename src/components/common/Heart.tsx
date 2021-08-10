@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import {StyleSheet, Animated} from 'react-native';
 import palette from 'src/styles/palette';
-import {Icon} from '../common';
+import {Icon} from '.';
 import {IconTypes} from 'src/constants';
 
 const Heart: React.FC = () => {

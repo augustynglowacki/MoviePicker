@@ -13,10 +13,10 @@ interface Props {
   movie: Movie;
 }
 
-const MovieBox: React.FC<Props> = ({movie}) => {
+const CollectionItem: React.FC<Props> = ({movie}) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const {navigate} = useNavigation();
-
+  const {posterPath, id, contentType} = movie;
   useEffect(() => {
     Animated.timing(fadeAnim, {
       toValue: 1,
@@ -25,21 +25,21 @@ const MovieBox: React.FC<Props> = ({movie}) => {
     }).start();
   }, [fadeAnim]);
 
-  if (!movie.posterPath) {
+  if (!posterPath) {
     return null;
   }
   return (
     <TapGestureHandler
       onActivated={() => {
         navigate(Route.DETAILS, {
-          posterPath: movie.posterPath,
-          id: movie.id,
-          contentType: movie.contentType,
+          posterPath,
+          id,
+          contentType,
         });
       }}>
       <Animated.View style={{...styles.movieBox, opacity: fadeAnim}}>
         <ImageBackground
-          source={{uri: `${API_IMAGES}${movie.posterPath}`}}
+          source={{uri: `${API_IMAGES}${posterPath}`}}
           style={styles.movieImage}
         />
         <LinearGradient
@@ -80,4 +80,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MovieBox;
+export default CollectionItem;

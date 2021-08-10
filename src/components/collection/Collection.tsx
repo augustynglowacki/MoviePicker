@@ -3,10 +3,10 @@ import {ListRenderItem, StyleSheet} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import palette from 'src/styles/palette';
 import {Movie} from 'src/models';
-import ErrorWrapper from './ErrorWrapper';
-import MovieBox from './MovieBox';
-import SectionHeader from './SectionHeader';
-import Container from './Container';
+import ErrorWrapper from '../error/ErrorWrapper';
+import CollectionItem from './CollectionItem';
+import SectionHeader from '../common/SectionHeader';
+import Container from '../common/Container';
 
 interface Props {
   title: string;
@@ -18,7 +18,7 @@ interface Props {
 
 const Collection: React.FC<Props> = ({title, data, error, isExplore}) => {
   const renderItem: ListRenderItem<Movie> = ({item}) => (
-    <MovieBox movie={item} />
+    <CollectionItem movie={item} />
   );
   if (error) {
     return <ErrorWrapper error={error} loading={false} />;

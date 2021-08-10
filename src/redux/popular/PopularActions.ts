@@ -1,19 +1,19 @@
 import {API_KEY} from '@env';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axiosInstance from 'src/helpers/axiosInstance';
-import {convertResponseToMovie} from 'src/helpers/convertResponseToMovie';
-import {Movie, MovieAxiosResponse} from 'src/models';
+import {convertToPopular} from 'src/helpers/convertResponse';
+import {Popular, PopularAxiosResponse} from 'src/models';
 
 const randomItem = Math.floor(Math.random() * 8) + 1; // get random items from database // to Delete
 
 //Thunk action
-export const getMovies = createAsyncThunk<Movie[]>(
-  'movie/getMovies',
+export const getPopular = createAsyncThunk<Popular[]>(
+  'movie/getPopular',
   async () => {
-    const res = await axiosInstance.get<MovieAxiosResponse>(
-      `movie/popular?api_key=${API_KEY}&language=en-US&page=${randomItem}`, //same
+    const res = await axiosInstance.get<PopularAxiosResponse>(
+      `movie/popular?api_key=${API_KEY}&language=en-US&page=${randomItem}`,
     );
 
-    return convertResponseToMovie(res.data.results, true);
+    return convertToPopular(res.data.results, true);
   },
 );

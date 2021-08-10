@@ -15,6 +15,7 @@ interface Props {
   style?: StyleProp<ViewStyle>;
   //specify withKeyboard prop when using Container if you want KeyboardAvoidingView
   withKeyboard?: boolean;
+  //padding 'small' - 6, 'large'-16, undefined - 0
   padding?: 'small' | 'large';
   //sticks component to top of the screen
   flexStart?: boolean;

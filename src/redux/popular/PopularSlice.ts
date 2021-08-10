@@ -1,9 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {MovieState} from 'src/models';
+import {PopularState} from 'src/models';
 import {RootState} from '../rootReducer';
-import {getMovies} from './PopularActions';
+import {getPopular} from './PopularActions';
 
-const initialState: MovieState = {
+const initialState: PopularState = {
   movies: [],
   loading: false,
   error: '',
@@ -13,15 +13,15 @@ const popularSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(getMovies.fulfilled, (state, action) => {
+    builder.addCase(getPopular.fulfilled, (state, action) => {
       state.movies = action.payload;
       state.loading = false;
     });
-    builder.addCase(getMovies.pending, state => {
+    builder.addCase(getPopular.pending, state => {
       state.loading = true;
       state.error = '';
     });
-    builder.addCase(getMovies.rejected, (state, action) => {
+    builder.addCase(getPopular.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message ?? 'error';
     });
@@ -30,4 +30,4 @@ const popularSlice = createSlice({
 
 export default popularSlice.reducer;
 export const popularSelector = (state: RootState) => state.popular;
-export {getMovies};
+export {getPopular};
