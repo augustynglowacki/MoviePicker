@@ -79,12 +79,18 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: palette.white,
     textAlign: 'center',
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 10,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
   },
   subText: {
     fontSize: 12,
     marginVertical: 10,
     color: palette.white,
     textAlign: 'center',
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 10,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
   },
   buttons: {
     flexDirection: 'row',

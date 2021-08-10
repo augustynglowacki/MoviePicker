@@ -55,6 +55,9 @@ const styles = StyleSheet.create({
     color: palette.white,
     fontWeight: 'bold',
     fontSize: 17,
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 1,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
   },
 });
 

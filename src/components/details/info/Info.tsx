@@ -39,6 +39,9 @@ const styles = StyleSheet.create({
     color: palette.white,
     fontSize: 34,
     textAlign: 'center',
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 3,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
   },
   descriptionWrapper: {
     marginTop: 40,
