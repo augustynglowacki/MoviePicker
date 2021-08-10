@@ -1,6 +1,7 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {View, StyleSheet, ListRenderItem, FlatList} from 'react-native';
+import {BOTTOM_TABS_HEIGHT} from 'src/constants';
 import {Movie} from 'src/models';
 import palette from 'src/styles/palette';
 import {Container, MovieBox, SectionHeader} from '../common';
@@ -46,7 +47,10 @@ const styles = StyleSheet.create({
   tagView: {
     flexWrap: 'wrap',
   },
-  wrapper: {backgroundColor: palette.strongBlack},
+  wrapper: {
+    backgroundColor: palette.strongBlack,
+    paddingBottom: BOTTOM_TABS_HEIGHT,
+  },
 });
 
 export default Favorite;

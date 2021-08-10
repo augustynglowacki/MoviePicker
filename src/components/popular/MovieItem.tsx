@@ -10,53 +10,32 @@ import {useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 import RatingBox from '../common/RatingBox';
-import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
 import {Movie} from 'src/models';
 import Heart from '../likeHeart/Heart';
 import GenreBox from './GenreBox';
 import {Route, WINDOW_HEIGHT, BOTTOM_TABS_HEIGHT} from 'src/constants';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {setData} from 'src/service/firestore/collection';
 interface Props {
   movie: Movie;
 }
 
-const MovieItem: React.FC<Props> = ({movie}) => {
+const MovieItem: React.FC<Props> = React.memo(({movie}) => {
   const {t} = useTranslation('common');
   const {navigate} = useNavigation();
-  const {posterPath, overview, title, id, voteAverage, genres, contentType} =
-    movie;
+  const {posterPath, title, id, voteAverage, genres, contentType} = movie;
+  console.log(movie);
   const doubleTapRef = useRef();
   const [isLiked, setLiked] = useState<boolean>(false);
   const {
     user: {email},
   } = useSelector(userThunkSelector);
 
-  const setData = () => {
-    const db = firestore();
-    const userId = auth().currentUser?.uid;
-    userId
-      ? db
-          .collection('users')
-          .doc(userId)
-          .collection('favoriteMovies')
-          .doc(id.toString())
-          .set({
-            title,
-            voteAverage,
-            posterPath,
-            overview,
-            genres,
-            contentType,
-          })
-      : null;
-  };
-
   const addToFavorite = () => {
     if (email) {
       if (!isLiked) {
         setLiked(true);
-        setData();
+        setData(movie);
         setTimeout(() => setLiked(false), 1200);
       }
     } else {
@@ -126,7 +105,7 @@ const MovieItem: React.FC<Props> = ({movie}) => {
       </TapGestureHandler>
     </TapGestureHandler>
   );
-};
+});
 
 export default MovieItem;
 
