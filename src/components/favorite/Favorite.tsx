@@ -13,9 +13,12 @@ interface Props {
 const Favorite: React.FC<Props> = ({movies, isExplore}) => {
   const {t} = useTranslation('movies');
 
+  const keyExtractor = (item: Movie) => item.id.toString();
+
   const renderItem: ListRenderItem<Movie> = ({item}) => (
     <MovieBox movie={item} />
   );
+
   return (
     <Container flexStart padding="small" disableScroll style={styles.wrapper}>
       <SectionHeader text={t('favorite')} color={palette.white} />
@@ -28,6 +31,7 @@ const Favorite: React.FC<Props> = ({movies, isExplore}) => {
           numColumns={2}
           maxToRenderPerBatch={5}
           columnWrapperStyle={styles.tagView}
+          keyExtractor={keyExtractor}
         />
       </View>
     </Container>

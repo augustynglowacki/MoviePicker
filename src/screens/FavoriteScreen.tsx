@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-import {CollectionItem, Movie} from 'src/models';
+import {Movie} from 'src/models';
 import Favorite from 'src/components/favorite/Favorite';
 
 const FavoriteScreen: React.FC = () => {
-  const [backendMovies, setBackendMovies] = useState<CollectionItem[]>([]);
+  const [backendMovies, setBackendMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
     fetchData();
@@ -19,9 +19,8 @@ const FavoriteScreen: React.FC = () => {
         .doc(userId)
         .collection('favoriteMovies')
         .onSnapshot(snap => {
-          const data: CollectionItem[] = snap.docs.map(doc => ({
-            id: doc.id,
-            movieId: doc.data().movieId,
+          const data: Movie[] = snap.docs.map(doc => ({
+            id: parseInt(doc.id, 10),
             title: doc.data().title,
             voteAverage: doc.data().voteAverage,
             posterPath: doc.data().posterPath,
@@ -36,19 +35,7 @@ const FavoriteScreen: React.FC = () => {
     }
   };
 
-  const convertEntityToMovie = (data: CollectionItem[]): Movie[] => {
-    return data.map((movie: CollectionItem) => ({
-      id: movie.movieId,
-      title: movie.title,
-      voteAverage: movie.voteAverage,
-      posterPath: movie.posterPath,
-      overview: movie.overview,
-      genres: movie.genres,
-      contentType: movie.contentType,
-    }));
-  };
-
-  return <Favorite movies={convertEntityToMovie(backendMovies)} />;
+  return <Favorite movies={backendMovies} />;
 };
 
 export default FavoriteScreen;

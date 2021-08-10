@@ -36,15 +36,19 @@ const MovieItem: React.FC<Props> = ({movie}) => {
     const db = firestore();
     const userId = auth().currentUser?.uid;
     userId
-      ? db.collection('users').doc(userId).collection('favoriteMovies').add({
-          movieId: id,
-          title,
-          voteAverage,
-          posterPath,
-          overview,
-          genres,
-          contentType,
-        })
+      ? db
+          .collection('users')
+          .doc(userId)
+          .collection('favoriteMovies')
+          .doc(id.toString())
+          .set({
+            title,
+            voteAverage,
+            posterPath,
+            overview,
+            genres,
+            contentType,
+          })
       : null;
   };
 
