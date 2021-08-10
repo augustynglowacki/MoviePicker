@@ -9,14 +9,13 @@ interface Props {
 
 const InfoGenres: React.FC<Props> = ({genres}) => {
   if (!genres.length) {
-    return <InfoDotIcon />;
+    return null;
   }
   return (
     <>
       <InfoDotIcon />
       <Text style={styles.text}>{`${genres[0]}`}</Text>
       {genres.length > 1 && <Text style={styles.text}>{`, ${genres[1]}`}</Text>}
-      <InfoDotIcon />
     </>
   );
 };

@@ -6,7 +6,7 @@ import {convertToHours} from 'src/helpers/convertToHours';
 import {MovieDetails, TvSeriesDetails} from 'src/models';
 import palette from 'src/styles/palette';
 import InfoGenres from './InfoGenres';
-
+import InfoDotIcon from './InfoDotIcon';
 interface Props {
   data: MovieDetails | TvSeriesDetails;
 }
@@ -45,7 +45,12 @@ const InfoBox: React.FC<Props> = ({data}) => {
     <View style={styles.movieInfo}>
       <StyledText>{getDateContent()}</StyledText>
       <InfoGenres genres={genresArray} />
-      <StyledText>{getDurationContent()}</StyledText>
+      {(!!movie.runtime || !!tvSerie.seasonsCount) && (
+        <>
+          <InfoDotIcon />
+          <StyledText>{getDurationContent()}</StyledText>
+        </>
+      )}
     </View>
   );
 };
@@ -57,7 +62,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 4,
+    marginBottom: 8,
     marginTop: 24,
     flexWrap: 'wrap',
   },
