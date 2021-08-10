@@ -21,11 +21,7 @@ const FavoriteScreen: React.FC = () => {
         .onSnapshot(snap => {
           const data: Movie[] = snap.docs.map(doc => ({
             id: parseInt(doc.id, 10),
-            title: doc.data().title,
-            voteAverage: doc.data().voteAverage,
             posterPath: doc.data().posterPath,
-            overview: doc.data().overview,
-            genres: doc.data().genres,
             contentType: doc.data().contentType,
           }));
           setBackendMovies(data);
