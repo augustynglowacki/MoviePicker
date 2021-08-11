@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: palette.white,
     justifyContent: 'center',
-    marginTop: 20,
-    marginHorizontal: 3,
+    paddingTop: 20,
+    paddingHorizontal: 3,
   },
   register: {
     color: palette.primary,

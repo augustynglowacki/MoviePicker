@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
 import {batch, useDispatch, useSelector} from 'react-redux';
-import {getMovieDetails, detailsSelector} from 'src/redux/details/DetailsSlice';
+import {detailsSelector} from 'src/redux/details/DetailsSlice';
 import {
   getMovieActors,
   getTvSeriesDetails,
   getTvSeriesActors,
+  getMovieDetails,
 } from 'src/redux/details/DetailsActions';
 import DetailsComponent from 'src/components/details/Details';
 import {

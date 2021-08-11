@@ -13,7 +13,7 @@ interface Props {
   movie: Movie;
 }
 
-const CollectionItem: React.FC<Props> = ({movie}) => {
+const CollectionItem: React.FC<Props> = React.memo(({movie}) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const {navigate} = useNavigation();
   const {posterPath, id, contentType} = movie;
@@ -51,7 +51,7 @@ const CollectionItem: React.FC<Props> = ({movie}) => {
       </Animated.View>
     </TapGestureHandler>
   );
-};
+});
 const WIDTH = Dimensions.get('window').width / 2 - 12;
 const HEIGHT = (WIDTH / 2) * 3;
 const BORDER_RADIUS = 4;

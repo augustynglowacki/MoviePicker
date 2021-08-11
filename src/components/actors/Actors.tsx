@@ -16,11 +16,14 @@ const Actors: React.FC<Props> = ({data, error}) => {
   const renderItem: ListRenderItem<Actor> = ({item}) => (
     <ActorItem name={item.name} profilePath={item.profilePath} />
   );
-
   if (error) {
     return <ErrorWrapper error={error} loading={false} />;
   }
   if (!data.length) {
+    return null;
+  }
+
+  if (!data.some(e => e.profilePath)) {
     return null;
   }
 

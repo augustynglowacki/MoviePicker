@@ -37,7 +37,7 @@ const RegisterComponent: React.FC<Props> = ({
   const [hiddenPassword, setHiddenPassword] = useState(true);
   const handleHide = () => setHiddenPassword(!hiddenPassword);
   return (
-    <Container withKeyboard padding="large">
+    <Container withKeyboard padding="large" style={styles.wrapper}>
       <AnimatedLayout>
         <Animated.View entering={StretchInX.springify()}>
           <Image
@@ -109,5 +109,8 @@ const styles = StyleSheet.create({
   },
   form: {
     paddingTop: 20,
+  },
+  wrapper: {
+    backgroundColor: palette.black,
   },
 });

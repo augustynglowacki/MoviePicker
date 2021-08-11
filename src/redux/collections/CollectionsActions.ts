@@ -2,6 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {Movie} from 'src/models';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import {setData} from 'src/service/firestore/collection';
 
 export const getFavorite = createAsyncThunk<Movie[]>(
   'collections/getFavorite',
@@ -27,6 +28,12 @@ export const getFavorite = createAsyncThunk<Movie[]>(
           },
         );
     }),
+);
+export const setFavorite = createAsyncThunk<void, Movie>(
+  'collections/setFavorite',
+  async movie => {
+    await setData(movie);
+  },
 );
 
 export const getWatched = createAsyncThunk<Movie[]>(

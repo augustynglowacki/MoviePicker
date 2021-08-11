@@ -1,18 +1,26 @@
-import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import React, {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Alert} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import ProfileComponent from 'src/components/profile/Profile';
 import {Route} from 'src/constants';
-import {popularSelector} from 'src/redux/popular/PopularSlice';
+import {getFavorite} from 'src/redux/collections/CollectionsActions';
+import {collectionsSelector} from 'src/redux/collections/CollectionsSlice';
 import {logOutUser} from 'src/redux/user/UserAction';
 
 const ProfileScreen: React.FC = () => {
-  const {movies} = useSelector(popularSelector);
   const {navigate} = useNavigation();
   const dispatch = useDispatch();
   const {t} = useTranslation('common');
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(getFavorite());
+    }, [dispatch]),
+  );
+
+  const {favorite} = useSelector(collectionsSelector);
 
   const navigateTo = () => {
     navigate(Route.SETTINGS);
@@ -32,9 +40,9 @@ const ProfileScreen: React.FC = () => {
   };
 
   const collectionContent = [
-    {id: 1, title: t('movies:favorite'), collection: movies},
-    {id: 2, title: t('movies:watched'), collection: movies},
-    {id: 3, title: t('movies:toWatch'), collection: movies},
+    {id: 1, title: t('movies:favorite'), collection: favorite.movies},
+    // {id: 2, title: t('movies:watched'), collection: movies},
+    // {id: 3, title: t('movies:toWatch'), collection: movies},
   ];
 
   return (

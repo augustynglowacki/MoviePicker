@@ -1,37 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
-import {Movie} from 'src/models';
+import React, {useCallback} from 'react';
 import Favorite from 'src/components/favorite/Favorite';
+import {useDispatch, useSelector} from 'react-redux';
+import {collectionsSelector} from 'src/redux/collections/CollectionsSlice';
+import {getFavorite} from 'src/redux/collections/CollectionsActions';
+import {useFocusEffect} from '@react-navigation/native';
 
 const FavoriteScreen: React.FC = () => {
-  const [backendMovies, setBackendMovies] = useState<Movie[]>([]);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(getFavorite());
+    }, [dispatch]),
+  );
 
-  const fetchData = async () => {
-    try {
-      const userId = auth().currentUser?.uid ?? 'none';
-      const db = firestore();
-      db.collection('users')
-        .doc(userId)
-        .collection('favoriteMovies')
-        .onSnapshot(snap => {
-          const data: Movie[] = snap.docs.map(doc => ({
-            id: parseInt(doc.id, 10),
-            posterPath: doc.data().posterPath,
-            contentType: doc.data().contentType,
-          }));
-          setBackendMovies(data);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const {favorite} = useSelector(collectionsSelector);
 
-  return <Favorite movies={backendMovies} />;
+  return <Favorite movies={favorite.movies} />;
 };
 
 export default FavoriteScreen;

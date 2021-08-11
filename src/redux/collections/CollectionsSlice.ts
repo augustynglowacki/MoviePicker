@@ -1,8 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Movie, MovieState} from 'src/models';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {RootState} from '../rootReducer';
-import {getFavorite, getToWatch, getWatched} from './CollectionsActions';
+import {
+  getFavorite,
+  getToWatch,
+  getWatched,
+  setFavorite,
+} from './CollectionsActions';
 
 interface CollectionsState {
   favorite: MovieState;
@@ -21,53 +25,65 @@ const CollectionsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(getFavorite.pending, state => {
-      state.favorite.error = '';
-      state.favorite.loading = true;
-    });
-    builder.addCase(
-      getFavorite.fulfilled,
-      (state, action: PayloadAction<Movie[]>) => {
-        state.favorite.movies = action.payload;
+    builder
+      .addCase(getFavorite.pending, state => {
+        state.favorite.error = '';
+        state.favorite.loading = true;
+      })
+      .addCase(
+        getFavorite.fulfilled,
+        (state, action: PayloadAction<Movie[]>) => {
+          state.favorite.movies = action.payload;
+          state.favorite.loading = false;
+        },
+      )
+      .addCase(getFavorite.rejected, (state, action) => {
+        state.favorite.error = action.error.message ?? 'error';
         state.favorite.loading = false;
-      },
-    );
-    builder.addCase(getFavorite.rejected, (state, action) => {
-      state.favorite.error = action.error.message ?? 'error';
-      state.favorite.loading = false;
-    });
-    builder.addCase(getWatched.pending, state => {
-      state.watched.error = '';
-      state.watched.loading = true;
-    });
-    builder.addCase(
-      getWatched.fulfilled,
-      (state, action: PayloadAction<Movie[]>) => {
-        state.watched.movies = action.payload;
+      })
+      .addCase(setFavorite.pending, state => {
+        state.favorite.error = '';
+        state.favorite.loading = true;
+      })
+      .addCase(setFavorite.fulfilled, state => {
+        state.favorite.loading = false;
+      })
+      .addCase(setFavorite.rejected, (state, action) => {
+        state.favorite.error = action.error.message ?? 'error';
+        state.favorite.loading = false;
+      })
+      .addCase(getWatched.pending, state => {
+        state.watched.error = '';
+        state.watched.loading = true;
+      })
+      .addCase(
+        getWatched.fulfilled,
+        (state, action: PayloadAction<Movie[]>) => {
+          state.watched.movies = action.payload;
+          state.watched.loading = false;
+        },
+      )
+      .addCase(getWatched.rejected, (state, action) => {
+        state.watched.error = action.error.message ?? 'error';
         state.watched.loading = false;
-      },
-    );
-    builder.addCase(getWatched.rejected, (state, action) => {
-      state.watched.error = action.error.message ?? 'error';
-      state.watched.loading = false;
-    });
-    builder.addCase(getToWatch.pending, state => {
-      state.toWatch.error = '';
-      state.toWatch.loading = true;
-    });
-    builder.addCase(
-      getToWatch.fulfilled,
-      (state, action: PayloadAction<Movie[]>) => {
-        state.toWatch.movies = action.payload;
+      })
+      .addCase(getToWatch.pending, state => {
+        state.toWatch.error = '';
+        state.toWatch.loading = true;
+      })
+      .addCase(
+        getToWatch.fulfilled,
+        (state, action: PayloadAction<Movie[]>) => {
+          state.toWatch.movies = action.payload;
+          state.toWatch.loading = false;
+        },
+      )
+      .addCase(getToWatch.rejected, (state, action) => {
+        state.toWatch.error = action.error.message ?? 'error';
         state.toWatch.loading = false;
-      },
-    );
-    builder.addCase(getToWatch.rejected, (state, action) => {
-      state.toWatch.error = action.error.message ?? 'error';
-      state.toWatch.loading = false;
-    });
+      });
   },
 });
 
 export default CollectionsSlice.reducer;
-// export const collectionSelector = (state: RootState) => state.collections;
+export const collectionsSelector = (state: RootState) => state.collections;
