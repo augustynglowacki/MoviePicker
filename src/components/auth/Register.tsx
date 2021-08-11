@@ -34,7 +34,7 @@ const RegisterComponent: React.FC<Props> = ({
   loading,
 }) => {
   const {t} = useTranslation('common');
-  const [hiddenPassword, setHiddenPassword] = useState(true);
+  const [hiddenPassword, setHiddenPassword] = useState(false);
   const handleHide = () => setHiddenPassword(!hiddenPassword);
   return (
     <Container withKeyboard padding="large" style={styles.wrapper}>
@@ -45,7 +45,6 @@ const RegisterComponent: React.FC<Props> = ({
             style={styles.logoImage}
           />
         </Animated.View>
-
         <View>
           <Text style={styles.title}>{t('welcomeMessage')}</Text>
           <View style={styles.form}>

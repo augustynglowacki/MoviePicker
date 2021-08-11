@@ -47,7 +47,7 @@ const LoginComponent: React.FC<Props> = ({
   const {t} = useTranslation('common');
   const {navigate} = useNavigation();
   const goToRegister = () => navigate(Route.REGISTER);
-  const [hiddenPassword, setHiddenPassword] = useState(true);
+  const [hiddenPassword, setHiddenPassword] = useState(false);
   const handleHide = () => setHiddenPassword(!hiddenPassword);
   return (
     <Container withKeyboard padding="large" style={styles.wrapper}>
