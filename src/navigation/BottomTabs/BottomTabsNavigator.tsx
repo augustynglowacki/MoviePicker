@@ -11,6 +11,7 @@ import FavoriteScreen from 'src/screens/FavoriteScreen';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {BOTTOM_TABS_HEIGHT, IconTypes, Route} from 'src/constants';
 import TabIcon from './TabIcon';
+import MPIcon from './MPIcon';
 
 const Tab = createBottomTabNavigator();
 const BottomTabsNavigator = () => {
@@ -46,8 +47,7 @@ const BottomTabsNavigator = () => {
             name={Route.FAVORITE}
             component={FavoriteScreen}
             options={{
-              tabBarIcon: ({focused}) =>
-                TabIcon(focused, 'ios-heart', IconTypes.IONICON),
+              tabBarIcon: ({focused}) => MPIcon(focused),
             }}
           />
           <Tab.Screen
@@ -65,8 +65,7 @@ const BottomTabsNavigator = () => {
             name={Route.FAVORITE}
             children={() => <ExploreScreen isLiked={true} />}
             options={{
-              tabBarIcon: ({focused}) =>
-                TabIcon(focused, 'ios-heart', IconTypes.IONICON),
+              tabBarIcon: ({focused}) => MPIcon(focused),
             }}
           />
           <Tab.Screen
