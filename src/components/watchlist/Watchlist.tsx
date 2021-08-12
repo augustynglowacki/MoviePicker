@@ -1,17 +1,19 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {View, StyleSheet, ListRenderItem, FlatList} from 'react-native';
+import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
 import {BOTTOM_TABS_HEIGHT} from 'src/constants';
 import {Movie} from 'src/models';
 import palette from 'src/styles/palette';
-import {Container, CollectionItem, SectionHeader} from '../common';
+import {Container, CollectionItem} from '../common';
+import ScreenHeader from '../common/ScreenHeader';
 
 interface Props {
   movies: Movie[];
   isExplore?: boolean;
 }
 
-const Favorite: React.FC<Props> = ({movies, isExplore}) => {
+const Watchlist: React.FC<Props> = ({movies, isExplore}) => {
   const {t} = useTranslation('movies');
 
   const keyExtractor = (item: Movie) => item.id.toString();
@@ -22,15 +24,19 @@ const Favorite: React.FC<Props> = ({movies, isExplore}) => {
 
   return (
     <Container flexStart padding="small" disableScroll style={styles.wrapper}>
-      <SectionHeader text={t('favorite')} color={palette.white} />
-      <View style={styles.favorite}>
+      <AnimatedLayout>
+        <Animated.View entering={FlipInXDown.springify()}>
+          <ScreenHeader label={t('watchlist')} />
+        </Animated.View>
+      </AnimatedLayout>
+      <View style={styles.watchlist}>
         <FlatList
           scrollEnabled={!isExplore}
           data={movies}
           renderItem={renderItem}
           showsVerticalScrollIndicator={false}
           numColumns={2}
-          maxToRenderPerBatch={5}
+          maxToRenderPerBatch={7}
           columnWrapperStyle={styles.tagView}
           keyExtractor={keyExtractor}
         />
@@ -40,9 +46,11 @@ const Favorite: React.FC<Props> = ({movies, isExplore}) => {
 };
 
 const styles = StyleSheet.create({
-  favorite: {
+  watchlist: {
     minWidth: '100%',
     alignItems: 'center',
+    flexGrow: 1,
+    height: '103%',
   },
   tagView: {
     flexWrap: 'wrap',
@@ -53,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Favorite;
+export default Watchlist;

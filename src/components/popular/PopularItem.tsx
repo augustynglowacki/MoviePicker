@@ -6,7 +6,7 @@ import {StyleSheet} from 'react-native';
 import {TapGestureHandler} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import palette from 'src/styles/palette';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 import RatingBox from '../common/RatingBox';
@@ -14,9 +14,9 @@ import Heart from '../common/Heart';
 import GenreBox from './GenreBox';
 import {Route, WINDOW_HEIGHT, BOTTOM_TABS_HEIGHT} from 'src/constants';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {setData} from 'src/service/firestore/collection';
 import {Popular} from 'src/models';
 import {Action} from '../common';
+import {setWatchlist} from 'src/redux/collections/CollectionsActions';
 interface Props {
   movie: Popular;
 }
@@ -24,6 +24,7 @@ interface Props {
 const PopularItem: React.FC<Props> = React.memo(({movie}) => {
   const {t} = useTranslation('common');
   const {navigate} = useNavigation();
+  const dispatch = useDispatch();
   const {posterPath, title, id, voteAverage, genres, contentType} = movie;
   const doubleTapRef = useRef();
   const [isLiked, setLiked] = useState<boolean>(false);
@@ -31,11 +32,11 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
     user: {email},
   } = useSelector(userThunkSelector);
 
-  const addToFavorite = () => {
+  const addToWatchlist = () => {
     if (email) {
       if (!isLiked) {
         setLiked(true);
-        setData(movie);
+        dispatch(setWatchlist(movie));
         setTimeout(() => setLiked(false), 1200);
       }
     } else {
@@ -66,7 +67,7 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
         maxDelayMs={250}
         ref={doubleTapRef}
         numberOfTaps={2}
-        onActivated={addToFavorite}>
+        onActivated={addToWatchlist}>
         <View style={styles.movieContainer}>
           <ImageBackground
             source={{uri: `${API_IMAGES}${posterPath}`}}
@@ -104,7 +105,7 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
                 isActive={false}
               />
               <Action
-                label={t('movies:toWatch')}
+                label={t('movies:watchlist')}
                 icon={'tv'}
                 onPress={() => console.log('action')}
                 isActive={false}
@@ -186,7 +187,7 @@ export const styles = StyleSheet.create({
   },
   actions: {
     position: 'absolute',
-    bottom: 130,
-    right: 20,
+    flexDirection: 'row',
+    bottom: 150,
   },
 });

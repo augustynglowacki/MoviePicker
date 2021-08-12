@@ -34,10 +34,10 @@ const RegisterComponent: React.FC<Props> = ({
   loading,
 }) => {
   const {t} = useTranslation('common');
-  const [hiddenPassword, setHiddenPassword] = useState(true);
+  const [hiddenPassword, setHiddenPassword] = useState(false);
   const handleHide = () => setHiddenPassword(!hiddenPassword);
   return (
-    <Container withKeyboard padding="large">
+    <Container withKeyboard padding="large" style={styles.wrapper}>
       <AnimatedLayout>
         <Animated.View entering={StretchInX.springify()}>
           <Image
@@ -45,7 +45,6 @@ const RegisterComponent: React.FC<Props> = ({
             style={styles.logoImage}
           />
         </Animated.View>
-
         <View>
           <Text style={styles.title}>{t('welcomeMessage')}</Text>
           <View style={styles.form}>
@@ -109,5 +108,8 @@ const styles = StyleSheet.create({
   },
   form: {
     paddingTop: 20,
+  },
+  wrapper: {
+    backgroundColor: palette.black,
   },
 });

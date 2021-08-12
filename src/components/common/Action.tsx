@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
   box: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 5,
+    marginHorizontal: 5,
     textShadowOffset: {width: 1, height: 1},
     textShadowRadius: 3,
     textShadowColor: 'rgba(0, 0, 0, 0.5)',

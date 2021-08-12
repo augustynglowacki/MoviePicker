@@ -90,4 +90,3 @@ const detailsSlice = createSlice({
 export default detailsSlice.reducer;
 
 export const detailsSelector = (state: RootState) => state.details;
-export {getMovieDetails};
