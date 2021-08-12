@@ -51,7 +51,7 @@ const DetailsScreen: React.FC<Props> = ({navigation, route}) => {
   const goBack = () => navigation.goBack();
   const {t} = useTranslation('common');
 
-  const addToFavorite = () => {
+  const addToWatchlist = () => {
     if (email) {
       // setData();
     } else {
@@ -74,7 +74,7 @@ const DetailsScreen: React.FC<Props> = ({navigation, route}) => {
       goBack={goBack}
       posterPath={posterPath}
       movieActors={actors}
-      addToFavorite={addToFavorite}
+      addToWatchlist={addToWatchlist}
     />
   );
 };

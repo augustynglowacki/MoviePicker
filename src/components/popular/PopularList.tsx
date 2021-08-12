@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     alignSelf: 'center',
-    top: 20,
+    top: 15,
     position: 'absolute',
     zIndex: 10,
   },

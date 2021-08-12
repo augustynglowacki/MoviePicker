@@ -15,7 +15,7 @@ import GenreBox from './GenreBox';
 import {Route, WINDOW_HEIGHT, BOTTOM_TABS_HEIGHT} from 'src/constants';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Popular} from 'src/models';
-import {setFavorite} from 'src/redux/collections/CollectionsActions';
+import {setWatchlist} from 'src/redux/collections/CollectionsActions';
 interface Props {
   movie: Popular;
 }
@@ -31,11 +31,11 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
     user: {email},
   } = useSelector(userThunkSelector);
 
-  const addToFavorite = () => {
+  const addToWatchlist = () => {
     if (email) {
       if (!isLiked) {
         setLiked(true);
-        dispatch(setFavorite(movie));
+        dispatch(setWatchlist(movie));
         setTimeout(() => setLiked(false), 1200);
       }
     } else {
@@ -66,7 +66,7 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
         maxDelayMs={250}
         ref={doubleTapRef}
         numberOfTaps={2}
-        onActivated={addToFavorite}>
+        onActivated={addToWatchlist}>
         <View style={styles.movieContainer}>
           <ImageBackground
             source={{uri: `${API_IMAGES}${posterPath}`}}

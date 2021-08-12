@@ -5,7 +5,7 @@ import {Alert} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import ProfileComponent from 'src/components/profile/Profile';
 import {Route} from 'src/constants';
-import {getFavorite} from 'src/redux/collections/CollectionsActions';
+import {getWatchlist} from 'src/redux/collections/CollectionsActions';
 import {collectionsSelector} from 'src/redux/collections/CollectionsSlice';
 import {logOutUser} from 'src/redux/user/UserAction';
 
@@ -16,11 +16,11 @@ const ProfileScreen: React.FC = () => {
 
   useFocusEffect(
     useCallback(() => {
-      dispatch(getFavorite());
+      dispatch(getWatchlist());
     }, [dispatch]),
   );
 
-  const {favorite} = useSelector(collectionsSelector);
+  const {watchlist} = useSelector(collectionsSelector);
 
   const navigateTo = () => {
     navigate(Route.SETTINGS);
@@ -40,9 +40,9 @@ const ProfileScreen: React.FC = () => {
   };
 
   const collectionContent = [
-    {id: 1, title: t('movies:favorite'), collection: favorite.movies},
+    {id: 1, title: t('movies:watchlist'), collection: watchlist.movies},
     // {id: 2, title: t('movies:watched'), collection: movies},
-    // {id: 3, title: t('movies:toWatch'), collection: movies},
+    // {id: 3, title: t('movies:watchlist'), collection: movies},
   ];
 
   return (

@@ -3,7 +3,7 @@ import React, {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
 import {View, Text, StyleSheet} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {getFavorite} from 'src/redux/collections/CollectionsActions';
+import {getWatchlist} from 'src/redux/collections/CollectionsActions';
 import {collectionsSelector} from 'src/redux/collections/CollectionsSlice';
 import palette from 'src/styles/palette';
 import StatsBox from './StatsBox';
@@ -14,22 +14,22 @@ const ProfileStatsContainer: React.FC = () => {
 
   useFocusEffect(
     useCallback(() => {
-      dispatch(getFavorite());
+      dispatch(getWatchlist());
     }, [dispatch]),
   );
 
-  const {favorite} = useSelector(collectionsSelector);
+  const {watchlist} = useSelector(collectionsSelector);
   return (
     <View style={styles.wrapper}>
       <Text style={styles.titleText}>{t('stats')}</Text>
       <View style={styles.statsContainer}>
         <StatsBox
-          value={favorite.movies.length}
-          label={t('favorite')}
-          icon={'heart'}
+          value={watchlist.movies.length}
+          label={t('watchlist')}
+          icon={'iconfontdesktop'}
         />
-        <StatsBox value={112} label={t('watched')} icon={'check'} />
-        <StatsBox value={22} label={t('toWatch')} icon={'iconfontdesktop'} />
+        <StatsBox value={0} label={t('favorite')} icon={'heart'} />
+        <StatsBox value={0} label={t('watched')} icon={'check'} />
       </View>
     </View>
   );

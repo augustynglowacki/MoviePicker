@@ -12,7 +12,7 @@ export const getFavorite = createAsyncThunk<Movie[]>(
       firestore()
         .collection('users')
         .doc(userId)
-        .collection('favoriteMovies')
+        .collection('favorite')
         .onSnapshot(
           snap => {
             resolve(
@@ -29,10 +29,25 @@ export const getFavorite = createAsyncThunk<Movie[]>(
         );
     }),
 );
+
+// export const getFavorite = createAsyncThunk<void>(
+//   'collections/getFavorite',
+//   async () => {
+//     getData('favorite');
+//   },
+// );
+
 export const setFavorite = createAsyncThunk<void, Movie>(
   'collections/setFavorite',
   async movie => {
-    await setData(movie);
+    await setData(movie, 'favorite');
+  },
+);
+
+export const setWatchlist = createAsyncThunk<void, Movie>(
+  'collections/setWatchlist',
+  async movie => {
+    await setData(movie, 'watchlist');
   },
 );
 
@@ -62,15 +77,15 @@ export const getWatched = createAsyncThunk<Movie[]>(
     }),
 );
 
-export const getToWatch = createAsyncThunk<Movie[]>(
-  'collections/getToWatch',
+export const getWatchlist = createAsyncThunk<Movie[]>(
+  'collections/getWatchlist',
   async () =>
     new Promise((resolve, reject) => {
       const userId = auth().currentUser?.uid ?? 'none';
       firestore()
         .collection('users')
         .doc(userId)
-        .collection('toWatch')
+        .collection('watchlist')
         .onSnapshot(
           snap => {
             resolve(
