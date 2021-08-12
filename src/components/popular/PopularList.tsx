@@ -34,12 +34,14 @@ const PopularList: React.FC<Props> = ({data}) => {
       <FlatList<Popular>
         data={data}
         renderItem={renderItem}
+        pagingEnabled
         snapToAlignment="start"
         decelerationRate="fast"
         snapToInterval={WINDOW_HEIGHT - BOTTOM_TABS_HEIGHT}
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
-        initialNumToRender={7}
+        initialNumToRender={3}
+        removeClippedSubviews={false}
       />
     </View>
   );
@@ -48,7 +50,7 @@ const PopularList: React.FC<Props> = ({data}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: palette.strongBlack,
+    width: '100%',
   },
   heading: {
     alignSelf: 'center',

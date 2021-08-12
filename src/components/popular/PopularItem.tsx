@@ -1,5 +1,12 @@
 import React, {useRef, useState} from 'react';
-import {Text, View, ImageBackground, Alert} from 'react-native';
+import {
+  Text,
+  View,
+  ImageBackground,
+  Alert,
+  Dimensions,
+  Image,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {API_IMAGES} from '@env';
 import {StyleSheet} from 'react-native';
@@ -13,7 +20,6 @@ import RatingBox from '../common/RatingBox';
 import Heart from '../common/Heart';
 import GenreBox from './GenreBox';
 import {Route, WINDOW_HEIGHT, BOTTOM_TABS_HEIGHT} from 'src/constants';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {Popular} from 'src/models';
 import {setWatchlist} from 'src/redux/collections/CollectionsActions';
 interface Props {
@@ -53,43 +59,47 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
   };
 
   return (
-    <TapGestureHandler
-      waitFor={doubleTapRef}
-      onActivated={() => {
-        navigate(Route.DETAILS, {
-          id,
-          posterPath,
-          contentType,
-        });
-      }}>
+    <View style={styles.container}>
+      <View style={StyleSheet.absoluteFillObject}>
+        <Image
+          source={{uri: `${API_IMAGES}${posterPath}`}}
+          style={[StyleSheet.absoluteFillObject]}
+          blurRadius={50}
+        />
+      </View>
       <TapGestureHandler
-        maxDelayMs={250}
-        ref={doubleTapRef}
-        numberOfTaps={2}
-        onActivated={addToWatchlist}>
-        <View style={styles.movieContainer}>
-          <ImageBackground
-            source={{uri: `${API_IMAGES}${posterPath}`}}
-            style={styles.image}
-          />
-          <LinearGradient
-            colors={[
-              'rgba(0,0,0,0.5)',
-              'rgba(0,0,0,0.4)',
-              'rgba(0,0,0,0.4)',
-              'rgba(0,0,0,0.4)',
-              'rgba(0,0,0,0.4)',
-              'rgba(0,0,0,0.4)',
-              'rgba(0,0,0,0.4)',
-              'rgba(0,0,0,0.4)',
-              'rgba(0,0,0,0.65)',
-              'rgba(0,0,0,0.75)',
-            ]}
-            start={{x: 0, y: 1}}
-            end={{x: 0, y: 0}}
-            style={styles.linearGradient}
-          />
-          <SafeAreaView style={styles.movieInfoContainer}>
+        waitFor={doubleTapRef}
+        onActivated={() => {
+          navigate(Route.DETAILS, {
+            id,
+            posterPath,
+            contentType,
+          });
+        }}>
+        <TapGestureHandler
+          maxDelayMs={250}
+          ref={doubleTapRef}
+          numberOfTaps={2}
+          onActivated={addToWatchlist}>
+          <View style={styles.movieContainer}>
+            <ImageBackground
+              source={{uri: `${API_IMAGES}${posterPath}`}}
+              style={styles.image}
+              imageStyle={styles.image}
+            />
+            <LinearGradient
+              colors={[
+                'rgba(0,0,0,0.05)',
+                'rgba(0,0,0,0.1)',
+                'rgba(0,0,0,0.15)',
+                'rgba(0,0,0,0.3)',
+                'rgba(0,0,0,0.5)',
+                'rgba(0,0,0,0.65)',
+              ]}
+              start={{x: 0, y: 0}}
+              end={{x: 0, y: 1}}
+              style={styles.linearGradient}
+            />
             <View style={styles.movieInfo}>
               <Text style={styles.title}>{title}</Text>
               <View style={styles.genres}>
@@ -100,44 +110,53 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
               {!!voteAverage && <RatingBox voteAverage={voteAverage} />}
               {!!isLiked && <Heart />}
             </View>
-          </SafeAreaView>
-        </View>
+          </View>
+        </TapGestureHandler>
       </TapGestureHandler>
-    </TapGestureHandler>
+    </View>
   );
 });
 
 export default PopularItem;
-
+const {width} = Dimensions.get('screen');
+const imageW = width * 0.72;
+const imageH = imageW * 1.58;
 export const styles = StyleSheet.create({
-  movieContainer: {
+  container: {
     width: '100%',
     height: WINDOW_HEIGHT - BOTTOM_TABS_HEIGHT,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  movieContainer: {
+    width: imageW,
+    height: imageH,
+    borderRadius: 16,
+    shadowOpacity: 0.9,
+    shadowRadius: 20,
+    shadowColor: palette.strongBlack,
+    elevation: 20,
   },
   image: {
     position: 'absolute',
     width: '100%',
     height: '100%',
     resizeMode: 'cover',
+    borderRadius: 16,
   },
   linearGradient: {
     position: 'absolute',
     height: '100%',
     width: '100%',
-  },
-  movieInfoContainer: {
-    top: 100,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    borderRadius: 16,
   },
   movieInfo: {
-    padding: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 20,
+    alignSelf: 'center',
   },
   title: {
-    fontSize: 33,
+    fontSize: 23,
     color: palette.white,
     textAlign: 'center',
     textShadowOffset: {width: 1, height: 1},
