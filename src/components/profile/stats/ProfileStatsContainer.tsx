@@ -11,8 +11,8 @@ const ProfileStatsContainer: React.FC = () => {
       <Text style={styles.titleText}>{t('stats')}</Text>
       <View style={styles.statsContainer}>
         <StatsBox value={50} label={t('favorite')} icon={'heart'} />
-        <StatsBox value={112} label={t('watched')} icon={'check'} />
-        <StatsBox value={22} label={t('toWatch')} icon={'iconfontdesktop'} />
+        <StatsBox value={112} label={t('watched')} icon={'checkmark'} />
+        <StatsBox value={22} label={t('toWatch')} icon={'tv'} />
       </View>
     </View>
   );
