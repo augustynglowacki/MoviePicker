@@ -6,7 +6,7 @@ import {useEffect} from 'react';
 import RNBootSplash from 'react-native-bootsplash';
 import palette from 'src/styles/palette';
 import {useDispatch} from 'react-redux';
-import {getPopular} from 'src/redux/popular/PopularSlice';
+import {getPopular} from 'src/redux/popular/PopularActions';
 
 //app background changed to black
 const MyTheme = {

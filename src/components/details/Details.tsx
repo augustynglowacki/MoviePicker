@@ -11,13 +11,13 @@ interface Props {
   posterPath: string;
   movieActors: Actor[];
   goBack: () => void;
-  addToFavorite: () => void;
+  addToWatchlist: () => void;
 }
 
 const DetailsComponent: React.FC<Props> = ({
   posterPath,
   goBack,
-  addToFavorite,
+  addToWatchlist,
   data,
   movieActors,
 }) => {
@@ -29,7 +29,7 @@ const DetailsComponent: React.FC<Props> = ({
       <Background
         goBack={goBack}
         posterPath={posterPath}
-        addToFavorite={addToFavorite}
+        addToWatchlist={addToWatchlist}
       />
       <Info actors={movieActors} data={data} />
     </Container>

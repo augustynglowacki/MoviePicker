@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
 import {batch, useDispatch, useSelector} from 'react-redux';
-import {getMovieDetails, detailsSelector} from 'src/redux/details/DetailsSlice';
+import {detailsSelector} from 'src/redux/details/DetailsSlice';
 import {
   getMovieActors,
   getTvSeriesDetails,
   getTvSeriesActors,
+  getMovieDetails,
 } from 'src/redux/details/DetailsActions';
 import DetailsComponent from 'src/components/details/Details';
 import {
@@ -50,7 +51,7 @@ const DetailsScreen: React.FC<Props> = ({navigation, route}) => {
   const goBack = () => navigation.goBack();
   const {t} = useTranslation('common');
 
-  const addToFavorite = () => {
+  const addToWatchlist = () => {
     if (email) {
       // setData();
     } else {
@@ -73,7 +74,7 @@ const DetailsScreen: React.FC<Props> = ({navigation, route}) => {
       goBack={goBack}
       posterPath={posterPath}
       movieActors={actors}
-      addToFavorite={addToFavorite}
+      addToWatchlist={addToWatchlist}
     />
   );
 };

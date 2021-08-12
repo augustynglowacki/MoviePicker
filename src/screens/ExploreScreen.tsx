@@ -7,9 +7,9 @@ import {useTranslation} from 'react-i18next';
 import {popularSelector} from 'src/redux/popular/PopularSlice';
 import {useSelector} from 'react-redux';
 import {CustomButton} from 'src/components/common';
-import Favorite from 'src/components/favorite/Favorite';
 import {ExploreScreenParams, Route} from 'src/constants';
 import ProfileComponent from 'src/components/profile/Profile';
+import Watchlist from 'src/components/watchlist/Watchlist';
 
 const ExploreScreen: React.FC<ExploreScreenParams> = ({isLiked}) => {
   const {navigate} = useNavigation();
@@ -24,13 +24,13 @@ const ExploreScreen: React.FC<ExploreScreenParams> = ({isLiked}) => {
   const collectionContent = [
     {id: 1, title: t('movies:favorite'), collection: movies},
     {id: 2, title: t('movies:watched'), collection: movies},
-    {id: 3, title: t('movies:toWatch'), collection: movies},
+    {id: 3, title: t('movies:watchlist'), collection: movies},
   ];
 
   return (
     <View style={styles.container}>
       {isLiked ? (
-        <Favorite movies={movies} isExplore />
+        <Watchlist movies={movies} isExplore />
       ) : (
         <ProfileComponent
           isExplore

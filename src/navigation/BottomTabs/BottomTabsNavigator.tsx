@@ -7,10 +7,11 @@ import ProfileScreen from 'src/screens/ProfileScreen';
 import {useSelector} from 'react-redux';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 import ExploreScreen from 'src/screens/ExploreScreen';
-import FavoriteScreen from 'src/screens/FavoriteScreen';
+import WatchlistScreen from 'src/screens/WatchlistScreen';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {BOTTOM_TABS_HEIGHT, IconTypes, Route} from 'src/constants';
 import TabIcon from './TabIcon';
+import MPIcon from './MPIcon';
 
 const Tab = createBottomTabNavigator();
 const BottomTabsNavigator = () => {
@@ -43,11 +44,10 @@ const BottomTabsNavigator = () => {
       {email ? (
         <>
           <Tab.Screen
-            name={Route.FAVORITE}
-            component={FavoriteScreen}
+            name={Route.WATCHLIST}
+            component={WatchlistScreen}
             options={{
-              tabBarIcon: ({focused}) =>
-                TabIcon(focused, 'ios-heart', IconTypes.IONICON),
+              tabBarIcon: ({focused}) => MPIcon(focused),
             }}
           />
           <Tab.Screen
@@ -62,11 +62,10 @@ const BottomTabsNavigator = () => {
       ) : (
         <>
           <Tab.Screen
-            name={Route.FAVORITE}
+            name={Route.WATCHLIST}
             children={() => <ExploreScreen isLiked={true} />}
             options={{
-              tabBarIcon: ({focused}) =>
-                TabIcon(focused, 'ios-heart', IconTypes.IONICON),
+              tabBarIcon: ({focused}) => MPIcon(focused),
             }}
           />
           <Tab.Screen

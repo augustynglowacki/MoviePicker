@@ -7,7 +7,7 @@ export enum Route {
   REGISTER = 'Register',
   HOME = 'Popular',
   DISCOVER = 'Discover',
-  FAVORITE = 'Favorite',
+  WATCHLIST = 'Watchlist',
   PROFILE = 'Profile',
   AUTH = 'Auth',
   HOME_NAVIGATOR = 'HomeNavigator',
@@ -35,7 +35,7 @@ type RootStackParamList = {
   Popular: undefined;
   Profile: undefined;
   Settings: undefined;
-  Favorite: undefined;
+  Watchlist: undefined;
 };
 
 export type DetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;

@@ -9,10 +9,10 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 interface Props {
   posterPath: string;
   goBack: () => void;
-  addToFavorite: () => void;
+  addToWatchlist: () => void;
 }
 
-const Background: React.FC<Props> = ({goBack, addToFavorite, posterPath}) => {
+const Background: React.FC<Props> = ({goBack, addToWatchlist, posterPath}) => {
   return (
     <ImageBackground
       style={styles.imageBackground}
@@ -28,7 +28,7 @@ const Background: React.FC<Props> = ({goBack, addToFavorite, posterPath}) => {
             rightIcon={{
               type: IconTypes.IONICON,
               name: 'ios-heart-outline',
-              onPressFunction: addToFavorite,
+              onPressFunction: addToWatchlist,
             }}
           />
         </SafeAreaView>

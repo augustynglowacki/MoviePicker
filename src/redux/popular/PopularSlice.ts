@@ -30,4 +30,3 @@ const popularSlice = createSlice({
 
 export default popularSlice.reducer;
 export const popularSelector = (state: RootState) => state.popular;
-export {getPopular};
