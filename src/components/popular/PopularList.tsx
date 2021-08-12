@@ -40,7 +40,7 @@ const PopularList: React.FC<Props> = ({data}) => {
         snapToInterval={WINDOW_HEIGHT - BOTTOM_TABS_HEIGHT}
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
-        initialNumToRender={3}
+        initialNumToRender={2}
         removeClippedSubviews={false}
       />
     </View>

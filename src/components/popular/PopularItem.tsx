@@ -133,7 +133,7 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
           label={t('movies:favorite')}
           icon={'heart'}
           onPress={() => console.log('action')}
-          isActive={true}
+          isActive={false}
         />
         <Action
           label={t('movies:watched')}
