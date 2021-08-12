@@ -15,7 +15,7 @@ const translations = {
     or: '-OR-',
     signInWith: 'Sign in with',
     save: 'Save',
-    updateProfile: 'Update your proflie',
+    updateProfile: 'Update your profile',
     changeUserName: 'Change username',
     changeEmail: 'Change Email',
     changePassword: 'Change Password',

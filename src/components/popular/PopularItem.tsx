@@ -15,6 +15,7 @@ import GenreBox from './GenreBox';
 import {Route, WINDOW_HEIGHT, BOTTOM_TABS_HEIGHT} from 'src/constants';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Popular} from 'src/models';
+import {Action} from '../common';
 import {setWatchlist} from 'src/redux/collections/CollectionsActions';
 interface Props {
   movie: Popular;
@@ -39,7 +40,7 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
         setTimeout(() => setLiked(false), 1200);
       }
     } else {
-      Alert.alert(t('common:login'), t('common:loginSuggestion'), [
+      Alert.alert(t('login'), t('loginSuggestion'), [
         {
           text: t('cancel'),
           onPress: () => {},
@@ -90,6 +91,26 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
             style={styles.linearGradient}
           />
           <SafeAreaView style={styles.movieInfoContainer}>
+            <View style={styles.actions}>
+              <Action
+                label={t('movies:favorite')}
+                icon={'heart'}
+                onPress={() => console.log('action')}
+                isActive={true}
+              />
+              <Action
+                label={t('movies:watched')}
+                icon={'checkmark'}
+                onPress={() => console.log('action')}
+                isActive={false}
+              />
+              <Action
+                label={t('movies:watchlist')}
+                icon={'tv'}
+                onPress={() => console.log('action')}
+                isActive={false}
+              />
+            </View>
             <View style={styles.movieInfo}>
               <Text style={styles.title}>{title}</Text>
               <View style={styles.genres}>
@@ -110,9 +131,19 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
 export default PopularItem;
 
 export const styles = StyleSheet.create({
+  buttonsWrapper: {
+    position: 'absolute',
+    bottom: 150,
+    right: 15,
+    justifyContent: 'flex-end',
+  },
   movieContainer: {
     width: '100%',
     height: WINDOW_HEIGHT - BOTTOM_TABS_HEIGHT,
+  },
+  icon: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   image: {
     position: 'absolute',
@@ -153,5 +184,10 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 14,
+  },
+  actions: {
+    position: 'absolute',
+    flexDirection: 'row',
+    bottom: 150,
   },
 });

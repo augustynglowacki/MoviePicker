@@ -25,11 +25,11 @@ const ProfileStatsContainer: React.FC = () => {
       <View style={styles.statsContainer}>
         <StatsBox
           value={watchlist.movies.length}
-          label={t('watchlist')}
-          icon={'iconfontdesktop'}
+          label={t('favorite')}
+          icon={'heart'}
         />
-        <StatsBox value={0} label={t('favorite')} icon={'heart'} />
-        <StatsBox value={0} label={t('watched')} icon={'check'} />
+        <StatsBox value={112} label={t('watched')} icon={'checkmark'} />
+        <StatsBox value={22} label={t('watchlist')} icon={'tv'} />
       </View>
     </View>
   );
