@@ -66,6 +66,19 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
           style={[StyleSheet.absoluteFillObject]}
           blurRadius={50}
         />
+        <LinearGradient
+          colors={[
+            'rgba(0,0,0,0.05)',
+            'rgba(0,0,0,0.05)',
+            'rgba(0,0,0,0.1)',
+            'rgba(0,0,0,0.15)',
+            'rgba(0,0,0,0.2)',
+            'rgba(0,0,0,0.25)',
+          ]}
+          start={{x: 0, y: 1}}
+          end={{x: 0, y: 0}}
+          style={styles.linearBackground}
+        />
       </View>
       <TapGestureHandler
         waitFor={doubleTapRef}
@@ -135,6 +148,10 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.9,
     shadowRadius: 20,
     shadowColor: palette.strongBlack,
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
     elevation: 20,
   },
   image: {
@@ -149,6 +166,11 @@ export const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     borderRadius: 16,
+  },
+  linearBackground: {
+    position: 'absolute',
+    height: '100%',
+    width: '100%',
   },
   movieInfo: {
     position: 'absolute',
