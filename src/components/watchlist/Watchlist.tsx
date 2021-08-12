@@ -1,10 +1,12 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {View, StyleSheet, ListRenderItem, FlatList, Text} from 'react-native';
+import {View, StyleSheet, ListRenderItem, FlatList} from 'react-native';
+import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
 import {BOTTOM_TABS_HEIGHT} from 'src/constants';
 import {Movie} from 'src/models';
 import palette from 'src/styles/palette';
 import {Container, CollectionItem} from '../common';
+import ScreenHeader from '../common/ScreenHeader';
 
 interface Props {
   movies: Movie[];
@@ -22,9 +24,11 @@ const Watchlist: React.FC<Props> = ({movies, isExplore}) => {
 
   return (
     <Container flexStart padding="small" disableScroll style={styles.wrapper}>
-      <View style={styles.heading}>
-        <Text style={styles.headingText}>{t('watchlist')}</Text>
-      </View>
+      <AnimatedLayout>
+        <Animated.View entering={FlipInXDown.springify()}>
+          <ScreenHeader label={t('watchlist')} />
+        </Animated.View>
+      </AnimatedLayout>
       <View style={styles.watchlist}>
         <FlatList
           scrollEnabled={!isExplore}
@@ -54,19 +58,6 @@ const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: palette.strongBlack,
     paddingBottom: BOTTOM_TABS_HEIGHT,
-  },
-  heading: {
-    alignSelf: 'center',
-    marginTop: 10,
-    paddingBottom: 16,
-  },
-  headingText: {
-    color: palette.white,
-    fontWeight: 'bold',
-    fontSize: 17,
-    textShadowOffset: {width: 1, height: 1},
-    textShadowRadius: 1,
-    textShadowColor: 'rgba(0, 0, 0, 0.5)',
   },
 });
 

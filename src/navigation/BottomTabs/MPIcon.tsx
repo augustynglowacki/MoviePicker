@@ -1,5 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet} from 'react-native';
+import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
 
 const MPIcon = (focused: boolean) => {
   if (focused) {
@@ -11,10 +12,14 @@ const MPIcon = (focused: boolean) => {
     );
   }
   return (
-    <Image
-      source={require('src/assets/images/outlined.png')}
-      style={styles.image}
-    />
+    <AnimatedLayout>
+      <Animated.View entering={FlipInXDown.springify().delay(400)}>
+        <Image
+          source={require('src/assets/images/outlined.png')}
+          style={styles.image}
+        />
+      </Animated.View>
+    </AnimatedLayout>
   );
 };
 

@@ -29,7 +29,7 @@ const DiscoveryComponent: React.FC = () => {
   }, [dispatch, query]);
 
   return (
-    <Container flexStart withKeyboard style={styles.wrapper}>
+    <Container flexStart withKeyboard padding="small" style={styles.wrapper}>
       <DiscoveryBox />
       <Collection
         title={t('movies')}

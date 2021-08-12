@@ -6,6 +6,7 @@ import {Popular} from 'src/models';
 import PopularItem from './PopularItem';
 import {BOTTOM_TABS_HEIGHT, WINDOW_HEIGHT} from 'src/constants';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
 
 interface Props {
   data: Popular[];
@@ -23,7 +24,11 @@ const PopularList: React.FC<Props> = ({data}) => {
     <View style={styles.container}>
       <View style={styles.heading}>
         <SafeAreaView>
-          <Text style={styles.headingText}>{t('popular')}</Text>
+          <AnimatedLayout>
+            <Animated.View entering={FlipInXDown.springify().delay(300)}>
+              <Text style={styles.headingText}>{t('popular')}</Text>
+            </Animated.View>
+          </AnimatedLayout>
         </SafeAreaView>
       </View>
       <FlatList<Popular>
