@@ -11,6 +11,7 @@ import SocialButton from './SocialButton';
 import Icon from './Icon';
 import HeaderBar from './HeaderBar';
 import Loading from './Loading';
+import Action from './Action';
 
 export {
   CustomButton,
@@ -26,4 +27,5 @@ export {
   ErrorWrapper,
   HeaderBar,
   Icon,
+  Action,
 };

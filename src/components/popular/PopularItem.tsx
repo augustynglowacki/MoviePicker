@@ -21,6 +21,7 @@ import Heart from '../common/Heart';
 import GenreBox from './GenreBox';
 import {Route, WINDOW_HEIGHT, BOTTOM_TABS_HEIGHT} from 'src/constants';
 import {Popular} from 'src/models';
+import {Action} from '../common';
 import {setWatchlist} from 'src/redux/collections/CollectionsActions';
 interface Props {
   movie: Popular;
@@ -45,7 +46,7 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
         setTimeout(() => setLiked(false), 1200);
       }
     } else {
-      Alert.alert(t('common:login'), t('common:loginSuggestion'), [
+      Alert.alert(t('login'), t('loginSuggestion'), [
         {
           text: t('cancel'),
           onPress: () => {},
@@ -104,8 +105,8 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
               colors={[
                 'rgba(0,0,0,0.05)',
                 'rgba(0,0,0,0.1)',
-                'rgba(0,0,0,0.15)',
-                'rgba(0,0,0,0.3)',
+                'rgba(0,0,0,0.2)',
+                'rgba(0,0,0,0.4)',
                 'rgba(0,0,0,0.5)',
                 'rgba(0,0,0,0.65)',
               ]}
@@ -114,6 +115,7 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
               style={styles.linearGradient}
             />
             {!!isLiked && <Heart />}
+
             <View style={styles.movieInfo}>
               <Text style={styles.title}>{title}</Text>
               <View style={styles.genres}>
@@ -126,14 +128,34 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
           </View>
         </TapGestureHandler>
       </TapGestureHandler>
+      <View style={styles.actions}>
+        <Action
+          label={t('movies:favorite')}
+          icon={'heart'}
+          onPress={() => console.log('action')}
+          isActive={true}
+        />
+        <Action
+          label={t('movies:watched')}
+          icon={'checkmark'}
+          onPress={() => console.log('action')}
+          isActive={false}
+        />
+        <Action
+          label={t('movies:watchlist')}
+          icon={'tv'}
+          onPress={() => console.log('action')}
+          isActive={false}
+        />
+      </View>
     </View>
   );
 });
 
 export default PopularItem;
 const {width} = Dimensions.get('screen');
-const imageW = width * 0.72;
-const imageH = imageW * 1.58;
+const imageW = width * 0.69;
+const imageH = imageW * 1.52;
 export const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -153,6 +175,11 @@ export const styles = StyleSheet.create({
       height: 0,
     },
     elevation: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  icon: {
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -176,16 +203,17 @@ export const styles = StyleSheet.create({
   },
   movieInfo: {
     position: 'absolute',
-    bottom: 20,
+    bottom: 30,
     alignSelf: 'center',
   },
   title: {
-    fontSize: 23,
+    fontSize: 19,
     color: palette.white,
     textAlign: 'center',
     textShadowOffset: {width: 1, height: 1},
     textShadowRadius: 3,
-    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowColor: 'rgba(0, 0, 0, 0.8)',
+    marginHorizontal: 4,
   },
   genres: {
     marginTop: 32,
@@ -196,5 +224,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 14,
+  },
+  actions: {
+    position: 'absolute',
+    bottom: 16,
+    flexDirection: 'row',
+    zIndex: 1000,
   },
 });

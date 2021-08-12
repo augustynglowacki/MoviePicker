@@ -17,7 +17,7 @@ const StatsBox: React.FC<Props> = ({value, label, icon}) => {
         <Text style={[styles.text, styles.subText]}>{label}</Text>
         <Icon
           name={icon}
-          type={IconTypes.ANT}
+          type={IconTypes.IONICON}
           color={palette.primary}
           style={styles.icon}
         />

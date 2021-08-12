@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     alignSelf: 'center',
-    top: 15,
+    top: 10,
     position: 'absolute',
     zIndex: 10,
   },
