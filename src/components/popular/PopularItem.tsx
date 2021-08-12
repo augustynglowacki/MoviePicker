@@ -90,7 +90,7 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
           });
         }}>
         <TapGestureHandler
-          maxDelayMs={250}
+          maxDelayMs={400}
           ref={doubleTapRef}
           numberOfTaps={2}
           onActivated={addToWatchlist}>
@@ -113,6 +113,7 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
               end={{x: 0, y: 1}}
               style={styles.linearGradient}
             />
+            {!!isLiked && <Heart />}
             <View style={styles.movieInfo}>
               <Text style={styles.title}>{title}</Text>
               <View style={styles.genres}>
@@ -121,7 +122,6 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
                 ))}
               </View>
               {!!voteAverage && <RatingBox voteAverage={voteAverage} />}
-              {!!isLiked && <Heart />}
             </View>
           </View>
         </TapGestureHandler>
@@ -153,6 +153,8 @@ export const styles = StyleSheet.create({
       height: 0,
     },
     elevation: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   image: {
     position: 'absolute',
