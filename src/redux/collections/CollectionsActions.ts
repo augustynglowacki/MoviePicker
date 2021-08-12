@@ -29,14 +29,6 @@ export const getFavorite = createAsyncThunk<Movie[]>(
         );
     }),
 );
-
-// export const getFavorite = createAsyncThunk<void>(
-//   'collections/getFavorite',
-//   async () => {
-//     getData('favorite');
-//   },
-// );
-
 export const setFavorite = createAsyncThunk<void, Movie>(
   'collections/setFavorite',
   async movie => {
@@ -50,7 +42,12 @@ export const setWatchlist = createAsyncThunk<void, Movie>(
     await setData(movie, 'watchlist');
   },
 );
-
+export const setWatched = createAsyncThunk<void, Movie>(
+  'collections/setWatched',
+  async movie => {
+    await setData(movie, 'watched');
+  },
+);
 export const getWatched = createAsyncThunk<Movie[]>(
   'collections/getWatched',
   async () =>

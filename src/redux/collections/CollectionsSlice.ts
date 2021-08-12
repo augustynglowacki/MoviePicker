@@ -7,6 +7,7 @@ import {
   getWatched,
   setFavorite,
   setWatchlist,
+  setWatched,
 } from './CollectionsActions';
 
 interface CollectionsState {
@@ -27,21 +28,6 @@ const CollectionsSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(getFavorite.pending, state => {
-        state.favorite.error = '';
-        state.favorite.loading = true;
-      })
-      .addCase(
-        getFavorite.fulfilled,
-        (state, action: PayloadAction<Movie[]>) => {
-          state.favorite.movies = action.payload;
-          state.favorite.loading = false;
-        },
-      )
-      .addCase(getFavorite.rejected, (state, action) => {
-        state.favorite.error = action.error.message ?? 'error';
-        state.favorite.loading = false;
-      })
       .addCase(setFavorite.pending, state => {
         state.favorite.error = '';
         state.favorite.loading = true;
@@ -63,6 +49,32 @@ const CollectionsSlice = createSlice({
       .addCase(setWatchlist.rejected, (state, action) => {
         state.watchlist.error = action.error.message ?? 'error';
         state.watchlist.loading = false;
+      })
+      .addCase(setWatched.pending, state => {
+        state.watched.error = '';
+        state.watched.loading = true;
+      })
+      .addCase(setWatched.fulfilled, state => {
+        state.watched.loading = false;
+      })
+      .addCase(setWatched.rejected, (state, action) => {
+        state.watched.error = action.error.message ?? 'error';
+        state.watched.loading = false;
+      })
+      .addCase(getFavorite.pending, state => {
+        state.favorite.error = '';
+        state.favorite.loading = true;
+      })
+      .addCase(
+        getFavorite.fulfilled,
+        (state, action: PayloadAction<Movie[]>) => {
+          state.favorite.movies = action.payload;
+          state.favorite.loading = false;
+        },
+      )
+      .addCase(getFavorite.rejected, (state, action) => {
+        state.favorite.error = action.error.message ?? 'error';
+        state.favorite.loading = false;
       })
       .addCase(getWatched.pending, state => {
         state.watched.error = '';
