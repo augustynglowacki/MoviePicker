@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
   linearGradient: {
     width: '100%',
-    height: 170,
+    height: 180,
     position: 'absolute',
   },
 });

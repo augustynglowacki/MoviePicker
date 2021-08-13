@@ -1,10 +1,20 @@
 import React from 'react';
-import {ImageBackground, StyleSheet, View} from 'react-native';
+import {
+  ImageBackground,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from 'react-native';
 import BackgroundGradient from './BackgroundGradient';
 import {API_IMAGES} from '@env';
 import {HeaderBar} from 'src/components/common';
-import {WINDOW_HEIGHT, IconTypes} from 'src/constants';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {IconTypes, BOTTOM_TABS_HEIGHT} from 'src/constants';
+import {
+  SafeAreaView,
+  useSafeAreaFrame,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 
 interface Props {
   posterPath: string;
@@ -13,9 +23,17 @@ interface Props {
 }
 
 const Background: React.FC<Props> = ({goBack, addToWatchlist, posterPath}) => {
+  //workaround for height on devices with notch
+  const frame = useSafeAreaFrame();
+  const {bottom} = useSafeAreaInsets();
+  const imageBackgroundStyle: StyleProp<ViewStyle> = {
+    width: '100%',
+    height: (frame.height - BOTTOM_TABS_HEIGHT - bottom) * 0.6,
+  };
+
   return (
     <ImageBackground
-      style={styles.imageBackground}
+      style={imageBackgroundStyle}
       source={{uri: `${API_IMAGES}${posterPath}`}}>
       <View style={styles.contentWrapper}>
         <SafeAreaView>
@@ -39,10 +57,6 @@ const Background: React.FC<Props> = ({goBack, addToWatchlist, posterPath}) => {
 };
 
 const styles = StyleSheet.create({
-  imageBackground: {
-    width: '100%',
-    height: WINDOW_HEIGHT * 0.6,
-  },
   contentWrapper: {
     flex: 1,
   },
