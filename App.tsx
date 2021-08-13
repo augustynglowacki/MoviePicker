@@ -5,8 +5,13 @@ import {Provider as PaperProvider} from 'react-native-paper';
 import {useEffect} from 'react';
 import RNBootSplash from 'react-native-bootsplash';
 import palette from 'src/styles/palette';
-import {useDispatch} from 'react-redux';
+import {batch, useDispatch} from 'react-redux';
 import {getPopular} from 'src/redux/popular/PopularActions';
+import {
+  getFavorite,
+  getWatched,
+  getWatchlist,
+} from 'src/redux/collections/CollectionsActions';
 
 //app background changed to black
 const MyTheme = {
@@ -21,7 +26,13 @@ const MyTheme = {
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getPopular());
+    batch(() => {
+      dispatch(getPopular());
+      dispatch(getFavorite());
+      dispatch(getWatchlist());
+      dispatch(getWatched());
+    });
+
     RNBootSplash.hide({fade: true});
   }, [dispatch]);
   return (

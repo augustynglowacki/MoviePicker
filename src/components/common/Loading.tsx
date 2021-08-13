@@ -3,7 +3,8 @@ import {StyleSheet} from 'react-native';
 import palette from 'src/styles/palette';
 import Container from './Container';
 import AnimatedLottieView from 'lottie-react-native';
-const LoadingScreen: React.FC = () => {
+
+const Loading: React.FC = () => {
   return (
     <Container style={styles.loadingBox}>
       <AnimatedLottieView
@@ -26,4 +27,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoadingScreen;
+export default Loading;
