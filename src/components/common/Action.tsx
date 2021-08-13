@@ -34,15 +34,15 @@ export const styles = StyleSheet.create({
   box: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 5,
+    marginHorizontal: 16,
     textShadowOffset: {width: 1, height: 1},
     textShadowRadius: 3,
     textShadowColor: 'rgba(0, 0, 0, 0.5)',
   },
   icon: {
     textShadowOffset: {width: 1, height: 1},
-    textShadowRadius: 3,
-    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowRadius: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.6)',
   },
   text: {
     textShadowOffset: {width: 1, height: 1},

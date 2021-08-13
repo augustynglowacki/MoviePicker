@@ -1,5 +1,12 @@
 import React, {useRef, useState} from 'react';
-import {Text, View, ImageBackground, Alert} from 'react-native';
+import {
+  Text,
+  View,
+  ImageBackground,
+  Alert,
+  Dimensions,
+  Image,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {API_IMAGES} from '@env';
 import {StyleSheet} from 'react-native';
@@ -13,7 +20,6 @@ import RatingBox from '../common/RatingBox';
 import Heart from '../common/Heart';
 import GenreBox from './GenreBox';
 import {Route, WINDOW_HEIGHT, BOTTOM_TABS_HEIGHT} from 'src/constants';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {Popular} from 'src/models';
 import {Action} from '../common';
 import {setWatchlist} from 'src/redux/collections/CollectionsActions';
@@ -54,63 +60,62 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
   };
 
   return (
-    <TapGestureHandler
-      waitFor={doubleTapRef}
-      onActivated={() => {
-        navigate(Route.DETAILS, {
-          id,
-          posterPath,
-          contentType,
-        });
-      }}>
+    <View style={styles.container}>
+      <View style={StyleSheet.absoluteFillObject}>
+        <Image
+          source={{uri: `${API_IMAGES}${posterPath}`}}
+          style={[StyleSheet.absoluteFillObject]}
+          blurRadius={50}
+        />
+        <LinearGradient
+          colors={[
+            'rgba(0,0,0,0.05)',
+            'rgba(0,0,0,0.05)',
+            'rgba(0,0,0,0.1)',
+            'rgba(0,0,0,0.15)',
+            'rgba(0,0,0,0.2)',
+            'rgba(0,0,0,0.25)',
+          ]}
+          start={{x: 0, y: 1}}
+          end={{x: 0, y: 0}}
+          style={styles.linearBackground}
+        />
+      </View>
       <TapGestureHandler
-        maxDelayMs={250}
-        ref={doubleTapRef}
-        numberOfTaps={2}
-        onActivated={addToWatchlist}>
-        <View style={styles.movieContainer}>
-          <ImageBackground
-            source={{uri: `${API_IMAGES}${posterPath}`}}
-            style={styles.image}
-          />
-          <LinearGradient
-            colors={[
-              'rgba(0,0,0,0.5)',
-              'rgba(0,0,0,0.4)',
-              'rgba(0,0,0,0.4)',
-              'rgba(0,0,0,0.4)',
-              'rgba(0,0,0,0.4)',
-              'rgba(0,0,0,0.4)',
-              'rgba(0,0,0,0.4)',
-              'rgba(0,0,0,0.4)',
-              'rgba(0,0,0,0.65)',
-              'rgba(0,0,0,0.75)',
-            ]}
-            start={{x: 0, y: 1}}
-            end={{x: 0, y: 0}}
-            style={styles.linearGradient}
-          />
-          <SafeAreaView style={styles.movieInfoContainer}>
-            <View style={styles.actions}>
-              <Action
-                label={t('movies:favorite')}
-                icon={'heart'}
-                onPress={() => console.log('action')}
-                isActive={true}
-              />
-              <Action
-                label={t('movies:watched')}
-                icon={'checkmark'}
-                onPress={() => console.log('action')}
-                isActive={false}
-              />
-              <Action
-                label={t('movies:watchlist')}
-                icon={'tv'}
-                onPress={() => console.log('action')}
-                isActive={false}
-              />
-            </View>
+        waitFor={doubleTapRef}
+        onActivated={() => {
+          navigate(Route.DETAILS, {
+            id,
+            posterPath,
+            contentType,
+          });
+        }}>
+        <TapGestureHandler
+          maxDelayMs={400}
+          ref={doubleTapRef}
+          numberOfTaps={2}
+          onActivated={addToWatchlist}>
+          <View style={styles.movieContainer}>
+            <ImageBackground
+              source={{uri: `${API_IMAGES}${posterPath}`}}
+              style={styles.image}
+              imageStyle={styles.image}
+            />
+            <LinearGradient
+              colors={[
+                'rgba(0,0,0,0.05)',
+                'rgba(0,0,0,0.1)',
+                'rgba(0,0,0,0.2)',
+                'rgba(0,0,0,0.4)',
+                'rgba(0,0,0,0.5)',
+                'rgba(0,0,0,0.65)',
+              ]}
+              start={{x: 0, y: 0}}
+              end={{x: 0, y: 1}}
+              style={styles.linearGradient}
+            />
+            {!!isLiked && <Heart />}
+
             <View style={styles.movieInfo}>
               <Text style={styles.title}>{title}</Text>
               <View style={styles.genres}>
@@ -119,27 +124,60 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
                 ))}
               </View>
               {!!voteAverage && <RatingBox voteAverage={voteAverage} />}
-              {!!isLiked && <Heart />}
             </View>
-          </SafeAreaView>
-        </View>
+          </View>
+        </TapGestureHandler>
       </TapGestureHandler>
-    </TapGestureHandler>
+      <View style={styles.actions}>
+        <Action
+          label={t('movies:favorite')}
+          icon={'heart'}
+          onPress={() => console.log('action')}
+          isActive={false}
+        />
+        <Action
+          label={t('movies:watched')}
+          icon={'checkmark'}
+          onPress={() => console.log('action')}
+          isActive={false}
+        />
+        <Action
+          label={t('movies:watchlist')}
+          icon={'tv'}
+          onPress={() => console.log('action')}
+          isActive={false}
+        />
+      </View>
+    </View>
   );
 });
 
 export default PopularItem;
-
+const {width} = Dimensions.get('screen');
+const imageW = width * 0.69;
+const imageH = imageW * 1.52;
 export const styles = StyleSheet.create({
-  buttonsWrapper: {
-    position: 'absolute',
-    bottom: 150,
-    right: 15,
-    justifyContent: 'flex-end',
-  },
-  movieContainer: {
+  container: {
     width: '100%',
     height: WINDOW_HEIGHT - BOTTOM_TABS_HEIGHT,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  movieContainer: {
+    width: imageW,
+    height: imageH,
+    borderRadius: 16,
+    shadowOpacity: 0.9,
+    shadowRadius: 20,
+    shadowColor: palette.strongBlack,
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    elevation: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 16,
   },
   icon: {
     justifyContent: 'center',
@@ -150,30 +188,32 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     resizeMode: 'cover',
+    borderRadius: 16,
   },
   linearGradient: {
     position: 'absolute',
     height: '100%',
     width: '100%',
+    borderRadius: 16,
   },
-  movieInfoContainer: {
-    top: 100,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  linearBackground: {
+    position: 'absolute',
+    height: '100%',
+    width: '100%',
   },
   movieInfo: {
-    padding: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 30,
+    alignSelf: 'center',
   },
   title: {
-    fontSize: 33,
+    fontSize: 19,
     color: palette.white,
     textAlign: 'center',
     textShadowOffset: {width: 1, height: 1},
     textShadowRadius: 3,
-    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowColor: 'rgba(0, 0, 0, 0.8)',
+    marginHorizontal: 4,
   },
   genres: {
     marginTop: 32,
@@ -187,7 +227,8 @@ export const styles = StyleSheet.create({
   },
   actions: {
     position: 'absolute',
+    bottom: 16,
     flexDirection: 'row',
-    bottom: 150,
+    zIndex: 1000,
   },
 });

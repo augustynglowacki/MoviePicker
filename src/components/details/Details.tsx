@@ -5,6 +5,7 @@ import palette from 'src/styles/palette';
 import {Container, Loading} from 'src/components/common';
 import Background from './background/Background';
 import Info from './info/Info';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 interface Props {
   data: MovieDetails | TvSeriesDetails;
@@ -31,7 +32,9 @@ const DetailsComponent: React.FC<Props> = ({
         posterPath={posterPath}
         addToWatchlist={addToWatchlist}
       />
-      <Info actors={movieActors} data={data} />
+      <SafeAreaView>
+        <Info actors={movieActors} data={data} />
+      </SafeAreaView>
     </Container>
   );
 };
