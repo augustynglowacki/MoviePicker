@@ -43,7 +43,7 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
       if (!isLiked) {
         setLiked(true);
         dispatch(setWatchlist(movie));
-        setTimeout(() => setLiked(false), 1200);
+        setTimeout(() => setLiked(false), 1000);
       }
     } else {
       Alert.alert(t('login'), t('loginSuggestion'), [
@@ -114,7 +114,11 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
               end={{x: 0, y: 1}}
               style={styles.linearGradient}
             />
-            {!!isLiked && <Heart />}
+            {!!isLiked && (
+              <View style={styles.heart}>
+                <Heart />
+              </View>
+            )}
 
             <View style={styles.movieInfo}>
               <Text style={styles.title}>{title}</Text>
@@ -230,5 +234,10 @@ export const styles = StyleSheet.create({
     bottom: 16,
     flexDirection: 'row',
     zIndex: 1000,
+  },
+  heart: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 30,
   },
 });

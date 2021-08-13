@@ -27,6 +27,7 @@
     "date-fns": "^2.23.0",
     "formik": "^2.2.9",
     "i18next": "^20.3.4",
+    "lottie-react-native": "^4.0.3",
     "react": "17.0.1",
     "react-i18next": "^11.11.3",
     "react-native": "0.64.1",
