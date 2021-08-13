@@ -4,8 +4,12 @@ import {StyleSheet, View, FlatList, Text, ListRenderItem} from 'react-native';
 import palette from 'src/styles/palette';
 import {Popular} from 'src/models';
 import PopularItem from './PopularItem';
-import {BOTTOM_TABS_HEIGHT, WINDOW_HEIGHT} from 'src/constants';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {BOTTOM_TABS_HEIGHT} from 'src/constants';
+import {
+  SafeAreaView,
+  useSafeAreaFrame,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
 
 interface Props {
@@ -19,7 +23,9 @@ const PopularList: React.FC<Props> = ({data}) => {
   };
 
   const keyExtractor = (item: Popular) => item.id.toString();
-
+  //workaround for height on devices with notch
+  const frame = useSafeAreaFrame();
+  const {bottom} = useSafeAreaInsets();
   return (
     <View style={styles.container}>
       <View style={styles.heading}>
@@ -37,7 +43,7 @@ const PopularList: React.FC<Props> = ({data}) => {
         pagingEnabled
         snapToAlignment="start"
         decelerationRate="fast"
-        snapToInterval={WINDOW_HEIGHT - BOTTOM_TABS_HEIGHT}
+        snapToInterval={frame.height - BOTTOM_TABS_HEIGHT - bottom}
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
         initialNumToRender={2}

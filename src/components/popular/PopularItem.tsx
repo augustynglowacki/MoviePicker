@@ -6,6 +6,8 @@ import {
   Alert,
   Dimensions,
   Image,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {API_IMAGES} from '@env';
@@ -23,6 +25,10 @@ import {Route, WINDOW_HEIGHT, BOTTOM_TABS_HEIGHT} from 'src/constants';
 import {Popular} from 'src/models';
 import {Action} from '../common';
 import {setWatchlist} from 'src/redux/collections/CollectionsActions';
+import {
+  useSafeAreaFrame,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 interface Props {
   movie: Popular;
 }
@@ -34,6 +40,17 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
   const {posterPath, title, id, voteAverage, genres, contentType} = movie;
   const doubleTapRef = useRef();
   const [isLiked, setLiked] = useState<boolean>(false);
+  //workaround for height on devices with notch
+  const frame = useSafeAreaFrame();
+  const {bottom} = useSafeAreaInsets();
+
+  const wrapperStyle: StyleProp<ViewStyle> = {
+    width: '100%',
+    height: frame.height - BOTTOM_TABS_HEIGHT - bottom,
+    justifyContent: 'center',
+    alignItems: 'center',
+  };
+
   const {
     user: {email},
   } = useSelector(userThunkSelector);
@@ -60,7 +77,7 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={wrapperStyle}>
       <View style={StyleSheet.absoluteFillObject}>
         <Image
           source={{uri: `${API_IMAGES}${posterPath}`}}
@@ -160,7 +177,8 @@ export default PopularItem;
 const {width} = Dimensions.get('screen');
 const imageW = width * 0.69;
 const imageH = imageW * 1.52;
-export const styles = StyleSheet.create({
+
+const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: WINDOW_HEIGHT - BOTTOM_TABS_HEIGHT,

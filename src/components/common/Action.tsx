@@ -30,7 +30,7 @@ const Action: React.FC<Props> = ({icon, label, isActive, onPress}) => {
 
 export default Action;
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   box: {
     justifyContent: 'center',
     alignItems: 'center',
