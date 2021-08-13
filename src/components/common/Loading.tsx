@@ -1,12 +1,16 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import palette from 'src/styles/palette';
-import {ActivityIndicator} from 'react-native-paper';
 import Container from './Container';
+import AnimatedLottieView from 'lottie-react-native';
 const LoadingScreen: React.FC = () => {
   return (
     <Container style={styles.loadingBox}>
-      <ActivityIndicator animating={true} color={palette.primary} size={70} />
+      <AnimatedLottieView
+        source={require('../../assets/lottie/popcorn.json')}
+        autoPlay
+        style={styles.loading}
+      />
     </Container>
   );
 };
@@ -14,6 +18,11 @@ const LoadingScreen: React.FC = () => {
 const styles = StyleSheet.create({
   loadingBox: {
     backgroundColor: palette.strongBlack,
+  },
+  loading: {
+    width: 200,
+    height: 200,
+    alignSelf: 'center',
   },
 });
 
