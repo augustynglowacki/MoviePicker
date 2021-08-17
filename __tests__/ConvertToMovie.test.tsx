@@ -1,5 +1,5 @@
-import {convertResponseToMovie} from '../src/helpers/convertResponse';
-import {Movie} from '../src/models';
+import {convertToMovie} from '../src/helpers/convertResponse';
+import {ContentType, Movie} from '../src/models';
 
 test('Checks if Conversion to array of movies is succeeded', () => {
   const response = [
@@ -16,13 +16,10 @@ test('Checks if Conversion to array of movies is succeeded', () => {
   ];
   const convertedResponse: Movie[] = [
     {
-      title: '',
-      poster_path: '',
       id: 0,
-      overview: '',
-      genre_ids: [],
-      vote_average: 0,
+      posterPath: '',
+      contentType: ContentType.Movie,
     },
   ];
-  expect(convertResponseToMovie(response)).toStrictEqual(convertedResponse);
+  expect(convertToMovie(response, true)).toStrictEqual(convertedResponse);
 });
