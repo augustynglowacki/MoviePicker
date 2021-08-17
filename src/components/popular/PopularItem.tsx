@@ -111,7 +111,8 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
           maxDelayMs={400}
           ref={doubleTapRef}
           numberOfTaps={2}
-          onActivated={addToWatchlist}>
+          onActivated={addToWatchlist}
+          id="doubleTap">
           <View style={styles.movieContainer}>
             <ImageBackground
               source={{uri: `${API_IMAGES}${posterPath}`}}
@@ -132,7 +133,7 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
               style={styles.linearGradient}
             />
             {!!isLiked && (
-              <View style={styles.heart}>
+              <View testID="heart" style={styles.heart}>
                 <Heart />
               </View>
             )}
