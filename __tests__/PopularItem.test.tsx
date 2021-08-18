@@ -3,6 +3,12 @@ import React from 'react';
 import Enzyme, {shallow} from 'enzyme';
 import PopularItem from 'src/components/popular/PopularItem';
 import {Popular} from 'src/models';
+import {Provider} from 'react-redux';
+import store from 'src/redux/store';
+
+const ReduxProvider: React.FC = ({children}) => {
+  return <Provider store={store}>{children}</Provider>;
+};
 
 const findByID = (
   wrapper: Enzyme.ShallowWrapper<
@@ -23,7 +29,11 @@ describe('is Liked', () => {
   >;
 
   beforeEach(() => {
-    wrapper = shallow(<PopularItem movie={{} as Popular} />);
+    wrapper = shallow(
+      <ReduxProvider>
+        <PopularItem movie={{} as Popular} />
+      </ReduxProvider>,
+    );
   });
 
   it('Movie is liked', () => {
