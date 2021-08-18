@@ -4,10 +4,12 @@ import Enzyme, {shallow} from 'enzyme';
 import PopularItem from 'src/components/popular/PopularItem';
 import {Popular} from 'src/models';
 import {Provider} from 'react-redux';
-import store from 'src/redux/store';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 
 const ReduxProvider: React.FC = ({children}) => {
-  return <Provider store={store}>{children}</Provider>;
+  const mockStore = configureMockStore([thunk]);
+  return <Provider store={mockStore()}>{children}</Provider>;
 };
 
 const findByID = (
