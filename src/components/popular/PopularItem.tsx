@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   View,
@@ -8,11 +8,11 @@ import {
   Image,
   StyleProp,
   ViewStyle,
+  Pressable,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {API_IMAGES} from '@env';
 import {StyleSheet} from 'react-native';
-import {TapGestureHandler} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import palette from 'src/styles/palette';
 import {useDispatch, useSelector} from 'react-redux';
@@ -38,11 +38,28 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
   const {navigate} = useNavigation();
   const dispatch = useDispatch();
   const {posterPath, title, id, voteAverage, genres, contentType} = movie;
-  const doubleTapRef = useRef();
   const [isLiked, setLiked] = useState<boolean>(false);
   //workaround for height on devices with notch
   const frame = useSafeAreaFrame();
   const {bottom} = useSafeAreaInsets();
+
+  let clickTimer: any = null;
+  const handleClick = () => {
+    if (!clickTimer) {
+      clickTimer = setTimeout(function () {
+        clickTimer = null;
+        navigate(Route.DETAILS, {
+          id,
+          posterPath,
+          contentType,
+        });
+      }, 300);
+    } else {
+      clearTimeout(clickTimer);
+      clickTimer = null;
+      addToWatchlist();
+    }
+  };
 
   const wrapperStyle: StyleProp<ViewStyle> = {
     width: '100%',
@@ -98,58 +115,44 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
           style={styles.linearBackground}
         />
       </View>
-      <TapGestureHandler
-        waitFor={doubleTapRef}
-        onActivated={() => {
-          navigate(Route.DETAILS, {
-            id,
-            posterPath,
-            contentType,
-          });
-        }}>
-        <TapGestureHandler
-          maxDelayMs={400}
-          ref={doubleTapRef}
-          numberOfTaps={2}
-          onActivated={addToWatchlist}
-          id="doubleTap">
-          <View style={styles.movieContainer}>
-            <ImageBackground
-              source={{uri: `${API_IMAGES}${posterPath}`}}
-              style={styles.image}
-              imageStyle={styles.image}
-            />
-            <LinearGradient
-              colors={[
-                'rgba(0,0,0,0.05)',
-                'rgba(0,0,0,0.1)',
-                'rgba(0,0,0,0.2)',
-                'rgba(0,0,0,0.4)',
-                'rgba(0,0,0,0.5)',
-                'rgba(0,0,0,0.65)',
-              ]}
-              start={{x: 0, y: 0}}
-              end={{x: 0, y: 1}}
-              style={styles.linearGradient}
-            />
-            {!!isLiked && (
-              <View testID="heart" style={styles.heart}>
-                <Heart />
-              </View>
-            )}
-
-            <View style={styles.movieInfo}>
-              <Text style={styles.title}>{title}</Text>
-              <View style={styles.genres}>
-                {genres.slice(0, 2).map(genre => (
-                  <GenreBox key={genre} name={genre} />
-                ))}
-              </View>
-              {!!voteAverage && <RatingBox voteAverage={voteAverage} />}
+      <Pressable testID="doubleTap" onPress={handleClick}>
+        <View style={styles.movieContainer}>
+          <ImageBackground
+            source={{uri: `${API_IMAGES}${posterPath}`}}
+            style={styles.image}
+            imageStyle={styles.image}
+          />
+          <LinearGradient
+            colors={[
+              'rgba(0,0,0,0.05)',
+              'rgba(0,0,0,0.1)',
+              'rgba(0,0,0,0.2)',
+              'rgba(0,0,0,0.4)',
+              'rgba(0,0,0,0.5)',
+              'rgba(0,0,0,0.65)',
+            ]}
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 1}}
+            style={styles.linearGradient}
+          />
+          {!!isLiked && (
+            <View testID="heart" style={styles.heart}>
+              <Heart />
             </View>
+          )}
+
+          <View style={styles.movieInfo}>
+            <Text style={styles.title}>{title}</Text>
+            <View style={styles.genres}>
+              {genres.slice(0, 2).map(genre => (
+                <GenreBox key={genre} name={genre} />
+              ))}
+            </View>
+            {!!voteAverage && <RatingBox voteAverage={voteAverage} />}
           </View>
-        </TapGestureHandler>
-      </TapGestureHandler>
+        </View>
+      </Pressable>
+
       <View style={styles.actions}>
         <Action
           label={t('movies:favorite')}
@@ -186,12 +189,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  overflow: {
+    overflow: 'visible',
+  },
   movieContainer: {
     width: imageW,
     height: imageH,
     borderRadius: 16,
     shadowOpacity: 0.9,
-    shadowRadius: 20,
+    shadowRadius: 60,
     shadowColor: palette.strongBlack,
     shadowOffset: {
       width: 0,
@@ -223,6 +229,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: '100%',
     width: '100%',
+    borderRadius: 16,
   },
   movieInfo: {
     position: 'absolute',
