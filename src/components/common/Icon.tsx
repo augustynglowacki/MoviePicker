@@ -55,6 +55,7 @@ interface Props {
   name: string;
   size?: number;
   color?: string;
+  testID?: string;
   style?: StyleProp<ViewStyle | TextStyle>;
 }
 
