@@ -111,8 +111,7 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
           maxDelayMs={400}
           ref={doubleTapRef}
           numberOfTaps={2}
-          onActivated={addToWatchlist}
-          id="doubleTap">
+          onActivated={addToWatchlist}>
           <View style={styles.movieContainer}>
             <ImageBackground
               source={{uri: `${API_IMAGES}${posterPath}`}}
