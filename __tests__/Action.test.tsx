@@ -4,20 +4,19 @@ import Enzyme, {shallow} from 'enzyme';
 import {Action} from 'src/components/common';
 import palette from 'src/styles/palette';
 
-const findByID = (
-  wrapper: Enzyme.ShallowWrapper<
-    any,
-    Readonly<{}>,
-    React.Component<{}, {}, any>
-  >,
-  value: string,
-) => {
+type Shallow = Enzyme.ShallowWrapper<
+  any,
+  Readonly<{}>,
+  React.Component<{}, {}, any>
+>;
+
+const findByID = (wrapper: Shallow, value: string) => {
   return wrapper.find({testID: value});
 };
+let wrapper: Shallow;
+const mockCallBack = jest.fn();
 
 describe('Action basic tests', () => {
-  let wrapper: Enzyme.ShallowWrapper<any>;
-  const mockCallBack = jest.fn();
   beforeEach(() => {
     wrapper = shallow(
       <Action
@@ -41,8 +40,6 @@ describe('Action basic tests', () => {
 });
 
 describe('Action isActive=false testing', () => {
-  let wrapper: Enzyme.ShallowWrapper<any>;
-  const mockCallBack = jest.fn();
   beforeEach(() => {
     wrapper = shallow(
       <Action
@@ -61,14 +58,11 @@ describe('Action isActive=false testing', () => {
 
   it('Color is white if isActive = false', () => {
     const icon = findByID(wrapper, 'icon');
-    console.log(icon.props());
     expect(icon.props().color).toEqual(palette.white);
   });
 });
 
 describe('Action isActive=true testing', () => {
-  let wrapper: Enzyme.ShallowWrapper<any>;
-  const mockCallBack = jest.fn();
   beforeEach(() => {
     wrapper = shallow(
       <Action
@@ -87,7 +81,6 @@ describe('Action isActive=true testing', () => {
 
   it('Color is primary if isActive = true', () => {
     const icon = findByID(wrapper, 'icon');
-    console.log(icon.props());
     expect(icon.props().color).toEqual(palette.primary);
   });
 });
