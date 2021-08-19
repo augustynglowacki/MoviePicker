@@ -17,7 +17,9 @@ const ErrorBox: React.FC<Props> = ({errorMsg}) => {
         size={100}
         color={palette.danger}
       />
-      <Text style={styles.errorText}>{errorMsg}</Text>
+      <Text style={styles.errorText} testID="error-message">
+        {errorMsg}
+      </Text>
     </View>
   );
 };
