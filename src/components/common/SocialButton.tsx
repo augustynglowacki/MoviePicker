@@ -9,9 +9,9 @@ interface Props {
 
 const SocialButton: React.FC<Props> = ({onPress, icon}) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity testID="social" onPress={onPress}>
       <View style={styles.button}>
-        <Image style={styles.image} source={icon} />
+        <Image testID="image" style={styles.image} source={icon} />
       </View>
     </TouchableOpacity>
   );
