@@ -21,7 +21,7 @@ describe('ErrorBox', () => {
     wrapper = shallow(<ErrorBox errorMsg={'Network Error'} />);
   });
 
-  it('Message', () => {
+  it('Error message', () => {
     const text = findByID(wrapper, 'error-message');
     expect(text.props().children).toEqual('Network Error');
   });

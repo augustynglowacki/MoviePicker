@@ -17,13 +17,16 @@ const Action: React.FC<Props> = ({icon, label, isActive, onPress}) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.box}>
       <Icon
+        testID="icon"
         style={styles.icon}
         name={isActive ? icon : outline}
         type={IconTypes.IONICON}
         size={38}
         color={isActive ? palette.primary : palette.white}
       />
-      <Text style={styles.text}>{label}</Text>
+      <Text testID="label" style={styles.text}>
+        {label}
+      </Text>
     </TouchableOpacity>
   );
 };
