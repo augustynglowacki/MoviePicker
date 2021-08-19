@@ -1,5 +1,5 @@
-import {convertToMovie} from '../src/helpers/convertResponse';
-import {ContentType, Movie} from '../src/models';
+import {convertToMovie} from '../../src/helpers/convertResponse';
+import {ContentType, Movie} from '../../src/models';
 
 test('Checks if Conversion to array of movies is succeeded', () => {
   const response = [

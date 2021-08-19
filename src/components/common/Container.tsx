@@ -50,12 +50,16 @@ const Container: React.FC<Props> = ({
   };
 
   const safeArea = disableSafeArea ? (
-    <View style={[styles.wrapper, style, getPadding(), getJustifyContent()]}>
+    <View
+      testID="styled"
+      style={[styles.wrapper, style, getPadding(), getJustifyContent()]}>
       {children}
     </View>
   ) : (
-    <SafeAreaView style={[styles.safeArea, style]}>
-      <View style={[styles.wrapper, getPadding(), getJustifyContent()]}>
+    <SafeAreaView style={[styles.safeArea, style]} testID="styledSafeArea">
+      <View
+        testID="padded"
+        style={[styles.wrapper, getPadding(), getJustifyContent()]}>
         {children}
       </View>
     </SafeAreaView>
@@ -65,6 +69,7 @@ const Container: React.FC<Props> = ({
     safeArea
   ) : (
     <ScrollView
+      testID="scroll"
       contentContainerStyle={styles.scrollView}
       showsVerticalScrollIndicator={false}>
       {safeArea}
@@ -73,6 +78,7 @@ const Container: React.FC<Props> = ({
 
   return withKeyboard ? (
     <KeyboardAvoidingView
+      testID="keyboard"
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.kbView}>
       {scrollWrapper}
