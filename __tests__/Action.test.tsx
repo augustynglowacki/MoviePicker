@@ -1,18 +1,10 @@
 import 'react-native';
 import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
+import {shallow} from 'enzyme';
 import {Action} from 'src/components/common';
 import palette from 'src/styles/palette';
+import {findByID, Shallow} from '__utils__';
 
-type Shallow = Enzyme.ShallowWrapper<
-  any,
-  Readonly<{}>,
-  React.Component<{}, {}, any>
->;
-
-const findByID = (wrapper: Shallow, value: string) => {
-  return wrapper.find({testID: value});
-};
 let wrapper: Shallow;
 const mockCallBack = jest.fn();
 
