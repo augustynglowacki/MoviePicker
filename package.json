@@ -88,6 +88,9 @@
       "<rootDir>/src/setupTests.ts",
       "<rootDir>/node_modules/react-native-gesture-handler/jestSetup.js"
     ],
+    "modulePaths": [
+      "<rootDir>"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -98,6 +101,9 @@
     ],
     "transformIgnorePatterns": [
       "/node_modules/(?!react-native|@react-native|@react-navigation|node_modules/(?!((jest-)?react-native(-.*)?|@react-native(-community)?)/))"
+    ],
+    "testPathIgnorePatterns": [
+      "/__utils__/"
     ]
   }
 }
