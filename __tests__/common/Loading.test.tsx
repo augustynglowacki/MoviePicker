@@ -17,7 +17,7 @@ describe('Loading', () => {
   });
 
   it('Loading source: ', () => {
-    const source = require('../src/assets/lottie/popcorn.json');
+    const source = require('src/assets/lottie/popcorn.json');
     const loading = findByID(wrapper, 'loading');
     expect(loading.props().source).toEqual(source);
   });
