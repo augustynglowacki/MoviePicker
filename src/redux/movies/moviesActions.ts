@@ -1,4 +1,4 @@
-import {Movie} from '../models';
+import {Movie} from '../../models';
 import {
   GET_MOVIES_REJECTED,
   GET_MOVIES_PENDING,

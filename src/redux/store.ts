@@ -1,8 +1,8 @@
 import {applyMiddleware} from '@reduxjs/toolkit';
 import {createStore} from 'redux';
-import moviesReducer from './moviesReducer';
+import moviesReducer from './movies/moviesReducer';
 import createSagaMiddleware from 'redux-saga';
-import rootSaga from './sagas';
+import rootSagas from './rootSagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -11,4 +11,4 @@ export const store = createStore(
   applyMiddleware(sagaMiddleware),
 );
 
-sagaMiddleware.run(rootSaga);
+sagaMiddleware.run(rootSagas);

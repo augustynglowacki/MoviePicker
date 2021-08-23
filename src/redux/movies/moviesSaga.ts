@@ -2,8 +2,8 @@ import {API_KEY} from '@env';
 import {takeEvery, call, put, fork} from 'redux-saga/effects';
 import axiosInstance from '../../helpers/axiosInstance';
 import {Movie, MovieAxiosResponse} from '../../models';
-import {getMoviesRejected, getMoviesSuccess} from '../moviesAction';
-import {GET_MOVIES_PENDING} from '../moviesType';
+import {getMoviesRejected, getMoviesSuccess} from './moviesActions';
+import {GET_MOVIES_PENDING} from './moviesType';
 //workerSaga
 function* getMovies() {
   console.log('getMovies');
@@ -28,12 +28,12 @@ const fetchMovies = async () => {
   const results = await axiosInstance.get<MovieAxiosResponse>(
     `movie/popular?api_key=${API_KEY}&language=en-US&page=1`,
   );
-  const newresult: Movie[] = results.data.results.map((result: Movie) => ({
+  const newResults: Movie[] = results.data.results.map((result: Movie) => ({
     id: result.id,
     title: result.title,
     vote_average: result.vote_average,
     poster_path: result.poster_path,
     overview: result.overview,
   }));
-  return newresult;
+  return newResults;
 };

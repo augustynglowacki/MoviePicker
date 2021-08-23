@@ -1,4 +1,4 @@
-import {Movie} from '../models';
+import {Movie} from '../../models';
 
 export const GET_MOVIES_PENDING = 'GET_MOVIES_PENDING';
 export const GET_MOVIES_SUCCESS = 'GET_MOVIES_SUCCESS';
