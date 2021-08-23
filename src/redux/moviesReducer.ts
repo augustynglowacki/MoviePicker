@@ -2,7 +2,7 @@ import {Movie} from '../models';
 import {
   GET_MOVIES_REJECTED,
   GET_MOVIES_PENDING,
-  GET_MOVIES_SUCCES,
+  GET_MOVIES_SUCCESS,
   MovieActionTypes,
 } from './moviesType';
 
@@ -28,7 +28,7 @@ const moviesReducer = (
         ...state,
         loading: true,
       };
-    case GET_MOVIES_SUCCES:
+    case GET_MOVIES_SUCCESS:
       return {
         ...state,
         movies: action.payload,

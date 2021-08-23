@@ -2,14 +2,14 @@ import {API_KEY} from '@env';
 import {takeEvery, call, put, fork} from 'redux-saga/effects';
 import axiosInstance from '../../helpers/axiosInstance';
 import {Movie, MovieAxiosResponse} from '../../models';
-import {getMoviesRejected, getMoviesSucces} from '../moviesAction';
+import {getMoviesRejected, getMoviesSuccess} from '../moviesAction';
 import {GET_MOVIES_PENDING} from '../moviesType';
 //workerSaga
 function* getMovies() {
   console.log('getMovies');
   try {
     const result: Movie[] = yield call(fetchMovies);
-    yield put(getMoviesSucces(result));
+    yield put(getMoviesSuccess(result));
   } catch (error) {
     yield put(getMoviesRejected(error));
   }

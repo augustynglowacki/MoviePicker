@@ -1,14 +1,14 @@
 import {Movie} from '../models';
 
 export const GET_MOVIES_PENDING = 'GET_MOVIES_PENDING';
-export const GET_MOVIES_SUCCES = 'GET_MOVIES_SUCCES';
+export const GET_MOVIES_SUCCESS = 'GET_MOVIES_SUCCESS';
 export const GET_MOVIES_REJECTED = 'GET_MOVIES_REJECTED';
 
 export interface GetMoviesPending {
   type: typeof GET_MOVIES_PENDING;
 }
-export interface GetMoviesSucces {
-  type: typeof GET_MOVIES_SUCCES;
+export interface GetMoviesSuccess {
+  type: typeof GET_MOVIES_SUCCESS;
   payload: Movie[];
 }
 export interface GetMoviesRejected {
@@ -18,5 +18,5 @@ export interface GetMoviesRejected {
 
 export type MovieActionTypes =
   | GetMoviesPending
-  | GetMoviesSucces
+  | GetMoviesSuccess
   | GetMoviesRejected;

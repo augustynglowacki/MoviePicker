@@ -2,9 +2,9 @@ import {Movie} from '../models';
 import {
   GET_MOVIES_REJECTED,
   GET_MOVIES_PENDING,
-  GET_MOVIES_SUCCES,
+  GET_MOVIES_SUCCESS,
   GetMoviesPending,
-  GetMoviesSucces,
+  GetMoviesSuccess,
   GetMoviesRejected,
 } from './moviesType';
 
@@ -15,10 +15,10 @@ export const getMoviePending = (): GetMoviesPending => {
   };
 };
 
-export const getMoviesSucces = (results: Movie[]): GetMoviesSucces => {
-  console.log('getMoviesSucces');
+export const getMoviesSuccess = (results: Movie[]): GetMoviesSuccess => {
+  console.log('getMoviesSuccess');
   return {
-    type: GET_MOVIES_SUCCES,
+    type: GET_MOVIES_SUCCESS,
     payload: results,
   };
 };
