@@ -3,20 +3,26 @@ import {
   GET_MOVIES_REJECTED,
   GET_MOVIES_PENDING,
   GET_MOVIES_SUCCESS,
+  GET_MOVIES_STARTED,
   GetMoviesPending,
   GetMoviesSuccess,
   GetMoviesRejected,
+  GetMoviesStarted,
 } from './moviesType';
 
+export const getMoviesStarted = (): GetMoviesStarted => {
+  return {
+    type: GET_MOVIES_STARTED,
+  };
+};
+
 export const getMoviePending = (): GetMoviesPending => {
-  console.log('getMoviePending');
   return {
     type: GET_MOVIES_PENDING,
   };
 };
 
 export const getMoviesSuccess = (results: Movie[]): GetMoviesSuccess => {
-  console.log('getMoviesSuccess');
   return {
     type: GET_MOVIES_SUCCESS,
     payload: results,

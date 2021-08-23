@@ -1,7 +1,7 @@
-import {all} from 'redux-saga/effects';
+import {all, fork} from 'redux-saga/effects';
 import movieSagas from './movies/moviesSaga';
 
 export default function* rootSaga() {
   console.log(rootSaga);
-  yield all(movieSagas);
+  yield all([fork(movieSagas)]);
 }

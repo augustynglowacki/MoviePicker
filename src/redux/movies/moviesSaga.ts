@@ -1,28 +1,13 @@
 import {API_KEY} from '@env';
-import {takeEvery, call, put, fork} from 'redux-saga/effects';
+import {call, put, takeLatest} from 'redux-saga/effects';
 import axiosInstance from '../../helpers/axiosInstance';
 import {Movie, MovieAxiosResponse} from '../../models';
-import {getMoviesRejected, getMoviesSuccess} from './moviesActions';
-import {GET_MOVIES_PENDING} from './moviesType';
-//workerSaga
-function* getMovies() {
-  console.log('getMovies');
-  try {
-    const result: Movie[] = yield call(fetchMovies);
-    yield put(getMoviesSuccess(result));
-  } catch (error) {
-    yield put(getMoviesRejected(error));
-  }
-}
-//watcher Saga
-function* watchGetMoviesRequest() {
-  console.log('watchGetMoviesRequest');
-  yield takeEvery(GET_MOVIES_PENDING, getMovies);
-}
-
-const movieSagas = [fork(watchGetMoviesRequest)];
-
-export default movieSagas;
+import {
+  getMoviePending,
+  getMoviesRejected,
+  getMoviesSuccess,
+} from './moviesActions';
+import {GET_MOVIES_STARTED} from './moviesType';
 
 const fetchMovies = async () => {
   const results = await axiosInstance.get<MovieAxiosResponse>(
@@ -37,3 +22,23 @@ const fetchMovies = async () => {
   }));
   return newResults;
 };
+
+function* getMovies() {
+  console.log('getMovies');
+  try {
+    yield put(getMoviePending());
+    const result: Movie[] = yield call(fetchMovies);
+    yield put(getMoviesSuccess(result));
+  } catch (error) {
+    yield put(getMoviesRejected(error));
+  }
+}
+
+function* watchGetMoviesRequest() {
+  console.log('watchGetMoviesRequest');
+  yield takeLatest(GET_MOVIES_STARTED, getMovies);
+}
+
+const movieSagas = watchGetMoviesRequest;
+
+export default movieSagas;

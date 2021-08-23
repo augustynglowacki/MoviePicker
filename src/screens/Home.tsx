@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import ErrorBox from '../components/atoms/ErrorBox';
 import MovieList from '../components/organisms/MovieList';
 import {AUTH, DETAILS} from '../models/constants/routeNames';
-import {getMoviePending} from '../redux/movies/moviesActions';
+import {getMoviesStarted} from '../redux/movies/moviesActions';
 import {State} from '../redux/movies/moviesReducer';
 import Loading from './Loading';
 
@@ -16,7 +16,7 @@ const Home = () => {
   console.log('Loading state in Home :>>', loading);
 
   useEffect(() => {
-    dispatch(getMoviePending());
+    dispatch(getMoviesStarted());
   }, [dispatch]);
 
   const {navigate} = useNavigation();
