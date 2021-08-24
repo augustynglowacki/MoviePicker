@@ -2,12 +2,8 @@ import {API_KEY} from '@env';
 import {call, put, takeLatest} from 'redux-saga/effects';
 import axiosInstance from '../../helpers/axiosInstance';
 import {Movie, MovieAxiosResponse} from '../../models';
-import {
-  getMoviePending,
-  getMoviesRejected,
-  getMoviesSuccess,
-} from './moviesActions';
-import {GET_MOVIES_STARTED} from './moviesType';
+import * as moviesTypes from './moviesTypes';
+import * as actionsTypes from './moviesActions';
 
 const fetchMovies = async () => {
   const results = await axiosInstance.get<MovieAxiosResponse>(
@@ -24,19 +20,17 @@ const fetchMovies = async () => {
 };
 
 function* getMovies() {
-  console.log('getMovies');
   try {
-    yield put(getMoviePending());
+    yield put(actionsTypes.getMoviePending());
     const result: Movie[] = yield call(fetchMovies);
-    yield put(getMoviesSuccess(result));
+    yield put(actionsTypes.getMoviesSuccess(result));
   } catch (error) {
-    yield put(getMoviesRejected(error));
+    yield put(actionsTypes.getMoviesRejected(error));
   }
 }
 
 function* watchGetMoviesRequest() {
-  console.log('watchGetMoviesRequest');
-  yield takeLatest(GET_MOVIES_STARTED, getMovies);
+  yield takeLatest(moviesTypes.GET_MOVIES_STARTED, getMovies);
 }
 
 const movieSagas = watchGetMoviesRequest;

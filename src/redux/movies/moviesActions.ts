@@ -1,37 +1,32 @@
 import {Movie} from '../../models';
-import {
-  GET_MOVIES_REJECTED,
-  GET_MOVIES_PENDING,
-  GET_MOVIES_SUCCESS,
-  GET_MOVIES_STARTED,
-  GetMoviesPending,
-  GetMoviesSuccess,
-  GetMoviesRejected,
-  GetMoviesStarted,
-} from './moviesType';
+import * as moviesTypes from './moviesTypes';
 
-export const getMoviesStarted = (): GetMoviesStarted => {
+export const getMoviesStarted = (): moviesTypes.GetMoviesStarted => {
   return {
-    type: GET_MOVIES_STARTED,
+    type: moviesTypes.GET_MOVIES_STARTED,
   };
 };
 
-export const getMoviePending = (): GetMoviesPending => {
+export const getMoviePending = (): moviesTypes.GetMoviesPending => {
   return {
-    type: GET_MOVIES_PENDING,
+    type: moviesTypes.GET_MOVIES_PENDING,
   };
 };
 
-export const getMoviesSuccess = (results: Movie[]): GetMoviesSuccess => {
+export const getMoviesSuccess = (
+  results: Movie[],
+): moviesTypes.GetMoviesSuccess => {
   return {
-    type: GET_MOVIES_SUCCESS,
+    type: moviesTypes.GET_MOVIES_SUCCESS,
     payload: results,
   };
 };
 
-export const getMoviesRejected = (error: string): GetMoviesRejected => {
+export const getMoviesRejected = (
+  error: string,
+): moviesTypes.GetMoviesRejected => {
   return {
-    type: GET_MOVIES_REJECTED,
+    type: moviesTypes.GET_MOVIES_REJECTED,
     payload: error,
   };
 };

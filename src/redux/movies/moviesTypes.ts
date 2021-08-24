@@ -4,6 +4,7 @@ export const GET_MOVIES_STARTED = 'GET_MOVIES_STARTED';
 export const GET_MOVIES_PENDING = 'GET_MOVIES_PENDING';
 export const GET_MOVIES_SUCCESS = 'GET_MOVIES_SUCCESS';
 export const GET_MOVIES_REJECTED = 'GET_MOVIES_REJECTED';
+
 export interface GetMoviesStarted {
   type: typeof GET_MOVIES_STARTED;
 }
@@ -20,6 +21,7 @@ export interface GetMoviesRejected {
 }
 
 export type MovieActionTypes =
+  | GetMoviesStarted
   | GetMoviesPending
   | GetMoviesSuccess
   | GetMoviesRejected;

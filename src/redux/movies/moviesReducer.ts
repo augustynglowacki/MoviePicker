@@ -1,40 +1,37 @@
 import {Movie} from '../../models';
-import {
-  GET_MOVIES_REJECTED,
-  GET_MOVIES_PENDING,
-  GET_MOVIES_SUCCESS,
-  MovieActionTypes,
-} from './moviesType';
+import * as moviesTypes from './moviesTypes';
 
-export interface State {
+interface State {
   movies: Movie[];
   loading: boolean;
-  error: string;
+  error: string | null;
 }
 
 const initialState: State = {
-  movies: [{id: 0, title: '', vote_average: 0, poster_path: '', overview: ''}],
+  movies: [],
   loading: false,
-  error: '',
+  error: null,
 };
 
 export const moviesReducer = (
   state: State = initialState,
-  action: MovieActionTypes,
+  action: moviesTypes.MovieActionTypes,
 ) => {
   switch (action.type) {
-    case GET_MOVIES_PENDING:
+    case moviesTypes.GET_MOVIES_PENDING:
       return {
         ...state,
         loading: true,
+        error: null,
       };
-    case GET_MOVIES_SUCCESS:
+    case moviesTypes.GET_MOVIES_SUCCESS:
       return {
         ...state,
         movies: action.payload,
         loading: false,
+        error: null,
       };
-    case GET_MOVIES_REJECTED:
+    case moviesTypes.GET_MOVIES_REJECTED:
       return {
         ...state,
         loading: false,

@@ -7,13 +7,14 @@ import ErrorBox from '../components/atoms/ErrorBox';
 import MovieList from '../components/organisms/MovieList';
 import {AUTH, DETAILS} from '../models/constants/routeNames';
 import {getMoviesStarted} from '../redux/movies/moviesActions';
-import {State} from '../redux/movies/moviesReducer';
+import {AppState} from '../redux/store';
 import Loading from './Loading';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const {movies, error, loading} = useSelector((state: State) => state);
-  console.log('Loading state in Home :>>', loading);
+  const {movies, error, loading} = useSelector(
+    (state: AppState) => state.moviesReducer,
+  );
 
   useEffect(() => {
     dispatch(getMoviesStarted());
