@@ -1,15 +1,11 @@
 import 'react-native';
 import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
+import {shallow} from 'enzyme';
 import {Loading} from 'src/components/common';
 import {findByID} from '__utils__';
 
 describe('Loading', () => {
-  let wrapper: Enzyme.ShallowWrapper<any>;
-
-  beforeEach(() => {
-    wrapper = shallow(<Loading />);
-  });
+  const wrapper = shallow(<Loading />);
 
   it('Lottie autoPlay is on: ', () => {
     const loading = findByID(wrapper, 'loading');

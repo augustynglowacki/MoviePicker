@@ -3,22 +3,19 @@ import React from 'react';
 import {shallow} from 'enzyme';
 import {Action} from 'src/components/common';
 import palette from 'src/styles/palette';
-import {findByID, Shallow} from '__utils__';
+import {findByID} from '__utils__';
 
-let wrapper: Shallow;
 const mockCallBack = jest.fn();
 
 describe('Action basic tests', () => {
-  beforeEach(() => {
-    wrapper = shallow(
-      <Action
-        label="favorite"
-        icon={'heart'}
-        onPress={mockCallBack}
-        isActive={false}
-      />,
-    );
-  });
+  const wrapper = shallow(
+    <Action
+      label="favorite"
+      icon={'heart'}
+      onPress={mockCallBack}
+      isActive={false}
+    />,
+  );
 
   it('Label is passed down correctly', () => {
     const text = findByID(wrapper, 'label');
@@ -32,16 +29,14 @@ describe('Action basic tests', () => {
 });
 
 describe('Action isActive=false testing', () => {
-  beforeEach(() => {
-    wrapper = shallow(
-      <Action
-        label="favorite"
-        icon={'heart'}
-        onPress={mockCallBack}
-        isActive={false}
-      />,
-    );
-  });
+  const wrapper = shallow(
+    <Action
+      label="favorite"
+      icon={'heart'}
+      onPress={mockCallBack}
+      isActive={false}
+    />,
+  );
 
   it('Icon name got properly added -outline in the component', () => {
     const icon = findByID(wrapper, 'icon');
@@ -55,16 +50,9 @@ describe('Action isActive=false testing', () => {
 });
 
 describe('Action isActive=true testing', () => {
-  beforeEach(() => {
-    wrapper = shallow(
-      <Action
-        label="favorite"
-        icon={'heart'}
-        onPress={mockCallBack}
-        isActive={true}
-      />,
-    );
-  });
+  const wrapper = shallow(
+    <Action label="favorite" icon={'heart'} onPress={mockCallBack} isActive />,
+  );
 
   it('Icon name without -outline', () => {
     const icon = findByID(wrapper, 'icon');
