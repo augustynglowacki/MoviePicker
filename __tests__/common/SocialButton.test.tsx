@@ -1,6 +1,6 @@
 import 'react-native';
 import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
+import {shallow} from 'enzyme';
 import {SocialButton} from 'src/components/common';
 import {findByID} from '__utils__';
 
@@ -8,11 +8,9 @@ const mockOnPress = jest.fn();
 const mockIcon = require('src/assets/images/google-logo.png');
 
 describe('Social Button', () => {
-  let wrapper: Enzyme.ShallowWrapper<any>;
-
-  beforeEach(() => {
-    wrapper = shallow(<SocialButton onPress={mockOnPress} icon={mockIcon} />);
-  });
+  const wrapper = shallow(
+    <SocialButton onPress={mockOnPress} icon={mockIcon} />,
+  );
 
   it('OnPress test: ', () => {
     wrapper.simulate('press');
