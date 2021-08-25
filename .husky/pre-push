@@ -1,0 +1,5 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm test
+npx branch-naming-check '(MP-[0-9]{3}-([A-Z]([a-z0-9-]+))+|dev|main)'
