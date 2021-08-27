@@ -41,8 +41,8 @@ const ProfileScreen: React.FC = () => {
 
   const collectionContent = [
     {id: 1, title: t('movies:watchlist'), collection: watchlist.movies},
-    // {id: 2, title: t('movies:watched'), collection: movies},
-    // {id: 3, title: t('movies:watchlist'), collection: movies},
+    {id: 2, title: t('movies:watched'), collection: watchlist.movies},
+    {id: 3, title: t('movies:watchlist'), collection: watchlist.movies},
   ];
 
   return (
