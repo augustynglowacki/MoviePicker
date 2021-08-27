@@ -1,7 +1,6 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {View, StyleSheet, ListRenderItem, FlatList, Text} from 'react-native';
-import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
 import {BOTTOM_TABS_HEIGHT} from 'src/constants';
 import {Movie} from 'src/models';
 import palette from 'src/styles/palette';
@@ -23,11 +22,7 @@ const Watchlist: React.FC<Props> = ({movies, isExplore}) => {
   );
   return (
     <Container flexStart padding="small" disableScroll style={styles.wrapper}>
-      <AnimatedLayout>
-        <Animated.View entering={FlipInXDown.springify()}>
-          <ScreenHeader label={t('watchlist')} />
-        </Animated.View>
-      </AnimatedLayout>
+      <ScreenHeader label={t('watchlist')} />
       {movies.length ? (
         <View style={styles.watchlist}>
           <FlatList
