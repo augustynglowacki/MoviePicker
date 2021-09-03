@@ -18,3 +18,8 @@ export const setData = async (movie: Movie, name: string) => {
         })
     : null;
 };
+
+export const setCover = (coverURL: string, userId: string) => {
+  const db = firestore();
+  db.collection('users').doc(userId).set({coverURL});
+};

@@ -9,11 +9,14 @@ import {useSelector} from 'react-redux';
 import {CustomButton} from 'src/components/common';
 import {ExploreScreenParams, Route} from 'src/constants';
 import ProfileComponent from 'src/components/profile/Profile';
+import LoadingScreen from 'src/components/common/Loading';
+import {userThunkSelector} from 'src/redux/user/UserSlice';
 import Watchlist from 'src/components/watchlist/Watchlist';
 
 const ExploreScreen: React.FC<ExploreScreenParams> = ({isLiked}) => {
   const {navigate} = useNavigation();
   const {t} = useTranslation('profile');
+  const {loading} = useSelector(userThunkSelector);
 
   const goToAuth = useCallback(() => {
     navigate(Route.AUTH);
@@ -26,6 +29,10 @@ const ExploreScreen: React.FC<ExploreScreenParams> = ({isLiked}) => {
     {id: 2, title: t('movies:watched'), collection: movies},
     {id: 3, title: t('movies:watchlist'), collection: movies},
   ];
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <View style={styles.container}>

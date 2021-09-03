@@ -1,8 +1,5 @@
 import React from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
-import ImagePicker from 'react-native-image-crop-picker';
-import storage from '@react-native-firebase/storage';
-import auth from '@react-native-firebase/auth';
 import {Icon} from 'src/components/common';
 import {IconTypes} from 'src/constants';
 import palette from 'src/styles/palette';
@@ -10,25 +7,10 @@ import palette from 'src/styles/palette';
 interface Props {
   uri: string;
   editable?: boolean;
+  onPress: () => void;
 }
 
-const Avatar: React.FC<Props> = ({editable, uri}) => {
-  const handlePicMovie = async () => {
-    const res = await ImagePicker.openPicker({multiple: false});
-    return res.path;
-  };
-
-  const saveToFirestore = async () => {
-    const newRes = await handlePicMovie();
-    try {
-      await storage()
-        .ref('users/' + auth().currentUser?.uid + '/profile.jpg')
-        .putFile(newRes);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+const Avatar: React.FC<Props> = ({editable, uri, onPress}) => {
   return (
     <View style={styles.avatarBox}>
       <Image
@@ -39,7 +21,7 @@ const Avatar: React.FC<Props> = ({editable, uri}) => {
       />
 
       {!!editable && (
-        <TouchableOpacity onPress={saveToFirestore} style={styles.icon}>
+        <TouchableOpacity onPress={onPress} style={styles.icon}>
           <Icon
             type={IconTypes.ANT}
             name="pluscircle"

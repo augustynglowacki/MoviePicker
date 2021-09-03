@@ -1,13 +1,12 @@
 import React from 'react';
 import {Animated, Image, StyleSheet} from 'react-native';
-import {useSelector} from 'react-redux';
 import palette from 'src/styles/palette';
-import {HEADER_HEIGHT, IconTypes} from 'src/constants';
+import {DEFAULT_AVATAR, HEADER_HEIGHT, IconTypes} from 'src/constants';
 import {Text} from 'react-native';
-import auth from '@react-native-firebase/auth';
-import {userThunkSelector} from 'src/redux/user/UserSlice';
 import {HeaderBar} from 'src/components/common';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {useSelector} from 'react-redux';
+import {userThunkSelector} from 'src/redux/user/UserSlice';
 
 interface Props {
   scrollY: Animated.Value;
@@ -21,12 +20,8 @@ const ProfileTitleBar: React.FC<Props> = ({
   logOut,
 }) => {
   const {
-    user: {userName},
+    user: {userName, avatar},
   } = useSelector(userThunkSelector);
-  //TODO: photoURI from selector
-  const placeholder =
-    'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultProfile.jpeg?alt=media&token=bc972054-6f70-4339-a72d-4a6c89be93a2';
-  const photoURI = auth().currentUser?.photoURL;
 
   return (
     <SafeAreaView style={styles.headerBar}>
@@ -34,7 +29,7 @@ const ProfileTitleBar: React.FC<Props> = ({
         <SafeAreaView style={styles.content}>
           <Image
             source={{
-              uri: photoURI || placeholder,
+              uri: avatar || DEFAULT_AVATAR,
             }}
             style={styles.avatar}
           />
