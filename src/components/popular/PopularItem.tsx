@@ -23,7 +23,6 @@ import Heart from '../common/Heart';
 import GenreBox from './GenreBox';
 import {Route, WINDOW_HEIGHT, BOTTOM_TABS_HEIGHT} from 'src/constants';
 import {Popular} from 'src/models';
-import {Action} from '../common';
 import {
   setFavorite,
   setWatched,
@@ -33,6 +32,7 @@ import {
   useSafeAreaFrame,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import PickerButton from './PickerButton';
 interface Props {
   movie: Popular;
 }
@@ -89,6 +89,8 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
     ]);
   };
 
+  const [buttonState, setButtonState] = useState(false);
+
   const handleAddtoCollection = (
     action: 'favorite' | 'watchlist' | 'watched',
   ) => {
@@ -102,6 +104,7 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
       }
       if (action === 'watchlist') {
         dispatch(setWatchlist(movie));
+        setButtonState(true);
       }
       if (action === 'watched') {
         dispatch(setWatched(movie));
@@ -184,7 +187,7 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
       </Pressable>
 
       <View style={styles.actions}>
-        <Action
+        {/* <Action
           label={t('movies:favorite')}
           icon={'heart'}
           onPress={() => handleAddtoCollection('favorite')}
@@ -201,12 +204,11 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
           icon={'tv'}
           onPress={() => handleAddtoCollection('watchlist')}
           isActive={false}
-        />
-        {/* <CustomButton
-          label={t('movies:watchlist')}
-          onPress={() => handleAddtoCollection('watchlist')}
-          icon={}
         /> */}
+        <PickerButton
+          onPress={() => handleAddtoCollection('watchlist')}
+          state={buttonState}
+        />
       </View>
     </View>
   );
@@ -264,7 +266,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: '100%',
     width: '100%',
-    borderRadius: 16,
   },
   movieInfo: {
     position: 'absolute',

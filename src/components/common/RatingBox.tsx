@@ -7,13 +7,10 @@ interface Props {
 }
 
 const RatingBox: React.FC<Props> = ({voteAverage}) => {
-  const getRoundRating = () => {
-    return Math.round(voteAverage) / 2;
-  };
   return (
     <View style={styles.ratingWrapper}>
       <Text style={styles.ratingText}>{voteAverage}</Text>
-      <Star score={getRoundRating()} style={styles.starStyle} />
+      <Star score={voteAverage / 2} style={styles.starStyle} />
     </View>
   );
 };
