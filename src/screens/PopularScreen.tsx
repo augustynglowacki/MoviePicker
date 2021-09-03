@@ -10,9 +10,6 @@ import {DEFAULT_COVER} from 'src/constants';
 const PopularScreen: React.FC = () => {
   const dispatch = useDispatch();
   const {movies, loading, error} = useSelector(popularSelector);
-  const {user: userLog} = useSelector(userThunkSelector);
-
-  console.log(userLog);
 
   const {
     user: {email},

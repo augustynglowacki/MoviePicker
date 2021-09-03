@@ -14,8 +14,6 @@ const ProfileCardHeader: React.FC<Props> = ({scrollY}: Props) => {
     user: {coverPhoto},
   } = useSelector(userThunkSelector);
 
-  console.log(coverPhoto);
-
   return (
     <View style={styles.wrapper}>
       <Animated.Image
