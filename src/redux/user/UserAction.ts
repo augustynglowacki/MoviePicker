@@ -1,7 +1,12 @@
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {createAsyncThunk} from '@reduxjs/toolkit';
+import {DEFAULT_AVATAR, DEFAULT_COVER} from 'src/constants';
 import {BackendUser} from 'src/models';
+import {setCover} from 'src/service/firestore/collection';
+import {fetchCover} from 'src/service/firestore/getData';
 import {User} from './UserSlice';
+import {fetchAvatar} from 'src/service/storage/getAvatar';
+import {putAvatar} from 'src/service/storage/putAvatar';
 
 interface LoginUser {
   email: string;
@@ -23,19 +28,34 @@ export const signInWithEmailAndPassword = createAsyncThunk<User, LoginUser>(
       user: {uid, email, displayName, photoURL},
     } = await auth().signInWithEmailAndPassword(loginEmail, password);
 
-    //TODO: set cover photo from firestore
+    const coverURL = await fetchCover(uid);
 
-    if (!email || !displayName || !photoURL) {
+    if (!email || !displayName || !photoURL || !coverURL) {
       return rejectWithValue('Error');
     }
+
     return {
       id: uid,
       email,
       userName: displayName,
       avatar: photoURL,
-      coverPhoto:
-        'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultBackground.jpg?alt=media&token=2194f500-dc89-40e4-bc4c-97a4c3f62d82',
+      coverPhoto: coverURL,
     };
+  },
+);
+
+export const updateUserPhoto = createAsyncThunk<string, string>(
+  'auth/updatePhoto',
+  async (newRes, {rejectWithValue}) => {
+    await putAvatar(newRes);
+    const photoURL = await fetchAvatar();
+    if (photoURL) {
+      auth().currentUser?.updateProfile({
+        photoURL: photoURL,
+      });
+      return photoURL;
+    }
+    return rejectWithValue('dddd');
   },
 );
 
@@ -83,17 +103,15 @@ export const createUserWithEmailAndPassword = createAsyncThunk<
 
     await user.updateProfile({
       displayName: displayName,
-      photoURL:
-        'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultProfile.jpeg?alt=media&token=bc972054-6f70-4339-a72d-4a6c89be93a2',
+      photoURL: DEFAULT_AVATAR,
     });
 
     const displayNameFirebase = auth().currentUser?.displayName;
     const photoURLFirebase = auth().currentUser?.photoURL;
-
-    //TODO: save user path to firestore with photo and cover
-
     const {uid, email} = user;
-    if (!uid || !email || !displayNameFirebase || !photoURLFirebase) {
+
+    setCover(DEFAULT_COVER, uid);
+    if (!email || !displayNameFirebase || !photoURLFirebase) {
       return rejectWithValue('Error');
     }
 
@@ -102,8 +120,7 @@ export const createUserWithEmailAndPassword = createAsyncThunk<
       email,
       userName: displayNameFirebase,
       avatar: photoURLFirebase,
-      coverPhoto:
-        'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultBackground.jpg?alt=media&token=2194f500-dc89-40e4-bc4c-97a4c3f62d82',
+      coverPhoto: DEFAULT_COVER,
     };
   },
 );
@@ -116,9 +133,14 @@ export const signInWithGoogle = createAsyncThunk<
     user: {uid, email, displayName, photoURL},
   } = await auth().signInWithCredential(googleCredential);
 
-  //TODO: save user path to firestore with photo and cover
+  const coverURL = await fetchCover(uid);
+  console.log(coverURL);
 
-  if (!email || !displayName || !photoURL) {
+  // if (!coverURL) {
+  //   setCover(DEFAULT_COVER, uid);
+  // }
+
+  if (!email || !displayName || !photoURL || !coverURL) {
     return rejectWithValue('Error');
   }
   return {
@@ -126,7 +148,6 @@ export const signInWithGoogle = createAsyncThunk<
     email,
     userName: displayName,
     avatar: photoURL,
-    coverPhoto:
-      'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultBackground.jpg?alt=media&token=2194f500-dc89-40e4-bc4c-97a4c3f62d82',
+    coverPhoto: coverURL,
   };
 });

@@ -18,7 +18,7 @@ const Username: React.FC = () => {
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
   const {t} = useTranslation('common');
-  const redirectToProfile = () => navigate(Route.PROFILE);
+  const redirectToProfile = () => navigate(Route.SETTINGS);
 
   const validationSchema = Yup.object({
     displayName: Yup.string().min(MIN_USERNAME_LENGTH),

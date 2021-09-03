@@ -7,6 +7,7 @@ import {
   signInWithGoogle,
   updateUserEmail,
   updateUserPassword,
+  updateUserPhoto,
 } from './UserAction';
 
 interface UserState {
@@ -138,6 +139,21 @@ const userSlice = createSlice({
     });
     builder.addCase(signInWithGoogle.rejected, state => {
       state.loading = false;
+    });
+    builder.addCase(updateUserPhoto.fulfilled, (state, action) => {
+      state.user.avatar = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(updateUserPhoto.pending, state => {
+      state.loading = true;
+      state.error = '';
+    });
+    builder.addCase(updateUserPhoto.rejected, (state, action) => {
+      state.loading = false;
+      if (action.error.message) {
+        let temp = action.error.message.split(']');
+        state.error = temp[1];
+      }
     });
   },
 });

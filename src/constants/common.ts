@@ -10,3 +10,7 @@ export const SCREEN_OPTIONS = {
   gestureEnabled: true,
   gestureResponseDistance: {horizontal: 200},
 };
+export const DEFAULT_COVER =
+  'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultCover.jpg?alt=media&token=b5744349-b6d7-4811-9ddb-dddacf2c2d29';
+export const DEFAULT_AVATAR =
+  'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultAvatar.png?alt=media&token=e8f0dd01-d427-4734-b161-504d46c7893c';

@@ -1,23 +1,25 @@
 import React from 'react';
 import {View, Animated, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {HEADER_HEIGHT} from 'src/constants';
+import {useSelector} from 'react-redux';
+import {DEFAULT_COVER, HEADER_HEIGHT} from 'src/constants';
+import {userThunkSelector} from 'src/redux/user/UserSlice';
 import ProfileHeader from './ProfileHeader';
 interface Props {
   scrollY: Animated.Value;
 }
+
 const ProfileCardHeader: React.FC<Props> = ({scrollY}: Props) => {
-  //TODO:
-  const backgroundPlaceholder =
-    'https://www.freecodecamp.org/news/content/images/2021/06/w-qjCHPZbeXCQ-unsplash.jpg';
-  const imageBackground = {
-    uri: backgroundPlaceholder,
-  };
+  const {
+    user: {coverPhoto},
+  } = useSelector(userThunkSelector);
+
+  console.log(coverPhoto);
 
   return (
     <View style={styles.wrapper}>
       <Animated.Image
-        source={imageBackground}
+        source={{uri: coverPhoto || DEFAULT_COVER}}
         resizeMode="cover"
         style={[styles.image, animatedImageStyle(scrollY)]}
       />

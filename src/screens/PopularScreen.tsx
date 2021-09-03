@@ -4,10 +4,15 @@ import {useDispatch, useSelector} from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import {setActiveUser, userThunkSelector} from 'src/redux/user/UserSlice';
 import PopularComponent from 'src/components/popular/Popular';
+import {fetchCover} from 'src/service/firestore/getData';
+import {DEFAULT_COVER} from 'src/constants';
 
 const PopularScreen: React.FC = () => {
   const dispatch = useDispatch();
   const {movies, loading, error} = useSelector(popularSelector);
+  const {user: userLog} = useSelector(userThunkSelector);
+
+  console.log(userLog);
 
   const {
     user: {email},
@@ -15,13 +20,15 @@ const PopularScreen: React.FC = () => {
 
   useEffect(() => {
     if (!email) {
-      const subscriber = auth().onAuthStateChanged(user => {
-        //ts + move into service
+      const subscriber = auth().onAuthStateChanged(async user => {
         if (user) {
+          const cover = (await fetchCover(user.uid)) ?? DEFAULT_COVER;
           dispatch(
             setActiveUser({
               email: user.email,
               userName: user.displayName,
+              avatar: user.photoURL,
+              coverPhoto: cover,
             }),
           );
         }
