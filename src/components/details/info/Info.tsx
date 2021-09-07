@@ -84,7 +84,8 @@ const styles = StyleSheet.create({
   actions: {
     flexDirection: 'row',
     alignSelf: 'center',
-    marginVertical: 15,
+    marginTop: 30,
+    marginBottom: 40,
   },
 });
 
