@@ -300,6 +300,6 @@ const styles = StyleSheet.create({
   heart: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 30,
+    zIndex: 2,
   },
 });
