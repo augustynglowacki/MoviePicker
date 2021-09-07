@@ -23,6 +23,7 @@ const HeaderBar: React.FC<Props> = ({leftIcon, rightIcon}) => {
       <TouchableOpacity onPress={leftIcon.onPressFunction}>
         <View style={styles.icon}>
           <Icon
+            style={styles.shadow}
             type={leftIcon.type}
             color={palette.white}
             name={leftIcon.name}
@@ -34,6 +35,7 @@ const HeaderBar: React.FC<Props> = ({leftIcon, rightIcon}) => {
         <TouchableOpacity onPress={rightIcon.onPressFunction}>
           <View style={styles.icon}>
             <Icon
+              style={styles.shadow}
               type={rightIcon.type}
               color={palette.white}
               name={rightIcon.name}
@@ -58,6 +60,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: 10,
+  },
+  shadow: {
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 4,
+    textShadowColor: 'rgba(0, 0, 0, 0.795)',
   },
 });
 export default HeaderBar;

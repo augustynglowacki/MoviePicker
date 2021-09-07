@@ -23,12 +23,12 @@ import Heart from '../common/Heart';
 import GenreBox from './GenreBox';
 import {Route, WINDOW_HEIGHT, BOTTOM_TABS_HEIGHT} from 'src/constants';
 import {Popular} from 'src/models';
-import {Action} from '../common';
 import {setWatchlist} from 'src/redux/collections/CollectionsActions';
 import {
   useSafeAreaFrame,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import {Action} from '../common';
 interface Props {
   movie: Popular;
 }
@@ -152,7 +152,6 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
           </View>
         </View>
       </Pressable>
-
       <View style={styles.actions}>
         <Action
           label={t('movies:favorite')}
@@ -170,7 +169,7 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
           label={t('movies:watchlist')}
           icon={'tv'}
           onPress={() => console.log('action')}
-          isActive={false}
+          isActive={true}
         />
       </View>
     </View>
@@ -256,10 +255,7 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   actions: {
-    position: 'absolute',
-    bottom: 16,
     flexDirection: 'row',
-    zIndex: 1000,
   },
   heart: {
     alignItems: 'center',

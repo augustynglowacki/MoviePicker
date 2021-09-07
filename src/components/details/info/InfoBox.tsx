@@ -17,16 +17,16 @@ const StyledText: React.FC = ({children}) => (
 const InfoBox: React.FC<Props> = ({data}) => {
   const {t} = useTranslation('movies');
   const movie = data as MovieDetails;
-  const tvSerie = data as TvSeriesDetails;
+  const tvSeries = data as TvSeriesDetails;
   const genresArray = data.genres.map(genre => genre.name);
 
   const getDurationContent = () => {
     if (movie.runtime) {
       return convertToHours(movie.runtime);
     }
-    if (tvSerie.seasonsCount) {
+    if (tvSeries.seasonsCount) {
       return t('seasons', {
-        number: tvSerie.seasonsCount,
+        number: tvSeries.seasonsCount,
       });
     }
   };
@@ -34,9 +34,9 @@ const InfoBox: React.FC<Props> = ({data}) => {
     if (movie.releaseDate) {
       return format(parseISO(movie?.releaseDate), 'yyyy');
     }
-    if (tvSerie.seasonsCount) {
+    if (tvSeries.seasonsCount) {
       return t('seasons', {
-        number: tvSerie.episodesCount,
+        number: tvSeries.episodesCount,
       });
     }
   };
@@ -45,7 +45,7 @@ const InfoBox: React.FC<Props> = ({data}) => {
     <View style={styles.movieInfo}>
       <StyledText>{getDateContent()}</StyledText>
       <InfoGenres genres={genresArray} />
-      {(!!movie.runtime || !!tvSerie.seasonsCount) && (
+      {(!!movie.runtime || !!tvSeries.seasonsCount) && (
         <>
           <InfoDotIcon />
           <StyledText>{getDurationContent()}</StyledText>
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 8,
-    marginTop: 24,
+    marginTop: 15,
     flexWrap: 'wrap',
   },
   text: {

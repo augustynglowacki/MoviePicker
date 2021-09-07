@@ -14,7 +14,12 @@ interface Props {
   onPress: () => void;
 }
 
-const Action: React.FC<Props> = ({icon, label, isActive, onPress}: Props) => {
+const ToWatchButton: React.FC<Props> = ({
+  icon,
+  label,
+  isActive,
+  onPress,
+}: Props) => {
   const outline = icon + '-outline';
   if (isActive) {
     return (
@@ -60,7 +65,7 @@ const Action: React.FC<Props> = ({icon, label, isActive, onPress}: Props) => {
   );
 };
 
-export default Action;
+export default ToWatchButton;
 
 const styles = StyleSheet.create({
   wrapper: {
