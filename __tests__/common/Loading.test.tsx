@@ -23,7 +23,7 @@ describe('Loading', () => {
       width: 200,
       height: 200,
       alignSelf: 'center',
-      marginBottom: '20%',
+      marginBottom: '15%',
     };
     const loading = findByID(wrapper, 'loading');
     expect(loading.props().style).toEqual(style);

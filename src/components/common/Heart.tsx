@@ -6,7 +6,7 @@ const Heart: React.FC = () => {
   return (
     <Animated.View style={styles.heartIconBox}>
       <AnimatedLottieView
-        source={require('../../assets/lottie/heart5.json')}
+        source={require('../../assets/lottie/heart.json')}
         autoPlay
       />
     </Animated.View>
@@ -16,8 +16,8 @@ const Heart: React.FC = () => {
 const styles = StyleSheet.create({
   heartIconBox: {
     position: 'absolute',
-    width: 300,
-    height: 300,
+    width: 500,
+    height: 500,
     margin: 20,
   },
 });
