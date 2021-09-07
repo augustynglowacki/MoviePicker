@@ -22,7 +22,7 @@ interface Props {
   addToWatchlist: () => void;
 }
 
-const Background: React.FC<Props> = ({goBack, addToWatchlist, posterPath}) => {
+const Background: React.FC<Props> = ({goBack, posterPath}) => {
   //workaround for height on devices with notch
   const frame = useSafeAreaFrame();
   const {bottom} = useSafeAreaInsets();
@@ -42,11 +42,6 @@ const Background: React.FC<Props> = ({goBack, addToWatchlist, posterPath}) => {
               type: IconTypes.IONICON,
               name: 'ios-arrow-back',
               onPressFunction: goBack,
-            }}
-            rightIcon={{
-              type: IconTypes.IONICON,
-              name: 'ios-heart-outline',
-              onPressFunction: addToWatchlist,
             }}
           />
         </SafeAreaView>

@@ -32,7 +32,7 @@ import {
   useSafeAreaFrame,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import PickerButton from './PickerButton';
+import {Action} from '../common';
 interface Props {
   movie: Popular;
 }
@@ -185,29 +185,24 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
           </View>
         </View>
       </Pressable>
-
       <View style={styles.actions}>
-        {/* <Action
+        <Action
           label={t('movies:favorite')}
           icon={'heart'}
           onPress={() => handleAddtoCollection('favorite')}
           isActive={false}
         />
         <Action
+          label={t('movies:watchlist')}
+          icon={'tv'}
+          onPress={() => handleAddtoCollection('watchlist')}
+          isActive={buttonState}
+        />
+        <Action
           label={t('movies:watched')}
           icon={'checkmark'}
           onPress={() => handleAddtoCollection('watched')}
           isActive={false}
-        />
-        <Action
-          label={t('movies:watchlist')}
-          icon={'tv'}
-          onPress={() => handleAddtoCollection('watchlist')}
-          isActive={false}
-        /> */}
-        <PickerButton
-          onPress={() => handleAddtoCollection('watchlist')}
-          state={buttonState}
         />
       </View>
     </View>
@@ -292,10 +287,7 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   actions: {
-    position: 'absolute',
-    bottom: 16,
     flexDirection: 'row',
-    zIndex: 1000,
   },
   heart: {
     alignItems: 'center',

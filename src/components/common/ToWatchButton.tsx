@@ -14,7 +14,12 @@ interface Props {
   onPress: () => void;
 }
 
-const Action: React.FC<Props> = ({icon, label, isActive, onPress}: Props) => {
+const ToWatchButton: React.FC<Props> = ({
+  icon,
+  label,
+  isActive,
+  onPress,
+}: Props) => {
   const outline = icon + '-outline';
   if (isActive) {
     return (
@@ -26,11 +31,8 @@ const Action: React.FC<Props> = ({icon, label, isActive, onPress}: Props) => {
             end={{x: 1, y: 0}}
             style={styles.linearGradient}
           />
-          <Text style={[styles.text, styles.active]} testID="label">
-            {label}
-          </Text>
+          <Text style={[styles.text, styles.active]}> {label}</Text>
           <Icon
-            testID="icon"
             type={IconTypes.IONICON}
             name={icon}
             style={styles.icon}
@@ -45,17 +47,13 @@ const Action: React.FC<Props> = ({icon, label, isActive, onPress}: Props) => {
     <TouchableOpacity onPress={onPress}>
       <View style={styles.wrapper}>
         <LinearGradient
-          testID="icon"
           colors={['#ffffff1c', '#ffffff22']}
           start={{x: 0, y: 0}}
           end={{x: 1, y: 0}}
           style={styles.linearGradient}
         />
-        <Text style={styles.text} testID="label">
-          {label}
-        </Text>
+        <Text style={styles.text}> {label}</Text>
         <Icon
-          testID="icon"
           type={IconTypes.IONICON}
           name={outline}
           style={styles.icon}
@@ -67,7 +65,7 @@ const Action: React.FC<Props> = ({icon, label, isActive, onPress}: Props) => {
   );
 };
 
-export default Action;
+export default ToWatchButton;
 
 const styles = StyleSheet.create({
   wrapper: {

@@ -28,27 +28,6 @@ describe('Action basic tests', () => {
   });
 });
 
-describe('Action isActive=false testing', () => {
-  const wrapper = shallow(
-    <Action
-      label="favorite"
-      icon={'heart'}
-      onPress={mockCallBack}
-      isActive={false}
-    />,
-  );
-
-  it('Icon name got properly added -outline in the component', () => {
-    const icon = findByID(wrapper, 'icon');
-    expect(icon.props().name).toEqual('heart-outline');
-  });
-
-  it('Color is white if isActive = false', () => {
-    const icon = findByID(wrapper, 'icon');
-    expect(icon.props().color).toEqual(palette.white);
-  });
-});
-
 describe('Action isActive=true testing', () => {
   const wrapper = shallow(
     <Action label="favorite" icon={'heart'} onPress={mockCallBack} isActive />,

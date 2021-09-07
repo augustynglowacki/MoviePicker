@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 8,
-    marginTop: 24,
+    marginTop: 15,
     flexWrap: 'wrap',
   },
   text: {

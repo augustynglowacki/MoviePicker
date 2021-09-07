@@ -7,13 +7,15 @@ import {Collection} from '../common';
 import ProfileCardHeader from './ProfileCardHeader';
 import ProfileStatsContainer from './stats/ProfileStatsContainer';
 import ProfileTitleBar from './ProfileTitleBar';
+
+interface collectionContent {
+  id: number;
+  title: string;
+  collection: Movie[];
+}
 interface Props {
   isExplore?: boolean;
-  collectionContent: {
-    id: number;
-    title: string;
-    collection: Movie[];
-  }[];
+  collectionContent: collectionContent[];
   navigateToSettings: () => void;
   logOut: () => void;
 }
@@ -64,8 +66,5 @@ const ProfileComponent: React.FC<Props> = ({
 export default ProfileComponent;
 
 const styles = StyleSheet.create({
-  padded: {
-    paddingHorizontal: 6,
-  },
   wrapper: {backgroundColor: palette.strongBlack},
 });
