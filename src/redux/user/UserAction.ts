@@ -134,7 +134,6 @@ export const signInWithGoogle = createAsyncThunk<
   } = await auth().signInWithCredential(googleCredential);
 
   const coverURL = await fetchCover(uid);
-  console.log(coverURL);
 
   // if (!coverURL) {
   //   setCover(DEFAULT_COVER, uid);

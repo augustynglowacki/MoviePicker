@@ -32,6 +32,8 @@ const translations = {
     popular: 'Popular',
     seasons: '{{number}} seasons',
     episodes: '{{number}} episodes',
+    season: 'One season',
+    episode: 'One episode',
     stats: 'YOUR STATS',
     emptyWatchlist:
       'Add some movies to your watchlist by double tapping their cover :D',

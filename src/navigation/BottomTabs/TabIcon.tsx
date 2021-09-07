@@ -4,7 +4,16 @@ import {IconTypes} from 'src/constants';
 import palette from 'src/styles/palette';
 import {Icon} from 'src/components/common';
 import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
-const TabIcon = (focused: boolean, name: string, type: IconTypes) => {
+
+const TabIcon = (
+  focused: boolean,
+  name: string,
+  type: IconTypes,
+  size?: number,
+) => {
+  if (!size) {
+    size = 26;
+  }
   const outline = name + '-outline';
   if (focused) {
     return (
@@ -13,14 +22,14 @@ const TabIcon = (focused: boolean, name: string, type: IconTypes) => {
         style={styles.scale}
         color={palette.primary}
         name={name}
-        size={26}
+        size={size}
       />
     );
   }
   return (
     <AnimatedLayout>
       <Animated.View entering={FlipInXDown.springify().delay(400)}>
-        <Icon type={type} color={palette.white} name={outline} size={26} />
+        <Icon type={type} color={palette.white} name={outline} size={size} />
       </Animated.View>
     </AnimatedLayout>
   );

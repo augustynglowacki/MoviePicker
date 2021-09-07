@@ -16,27 +16,33 @@ const StyledText: React.FC = ({children}) => (
 
 const InfoBox: React.FC<Props> = ({data}) => {
   const {t} = useTranslation('movies');
-  const movie = data as MovieDetails;
-  const tvSerie = data as TvSeriesDetails;
+  const {runtime, releaseDate} = data as MovieDetails;
+  const {seasonsCount, episodesCount} = data as TvSeriesDetails;
   const genresArray = data.genres.map(genre => genre.name);
 
   const getDurationContent = () => {
-    if (movie.runtime) {
-      return convertToHours(movie.runtime);
+    if (runtime) {
+      return convertToHours(runtime);
     }
-    if (tvSerie.seasonsCount) {
+    if (seasonsCount === 1) {
+      return t('season');
+    }
+    if (seasonsCount) {
       return t('seasons', {
-        number: tvSerie.seasonsCount,
+        number: seasonsCount,
       });
     }
   };
   const getDateContent = () => {
-    if (movie.releaseDate) {
-      return format(parseISO(movie?.releaseDate), 'yyyy');
+    if (releaseDate) {
+      return format(parseISO(releaseDate), 'yyyy');
     }
-    if (tvSerie.seasonsCount) {
-      return t('seasons', {
-        number: tvSerie.episodesCount,
+    if (episodesCount === 1) {
+      return t('episode');
+    }
+    if (episodesCount) {
+      return t('episodes', {
+        number: episodesCount,
       });
     }
   };
@@ -45,7 +51,7 @@ const InfoBox: React.FC<Props> = ({data}) => {
     <View style={styles.movieInfo}>
       <StyledText>{getDateContent()}</StyledText>
       <InfoGenres genres={genresArray} />
-      {(!!movie.runtime || !!tvSerie.seasonsCount) && (
+      {(!!runtime || !!seasonsCount) && (
         <>
           <InfoDotIcon />
           <StyledText>{getDurationContent()}</StyledText>
