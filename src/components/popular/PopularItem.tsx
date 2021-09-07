@@ -23,7 +23,11 @@ import Heart from '../common/Heart';
 import GenreBox from './GenreBox';
 import {Route, WINDOW_HEIGHT, BOTTOM_TABS_HEIGHT} from 'src/constants';
 import {Popular} from 'src/models';
-import {setWatchlist} from 'src/redux/collections/CollectionsActions';
+import {
+  setFavorite,
+  setWatched,
+  setWatchlist,
+} from 'src/redux/collections/CollectionsActions';
 import {
   useSafeAreaFrame,
   useSafeAreaInsets,
@@ -57,7 +61,7 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
     } else {
       clearTimeout(clickTimer);
       clickTimer = null;
-      addToWatchlist();
+      handleDoubleClickFavorite();
     }
   };
 
@@ -72,24 +76,53 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
     user: {email},
   } = useSelector(userThunkSelector);
 
-  const addToWatchlist = () => {
+  const alert = () => {
+    Alert.alert(t('login'), t('loginSuggestion'), [
+      {
+        text: t('cancel'),
+        onPress: () => {},
+      },
+      {
+        text: t('ok'),
+        onPress: () => navigate(Route.AUTH),
+      },
+    ]);
+  };
+
+  const [buttonState, setButtonState] = useState(false);
+
+  const handleAddtoCollection = (
+    action: 'favorite' | 'watchlist' | 'watched',
+  ) => {
+    if (!email) {
+      alert();
+      return;
+    }
+    if (email) {
+      if (action === 'favorite') {
+        dispatch(setFavorite(movie));
+      }
+      if (action === 'watchlist') {
+        dispatch(setWatchlist(movie));
+        setButtonState(true);
+      }
+      if (action === 'watched') {
+        dispatch(setWatched(movie));
+      }
+    }
+  };
+
+  const handleDoubleClickFavorite = () => {
+    if (!email) {
+      alert();
+      return;
+    }
     if (email) {
       if (!isLiked) {
         setLiked(true);
         dispatch(setWatchlist(movie));
         setTimeout(() => setLiked(false), 1000);
       }
-    } else {
-      Alert.alert(t('login'), t('loginSuggestion'), [
-        {
-          text: t('cancel'),
-          onPress: () => {},
-        },
-        {
-          text: t('ok'),
-          onPress: () => navigate(Route.AUTH),
-        },
-      ]);
     }
   };
 
@@ -135,7 +168,7 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
             end={{x: 0, y: 1}}
             style={styles.linearGradient}
           />
-          {!!isLiked && (
+          {isLiked && (
             <View testID="heart" style={styles.heart}>
               <Heart />
             </View>
@@ -156,20 +189,20 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
         <Action
           label={t('movies:favorite')}
           icon={'heart'}
-          onPress={() => console.log('action')}
-          isActive={false}
-        />
-        <Action
-          label={t('movies:watched')}
-          icon={'checkmark'}
-          onPress={() => console.log('action')}
+          onPress={() => handleAddtoCollection('favorite')}
           isActive={false}
         />
         <Action
           label={t('movies:watchlist')}
           icon={'tv'}
-          onPress={() => console.log('action')}
-          isActive={true}
+          onPress={() => handleAddtoCollection('watchlist')}
+          isActive={buttonState}
+        />
+        <Action
+          label={t('movies:watched')}
+          icon={'checkmark'}
+          onPress={() => handleAddtoCollection('watched')}
+          isActive={false}
         />
       </View>
     </View>
@@ -228,7 +261,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: '100%',
     width: '100%',
-    borderRadius: 16,
   },
   movieInfo: {
     position: 'absolute',

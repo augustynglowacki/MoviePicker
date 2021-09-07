@@ -32,14 +32,14 @@ const ProfileStatsContainer: React.FC = () => {
       <Text style={styles.titleText}>{t('stats')}</Text>
       <View style={styles.statsContainer}>
         <StatsBox
-          value={watchlist.movies.length}
-          label={t('watchlist')}
-          icon={'tv'}
-        />
-        <StatsBox
           value={favorite.movies.length}
           label={t('favorite')}
           icon={'heart'}
+        />
+        <StatsBox
+          value={watchlist.movies.length}
+          label={t('watchlist')}
+          icon={'tv'}
         />
         <StatsBox
           value={watched.movies.length}

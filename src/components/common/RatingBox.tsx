@@ -1,8 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {AirbnbRating} from 'react-native-ratings';
 import palette from 'src/styles/palette';
-
+import Star from 'react-native-star-view';
 interface Props {
   voteAverage: number;
 }
@@ -11,14 +10,7 @@ const RatingBox: React.FC<Props> = ({voteAverage}) => {
   return (
     <View style={styles.ratingWrapper}>
       <Text style={styles.ratingText}>{voteAverage}</Text>
-      <AirbnbRating
-        count={5}
-        defaultRating={voteAverage / 2}
-        size={20}
-        isDisabled
-        showRating={false}
-        selectedColor={palette.primary}
-      />
+      <Star score={voteAverage / 2} style={styles.starStyle} />
     </View>
   );
 };
@@ -34,7 +26,10 @@ const styles = StyleSheet.create({
   ratingText: {
     color: palette.primary,
     fontSize: 20,
-    marginRight: 10,
     fontWeight: '700',
+  },
+  starStyle: {
+    color: palette.primary,
+    transform: [{scale: 0.85}],
   },
 });

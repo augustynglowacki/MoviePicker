@@ -11,7 +11,6 @@ import WatchlistScreen from 'src/screens/WatchlistScreen';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {BOTTOM_TABS_HEIGHT, IconTypes, Route} from 'src/constants';
 import TabIcon from './TabIcon';
-import MPIcon from './MPIcon';
 
 const Tab = createBottomTabNavigator();
 const BottomTabsNavigator = () => {
@@ -47,7 +46,8 @@ const BottomTabsNavigator = () => {
             name={Route.WATCHLIST}
             component={WatchlistScreen}
             options={{
-              tabBarIcon: ({focused}) => MPIcon(focused),
+              tabBarIcon: ({focused}) =>
+                TabIcon(focused, 'tv', IconTypes.IONICON, 30),
             }}
           />
           <Tab.Screen
@@ -65,7 +65,8 @@ const BottomTabsNavigator = () => {
             name={Route.WATCHLIST}
             children={() => <ExploreScreen isLiked={true} />}
             options={{
-              tabBarIcon: ({focused}) => MPIcon(focused),
+              tabBarIcon: ({focused}) =>
+                TabIcon(focused, 'tv', IconTypes.IONICON, 30),
             }}
           />
           <Tab.Screen

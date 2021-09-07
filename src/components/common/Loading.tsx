@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     alignSelf: 'center',
-    marginBottom: '20%',
+    marginBottom: '15%',
   },
 });
 
