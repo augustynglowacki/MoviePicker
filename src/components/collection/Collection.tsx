@@ -35,8 +35,8 @@ const Collection: React.FC<Props> = ({title, data, error, isExplore}) => {
         renderItem={renderItem}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        maxToRenderPerBatch={5}
-        initialNumToRender={10}
+        maxToRenderPerBatch={4}
+        initialNumToRender={4}
         keyExtractor={(item, index) => index.toString()}
       />
     </Container>

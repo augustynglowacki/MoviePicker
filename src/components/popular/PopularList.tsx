@@ -40,14 +40,18 @@ const PopularList: React.FC<Props> = ({data}) => {
       <FlatList<Popular>
         data={data}
         renderItem={renderItem}
-        pagingEnabled
         snapToAlignment="start"
         decelerationRate="fast"
         snapToInterval={frame.height - BOTTOM_TABS_HEIGHT - bottom}
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
-        initialNumToRender={2}
+        initialNumToRender={7}
         removeClippedSubviews={false}
+        getItemLayout={(item, index) => ({
+          length: frame.height - BOTTOM_TABS_HEIGHT - bottom,
+          offset: frame.height - BOTTOM_TABS_HEIGHT - bottom * index,
+          index,
+        })}
       />
     </View>
   );

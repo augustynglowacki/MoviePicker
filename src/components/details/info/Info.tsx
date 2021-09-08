@@ -1,11 +1,20 @@
-import React from 'react';
+import {useNavigation} from '@react-navigation/native';
+import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, Alert} from 'react-native';
 import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
+import {useDispatch, useSelector} from 'react-redux';
 import Actors from 'src/components/actors/Actors';
 import {Action} from 'src/components/common';
 import RatingBox from 'src/components/common/RatingBox';
-import {Actor, MovieDetails, TvSeriesDetails} from 'src/models';
+import {Route} from 'src/constants';
+import {Actor, ButtonsState, MovieDetails, TvSeriesDetails} from 'src/models';
+import {
+  setFavorite,
+  setWatched,
+  setWatchlist,
+} from 'src/redux/collections/CollectionsActions';
+import {userThunkSelector} from 'src/redux/user/UserSlice';
 import palette from 'src/styles/palette';
 
 import InfoBox from './InfoBox';
@@ -13,11 +22,57 @@ import InfoBox from './InfoBox';
 interface Props {
   data: MovieDetails | TvSeriesDetails;
   actors: Actor[];
+  buttonsState: ButtonsState;
 }
 
-const Info: React.FC<Props> = ({data, actors}) => {
+const Info: React.FC<Props> = ({data, actors, buttonsState}) => {
+  const movie = {
+    id: data.id,
+    posterPath: data.posterPath,
+    contentType: data.contentType,
+  };
   const {t} = useTranslation('common');
+  const dispatch = useDispatch();
+  const [watchlistButton, setWatchlistButton] = useState(
+    buttonsState.watchlist,
+  );
+  const [favoriteButton, setFavoriteButton] = useState(buttonsState.favorite);
+  const [watchedButton, setWatchedButton] = useState(buttonsState.watched);
+  const {
+    user: {email},
+  } = useSelector(userThunkSelector);
+  const {navigate} = useNavigation();
 
+  const handleAddtoCollection = (
+    action: 'favorite' | 'watchlist' | 'watched',
+  ) => {
+    if (!email) {
+      Alert.alert(t('login'), t('loginSuggestion'), [
+        {
+          text: t('cancel'),
+          onPress: () => {},
+        },
+        {
+          text: t('ok'),
+          onPress: () => navigate(Route.AUTH),
+        },
+      ]);
+    }
+    if (email) {
+      if (action === 'favorite') {
+        setFavoriteButton(prev => !prev);
+        dispatch(setFavorite(movie));
+      }
+      if (action === 'watchlist') {
+        setWatchlistButton(prev => !prev);
+        dispatch(setWatchlist(movie));
+      }
+      if (action === 'watched') {
+        setWatchedButton(prev => !prev);
+        dispatch(setWatched(movie));
+      }
+    }
+  };
   if (!data) {
     return null;
   }
@@ -34,20 +89,20 @@ const Info: React.FC<Props> = ({data, actors}) => {
         <Action
           label={t('movies:favorite')}
           icon={'heart'}
-          onPress={() => console.log('action')}
-          isActive={false}
-        />
-        <Action
-          label={t('movies:watched')}
-          icon={'checkmark'}
-          onPress={() => console.log('action')}
-          isActive={false}
+          onPress={() => handleAddtoCollection('favorite')}
+          isActive={favoriteButton}
         />
         <Action
           label={t('movies:watchlist')}
           icon={'tv'}
-          onPress={() => console.log('action')}
-          isActive={true}
+          onPress={() => handleAddtoCollection('watchlist')}
+          isActive={watchlistButton}
+        />
+        <Action
+          label={t('movies:watched')}
+          icon={'checkmark'}
+          onPress={() => handleAddtoCollection('watched')}
+          isActive={watchedButton}
         />
       </View>
       <View style={styles.descriptionWrapper}>
