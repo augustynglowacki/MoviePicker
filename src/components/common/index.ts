@@ -12,6 +12,7 @@ import Icon from './Icon';
 import HeaderBar from './HeaderBar';
 import Loading from './Loading';
 import Action from './Action';
+import SvgLogo from './SvgLogo';
 
 export {
   CustomButton,
@@ -28,4 +29,5 @@ export {
   HeaderBar,
   Icon,
   Action,
+  SvgLogo,
 };
