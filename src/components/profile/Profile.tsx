@@ -1,19 +1,23 @@
 import React from 'react';
 import {useRef} from 'react';
 import {View, Animated, StyleSheet} from 'react-native';
-import {ActiveUser, CollectionContent} from 'src/models';
+import {Movie} from 'src/models';
 import palette from 'src/styles/palette';
 import {Collection} from '../common';
 import ProfileCardHeader from './ProfileCardHeader';
 import ProfileStatsContainer from './stats/ProfileStatsContainer';
 import ProfileTitleBar from './ProfileTitleBar';
 
+interface collectionContent {
+  id: number;
+  title: string;
+  collection: Movie[];
+}
 interface Props {
   isExplore?: boolean;
-  collectionContent: CollectionContent[];
+  collectionContent: collectionContent[];
   navigateToSettings: () => void;
   logOut: () => void;
-  activeUser: ActiveUser;
 }
 
 const ProfileComponent: React.FC<Props> = ({
@@ -21,7 +25,6 @@ const ProfileComponent: React.FC<Props> = ({
   collectionContent,
   navigateToSettings,
   logOut,
-  activeUser,
 }) => {
   const scrollY = useRef(new Animated.Value(0)).current;
   return (
@@ -33,8 +36,8 @@ const ProfileComponent: React.FC<Props> = ({
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <>
-            <ProfileCardHeader scrollY={scrollY} activeUser={activeUser} />
-            <ProfileStatsContainer collectionContent={collectionContent} />
+            <ProfileCardHeader scrollY={scrollY} />
+            <ProfileStatsContainer />
           </>
         }
         scrollEventThrottle={16}
@@ -55,8 +58,6 @@ const ProfileComponent: React.FC<Props> = ({
         scrollY={scrollY}
         navigateToSettings={navigateToSettings}
         logOut={logOut}
-        userName={activeUser.userName}
-        avatar={activeUser.avatar}
       />
     </View>
   );

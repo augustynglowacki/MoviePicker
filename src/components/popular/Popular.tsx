@@ -7,19 +7,13 @@ interface Props {
   error: string;
   loading: boolean;
   movies: Popular[];
-  loggedIn: boolean;
 }
 
-const PopularComponent: React.FC<Props> = ({
-  error,
-  loading,
-  movies,
-  loggedIn,
-}) => {
+const PopularComponent: React.FC<Props> = ({error, loading, movies}) => {
   return (
     <ErrorWrapper error={error} loading={loading}>
       <Container disableScroll disableSafeArea>
-        <PopularList data={movies} loggedIn={loggedIn} />
+        <PopularList data={movies} />
       </Container>
     </ErrorWrapper>
   );

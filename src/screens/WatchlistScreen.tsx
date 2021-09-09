@@ -16,7 +16,7 @@ const WatchlistScreen: React.FC = () => {
 
   const {watchlist} = useSelector(collectionsSelector);
 
-  return <Watchlist movies={watchlist} />;
+  return <Watchlist movies={watchlist.movies} />;
 };
 
 export default WatchlistScreen;

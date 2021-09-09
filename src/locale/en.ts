@@ -10,8 +10,7 @@ const translations = {
     register: 'Register',
     welcomeMessage: 'Welcome to MoviePicker!',
     registerSuggestion: 'First time here?',
-    loginSuggestion:
-      'Do you want to login to add this movie to your favorite movies?',
+    loginSuggestion: 'Do you want to login to add a movie to your watchlist?',
     logoutWarning: 'Are you sure want to logout?',
     or: '-OR-',
     signInWith: 'Sign in with',
@@ -36,7 +35,8 @@ const translations = {
     season: 'One season',
     episode: 'One episode',
     stats: 'YOUR STATS',
-    emptyWatchlist: 'Add some movies to your watchlist ;D ',
+    emptyWatchlist:
+      'Add some movies to your watchlist by double tapping their cover :D',
   },
   form: {
     required: 'Required!',

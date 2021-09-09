@@ -19,6 +19,7 @@ import {
 interface Props {
   posterPath: string;
   goBack: () => void;
+  addToWatchlist: () => void;
 }
 
 const Background: React.FC<Props> = ({goBack, posterPath}) => {

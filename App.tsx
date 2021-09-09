@@ -12,6 +12,7 @@ import {
   getWatched,
   getWatchlist,
 } from 'src/redux/collections/CollectionsActions';
+
 //app background changed to black
 const MyTheme = {
   ...DefaultTheme,

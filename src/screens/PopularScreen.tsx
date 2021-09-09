@@ -34,14 +34,7 @@ const PopularScreen: React.FC = () => {
     }
   }, [dispatch, email]);
 
-  return (
-    <PopularComponent
-      loading={loading}
-      error={error}
-      movies={movies}
-      loggedIn={!!email}
-    />
-  );
+  return <PopularComponent loading={loading} error={error} movies={movies} />;
 };
 
 export default PopularScreen;

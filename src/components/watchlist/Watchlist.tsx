@@ -29,7 +29,7 @@ const Watchlist: React.FC<Props> = ({movies, isExplore}) => {
             scrollEnabled={!isExplore}
             data={movies}
             renderItem={renderItem}
-            showsVerticalScrollIndicator={true}
+            showsVerticalScrollIndicator={false}
             numColumns={2}
             maxToRenderPerBatch={7}
             columnWrapperStyle={styles.tagView}
@@ -41,6 +41,18 @@ const Watchlist: React.FC<Props> = ({movies, isExplore}) => {
           <Text style={styles.text}>{t('emptyWatchlist')}</Text>
         </View>
       )}
+      {/* <View style={styles.watchlist}>
+        <FlatList
+          scrollEnabled={!isExplore}
+          data={movies}
+          renderItem={renderItem}
+          showsVerticalScrollIndicator={false}
+          numColumns={2}
+          maxToRenderPerBatch={7}
+          columnWrapperStyle={styles.tagView}
+          keyExtractor={keyExtractor}
+        />
+      </View> */}
     </Container>
   );
 };
@@ -68,7 +80,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: palette.white,
-    fontSize: 16,
+    fontSize: 20,
     marginHorizontal: 6,
     textAlign: 'center',
   },

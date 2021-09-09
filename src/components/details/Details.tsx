@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Actor, ButtonsState, MovieDetails, TvSeriesDetails} from 'src/models';
+import {Actor, MovieDetails, TvSeriesDetails} from 'src/models';
 import {StyleSheet} from 'react-native';
 import palette from 'src/styles/palette';
 import {Container, Loading} from 'src/components/common';
@@ -12,24 +12,28 @@ interface Props {
   posterPath: string;
   movieActors: Actor[];
   goBack: () => void;
-  buttonsState: ButtonsState;
+  addToWatchlist: () => void;
 }
 
 const DetailsComponent: React.FC<Props> = ({
   posterPath,
   goBack,
+  addToWatchlist,
   data,
   movieActors,
-  buttonsState,
 }) => {
   if (!data) {
     return <Loading />;
   }
   return (
     <Container disableSafeArea style={styles.container}>
-      <Background goBack={goBack} posterPath={posterPath} />
+      <Background
+        goBack={goBack}
+        posterPath={posterPath}
+        addToWatchlist={addToWatchlist}
+      />
       <SafeAreaView>
-        <Info actors={movieActors} data={data} buttonsState={buttonsState} />
+        <Info actors={movieActors} data={data} />
       </SafeAreaView>
     </Container>
   );

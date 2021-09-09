@@ -4,19 +4,18 @@ import {View} from 'react-native';
 import {Text} from 'react-native';
 import palette from 'src/styles/palette';
 import {DEFAULT_AVATAR, HEADER_HEIGHT} from 'src/constants';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {userThunkSelector} from 'src/redux/user/UserSlice';
 import {useTranslation} from 'react-i18next';
 import {updateUserPhoto} from 'src/redux/user/UserAction';
 import {pickImage} from 'src/helpers/pickImage';
 import {CustomModal} from 'src/components/common';
 import {Avatar} from 'src/components/common';
 
-interface Props {
-  userName: string;
-  avatar: string;
-}
-
-const ProfileHeader: React.FC<Props> = ({userName, avatar}) => {
+const ProfileHeader: React.FC = () => {
+  const {
+    user: {userName, avatar},
+  } = useSelector(userThunkSelector);
   const {t} = useTranslation('profile');
   const name = userName || t('name');
   const dispatch = useDispatch();

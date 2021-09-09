@@ -1,9 +1,10 @@
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {DEFAULT_AVATAR, DEFAULT_COVER} from 'src/constants';
-import {BackendUser, User} from 'src/models';
+import {BackendUser} from 'src/models';
 import {setCover} from 'src/service/firestore/collection';
 import {fetchCover} from 'src/service/firestore/getData';
+import {User} from './UserSlice';
 import {fetchAvatar} from 'src/service/storage/getAvatar';
 import {putAvatar} from 'src/service/storage/putAvatar';
 
