@@ -14,12 +14,13 @@ import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
 
 interface Props {
   data: Popular[];
+  loggedIn: boolean;
 }
 
-const PopularList: React.FC<Props> = ({data}) => {
+const PopularList: React.FC<Props> = ({data, loggedIn}) => {
   const {t} = useTranslation('movies');
   const renderItem: ListRenderItem<Popular> = ({item}) => {
-    return <PopularItem movie={item} />;
+    return <PopularItem movie={item} loggedIn={loggedIn} />;
   };
 
   const keyExtractor = (item: Popular) => item.id.toString();
@@ -40,14 +41,18 @@ const PopularList: React.FC<Props> = ({data}) => {
       <FlatList<Popular>
         data={data}
         renderItem={renderItem}
-        pagingEnabled
         snapToAlignment="start"
         decelerationRate="fast"
         snapToInterval={frame.height - BOTTOM_TABS_HEIGHT - bottom}
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
-        initialNumToRender={2}
+        initialNumToRender={7}
         removeClippedSubviews={false}
+        getItemLayout={(item, index) => ({
+          length: frame.height - BOTTOM_TABS_HEIGHT - bottom,
+          offset: frame.height - BOTTOM_TABS_HEIGHT - bottom * index,
+          index,
+        })}
       />
     </View>
   );

@@ -1,7 +1,10 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
+import React, {useEffect, useRef, useState} from 'react';
+import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
+import {useSelector} from 'react-redux';
 import {Icon} from 'src/components/common';
 import {IconTypes} from 'src/constants';
+import {collectionsSelector} from 'src/redux/collections/CollectionsSlice';
 import palette from 'src/styles/palette';
 interface Props {
   value: number;
@@ -10,9 +13,44 @@ interface Props {
 }
 
 const StatsBox: React.FC<Props> = ({value, label, icon}) => {
+  const {loading} = useSelector(collectionsSelector);
+  const [showStats, setShowStats] = useState(false);
+  const prevSpinnerState = useRef(loading);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      return () => setShowStats(false);
+    }, []),
+  );
+  useEffect(() => {
+    if (prevSpinnerState.current && !loading) {
+      setShowStats(true);
+    }
+    if (loading) {
+      setShowStats(false);
+    }
+    prevSpinnerState.current = loading;
+  }, [loading]);
+
+  const getLoader = () => {
+    if (!showStats) {
+      return (
+        <ActivityIndicator
+          animating={true}
+          color="rgba(255,255,255,0.95)"
+          size={30}
+        />
+      );
+    }
+    if (showStats) {
+      return <Text style={[styles.text, styles.numberText]}>{value}</Text>;
+    }
+  };
+
   return (
     <View style={styles.statsBox}>
-      <Text style={[styles.text, styles.numberText]}>{value}</Text>
+      <View style={styles.wrapper}>{getLoader()}</View>
+
       <View style={styles.content}>
         <Text style={[styles.text, styles.subText]}>{label}</Text>
         <Icon
@@ -54,6 +92,11 @@ const styles = StyleSheet.create({
   content: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  wrapper: {
+    height: 34,
+    flexDirection: 'row',
+    alignContent: 'center',
   },
 });
 

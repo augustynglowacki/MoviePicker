@@ -8,3 +8,5 @@ export * from './actor';
 export * from './genres';
 export * from './contentType';
 export * from './userFormDataTemplate';
+export * from './buttons';
+export * from './collections';
