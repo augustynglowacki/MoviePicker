@@ -14,12 +14,13 @@ import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
 
 interface Props {
   data: Popular[];
+  loggedIn: boolean;
 }
 
-const PopularList: React.FC<Props> = ({data}) => {
+const PopularList: React.FC<Props> = ({data, loggedIn}) => {
   const {t} = useTranslation('movies');
   const renderItem: ListRenderItem<Popular> = ({item}) => {
-    return <PopularItem movie={item} />;
+    return <PopularItem movie={item} loggedIn={loggedIn} />;
   };
 
   const keyExtractor = (item: Popular) => item.id.toString();
