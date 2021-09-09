@@ -2,12 +2,18 @@ import {FormikErrors} from 'formik';
 import React from 'react';
 import {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import Animated, {AnimatedLayout, StretchInX} from 'react-native-reanimated';
 import {RegisterForm} from 'src/models';
 import palette from 'src/styles/palette';
-import {Container, CustomButton, Input, Message} from '../common';
+import {
+  Container,
+  CustomButton,
+  Input,
+  Message,
+  SvgLogo,
+} from 'src/components/common';
 
 interface Props {
   //type from useFormik handleChange
@@ -40,10 +46,7 @@ const RegisterComponent: React.FC<Props> = ({
     <Container withKeyboard padding="large" style={styles.wrapper}>
       <AnimatedLayout>
         <Animated.View entering={StretchInX.springify()}>
-          <Image
-            source={require('src/assets/images/logo.png')}
-            style={styles.logoImage}
-          />
+          <SvgLogo style={styles.logoImage} />
         </Animated.View>
         <View>
           <Text style={styles.title}>{t('welcomeMessage')}</Text>
@@ -96,8 +99,6 @@ export default RegisterComponent;
 
 const styles = StyleSheet.create({
   logoImage: {
-    height: 120,
-    width: 120,
     alignSelf: 'center',
   },
   title: {

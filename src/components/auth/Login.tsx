@@ -1,20 +1,20 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {useState} from 'react';
-import {
-  GestureResponderEvent,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {GestureResponderEvent, StyleSheet, Text, View} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
 import {FormikErrors} from 'formik';
 import SocialBox from './SocialBox';
 import RegisterInfo from './RegisterInfo';
-import {Container, CustomButton, Input, Message} from '../common';
+import {
+  Container,
+  CustomButton,
+  Input,
+  Message,
+  SvgLogo,
+} from 'src/components/common';
 import {LoginForm} from 'src/models';
 import {Route} from 'src/constants';
 import palette from 'src/styles/palette';
@@ -53,10 +53,7 @@ const LoginComponent: React.FC<Props> = ({
     <Container withKeyboard padding="large" style={styles.wrapper}>
       <AnimatedLayout>
         <Animated.View entering={FlipInXDown.springify()}>
-          <Image
-            source={require('src/assets/images/logo.png')}
-            style={styles.logoImage}
-          />
+          <SvgLogo style={styles.logoImage} />
         </Animated.View>
         <View>
           <Text style={styles.title}>{t('welcomeMessage')}</Text>
@@ -107,8 +104,6 @@ const styles = StyleSheet.create({
     backgroundColor: palette.black,
   },
   logoImage: {
-    height: 120,
-    width: 120,
     alignSelf: 'center',
   },
   title: {
