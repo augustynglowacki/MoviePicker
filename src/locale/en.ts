@@ -50,5 +50,9 @@ const translations = {
     premium: 'Premium',
     name: 'Your name',
   },
+  modal: {
+    camera: 'Take a picture',
+    gallery: 'Chose from gallery',
+  },
 };
 export default translations;
