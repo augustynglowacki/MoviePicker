@@ -3,9 +3,10 @@ import React, {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Alert} from 'react-native';
 import {batch, useDispatch, useSelector} from 'react-redux';
+import {Loading} from 'src/components/common';
 import ProfileComponent from 'src/components/profile/Profile';
 import {Route} from 'src/constants';
-import {CollectionContent} from 'src/models';
+import {ActiveUser, CollectionContent} from 'src/models';
 import {
   getFavorite,
   getWatched,
@@ -30,21 +31,22 @@ const ProfileScreen: React.FC = () => {
     }, [dispatch]),
   );
 
+  const {watchlist, watched, favorite} = useSelector(collectionsSelector);
+
   const {
-    watchlist,
-    watched,
-    favorite,
-    loading: collectionsLoading,
-  } = useSelector(collectionsSelector);
+    user: {userName, avatar, coverPhoto},
+  } = useSelector(userThunkSelector);
+
+  const activeUser: ActiveUser = {
+    userName,
+    avatar,
+    coverPhoto,
+  };
 
   const navigateTo = () => {
     navigate(Route.SETTINGS);
   };
-  const {loading: userLoading} = useSelector(userThunkSelector);
-
-  const loading = userLoading || collectionsLoading;
-
-  console.log(collectionsLoading, 'collections loading');
+  const {loading} = useSelector(userThunkSelector);
 
   const handleLogOut = () => {
     Alert.alert(t('logout'), t('logoutWarning'), [
@@ -64,13 +66,16 @@ const ProfileScreen: React.FC = () => {
     {id: 1, title: t('movies:watchlist'), collection: watchlist},
     {id: 2, title: t('movies:watched'), collection: watched},
   ];
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <ProfileComponent
       collectionContent={collectionContent}
       navigateToSettings={navigateTo}
       logOut={handleLogOut}
-      loading={loading}
+      activeUser={activeUser}
     />
   );
 };

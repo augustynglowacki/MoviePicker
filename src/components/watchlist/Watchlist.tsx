@@ -41,18 +41,6 @@ const Watchlist: React.FC<Props> = ({movies, isExplore}) => {
           <Text style={styles.text}>{t('emptyWatchlist')}</Text>
         </View>
       )}
-      {/* <View style={styles.watchlist}>
-        <FlatList
-          scrollEnabled={!isExplore}
-          data={movies}
-          renderItem={renderItem}
-          showsVerticalScrollIndicator={false}
-          numColumns={2}
-          maxToRenderPerBatch={7}
-          columnWrapperStyle={styles.tagView}
-          keyExtractor={keyExtractor}
-        />
-      </View> */}
     </Container>
   );
 };
@@ -80,7 +68,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: palette.white,
-    fontSize: 20,
+    fontSize: 16,
     marginHorizontal: 6,
     textAlign: 'center',
   },

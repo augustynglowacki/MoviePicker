@@ -5,24 +5,22 @@ import {DEFAULT_AVATAR, HEADER_HEIGHT, IconTypes} from 'src/constants';
 import {Text} from 'react-native';
 import {HeaderBar} from 'src/components/common';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useSelector} from 'react-redux';
-import {userThunkSelector} from 'src/redux/user/UserSlice';
 
 interface Props {
   scrollY: Animated.Value;
   navigateToSettings: () => void;
   logOut: () => void;
+  userName: string;
+  avatar: string;
 }
 
 const ProfileTitleBar: React.FC<Props> = ({
   scrollY,
   navigateToSettings,
   logOut,
+  userName,
+  avatar,
 }) => {
-  const {
-    user: {userName, avatar},
-  } = useSelector(userThunkSelector);
-
   return (
     <SafeAreaView style={styles.headerBar}>
       <Animated.View style={[styles.overlay, animatedStyle(scrollY)]}>

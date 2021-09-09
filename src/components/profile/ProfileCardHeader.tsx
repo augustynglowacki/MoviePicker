@@ -1,26 +1,22 @@
 import React from 'react';
 import {View, Animated, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {useSelector} from 'react-redux';
 import {HEADER_HEIGHT} from 'src/constants';
-import {userThunkSelector} from 'src/redux/user/UserSlice';
+import {ActiveUser} from 'src/models';
 import ProfileHeader from './ProfileHeader';
 interface Props {
   scrollY: Animated.Value;
+  activeUser: ActiveUser;
 }
 
-const ProfileCardHeader: React.FC<Props> = ({scrollY}: Props) => {
-  const {
-    user: {coverPhoto},
-  } = useSelector(userThunkSelector);
-
+const ProfileCardHeader: React.FC<Props> = ({scrollY, activeUser}) => {
   return (
     <View style={styles.wrapper}>
       <Animated.Image
         source={
-          coverPhoto
+          activeUser.coverPhoto
             ? {
-                uri: coverPhoto,
+                uri: activeUser.coverPhoto,
               }
             : require('src/assets/images/defaultCover.jpg')
         }
@@ -42,7 +38,10 @@ const ProfileCardHeader: React.FC<Props> = ({scrollY}: Props) => {
           end={{x: 0, y: 1}}
           style={styles.linearGradient}
         />
-        <ProfileHeader />
+        <ProfileHeader
+          userName={activeUser.userName}
+          avatar={activeUser.avatar}
+        />
       </Animated.View>
     </View>
   );

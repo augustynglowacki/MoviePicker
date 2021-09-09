@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {UserState} from 'src/models';
 import {RootState} from '../rootReducer';
 import {
   createUserWithEmailAndPassword,
@@ -10,25 +11,11 @@ import {
   updateUserPhoto,
 } from './UserAction';
 
-interface UserState {
-  loading: boolean;
-  error: string;
-  user: User;
-}
-
 const initialState: UserState = {
   loading: false,
   error: '',
   user: {id: '', email: '', userName: '', avatar: '', coverPhoto: ''},
 };
-
-export interface User {
-  id: string;
-  email: string;
-  userName: string;
-  avatar: string;
-  coverPhoto: string;
-}
 
 const userSlice = createSlice({
   name: 'user',

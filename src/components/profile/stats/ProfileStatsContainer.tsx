@@ -7,13 +7,9 @@ import StatsBox from './StatsBox';
 
 interface Props {
   collectionContent: CollectionContent[];
-  loading: boolean;
 }
 
-const ProfileStatsContainer: React.FC<Props> = ({
-  collectionContent,
-  loading,
-}) => {
+const ProfileStatsContainer: React.FC<Props> = ({collectionContent}) => {
   const {t} = useTranslation('movies');
 
   return (
@@ -24,19 +20,16 @@ const ProfileStatsContainer: React.FC<Props> = ({
           value={collectionContent[0].collection.length}
           label={t('favorite')}
           icon={'heart'}
-          loading={loading}
         />
         <StatsBox
           value={collectionContent[1].collection.length}
           label={t('watchlist')}
           icon={'tv'}
-          loading={loading}
         />
         <StatsBox
           value={collectionContent[2].collection.length}
           label={t('watched')}
           icon={'checkmark'}
-          loading={loading}
         />
       </View>
     </View>

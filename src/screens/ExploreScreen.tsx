@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useCallback} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {BlurView} from '@react-native-community/blur';
 import palette from 'src/styles/palette';
@@ -12,15 +12,12 @@ import ProfileComponent from 'src/components/profile/Profile';
 import LoadingScreen from 'src/components/common/Loading';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 import Watchlist from 'src/components/watchlist/Watchlist';
+import {ActiveUser} from 'src/models';
 
 const ExploreScreen: React.FC<ExploreScreenParams> = ({isLiked}) => {
   const {navigate} = useNavigation();
   const {t} = useTranslation('profile');
   const {loading} = useSelector(userThunkSelector);
-
-  const goToAuth = useCallback(() => {
-    navigate(Route.AUTH);
-  }, [navigate]);
 
   const {movies} = useSelector(popularSelector);
 
@@ -44,7 +41,7 @@ const ExploreScreen: React.FC<ExploreScreenParams> = ({isLiked}) => {
           collectionContent={collectionContent}
           navigateToSettings={() => {}}
           logOut={() => {}}
-          loading={false}
+          activeUser={{} as ActiveUser}
         />
       )}
       <BlurView style={styles.absolute} blurType="dark" blurAmount={5} />
@@ -55,7 +52,7 @@ const ExploreScreen: React.FC<ExploreScreenParams> = ({isLiked}) => {
           <CustomButton
             label={t('button')}
             variant="secondary"
-            onPress={goToAuth}
+            onPress={() => navigate(Route.AUTH)}
           />
         </View>
       </View>
