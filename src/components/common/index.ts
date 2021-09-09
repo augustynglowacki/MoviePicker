@@ -12,8 +12,12 @@ import Icon from './Icon';
 import HeaderBar from './HeaderBar';
 import Loading from './Loading';
 import Action from './Action';
+import CustomModal from './CustomModal';
+import Avatar from './Avatar';
+import SvgLogo from './SvgLogo';
 
 export {
+  Avatar,
   CustomButton,
   Input,
   ErrorBox,
@@ -28,4 +32,6 @@ export {
   HeaderBar,
   Icon,
   Action,
+  CustomModal,
+  SvgLogo,
 };

@@ -1,9 +1,9 @@
 import React from 'react';
-import {Animated, Image, StyleSheet} from 'react-native';
+import {Animated, StyleSheet} from 'react-native';
 import palette from 'src/styles/palette';
 import {DEFAULT_AVATAR, HEADER_HEIGHT, IconTypes} from 'src/constants';
 import {Text} from 'react-native';
-import {HeaderBar} from 'src/components/common';
+import {Avatar, HeaderBar} from 'src/components/common';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 interface Props {
@@ -25,11 +25,10 @@ const ProfileTitleBar: React.FC<Props> = ({
     <SafeAreaView style={styles.headerBar}>
       <Animated.View style={[styles.overlay, animatedStyle(scrollY)]}>
         <SafeAreaView style={styles.content}>
-          <Image
-            source={{
-              uri: avatar || DEFAULT_AVATAR,
-            }}
-            style={styles.avatar}
+          <Avatar
+            source={avatar || DEFAULT_AVATAR}
+            onPress={() => {}}
+            isSmall
           />
           <Text style={styles.text}>{userName}</Text>
         </SafeAreaView>
@@ -82,12 +81,6 @@ const styles = StyleSheet.create({
   text: {
     color: palette.white,
     fontWeight: 'bold',
-  },
-  avatar: {
-    width: 35,
-    height: 35,
-    borderRadius: 50,
-    marginRight: 10,
   },
   content: {
     flexDirection: 'row',

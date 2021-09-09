@@ -37,7 +37,7 @@ const StatsBox: React.FC<Props> = ({value, label, icon}) => {
       return (
         <ActivityIndicator
           animating={true}
-          color="rgba(255,255,255,0.5)"
+          color="rgba(255,255,255,0.95)"
           size={30}
         />
       );

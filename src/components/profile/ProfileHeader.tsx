@@ -1,5 +1,5 @@
-import React from 'react';
-import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet} from 'react-native';
 import {View} from 'react-native';
 import {Text} from 'react-native';
 import palette from 'src/styles/palette';
@@ -8,6 +8,8 @@ import {useDispatch} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {updateUserPhoto} from 'src/redux/user/UserAction';
 import {pickImage} from 'src/helpers/pickImage';
+import {CustomModal} from 'src/components/common';
+import {Avatar} from 'src/components/common';
 
 interface Props {
   userName: string;
@@ -18,30 +20,35 @@ const ProfileHeader: React.FC<Props> = ({userName, avatar}) => {
   const {t} = useTranslation('profile');
   const name = userName || t('name');
   const dispatch = useDispatch();
+  const [isModalVisible, setModalVisible] = useState(false);
 
-  const saveToFirestore = async () => {
-    const newRes = await pickImage();
+  const handleImageChange = async (camera = false) => {
+    setModalVisible(false);
+    const newRes = await pickImage(camera);
     if (newRes) {
       dispatch(updateUserPhoto(newRes));
     }
   };
 
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   return (
     <View style={styles.wrapper}>
-      <TouchableOpacity onPress={saveToFirestore}>
-        <Image
-          source={{
-            uri: avatar || DEFAULT_AVATAR,
-          }}
-          style={styles.avatar}
-        />
-      </TouchableOpacity>
+      <Avatar source={avatar || DEFAULT_AVATAR} onPress={toggleModal} />
+      <CustomModal
+        isModalVisible={isModalVisible}
+        toggleModal={toggleModal}
+        onPressTop={() => handleImageChange(true)}
+        onPressBottom={() => handleImageChange()}
+      />
       <Text style={[styles.text, styles.titleText]}>{name}</Text>
       <Text style={[styles.text, styles.subText]}>{t('premium')}</Text>
     </View>
   );
 };
-
+//ad height from insets
 const styles = StyleSheet.create({
   wrapper: {
     height: HEADER_HEIGHT,
