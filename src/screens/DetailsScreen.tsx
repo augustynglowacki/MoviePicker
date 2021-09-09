@@ -12,11 +12,15 @@ import {
   DetailsScreenNavigationProp,
   DetailsScreenRouteProp,
 } from 'src/constants';
-import {ContentType} from 'src/models';
+import {ButtonsState, ContentType} from 'src/models';
 import {useCallback} from 'react';
-import {Alert} from 'react-native';
-import {useTranslation} from 'react-i18next';
-import {userThunkSelector} from 'src/redux/user/UserSlice';
+import {useFocusEffect} from '@react-navigation/native';
+import {
+  getFavorite,
+  getWatched,
+  getWatchlist,
+} from 'src/redux/collections/CollectionsActions';
+import {collectionsSelector} from 'src/redux/collections/CollectionsSlice';
 interface Props {
   route: DetailsScreenRouteProp;
   navigation: DetailsScreenNavigationProp;
@@ -26,13 +30,25 @@ const DetailsScreen: React.FC<Props> = ({navigation, route}) => {
   const {posterPath, id, contentType} = route.params;
   const isMovie = contentType === ContentType.Movie;
   const dispatch = useDispatch();
+  useFocusEffect(
+    useCallback(() => {
+      batch(() => {
+        dispatch(getWatchlist());
+        dispatch(getFavorite());
+        dispatch(getWatched());
+      });
+    }, [dispatch]),
+  );
+  const {watchlist, favorite, watched} = useSelector(collectionsSelector);
+  const isInCollections: ButtonsState = {
+    favorite: favorite.some(item => item.id === id),
+    watchlist: watchlist.some(item => item.id === id),
+    watched: watched.some(item => item.id === id),
+  };
   const {fetchedMovies, fetchedTvSeries, movieActors, tvSeriesActors} =
     useSelector(detailsSelector);
   const data = isMovie ? fetchedMovies[id] : fetchedTvSeries[id];
   const actors = isMovie ? movieActors : tvSeriesActors;
-  const {
-    user: {email},
-  } = useSelector(userThunkSelector);
 
   const fetchDetails = useCallback(() => {
     if (data) {
@@ -49,24 +65,6 @@ const DetailsScreen: React.FC<Props> = ({navigation, route}) => {
   }, [fetchDetails]);
 
   const goBack = () => navigation.goBack();
-  const {t} = useTranslation('common');
-
-  const addToWatchlist = () => {
-    if (email) {
-      // setData();
-    } else {
-      Alert.alert(t('login'), t('loginSuggestion'), [
-        {
-          text: t('cancel'),
-          onPress: () => {},
-        },
-        {
-          text: t('ok'),
-          onPress: () => {},
-        },
-      ]);
-    }
-  };
 
   return (
     <DetailsComponent
@@ -74,7 +72,7 @@ const DetailsScreen: React.FC<Props> = ({navigation, route}) => {
       goBack={goBack}
       posterPath={posterPath}
       movieActors={actors}
-      addToWatchlist={addToWatchlist}
+      buttonsState={isInCollections}
     />
   );
 };

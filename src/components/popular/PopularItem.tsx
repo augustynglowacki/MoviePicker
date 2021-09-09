@@ -15,9 +15,8 @@ import {API_IMAGES} from '@env';
 import {StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import palette from 'src/styles/palette';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {useTranslation} from 'react-i18next';
-import {userThunkSelector} from 'src/redux/user/UserSlice';
 import RatingBox from '../common/RatingBox';
 import Heart from '../common/Heart';
 import GenreBox from './GenreBox';
@@ -35,9 +34,10 @@ import {
 import {Action} from '../common';
 interface Props {
   movie: Popular;
+  loggedIn: boolean;
 }
 
-const PopularItem: React.FC<Props> = React.memo(({movie}) => {
+const PopularItem: React.FC<Props> = React.memo(({movie, loggedIn}) => {
   const {t} = useTranslation('common');
   const {navigate} = useNavigation();
   const dispatch = useDispatch();
@@ -72,10 +72,6 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
     alignItems: 'center',
   };
 
-  const {
-    user: {email},
-  } = useSelector(userThunkSelector);
-
   const alert = () => {
     Alert.alert(t('login'), t('loginSuggestion'), [
       {
@@ -94,11 +90,11 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
   const handleAddtoCollection = (
     action: 'favorite' | 'watchlist' | 'watched',
   ) => {
-    if (!email) {
+    if (!loggedIn) {
       alert();
       return;
     }
-    if (email) {
+    if (loggedIn) {
       if (action === 'favorite') {
         dispatch(setFavorite(movie));
       }
@@ -113,14 +109,14 @@ const PopularItem: React.FC<Props> = React.memo(({movie}) => {
   };
 
   const handleDoubleClickFavorite = () => {
-    if (!email) {
+    if (!loggedIn) {
       alert();
       return;
     }
-    if (email) {
+    if (loggedIn) {
       if (!isLiked) {
         setLiked(true);
-        dispatch(setWatchlist(movie));
+        dispatch(setFavorite(movie));
         setTimeout(() => setLiked(false), 1000);
       }
     }

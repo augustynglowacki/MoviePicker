@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Movie, MovieState} from 'src/models';
+import {Movie} from 'src/models';
 import {RootState} from '../rootReducer';
 import {
   getFavorite,
@@ -11,15 +11,19 @@ import {
 } from './CollectionsActions';
 
 interface CollectionsState {
-  favorite: MovieState;
-  watched: MovieState;
-  watchlist: MovieState;
+  favorite: Movie[];
+  watched: Movie[];
+  watchlist: Movie[];
+  error: string;
+  loading: boolean;
 }
 
 const initialState: CollectionsState = {
-  favorite: {movies: [], error: '', loading: false},
-  watched: {movies: [], error: '', loading: false},
-  watchlist: {movies: [], error: '', loading: false},
+  favorite: [],
+  watched: [],
+  watchlist: [],
+  error: '',
+  loading: false,
 };
 
 const CollectionsSlice = createSlice({
@@ -29,82 +33,82 @@ const CollectionsSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(setFavorite.pending, state => {
-        state.favorite.error = '';
-        state.favorite.loading = true;
+        state.error = '';
+        state.loading = true;
       })
       .addCase(setFavorite.fulfilled, state => {
-        state.favorite.loading = false;
+        state.loading = false;
       })
       .addCase(setFavorite.rejected, (state, action) => {
-        state.favorite.error = action.error.message ?? 'error';
-        state.favorite.loading = false;
+        state.error = action.error.message ?? 'error';
+        state.loading = false;
       })
       .addCase(setWatchlist.pending, state => {
-        state.watchlist.error = '';
-        state.watchlist.loading = true;
+        state.error = '';
+        state.loading = true;
       })
       .addCase(setWatchlist.fulfilled, state => {
-        state.watchlist.loading = false;
+        state.loading = false;
       })
       .addCase(setWatchlist.rejected, (state, action) => {
-        state.watchlist.error = action.error.message ?? 'error';
-        state.watchlist.loading = false;
+        state.error = action.error.message ?? 'error';
+        state.loading = false;
       })
       .addCase(setWatched.pending, state => {
-        state.watched.error = '';
-        state.watched.loading = true;
+        state.error = '';
+        state.loading = true;
       })
       .addCase(setWatched.fulfilled, state => {
-        state.watched.loading = false;
+        state.loading = false;
       })
       .addCase(setWatched.rejected, (state, action) => {
-        state.watched.error = action.error.message ?? 'error';
-        state.watched.loading = false;
+        state.error = action.error.message ?? 'error';
+        state.loading = false;
       })
       .addCase(getFavorite.pending, state => {
-        state.favorite.error = '';
-        state.favorite.loading = true;
+        state.error = '';
+        state.loading = true;
       })
       .addCase(
         getFavorite.fulfilled,
         (state, action: PayloadAction<Movie[]>) => {
-          state.favorite.movies = action.payload;
-          state.favorite.loading = false;
+          state.favorite = action.payload;
+          state.loading = false;
         },
       )
       .addCase(getFavorite.rejected, (state, action) => {
-        state.favorite.error = action.error.message ?? 'error';
-        state.favorite.loading = false;
+        state.error = action.error.message ?? 'error';
+        state.loading = false;
       })
       .addCase(getWatched.pending, state => {
-        state.watched.error = '';
-        state.watched.loading = true;
+        state.error = '';
+        state.loading = true;
       })
       .addCase(
         getWatched.fulfilled,
         (state, action: PayloadAction<Movie[]>) => {
-          state.watched.movies = action.payload;
-          state.watched.loading = false;
+          state.watched = action.payload;
+          state.loading = false;
         },
       )
       .addCase(getWatched.rejected, (state, action) => {
-        state.watched.error = action.error.message ?? 'error';
-        state.watched.loading = false;
+        state.error = action.error.message ?? 'error';
+        state.loading = false;
       })
       .addCase(getWatchlist.pending, state => {
-        state.watchlist.error = '';
-        state.watchlist.loading = true;
+        state.error = '';
+        state.loading = true;
       })
       .addCase(
         getWatchlist.fulfilled,
         (state, action: PayloadAction<Movie[]>) => {
-          state.watchlist.movies = action.payload;
-          state.watchlist.loading = false;
+          state.watchlist = action.payload;
+          state.loading = false;
         },
       )
       .addCase(getWatchlist.rejected, (state, action) => {
-        state.watchlist.error = action.error.message ?? 'error';
-        state.watchlist.loading = false;
+        state.error = action.error.message ?? 'error';
+        state.loading = false;
       });
   },
 });

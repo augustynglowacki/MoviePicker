@@ -14,52 +14,29 @@ interface Props {
   onPress: () => void;
 }
 
-const Action: React.FC<Props> = ({icon, label, isActive, onPress}: Props) => {
+const Action: React.FC<Props> = ({icon, label, isActive, onPress}) => {
   const outline = icon + '-outline';
-  if (isActive) {
-    return (
-      <TouchableOpacity onPress={onPress}>
-        <View style={styles.wrapper}>
-          <LinearGradient
-            colors={['#fab6366a', '#fab8561c']}
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 0}}
-            style={styles.linearGradient}
-          />
-          <Text style={[styles.text, styles.active]} testID="label">
-            {label}
-          </Text>
-          <Icon
-            testID="icon"
-            type={IconTypes.IONICON}
-            name={icon}
-            style={styles.icon}
-            color={palette.primary}
-            size={20}
-          />
-        </View>
-      </TouchableOpacity>
-    );
-  }
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.wrapper}>
         <LinearGradient
           testID="icon"
-          colors={['#ffffff1c', '#ffffff22']}
+          colors={
+            isActive ? ['#fab6366a', '#fab8561c'] : ['#ffffff1c', '#ffffff22']
+          }
           start={{x: 0, y: 0}}
           end={{x: 1, y: 0}}
           style={styles.linearGradient}
         />
-        <Text style={styles.text} testID="label">
+        <Text style={[styles.text, isActive && styles.active]} testID="label">
           {label}
         </Text>
         <Icon
           testID="icon"
           type={IconTypes.IONICON}
-          name={outline}
+          name={isActive ? icon : outline}
           style={styles.icon}
-          color={palette.white}
+          color={isActive ? palette.primary : palette.white}
           size={20}
         />
       </View>
@@ -74,7 +51,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 35,
     width: 100,
-    marginHorizontal: 2,
+    marginHorizontal: 2.5,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
