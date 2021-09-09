@@ -44,6 +44,7 @@ const ExploreScreen: React.FC<ExploreScreenParams> = ({isLiked}) => {
           collectionContent={collectionContent}
           navigateToSettings={() => {}}
           logOut={() => {}}
+          loading={false}
         />
       )}
       <BlurView style={styles.absolute} blurType="dark" blurAmount={5} />

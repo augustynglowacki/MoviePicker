@@ -4,9 +4,28 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {setData} from 'src/service/firestore/collection';
 
+export const setFavorite = createAsyncThunk<void, Movie>(
+  'collections/setFavorite',
+  async movie => {
+    await setData(movie, 'favorite');
+  },
+);
+
+export const setWatchlist = createAsyncThunk<void, Movie>(
+  'collections/setWatchlist',
+  async movie => {
+    await setData(movie, 'watchlist');
+  },
+);
+export const setWatched = createAsyncThunk<void, Movie>(
+  'collections/setWatched',
+  async movie => {
+    await setData(movie, 'watched');
+  },
+);
 export const getFavorite = createAsyncThunk<Movie[]>(
   'collections/getFavorite',
-  async () =>
+  () =>
     new Promise((resolve, reject) => {
       const userId = auth().currentUser?.uid ?? 'none';
       firestore()
@@ -29,28 +48,9 @@ export const getFavorite = createAsyncThunk<Movie[]>(
         );
     }),
 );
-export const setFavorite = createAsyncThunk<void, Movie>(
-  'collections/setFavorite',
-  async movie => {
-    await setData(movie, 'favorite');
-  },
-);
-
-export const setWatchlist = createAsyncThunk<void, Movie>(
-  'collections/setWatchlist',
-  async movie => {
-    await setData(movie, 'watchlist');
-  },
-);
-export const setWatched = createAsyncThunk<void, Movie>(
-  'collections/setWatched',
-  async movie => {
-    await setData(movie, 'watched');
-  },
-);
 export const getWatched = createAsyncThunk<Movie[]>(
   'collections/getWatched',
-  async () =>
+  () =>
     new Promise((resolve, reject) => {
       const userId = auth().currentUser?.uid ?? 'none';
       firestore()
@@ -76,7 +76,7 @@ export const getWatched = createAsyncThunk<Movie[]>(
 
 export const getWatchlist = createAsyncThunk<Movie[]>(
   'collections/getWatchlist',
-  async () =>
+  () =>
     new Promise((resolve, reject) => {
       const userId = auth().currentUser?.uid ?? 'none';
       firestore()

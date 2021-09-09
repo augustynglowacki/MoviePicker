@@ -41,9 +41,9 @@ const DetailsScreen: React.FC<Props> = ({navigation, route}) => {
   );
   const {watchlist, favorite, watched} = useSelector(collectionsSelector);
   const isInCollections: ButtonsState = {
-    favorite: favorite.movies.some(item => item.id === id),
-    watchlist: watchlist.movies.some(item => item.id === id),
-    watched: watched.movies.some(item => item.id === id),
+    favorite: favorite.some(item => item.id === id),
+    watchlist: watchlist.some(item => item.id === id),
+    watched: watched.some(item => item.id === id),
   };
   const {fetchedMovies, fetchedTvSeries, movieActors, tvSeriesActors} =
     useSelector(detailsSelector);

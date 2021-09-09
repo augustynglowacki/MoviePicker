@@ -1,27 +1,24 @@
 import React from 'react';
 import {useRef} from 'react';
 import {View, Animated, StyleSheet} from 'react-native';
-import {Movie} from 'src/models';
+import {CollectionContent} from 'src/models';
 import palette from 'src/styles/palette';
 import {Collection} from '../common';
 import ProfileCardHeader from './ProfileCardHeader';
 import ProfileStatsContainer from './stats/ProfileStatsContainer';
 import ProfileTitleBar from './ProfileTitleBar';
 
-interface collectionContent {
-  id: number;
-  title: string;
-  collection: Movie[];
-}
 interface Props {
   isExplore?: boolean;
-  collectionContent: collectionContent[];
+  collectionContent: CollectionContent[];
+  loading: boolean;
   navigateToSettings: () => void;
   logOut: () => void;
 }
 
 const ProfileComponent: React.FC<Props> = ({
   isExplore,
+  loading,
   collectionContent,
   navigateToSettings,
   logOut,
@@ -37,7 +34,10 @@ const ProfileComponent: React.FC<Props> = ({
         ListHeaderComponent={
           <>
             <ProfileCardHeader scrollY={scrollY} />
-            <ProfileStatsContainer />
+            <ProfileStatsContainer
+              loading={loading}
+              collectionContent={collectionContent}
+            />
           </>
         }
         scrollEventThrottle={16}

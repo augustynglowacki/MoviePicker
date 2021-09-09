@@ -29,7 +29,7 @@ const Watchlist: React.FC<Props> = ({movies, isExplore}) => {
             scrollEnabled={!isExplore}
             data={movies}
             renderItem={renderItem}
-            showsVerticalScrollIndicator={false}
+            showsVerticalScrollIndicator={true}
             numColumns={2}
             maxToRenderPerBatch={7}
             columnWrapperStyle={styles.tagView}

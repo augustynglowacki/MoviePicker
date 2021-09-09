@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Animated, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSelector} from 'react-redux';
-import {DEFAULT_COVER, HEADER_HEIGHT} from 'src/constants';
+import {HEADER_HEIGHT} from 'src/constants';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 import ProfileHeader from './ProfileHeader';
 interface Props {
@@ -17,7 +17,13 @@ const ProfileCardHeader: React.FC<Props> = ({scrollY}: Props) => {
   return (
     <View style={styles.wrapper}>
       <Animated.Image
-        source={{uri: coverPhoto || DEFAULT_COVER}}
+        source={
+          coverPhoto
+            ? {
+                uri: coverPhoto,
+              }
+            : require('src/assets/images/defaultCover.jpg')
+        }
         resizeMode="cover"
         style={[styles.image, animatedImageStyle(scrollY)]}
       />

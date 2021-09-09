@@ -1,50 +1,42 @@
-import {useFocusEffect} from '@react-navigation/native';
-import React, {useCallback} from 'react';
+import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {View, Text, StyleSheet} from 'react-native';
-import {batch, useDispatch, useSelector} from 'react-redux';
-import {
-  getFavorite,
-  getWatched,
-  getWatchlist,
-} from 'src/redux/collections/CollectionsActions';
-import {collectionsSelector} from 'src/redux/collections/CollectionsSlice';
+import {CollectionContent} from 'src/models';
 import palette from 'src/styles/palette';
 import StatsBox from './StatsBox';
 
-const ProfileStatsContainer: React.FC = () => {
+interface Props {
+  collectionContent: CollectionContent[];
+  loading: boolean;
+}
+
+const ProfileStatsContainer: React.FC<Props> = ({
+  collectionContent,
+  loading,
+}) => {
   const {t} = useTranslation('movies');
-  const dispatch = useDispatch();
 
-  useFocusEffect(
-    useCallback(() => {
-      batch(() => {
-        dispatch(getWatchlist());
-        dispatch(getWatched());
-        dispatch(getFavorite());
-      });
-    }, [dispatch]),
-  );
-
-  const {watchlist, favorite, watched} = useSelector(collectionsSelector);
   return (
     <View style={styles.wrapper}>
       <Text style={styles.titleText}>{t('stats')}</Text>
       <View style={styles.statsContainer}>
         <StatsBox
-          value={favorite.movies.length}
+          value={collectionContent[0].collection.length}
           label={t('favorite')}
           icon={'heart'}
+          loading={loading}
         />
         <StatsBox
-          value={watchlist.movies.length}
+          value={collectionContent[1].collection.length}
           label={t('watchlist')}
           icon={'tv'}
+          loading={loading}
         />
         <StatsBox
-          value={watched.movies.length}
+          value={collectionContent[2].collection.length}
           label={t('watched')}
           icon={'checkmark'}
+          loading={loading}
         />
       </View>
     </View>
@@ -53,7 +45,7 @@ const ProfileStatsContainer: React.FC = () => {
 const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: palette.strongBlack,
-    marginVertical: 10,
+    marginTop: 10,
     borderColor: palette.primary,
   },
   titleText: {
@@ -66,6 +58,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'center',
     color: palette.primary,
+    marginTop: 5,
   },
 });
 
