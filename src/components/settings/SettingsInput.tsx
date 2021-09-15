@@ -8,6 +8,8 @@ interface Props {
   secureTextEntry?: boolean;
   onChange: (text: string) => void;
   error?: string;
+  autoFocus?: boolean;
+  editable?: boolean;
 }
 
 const SettingInput: React.FC<Props> = ({
@@ -16,10 +18,13 @@ const SettingInput: React.FC<Props> = ({
   secureTextEntry,
   onChange,
   error,
+  autoFocus,
+  editable,
 }) => {
   return (
     <View style={styles.settingInput}>
       <Input
+        autoFocus={autoFocus}
         error={error}
         label={label}
         value={initialValue}
@@ -27,6 +32,7 @@ const SettingInput: React.FC<Props> = ({
         onChangeText={valueText => {
           onChange(valueText);
         }}
+        editable={editable}
       />
     </View>
   );
@@ -35,8 +41,6 @@ const SettingInput: React.FC<Props> = ({
 const styles = StyleSheet.create({
   settingInput: {
     borderColor: 'white',
-    marginVertical: 10,
-    padding: 10,
   },
 });
 

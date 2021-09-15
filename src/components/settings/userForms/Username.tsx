@@ -2,12 +2,16 @@ import React from 'react';
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
 import auth from '@react-native-firebase/auth';
-import {useDispatch} from 'react-redux';
-import {setActiveUser, setErrorNull} from 'src/redux/user/UserSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  setActiveUser,
+  setErrorNull,
+  userThunkSelector,
+} from 'src/redux/user/UserSlice';
 import {Route, MIN_USERNAME_LENGTH} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
 import {UserFormDataTemplate} from 'src/models';
-import Template from 'src/components/settings/userFroms/Template';
+import Template from 'src/components/settings/userForms/Template';
 import {useTranslation} from 'react-i18next';
 
 interface DisplayNameForm {
@@ -18,14 +22,18 @@ const Username: React.FC = () => {
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
   const {t} = useTranslation('common');
-  const redirectToProfile = () => navigate(Route.SETTINGS);
+  const backToSettings = () => navigate(Route.SETTINGS);
+
+  const {
+    user: {userName},
+  } = useSelector(userThunkSelector);
 
   const validationSchema = Yup.object({
     displayName: Yup.string().min(MIN_USERNAME_LENGTH),
   });
 
   const initialValues = {
-    displayName: '',
+    displayName: userName,
   };
 
   const onSubmit = () => {
@@ -53,7 +61,7 @@ const Username: React.FC = () => {
       }),
     );
     dispatch(setErrorNull());
-    redirectToProfile();
+    backToSettings();
   };
 
   const config: UserFormDataTemplate[] = [
@@ -63,6 +71,7 @@ const Username: React.FC = () => {
       onChange: handleChange('displayName'),
       error: errors.displayName,
       secure: false,
+      autoFocus: true,
     },
   ];
 

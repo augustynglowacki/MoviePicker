@@ -1,23 +1,18 @@
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {
-  Container,
-  CustomModal,
-  Loading,
-  SectionHeader,
-} from 'src/components/common';
+import {Container, CustomModal, Loading} from 'src/components/common';
 import {IconTypes, Route} from 'src/constants';
 import palette from 'src/styles/palette';
 import HeaderBar from 'src/components/common/HeaderBar';
 import {Avatar} from 'src/components/common';
 import SettingsOptionBox from 'src/components/settings/SettingsOptionBox';
-import ChangeBackground from 'src/components/settings/ChangeBackground';
 import {useTranslation} from 'react-i18next';
 import {useDispatch, useSelector} from 'react-redux';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 import {pickImage} from 'src/helpers/pickImage';
-import {updateUserPhoto} from 'src/redux/user/UserAction';
 import {StyleSheet, View} from 'react-native';
+import {Text} from 'react-native-paper';
+import {updateUserPhoto} from 'src/redux/user/UserAction';
 
 interface Props {
   handleImageChange: () => void;
@@ -25,7 +20,7 @@ interface Props {
 
 const Settings: React.FC<Props> = () => {
   const {navigate} = useNavigation();
-  const {t} = useTranslation('common');
+  const {t} = useTranslation('settings');
   const redirectToProfile = () => navigate(Route.PROFILE);
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -35,31 +30,34 @@ const Settings: React.FC<Props> = () => {
     onPressFunction: () => redirectToProfile(),
   };
 
-  const config = [
+  const {
+    user: {avatar, email, userName},
+    loading,
+  } = useSelector(userThunkSelector);
+
+  const account = [
     {
-      text: 'Change Username',
+      title: userName,
+      subtext: 'Tap to change username',
       navigateTo: () => navigate(Route.USERNAME_FORM),
     },
     {
-      text: 'Change Email',
+      title: email,
+      subtext: 'Tap to change email',
       navigateTo: () => navigate(Route.USER_EMAIL_FORM),
     },
     {
-      text: 'Change Password',
+      title: 'Password',
+      subtext: 'Try to type strong password',
       navigateTo: () => navigate(Route.USER_PASSWORD_FORM),
     },
   ];
-  const {
-    user: {avatar},
-    loading,
-  } = useSelector(userThunkSelector);
 
   const dispatch = useDispatch();
 
   const handleImageChange = async (camera = false) => {
     setModalVisible(false);
     const newRes = await pickImage(camera);
-    setModalVisible(false);
     if (newRes) {
       dispatch(updateUserPhoto(newRes));
     }
@@ -74,35 +72,97 @@ const Settings: React.FC<Props> = () => {
   }
 
   return (
-    <Container flexStart>
-      <HeaderBar leftIcon={leftIcon} />
-      <SectionHeader text={t('updateProfile')} color={palette.white} center />
-      <View style={styles.avatar}>
-        <Avatar source={avatar} editable onPress={toggleModal} />
-      </View>
-      <CustomModal
-        isModalVisible={isModalVisible}
-        toggleModal={toggleModal}
-        onPressTop={() => handleImageChange(true)}
-        onPressBottom={() => handleImageChange()}
-      />
-      <ChangeBackground />
-      {config.map(item => (
-        <SettingsOptionBox
-          text={item.text}
-          navigateTo={item.navigateTo}
-          key={item.text}
+    <Container flexStart disableScroll>
+      <HeaderBar leftIcon={leftIcon} title={t('title')} />
+      <View style={styles.info}>
+        <Avatar source={avatar} onPress={toggleModal} />
+        <CustomModal
+          isModalVisible={isModalVisible}
+          toggleModal={toggleModal}
+          onPressTop={() => handleImageChange(true)}
+          onPressBottom={() => handleImageChange()}
         />
-      ))}
+        <View style={styles.textBox}>
+          <Text style={styles.titleText}>{userName}</Text>
+          <Text style={styles.subText}>{t('profile:premium')}</Text>
+        </View>
+      </View>
+      <View>
+        <Text style={[styles.subText, styles.padded]}>{t('account')}</Text>
+        {account.map(item => (
+          <SettingsOptionBox
+            title={item.title}
+            subtitle={item.subtext}
+            onPress={item.navigateTo}
+            key={item.subtext}
+          />
+        ))}
+        <Text style={[styles.subText, styles.padded]}>{t('profile')}</Text>
+        <SettingsOptionBox
+          title={t('avatar')}
+          subtitle={t('avatarSub')}
+          onPress={toggleModal}
+          icon={'person-circle-outline'}
+        />
+        {/*  TODO: Add this when background action will be done
+        <SettingsOptionBox
+          title="Background"
+          subtitle="You can add your costume cover photo"
+          onPress={() => {}}
+          icon={'image-outline'}
+        /> */}
+        <Text style={[styles.subText, styles.padded]}>{t('help')}</Text>
+        <SettingsOptionBox
+          title={t('contact')}
+          subtitle={t('contactSub')}
+          onPress={() => navigate(Route.CONTACT)}
+          icon={'mail-outline'}
+        />
+        <SettingsOptionBox
+          title={t('about')}
+          subtitle={t('aboutSub')}
+          onPress={() => navigate(Route.INFO)}
+          icon={'information-circle-outline'}
+        />
+      </View>
+      <View style={styles.footer}>
+        <Text style={styles.text}>{t('version')}</Text>
+      </View>
     </Container>
   );
 };
 
 export default Settings;
+
 const styles = StyleSheet.create({
-  avatar: {
-    justifyContent: 'center',
+  info: {
+    flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 20,
+    margin: 20,
+  },
+  text: {
+    color: palette.lightWhite,
+    fontSize: 12,
+  },
+  titleText: {
+    fontWeight: 'bold',
+    fontSize: 22,
+  },
+  textBox: {
+    marginLeft: 20,
+  },
+  subText: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: palette.primary,
+  },
+  padded: {
+    paddingVertical: 5,
+    paddingLeft: 10,
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 10,
+    alignSelf: 'center',
   },
 });

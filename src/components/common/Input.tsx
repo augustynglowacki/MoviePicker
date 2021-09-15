@@ -19,6 +19,7 @@ const Input: React.FC<Props> = ({
   error,
   right,
   left,
+  editable,
   clearButtonMode,
   secureTextEntry,
   fullWidth,
@@ -50,6 +51,7 @@ const Input: React.FC<Props> = ({
         autoFocus={autoFocus}
         autoCapitalize={autoCapitalize}
         autoCorrect={false}
+        editable={editable}
       />
       {!!error && <Text style={styles.error}>{error}</Text>}
     </View>

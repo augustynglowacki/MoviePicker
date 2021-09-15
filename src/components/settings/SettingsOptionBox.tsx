@@ -5,22 +5,35 @@ import palette from 'src/styles/palette';
 import {Icon} from 'src/components/common';
 
 interface Props {
-  text: string;
-  navigateTo: () => void;
+  title: string;
+  subtitle: string;
+  icon?: string;
+  onPress: () => void;
 }
 
-const SettingsOptionBox: React.FC<Props> = ({text, navigateTo}) => {
+const SettingsOptionBox: React.FC<Props> = ({
+  title,
+  subtitle,
+  icon,
+  onPress,
+}) => {
   return (
-    <TouchableOpacity onPress={navigateTo}>
+    <TouchableOpacity onPress={onPress}>
       <View style={styles.optionBox}>
-        <Text style={styles.optionHeader}>{text}</Text>
+        {!!icon && (
+          <View>
+            <Icon
+              type={IconTypes.IONICON}
+              color={palette.white}
+              name={icon}
+              size={21}
+              style={styles.icon}
+            />
+          </View>
+        )}
         <View>
-          <Icon
-            type={IconTypes.MATERIAL}
-            color={palette.primary}
-            name="keyboard-arrow-right"
-            size={26}
-          />
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.subtext}>{subtitle}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -29,15 +42,23 @@ const SettingsOptionBox: React.FC<Props> = ({text, navigateTo}) => {
 
 const styles = StyleSheet.create({
   optionBox: {
-    backgroundColor: palette.darkGrey,
+    height: 50,
+    backgroundColor: palette.black,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     padding: 15,
-    marginTop: 5,
+    marginBottom: 2,
   },
-  optionHeader: {
+  title: {
     color: palette.white,
+  },
+  subtext: {
+    color: '#ffffffa0',
+    fontSize: 10,
+  },
+  icon: {
+    marginRight: 15,
   },
 });
 

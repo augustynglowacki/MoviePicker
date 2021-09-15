@@ -1,13 +1,13 @@
 import React from 'react';
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Route, MIN_PASSWORD_LENGTH} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
 import {updateUserPassword} from 'src/redux/user/UserAction';
 import {useTranslation} from 'react-i18next';
-import {setErrorNull} from 'src/redux/user/UserSlice';
-import Template from 'src/components/settings/userFroms/Template';
+import {setErrorNull, userThunkSelector} from 'src/redux/user/UserSlice';
+import Template from 'src/components/settings/userForms/Template';
 import {UserFormDataTemplate} from 'src/models';
 
 interface PasswordForm {
@@ -20,12 +20,16 @@ const Password: React.FC = () => {
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
   const {t} = useTranslation(['form', 'common']);
+  const {
+    user: {email},
+  } = useSelector(userThunkSelector);
+
   const yupEmail = Yup.string().email(t('email'));
   const yupPassword = Yup.string().min(
     MIN_PASSWORD_LENGTH,
     t('short', {MIN_PASSWORD_LENGTH}),
   );
-  const redirectToProfile = () => navigate(Route.PROFILE);
+  const backToSettings = () => navigate(Route.SETTINGS);
 
   const validationSchema = Yup.object({
     email: yupEmail,
@@ -33,7 +37,7 @@ const Password: React.FC = () => {
     newPassword: yupPassword.required(t('required')),
   });
   const initialValues: PasswordForm = {
-    email: '',
+    email: email,
     password: '',
     newPassword: '',
   };
@@ -41,7 +45,7 @@ const Password: React.FC = () => {
     dispatch(
       updateUserPassword({
         ...values,
-        callback: redirectToProfile,
+        callback: backToSettings,
       }),
     );
     dispatch(setErrorNull());
@@ -62,6 +66,7 @@ const Password: React.FC = () => {
       onChange: handleChange('email'),
       error: errors.email,
       secure: false,
+      editable: false,
     },
     {
       label: 'Password',
@@ -69,6 +74,7 @@ const Password: React.FC = () => {
       onChange: handleChange('password'),
       error: errors.password,
       secure: true,
+      autoFocus: true,
     },
     {
       label: 'New password',
