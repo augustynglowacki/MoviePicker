@@ -6,4 +6,6 @@ export interface UserFormDataTemplate {
   onChange: (e: string | ChangeEvent<any>) => void;
   error?: string;
   secure: boolean;
+  autoFocus?: boolean;
+  editable?: boolean;
 }

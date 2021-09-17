@@ -8,7 +8,7 @@ import {updateUserEmail} from 'src/redux/user/UserAction';
 import {useTranslation} from 'react-i18next';
 import {setErrorNull, userThunkSelector} from 'src/redux/user/UserSlice';
 import {UserFormDataTemplate} from 'src/models';
-import Template from 'src/components/settings/userFroms/Template';
+import Template from 'src/components/settings/userForms/Template';
 interface EmailForm {
   email: string;
   password: string;
@@ -25,7 +25,7 @@ const Email: React.FC = () => {
     MIN_PASSWORD_LENGTH,
     t('short', {MIN_PASSWORD_LENGTH}),
   );
-  const redirectToProfile = () => navigate(Route.PROFILE);
+  const backToSettings = () => navigate(Route.SETTINGS);
 
   const validationSchema = Yup.object({
     email: yupEmail,
@@ -36,8 +36,12 @@ const Email: React.FC = () => {
     password: yupPassword.required(t('required')),
   });
 
+  const {
+    user: {email},
+  } = useSelector(userThunkSelector);
+
   const initialValues: EmailForm = {
-    email: '',
+    email: email,
     password: '',
     newEmail: '',
   };
@@ -46,7 +50,7 @@ const Email: React.FC = () => {
     dispatch(
       updateUserEmail({
         ...values,
-        callback: redirectToProfile,
+        callback: backToSettings,
       }),
     );
     dispatch(setErrorNull());
@@ -67,6 +71,7 @@ const Email: React.FC = () => {
       onChange: handleChange('email'),
       error: errors.email,
       secure: false,
+      editable: false,
     },
     {
       label: 'New e-mail',
@@ -74,6 +79,7 @@ const Email: React.FC = () => {
       onChange: handleChange('newEmail'),
       error: errors.newEmail,
       secure: false,
+      autoFocus: true,
     },
     {
       label: 'Password',

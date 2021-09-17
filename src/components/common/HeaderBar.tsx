@@ -3,6 +3,7 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import palette from 'src/styles/palette';
 import {IconTypes} from 'src/constants';
 import {Icon} from '.';
+import ScreenHeader from './ScreenHeader';
 
 interface Props {
   leftIcon: {
@@ -15,9 +16,10 @@ interface Props {
     name: string;
     onPressFunction: () => void;
   };
+  title?: string;
 }
 
-const HeaderBar: React.FC<Props> = ({leftIcon, rightIcon}) => {
+const HeaderBar: React.FC<Props> = ({leftIcon, rightIcon, title}) => {
   return (
     <View style={styles.wrapper}>
       <TouchableOpacity onPress={leftIcon.onPressFunction}>
@@ -31,6 +33,11 @@ const HeaderBar: React.FC<Props> = ({leftIcon, rightIcon}) => {
           />
         </View>
       </TouchableOpacity>
+      {!!title && (
+        <View style={styles.title}>
+          <ScreenHeader label={title} />
+        </View>
+      )}
       {!!rightIcon && (
         <TouchableOpacity onPress={rightIcon.onPressFunction}>
           <View style={styles.icon}>
@@ -65,6 +72,11 @@ const styles = StyleSheet.create({
     textShadowOffset: {width: 2, height: 2},
     textShadowRadius: 4,
     textShadowColor: 'rgba(0, 0, 0, 0.795)',
+  },
+  title: {
+    width: ' 100%',
+    alignItems: 'center',
+    position: 'absolute',
   },
 });
 export default HeaderBar;

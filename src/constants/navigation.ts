@@ -16,6 +16,8 @@ export enum Route {
   USER_EMAIL_FORM = 'UserEmailForm',
   USER_PASSWORD_FORM = 'UserPasswordForm',
   USERNAME_FORM = 'UserNameForm',
+  CONTACT = 'Contact',
+  INFO = 'Info',
 }
 
 type DetailsScreenParams = {
