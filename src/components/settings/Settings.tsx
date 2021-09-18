@@ -70,7 +70,7 @@ const Settings: React.FC<Props> = () => {
   if (loading) {
     return <Loading />;
   }
-
+  console.log(userName);
   return (
     <Container flexStart disableScroll>
       <HeaderBar leftIcon={leftIcon} title={t('title')} />
@@ -83,7 +83,7 @@ const Settings: React.FC<Props> = () => {
           onPressBottom={() => handleImageChange()}
         />
         <View style={styles.textBox}>
-          <Text style={styles.titleText}>{userName}</Text>
+          {userName && <Text style={styles.titleText}>{userName}</Text>}
           <Text style={styles.subText}>{t('profile:premium')}</Text>
         </View>
       </View>
@@ -145,8 +145,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   titleText: {
-    fontWeight: 'bold',
-    fontSize: 22,
+    fontSize: 25,
+    color: palette.white,
   },
   textBox: {
     marginLeft: 20,

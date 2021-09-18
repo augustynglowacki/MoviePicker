@@ -70,6 +70,15 @@ export const updateUserEmail = createAsyncThunk<string, UpdateUser>(
     return rejectWithValue('Error occurred when trying to update email');
   },
 );
+export const updateUsername = createAsyncThunk<string, string>(
+  'auth/updateUsername',
+  async displayName => {
+    await auth().currentUser?.updateProfile({
+      displayName,
+    });
+    return displayName;
+  },
+);
 
 export const updateUserPassword = createAsyncThunk<string, UpdateUser>(
   'auth/updatePassword',
