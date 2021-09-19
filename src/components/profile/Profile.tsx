@@ -34,7 +34,10 @@ const ProfileComponent: React.FC<Props> = ({
         ListHeaderComponent={
           <>
             <ProfileCardHeader scrollY={scrollY} activeUser={activeUser} />
-            <ProfileStatsContainer collectionContent={collectionContent} />
+            <ProfileStatsContainer
+              collectionContent={collectionContent}
+              isExplore={isExplore}
+            />
           </>
         }
         scrollEventThrottle={16}

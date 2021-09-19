@@ -70,7 +70,6 @@ const Settings: React.FC<Props> = () => {
   if (loading) {
     return <Loading />;
   }
-  console.log(userName);
   return (
     <Container flexStart disableScroll>
       <HeaderBar leftIcon={leftIcon} title={t('title')} />
