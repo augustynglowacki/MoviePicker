@@ -16,14 +16,14 @@ interface Props {
 const RegisterInfo: React.FC<Props> = ({onPress}) => {
   const {t} = useTranslation('common');
   return (
-    <View style={styles.registerBox}>
-      <Text style={styles.text}>{t('registerSuggestion')}</Text>
-      <TouchableOpacity>
+    <TouchableOpacity>
+      <View style={styles.registerBox}>
+        <Text style={styles.text}>{t('registerSuggestion')}</Text>
         <Text onPress={onPress} style={[styles.text, styles.register]}>
           {t('register')}
         </Text>
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   registerBox: {
+    height: 60,
     flexDirection: 'row',
     justifyContent: 'center',
   },
