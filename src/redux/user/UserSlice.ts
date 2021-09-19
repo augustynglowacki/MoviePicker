@@ -157,8 +157,7 @@ const userSlice = createSlice({
     });
   },
 });
-export const {setActiveUser, setErrorNull, setUserName, setUserEmail} =
-  userSlice.actions;
+export const {setActiveUser, setErrorNull, setUserEmail} = userSlice.actions;
 
 export const userThunkSelector = (state: RootState) => state.users;
 
