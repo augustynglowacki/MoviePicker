@@ -14,11 +14,7 @@ import {StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {updateUserPhoto} from 'src/redux/user/UserAction';
 
-interface Props {
-  handleImageChange: () => void;
-}
-
-const Settings: React.FC<Props> = () => {
+const Settings: React.FC = () => {
   const {navigate} = useNavigation();
   const {t} = useTranslation('settings');
   const redirectToProfile = () => navigate(Route.PROFILE);
@@ -54,7 +50,6 @@ const Settings: React.FC<Props> = () => {
   ];
 
   const dispatch = useDispatch();
-
   const handleImageChange = async (camera = false) => {
     setModalVisible(false);
     const newRes = await pickImage(camera);
@@ -70,7 +65,6 @@ const Settings: React.FC<Props> = () => {
   if (loading) {
     return <Loading />;
   }
-
   return (
     <Container flexStart disableScroll>
       <HeaderBar leftIcon={leftIcon} title={t('title')} />
@@ -83,7 +77,7 @@ const Settings: React.FC<Props> = () => {
           onPressBottom={() => handleImageChange()}
         />
         <View style={styles.textBox}>
-          <Text style={styles.titleText}>{userName}</Text>
+          {userName && <Text style={styles.titleText}>{userName}</Text>}
           <Text style={styles.subText}>{t('profile:premium')}</Text>
         </View>
       </View>
@@ -145,8 +139,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   titleText: {
-    fontWeight: 'bold',
-    fontSize: 22,
+    fontSize: 25,
+    color: palette.white,
   },
   textBox: {
     marginLeft: 20,

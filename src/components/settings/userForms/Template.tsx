@@ -9,10 +9,11 @@ import {
   Container,
   CustomButton,
   HeaderBar,
+  Input,
   Message,
 } from 'src/components/common';
-import SettingsInput from 'src/components/settings/SettingsInput';
 import {StyleSheet, View} from 'react-native';
+import palette from 'src/styles/palette';
 
 interface Props {
   onSubmit: () => void;
@@ -33,19 +34,21 @@ const UserFormTemplate: React.FC<Props> = ({headerText, data, onSubmit}) => {
   };
 
   return (
-    <Container flexStart>
+    <Container flexStart style={styles.wrapper}>
       <HeaderBar leftIcon={leftIcon} title={headerText} />
       <View style={styles.box}>
         {data.map(item => (
-          <SettingsInput
+          <Input
             label={item.label}
-            initialValue={item.initialValue}
-            onChange={item.onChange}
+            value={item.initialValue}
             error={item.error}
             secureTextEntry={item.secure}
             key={item.label}
             autoFocus={item.autoFocus}
             editable={item.editable}
+            onChangeText={valueText => {
+              item.onChange(valueText);
+            }}
           />
         ))}
         <CustomButton
@@ -67,5 +70,8 @@ const styles = StyleSheet.create({
   box: {
     marginVertical: 50,
     flex: 1,
+  },
+  wrapper: {
+    backgroundColor: palette.black,
   },
 });

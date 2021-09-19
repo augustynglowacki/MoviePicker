@@ -3,20 +3,13 @@ import * as Yup from 'yup';
 import {useFormik} from 'formik';
 import auth from '@react-native-firebase/auth';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  setActiveUser,
-  setErrorNull,
-  userThunkSelector,
-} from 'src/redux/user/UserSlice';
+import {setErrorNull, userThunkSelector} from 'src/redux/user/UserSlice';
 import {Route, MIN_USERNAME_LENGTH} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
 import {UserFormDataTemplate} from 'src/models';
 import Template from 'src/components/settings/userForms/Template';
 import {useTranslation} from 'react-i18next';
-
-interface DisplayNameForm {
-  displayName: string;
-}
+import {updateUsername} from 'src/redux/user/UserAction';
 
 const Username: React.FC = () => {
   const dispatch = useDispatch();
@@ -39,7 +32,7 @@ const Username: React.FC = () => {
   const onSubmit = () => {
     const displayNameFirebase = auth().currentUser?.displayName;
     if (values.displayName !== displayNameFirebase) {
-      handleUserNameUpdate(values);
+      handleUserNameUpdate(values.displayName);
     }
   };
 
@@ -51,15 +44,8 @@ const Username: React.FC = () => {
     onSubmit,
   });
 
-  const handleUserNameUpdate = async ({displayName}: DisplayNameForm) => {
-    await auth().currentUser?.updateProfile({
-      displayName,
-    });
-    dispatch(
-      setActiveUser({
-        userName: displayName,
-      }),
-    );
+  const handleUserNameUpdate = (displayName: string) => {
+    dispatch(updateUsername(displayName));
     dispatch(setErrorNull());
     backToSettings();
   };
