@@ -3,7 +3,6 @@ import React, {useCallback} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Alert} from 'react-native';
 import {batch, useDispatch, useSelector} from 'react-redux';
-import {Loading} from 'src/components/common';
 import ProfileComponent from 'src/components/profile/Profile';
 import {Route} from 'src/constants';
 import {ActiveUser, CollectionContent} from 'src/models';
@@ -46,7 +45,6 @@ const ProfileScreen: React.FC = () => {
   const navigateTo = () => {
     navigate(Route.SETTINGS);
   };
-  const {loading} = useSelector(userThunkSelector);
 
   const handleLogOut = () => {
     Alert.alert(t('logout'), t('logoutWarning'), [
@@ -66,9 +64,6 @@ const ProfileScreen: React.FC = () => {
     {id: 1, title: t('movies:watchlist'), collection: watchlist},
     {id: 2, title: t('movies:watched'), collection: watched},
   ];
-  if (loading) {
-    return <Loading />;
-  }
 
   return (
     <ProfileComponent
