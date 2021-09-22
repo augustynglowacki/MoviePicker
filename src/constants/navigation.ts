@@ -18,6 +18,7 @@ export enum Route {
   USERNAME_FORM = 'UserNameForm',
   CONTACT = 'Contact',
   INFO = 'Info',
+  ACTOR = 'Actor',
 }
 
 type DetailsScreenParams = {
@@ -25,12 +26,18 @@ type DetailsScreenParams = {
   contentType: ContentType;
   id: number;
 };
+
+type ActorScreensParams = {
+  id: number;
+};
+
 export type ExploreScreenParams = {
   isLiked: boolean;
 };
 type RootStackParamList = {
   Details: DetailsScreenParams;
   Explore: ExploreScreenParams;
+  Actor: ActorScreensParams;
   Login: undefined;
   Register: undefined;
   Discover: undefined;
@@ -46,4 +53,12 @@ export type DetailsScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'Details'
 >;
+
+export type ActorScreenRouteProp = RouteProp<RootStackParamList, 'Actor'>;
+
+export type ActorScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Actor'
+>;
+
 export type ExploreRouteProp = RouteProp<RootStackParamList, 'Explore'>;

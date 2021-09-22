@@ -1,6 +1,8 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {FlatList, ListRenderItem, StyleSheet} from 'react-native';
+import {Route} from 'src/constants';
 import {Actor} from 'src/models';
 import palette from 'src/styles/palette';
 import {Container, ErrorWrapper, SectionHeader} from '../common';
@@ -13,8 +15,20 @@ interface Props {
 
 const Actors: React.FC<Props> = ({data, error}) => {
   const {t} = useTranslation('movies');
-  const renderItem: ListRenderItem<Actor> = ({item}) => (
-    <ActorItem name={item.name} profilePath={item.profilePath} />
+  const {navigate} = useNavigation();
+
+  const renderItem: ListRenderItem<Actor> = ({
+    item: {id, name, profilePath},
+  }) => (
+    <ActorItem
+      onPress={() => {
+        navigate(Route.ACTOR, {
+          id,
+        });
+      }}
+      name={name}
+      profilePath={profilePath}
+    />
   );
   if (error) {
     return <ErrorWrapper error={error} loading={false} />;
@@ -39,7 +53,7 @@ const Actors: React.FC<Props> = ({data, error}) => {
         renderItem={renderItem}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={({id}) => id.toString()}
       />
     </Container>
   );

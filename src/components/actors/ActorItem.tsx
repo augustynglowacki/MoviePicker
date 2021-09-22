@@ -1,6 +1,11 @@
 import {API_IMAGES} from '@env';
 import React from 'react';
-import {View, StyleSheet, ImageBackground} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity,
+} from 'react-native';
 import {Text} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import palette from 'src/styles/palette';
@@ -8,31 +13,34 @@ import palette from 'src/styles/palette';
 interface Props {
   profilePath: string;
   name: string;
+  onPress: () => void;
 }
 
-const ActorItem: React.FC<Props> = ({profilePath, name}) => {
+const ActorItem: React.FC<Props> = ({profilePath, name, onPress}) => {
   if (!profilePath) {
     return null;
   }
 
   return (
-    <View style={styles.wrapper}>
-      <View style={styles.ActorItem}>
-        <ImageBackground
-          source={{uri: `${API_IMAGES}${profilePath}`}}
-          style={styles.actorImage}
-        />
-        <LinearGradient
-          colors={['rgba(0,0,0,0.35)', 'rgba(0,0,0,0.2)', 'rgba(0,0,0,0.1)']}
-          start={{x: 0, y: 1}}
-          end={{x: 0, y: 0}}
-          style={styles.linearGradient}
-        />
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.wrapper}>
+        <View style={styles.ActorItem}>
+          <ImageBackground
+            source={{uri: `${API_IMAGES}${profilePath}`}}
+            style={styles.actorImage}
+          />
+          <LinearGradient
+            colors={['rgba(0,0,0,0.35)', 'rgba(0,0,0,0.2)', 'rgba(0,0,0,0.1)']}
+            start={{x: 0, y: 1}}
+            end={{x: 0, y: 0}}
+            style={styles.linearGradient}
+          />
+        </View>
+        <View style={styles.actorNameWrapper}>
+          <Text style={styles.actorName}>{name}</Text>
+        </View>
       </View>
-      <View style={styles.actorNameWrapper}>
-        <Text style={styles.actorName}>{name}</Text>
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

@@ -1,6 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import {Route, SCREEN_OPTIONS} from 'src/constants';
+import ActorScreen from 'src/screens/ActorScreen';
 import DetailsScreen from 'src/screens/DetailsScreen';
 import AuthNavigator from './AuthNavigator';
 import BottomTabsNavigator from './BottomTabs/BottomTabsNavigator';
@@ -18,6 +19,7 @@ const HomeNavigator = () => {
       <Stack.Screen name={Route.AUTH} component={AuthNavigator} />
       <Stack.Screen name={Route.DETAILS} component={DetailsScreen} />
       <Stack.Screen name={Route.SETTINGS} component={SettingsNavigator} />
+      <Stack.Screen name={Route.ACTOR} component={ActorScreen} />
     </Stack.Navigator>
   );
 };
