@@ -17,11 +17,11 @@ const PopularComponent: React.FC<Props> = ({
   loggedIn,
 }) => {
   return (
-    <ErrorWrapper error={error} loading={loading}>
-      <Container disableScroll disableSafeArea>
-        <PopularList data={movies} loggedIn={loggedIn} />
-      </Container>
-    </ErrorWrapper>
+    <Container disableScroll disableSafeArea>
+      <ErrorWrapper error={error}>
+        <PopularList data={movies} loggedIn={loggedIn} loading={loading} />
+      </ErrorWrapper>
+    </Container>
   );
 };
 
