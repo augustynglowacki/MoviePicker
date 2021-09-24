@@ -9,19 +9,19 @@ import SettingsNavigator from './SettingsNavigator';
 
 const Stack = createStackNavigator();
 
-const HomeNavigator = () => {
+function HomeNavigator() {
   return (
     <Stack.Navigator screenOptions={SCREEN_OPTIONS}>
       <Stack.Screen name={Route.ONBOARDING} component={OnboardingScreen} />
-      {/* <Stack.Screen
+      <Stack.Screen
         name={Route.HOME_NAVIGATOR}
         component={BottomTabsNavigator}
       />
       <Stack.Screen name={Route.AUTH} component={AuthNavigator} />
       <Stack.Screen name={Route.DETAILS} component={DetailsScreen} />
-      <Stack.Screen name={Route.SETTINGS} component={SettingsNavigator} /> */}
+      <Stack.Screen name={Route.SETTINGS} component={SettingsNavigator} />
     </Stack.Navigator>
   );
-};
+}
 
 export default HomeNavigator;
