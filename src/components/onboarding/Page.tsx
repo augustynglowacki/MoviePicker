@@ -1,10 +1,24 @@
 import React from 'react';
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {
+  Dimensions,
+  ImageStyle,
+  StyleProp,
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
+} from 'react-native';
 import Animated, {
   Extrapolate,
   interpolate,
   useAnimatedStyle,
 } from 'react-native-reanimated';
+import {
+  useSafeAreaFrame,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
+import {BOTTOM_TABS_HEIGHT} from 'src/constants';
+import palette from 'src/styles/palette';
 import {PageInterface} from './Onboarding';
 
 interface PageProps {
@@ -12,32 +26,30 @@ interface PageProps {
   translateX: Animated.SharedValue<number>;
   index: number;
 }
-
-const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
-
+//workaround for height on devices with notch
+const {width: PAGE_WIDTH} = Dimensions.get('window');
 const Page: React.FC<PageProps> = ({page, translateX, index}) => {
+  const frame = useSafeAreaFrame();
+  const {bottom} = useSafeAreaInsets();
+  const PAGE_HEIGHT = frame.height - BOTTOM_TABS_HEIGHT - bottom;
+  const container: StyleProp<ViewStyle> = {
+    width: PAGE_WIDTH,
+    height: PAGE_HEIGHT,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 46,
+  };
+  const image: StyleProp<ImageStyle> = {
+    height: PAGE_HEIGHT * 0.25,
+    aspectRatio: 1,
+    position: 'absolute',
+  };
+
   const inputRange = [
     (index - 1) * PAGE_WIDTH,
     index * PAGE_WIDTH,
     (index + 1) * PAGE_WIDTH,
   ];
-
-  const rCircleStyle = useAnimatedStyle(() => {
-    // if index === 0
-    // [ -PAGE_WIDTH, 0, PAGE_WIDTH]
-    // [ 0, 1, 0]
-
-    const scale = interpolate(
-      translateX.value,
-      inputRange,
-      [0, 1, 0],
-      Extrapolate.CLAMP,
-    );
-
-    return {
-      transform: [{scale: scale}],
-    };
-  });
 
   const rImageStyle = useAnimatedStyle(() => {
     const progress = interpolate(
@@ -50,7 +62,7 @@ const Page: React.FC<PageProps> = ({page, translateX, index}) => {
     const opacity = interpolate(
       translateX.value,
       inputRange,
-      [0.5, 1, 0.5],
+      [0, 1, 0],
       Extrapolate.CLAMP,
     );
 
@@ -64,57 +76,58 @@ const Page: React.FC<PageProps> = ({page, translateX, index}) => {
     };
   });
 
+  const rTextStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      translateX.value,
+      inputRange,
+      [0, 1, 0],
+      Extrapolate.CLAMP,
+    );
+
+    return {
+      opacity,
+    };
+  });
+
   return (
-    <View style={styles.container}>
+    <View style={container}>
       <View style={styles.circleContainer}>
-        <Animated.View style={[styles.circle, rCircleStyle]} />
         <Animated.Image
           source={page.source}
-          style={[styles.image, rImageStyle]}
+          style={[image, rImageStyle]}
           resizeMode={'contain'}
         />
       </View>
-      <Text style={styles.title}>{page.title}</Text>
-      <Text style={styles.description}>{page.description}</Text>
+      <Animated.View style={rTextStyle}>
+        <Text style={styles.title}>{page.title}</Text>
+        <Text style={styles.description}>{page.description}</Text>
+      </Animated.View>
+      {page.extra}
     </View>
   );
 };
 
-const CIRCLE_WIDTH = PAGE_WIDTH * 0.7;
-
 const styles = StyleSheet.create({
-  container: {
-    width: PAGE_WIDTH,
-    height: PAGE_HEIGHT,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 46,
-  },
-  circleContainer: {
-    width: CIRCLE_WIDTH,
-    aspectRatio: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 12,
-  },
-  image: {
-    height: PAGE_HEIGHT * 0.27,
-    aspectRatio: 1,
-    position: 'absolute',
-  },
-  circle: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'white',
-    borderRadius: CIRCLE_WIDTH / 2,
-  },
   title: {
     textAlign: 'center',
     fontSize: 35,
     fontWeight: '700',
     marginBottom: 15,
+    color: palette.white,
   },
-  description: {textAlign: 'center', fontSize: 14, color: 'grey'},
+  circleContainer: {
+    width: '100%',
+    aspectRatio: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 30,
+  },
+  description: {
+    textAlign: 'center',
+    fontSize: 14,
+    color: palette.lightGrey,
+    marginBottom: 40,
+  },
 });
 
 export {PAGE_WIDTH};

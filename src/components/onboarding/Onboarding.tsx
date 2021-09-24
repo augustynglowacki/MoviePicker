@@ -4,6 +4,7 @@ import {
   ImageProps,
   ScrollView,
   StyleSheet,
+  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -13,44 +14,69 @@ import Animated, {
   useDerivedValue,
   useSharedValue,
 } from 'react-native-reanimated';
-import {Icon} from '../common';
-import {IconTypes} from 'src/constants';
+import {CustomButton, Icon} from '../common';
+import {IconTypes, Route} from 'src/constants';
 import Page, {PAGE_WIDTH} from './Page';
 import Dot from './Dot';
+import palette from 'src/styles/palette';
+import {useNavigation} from '@react-navigation/native';
 
 export interface PageInterface extends Pick<ImageProps, 'source'> {
-  title: string;
+  title: React.ReactNode;
   description: string;
+  extra?: React.ReactNode;
 }
 
-export const PAGES: PageInterface[] = [
-  {
-    title: 'Welcome to MoviePicker!',
-    description:
-      "Don't have any ideas on what to watch? You've come to the right place! Get to know MoviePicker by swiping right!",
-    source: require('src/assets/onboarding/start.png'),
-  },
-  {
-    title: 'Popular',
-    description:
-      'A durable deck featured with a menacing face of a samurai at the center of the underside accompanied with a large red sun motif.',
-    source: require('src/assets/onboarding/popular.png'),
-  },
-  {
-    title: 'Details',
-    description:
-      "You don't have time to consider wheter the graphic on your CSS board would be considered modernist.",
-    source: require('src/assets/onboarding/details.png'),
-  },
-  {
-    title: 'Your Profile',
-    description:
-      'The top of the deck has the same matching graphic in black outline and embodies an overall mellow concave.',
-    source: require('src/assets/onboarding/profile.png'),
-  },
-];
-
 export default function Onboarding() {
+  const {navigate} = useNavigation();
+  const go = useCallback(() => navigate(Route.HOME), [navigate]);
+  const pages: PageInterface[] = [
+    {
+      title: (
+        <Text>
+          Welcome to{'\n'}
+          <Text style={styles.markedText}>MoviePicker</Text>
+        </Text>
+      ),
+      description:
+        "Don't have any ideas on what to watch? You've come to the right place! Get to know MoviePicker by swiping right!",
+      source: require('src/assets/onboarding/start.png'),
+    },
+    {
+      title: (
+        <Text>
+          See what's{'\n'}
+          <Text style={styles.markedText}>Popular</Text>
+        </Text>
+      ),
+      description:
+        'Surf through popular movies around the world right now - all of them are on your home screen. Double tap the cover to favourite it!',
+      source: require('src/assets/onboarding/popular.png'),
+    },
+    {
+      title: (
+        <Text>
+          Get into the{'\n'}
+          <Text style={styles.markedText}>Details</Text>
+        </Text>
+      ),
+      description:
+        'Tap once on the movie cover photo to get to know the details. You can pick a movie to watch later by adding it to your watchlist!',
+      source: require('src/assets/onboarding/details.png'),
+    },
+    {
+      title: (
+        <Text>
+          Create your{'\n'}
+          <Text style={styles.markedText}>Profile</Text>
+        </Text>
+      ),
+      description:
+        'Customize your profile by adding avatar and background photo. Add movies to your collections - as many as you want!',
+      source: require('src/assets/onboarding/profile.png'),
+      extra: <CustomButton onPress={go} label="Get started" />,
+    },
+  ];
   const translateX = useSharedValue(0);
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: event => {
@@ -65,11 +91,12 @@ export default function Onboarding() {
   const scrollRef = useAnimatedRef<ScrollView>();
 
   const onIconPress = useCallback(() => {
-    if (activeIndex.value === PAGES.length - 1) {
+    if (activeIndex.value === pages.length - 1) {
+      go();
       return;
     }
     scrollRef.current?.scrollTo({x: PAGE_WIDTH * (activeIndex.value + 1)});
-  }, [activeIndex.value, scrollRef]);
+  }, [pages.length, activeIndex.value, scrollRef, go]);
 
   return (
     <View style={styles.container}>
@@ -81,7 +108,7 @@ export default function Onboarding() {
         showsHorizontalScrollIndicator={false}
         onScroll={scrollHandler}
         scrollEventThrottle={16}>
-        {PAGES.map((page, index) => (
+        {pages.map((page, index) => (
           <Page
             key={index.toString()}
             page={page}
@@ -93,7 +120,7 @@ export default function Onboarding() {
       <View style={styles.footer}>
         {/* Paginator */}
         <View style={[styles.fillCenter, styles.pagination]}>
-          {PAGES.map((_, index) => {
+          {pages.map((_, index) => {
             return (
               <Dot
                 key={index.toString()}
@@ -109,7 +136,7 @@ export default function Onboarding() {
             <Icon
               name="arrowright"
               size={24}
-              color="black"
+              color={palette.primary}
               type={IconTypes.ANT}
             />
           </TouchableOpacity>
@@ -122,7 +149,10 @@ export default function Onboarding() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: palette.strongBlack,
+  },
+  markedText: {
+    color: palette.primary,
   },
   footer: {
     height: 50,
@@ -151,5 +181,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     maxWidth: 70,
+  },
+  startLabel: {
+    fontSize: 17,
+    color: palette.white,
+    justifyContent: 'center',
+    paddingTop: 20,
+    paddingHorizontal: 3,
+  },
+  startBox: {
+    height: 60,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
 });

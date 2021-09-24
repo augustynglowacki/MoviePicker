@@ -10,10 +10,9 @@ interface DotProps {
 
 const Dot: React.FC<DotProps> = ({activeDotIndex, index}) => {
   const rDotStyle = useAnimatedStyle(() => {
-    console.log('activeDot: ', activeDotIndex.value, 'index: ', index);
     const isActive = activeDotIndex.value === index;
     return {
-      backgroundColor: isActive ? palette.black : palette.white,
+      backgroundColor: isActive ? palette.primary : palette.strongBlack,
     };
   });
 
@@ -22,11 +21,12 @@ const Dot: React.FC<DotProps> = ({activeDotIndex, index}) => {
 
 const styles = StyleSheet.create({
   dot: {
-    width: 20,
-    height: 20,
+    width: 15,
+    height: 15,
     marginHorizontal: 5,
     borderRadius: 10,
     borderWidth: 1,
+    borderColor: palette.primary,
   },
 });
 
