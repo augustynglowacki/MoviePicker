@@ -18,6 +18,7 @@ export enum Route {
   USERNAME_FORM = 'UserNameForm',
   CONTACT = 'Contact',
   INFO = 'Info',
+  ONBOARDING = 'Onboarding',
 }
 
 type DetailsScreenParams = {
@@ -38,6 +39,7 @@ type RootStackParamList = {
   Profile: undefined;
   Settings: undefined;
   Watchlist: undefined;
+  Onboarding: undefined;
 };
 
 export type DetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
