@@ -5,7 +5,7 @@ import {Provider as PaperProvider} from 'react-native-paper';
 import {useEffect} from 'react';
 import RNBootSplash from 'react-native-bootsplash';
 import palette from 'src/styles/palette';
-import {batch, useDispatch} from 'react-redux';
+import {batch, useDispatch, useSelector} from 'react-redux';
 import {getPopular} from 'src/redux/popular/PopularActions';
 import {
   getFavorite,
@@ -14,7 +14,7 @@ import {
 } from 'src/redux/collections/CollectionsActions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Loading} from 'src/components/common';
-
+import {popularSelector} from 'src/redux/popular/PopularSlice';
 //app background changed to black
 const MyTheme = {
   ...DefaultTheme,
@@ -27,21 +27,20 @@ const MyTheme = {
 
 const App = () => {
   const dispatch = useDispatch();
+  const {page} = useSelector(popularSelector);
   useEffect(() => {
     batch(() => {
-      dispatch(getPopular());
+      dispatch(getPopular(page));
       dispatch(getFavorite());
       dispatch(getWatchlist());
       dispatch(getWatched());
     });
-
     RNBootSplash.hide({fade: true});
-  }, [dispatch]);
+  }, [dispatch, page]);
 
   const [state, setState] = useState({isFirstLaunch: false, checked: false});
   const check = async () => {
     await AsyncStorage.getItem('hasLaunched').then(value => {
-      console.log(value);
       if (!value) {
         AsyncStorage.setItem('hasLaunched', 'true');
         setState({isFirstLaunch: true, checked: true});
@@ -54,7 +53,6 @@ const App = () => {
     check();
   }, []);
 
-  console.log('firstLaunch', state.isFirstLaunch);
   if (!state.checked) {
     return <Loading />;
   }
