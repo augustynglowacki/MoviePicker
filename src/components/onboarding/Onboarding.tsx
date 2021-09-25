@@ -15,7 +15,7 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import {CustomButton, Icon} from '../common';
-import {IconTypes, Route} from 'src/constants';
+import {IconTypes, OnbardingScreenProp, Route} from 'src/constants';
 import Page, {PAGE_WIDTH} from './Page';
 import Dot from './Dot';
 import palette from 'src/styles/palette';
@@ -28,8 +28,9 @@ export interface PageInterface extends Pick<ImageProps, 'source'> {
 }
 
 export default function Onboarding() {
-  const {navigate} = useNavigation();
-  const go = useCallback(() => navigate(Route.AUTH), [navigate]);
+  const {navigate} = useNavigation<OnbardingScreenProp>();
+
+  const go = useCallback(() => navigate(Route.HOME_NAVIGATOR), [navigate]);
   const pages: PageInterface[] = [
     {
       title: (
@@ -74,12 +75,7 @@ export default function Onboarding() {
       description:
         'Customize your profile by adding avatar and background photo. Add movies to your collections - as many as you want!',
       source: require('src/assets/onboarding/profile.png'),
-      extra: (
-        <CustomButton
-          onPress={() => navigate(Route.AUTH)}
-          label="Get started"
-        />
-      ),
+      extra: <CustomButton onPress={go} label="Get started" />,
     },
   ];
   const translateX = useSharedValue(0);

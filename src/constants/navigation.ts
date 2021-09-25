@@ -29,7 +29,7 @@ type DetailsScreenParams = {
 export type ExploreScreenParams = {
   isLiked: boolean;
 };
-type RootStackParamList = {
+export type RootStackParamList = {
   Details: DetailsScreenParams;
   Explore: ExploreScreenParams;
   Login: undefined;
@@ -40,12 +40,81 @@ type RootStackParamList = {
   Settings: undefined;
   Watchlist: undefined;
   Onboarding: undefined;
+  Auth: undefined;
+  HomeNavigator: undefined;
+  UserEmailForm: undefined;
+  UserPasswordForm: undefined;
+  UserNameForm: undefined;
+  Contact: undefined;
+  Info: undefined;
 };
 
 export type DetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
+export type DetailsScreenProp = StackNavigationProp<
+  RootStackParamList,
+  'Details'
+>;
 
 export type DetailsScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'Details'
 >;
 export type ExploreRouteProp = RouteProp<RootStackParamList, 'Explore'>;
+
+export type LoginScreenProp = StackNavigationProp<RootStackParamList, 'Login'>;
+
+export type RegisterScreenProp = StackNavigationProp<
+  RootStackParamList,
+  'Register'
+>;
+export type DiscoverScreenProp = StackNavigationProp<
+  RootStackParamList,
+  'Discover'
+>;
+export type ProfileScreenProp = StackNavigationProp<
+  RootStackParamList,
+  'Profile'
+>;
+export type ExploreScreenProp = StackNavigationProp<
+  RootStackParamList,
+  'Explore'
+>;
+export type PopularScreenProp = StackNavigationProp<
+  RootStackParamList,
+  'Popular'
+>;
+export type WatchlistScreenProp = StackNavigationProp<
+  RootStackParamList,
+  'Watchlist'
+>;
+export type OnbardingScreenProp = StackNavigationProp<
+  RootStackParamList,
+  'Onboarding'
+>;
+export type SettingScreenProp = StackNavigationProp<
+  RootStackParamList,
+  'Settings'
+>;
+
+export type AuthScreenProp = StackNavigationProp<RootStackParamList, 'Auth'>;
+export type HomeNavigatorScreenProp = StackNavigationProp<
+  RootStackParamList,
+  'HomeNavigator'
+>;
+export type UserEmailFormScreenProp = StackNavigationProp<
+  RootStackParamList,
+  'UserEmailForm'
+>;
+export type UserPasswordFormScreenProp = StackNavigationProp<
+  RootStackParamList,
+  'UserPasswordForm'
+>;
+export type UserNameFormScreenProp = StackNavigationProp<
+  RootStackParamList,
+  'UserNameForm'
+>;
+export type ContactScreenProp = StackNavigationProp<
+  RootStackParamList,
+  'Contact'
+>;
+export type InfoScreenProp = StackNavigationProp<RootStackParamList, 'Info'>;

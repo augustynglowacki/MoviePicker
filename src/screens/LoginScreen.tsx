@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import LoginComponent from 'src/components/auth/Login';
 import {LoginForm} from 'src/models';
-import {MIN_PASSWORD_LENGTH, Route} from 'src/constants';
+import {LoginScreenProp, MIN_PASSWORD_LENGTH, Route} from 'src/constants';
 import auth from '@react-native-firebase/auth';
 import {useDispatch} from 'react-redux';
 import {
@@ -21,7 +21,7 @@ const initialState = {email: '', password: ''};
 const LoginScreen: React.FC = () => {
   const {error, loading} = useSelector(userThunkSelector);
   const dispatch = useDispatch();
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<LoginScreenProp>();
   const {t} = useTranslation('form');
 
   useEffect(() => {

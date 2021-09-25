@@ -20,12 +20,13 @@ const BottomTabsNavigator = () => {
   const {bottom} = useSafeAreaInsets();
   return (
     <Tab.Navigator
-      tabBarOptions={{
-        showLabel: false,
-        style: styles(bottom).tab,
+      screenOptions={{
+        tabBarShowLabel: false,
+        tabBarStyle: styles(bottom).tab,
+        headerShown: false,
       }}>
       <Tab.Screen
-        name={Route.LOGIN}
+        name={Route.HOME}
         component={PopularScreen}
         options={{
           tabBarIcon: ({focused}) =>

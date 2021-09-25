@@ -1,13 +1,13 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
-import {Route, SCREEN_OPTIONS} from 'src/constants';
+import {RootStackParamList, Route, SCREEN_OPTIONS} from 'src/constants';
 import DetailsScreen from 'src/screens/DetailsScreen';
 import OnboardingScreen from 'src/screens/OnboardingScreen';
 import AuthNavigator from './AuthNavigator';
 import BottomTabsNavigator from './BottomTabs/BottomTabsNavigator';
 import SettingsNavigator from './SettingsNavigator';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 function HomeNavigator() {
   return (

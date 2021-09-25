@@ -10,7 +10,7 @@ import {
   useSafeAreaFrame,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
+// import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
 
 interface Props {
   data: Popular[];
@@ -31,11 +31,11 @@ const PopularList: React.FC<Props> = ({data, loggedIn}) => {
     <View style={styles.container}>
       <View style={styles.heading}>
         <SafeAreaView>
-          <AnimatedLayout>
-            <Animated.View entering={FlipInXDown.springify().delay(300)}>
-              <Text style={styles.headingText}>{t('popular')}</Text>
-            </Animated.View>
-          </AnimatedLayout>
+          {/* <AnimatedLayout>
+            <Animated.View entering={FlipInXDown.springify().delay(300)}> */}
+          <Text style={styles.headingText}>{t('popular')}</Text>
+          {/* </Animated.View>
+          </AnimatedLayout> */}
         </SafeAreaView>
       </View>
       <FlatList<Popular>

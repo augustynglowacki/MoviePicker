@@ -20,7 +20,12 @@ import {useTranslation} from 'react-i18next';
 import RatingBox from '../common/RatingBox';
 import Heart from '../common/Heart';
 import GenreBox from './GenreBox';
-import {Route, WINDOW_HEIGHT, BOTTOM_TABS_HEIGHT} from 'src/constants';
+import {
+  Route,
+  WINDOW_HEIGHT,
+  BOTTOM_TABS_HEIGHT,
+  PopularScreenProp,
+} from 'src/constants';
 import {Popular} from 'src/models';
 import {
   setFavorite,
@@ -39,7 +44,7 @@ interface Props {
 
 const PopularItem: React.FC<Props> = React.memo(({movie, loggedIn}) => {
   const {t} = useTranslation('common');
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<PopularScreenProp>();
   const dispatch = useDispatch();
   const {posterPath, title, id, voteAverage, genres, contentType} = movie;
   const [isLiked, setLiked] = useState<boolean>(false);

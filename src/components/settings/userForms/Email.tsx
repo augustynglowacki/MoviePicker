@@ -2,7 +2,11 @@ import React from 'react';
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
 import {useDispatch, useSelector} from 'react-redux';
-import {Route, MIN_PASSWORD_LENGTH} from 'src/constants';
+import {
+  Route,
+  MIN_PASSWORD_LENGTH,
+  UserEmailFormScreenProp,
+} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
 import {updateUserEmail} from 'src/redux/user/UserAction';
 import {useTranslation} from 'react-i18next';
@@ -17,7 +21,7 @@ interface EmailForm {
 
 const Email: React.FC = () => {
   const dispatch = useDispatch();
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<UserEmailFormScreenProp>();
   const {user} = useSelector(userThunkSelector);
   const {t} = useTranslation(['form', 'common']);
   const yupEmail = Yup.string().email(t('email'));

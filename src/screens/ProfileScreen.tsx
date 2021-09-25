@@ -4,7 +4,7 @@ import {useTranslation} from 'react-i18next';
 import {Alert} from 'react-native';
 import {batch, useDispatch, useSelector} from 'react-redux';
 import ProfileComponent from 'src/components/profile/Profile';
-import {Route} from 'src/constants';
+import {ProfileScreenProp, Route} from 'src/constants';
 import {ActiveUser, CollectionContent} from 'src/models';
 import {
   getFavorite,
@@ -16,7 +16,7 @@ import {logOutUser} from 'src/redux/user/UserAction';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 
 const ProfileScreen: React.FC = () => {
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<ProfileScreenProp>();
   const dispatch = useDispatch();
   const {t} = useTranslation('common');
 
