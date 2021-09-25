@@ -8,11 +8,17 @@ import BottomTabsNavigator from './BottomTabs/BottomTabsNavigator';
 import SettingsNavigator from './SettingsNavigator';
 
 const Stack = createStackNavigator<RootStackParamList>();
+interface Props {
+  firstLaunch: boolean;
+}
+function HomeNavigator(props: Props) {
+  const {firstLaunch} = props;
 
-function HomeNavigator() {
   return (
     <Stack.Navigator screenOptions={SCREEN_OPTIONS}>
-      <Stack.Screen name={Route.ONBOARDING} component={OnboardingScreen} />
+      {firstLaunch && (
+        <Stack.Screen name={Route.ONBOARDING} component={OnboardingScreen} />
+      )}
       <Stack.Screen
         name={Route.HOME_NAVIGATOR}
         component={BottomTabsNavigator}

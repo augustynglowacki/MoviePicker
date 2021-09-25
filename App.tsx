@@ -13,6 +13,7 @@ import {
   getWatchlist,
 } from 'src/redux/collections/CollectionsActions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Loading} from 'src/components/common';
 
 //app background changed to black
 const MyTheme = {
@@ -37,23 +38,30 @@ const App = () => {
     RNBootSplash.hide({fade: true});
   }, [dispatch]);
 
-  const [isFirstLaunch, setIsFirstLaunch] = useState(false);
-  //TO DO render onboarding screen based on isFirstLaunch
-  useEffect(() => {
-    AsyncStorage.getItem('alreadyLaunched').then(value => {
-      if (value) {
-        AsyncStorage.setItem('alreadyLaunched', 'true');
-        setIsFirstLaunch(true);
+  const [state, setState] = useState({isFirstLaunch: false, checked: false});
+  const check = async () => {
+    await AsyncStorage.getItem('hasLaunched').then(value => {
+      console.log(value);
+      if (!value) {
+        AsyncStorage.setItem('hasLaunched', 'true');
+        setState({isFirstLaunch: true, checked: true});
       } else {
-        setIsFirstLaunch(false);
+        setState({isFirstLaunch: false, checked: true});
       }
     });
+  };
+  useEffect(() => {
+    check();
   }, []);
 
+  console.log('firstLaunch', state.isFirstLaunch);
+  if (!state.checked) {
+    return <Loading />;
+  }
   return (
     <PaperProvider>
       <NavigationContainer theme={MyTheme}>
-        <HomeNavigator />
+        <HomeNavigator firstLaunch={state.isFirstLaunch} />
       </NavigationContainer>
     </PaperProvider>
   );
