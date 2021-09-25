@@ -3,7 +3,7 @@ import React from 'react';
 import {useState} from 'react';
 import {GestureResponderEvent, StyleSheet, Text, View} from 'react-native';
 import {TextInput} from 'react-native-paper';
-// import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
+import Animated, {FlipInXDown} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
 import {FormikErrors} from 'formik';
 import SocialBox from './SocialBox';
@@ -51,10 +51,9 @@ const LoginComponent: React.FC<Props> = ({
   const handleHide = () => setHiddenPassword(!hiddenPassword);
   return (
     <Container withKeyboard padding="large" style={styles.wrapper}>
-      {/* <AnimatedLayout>
-        <Animated.View entering={FlipInXDown.springify()}> */}
-      <SvgLogo style={styles.logoImage} />
-      {/* </Animated.View> */}
+      <Animated.View entering={FlipInXDown.springify()}>
+        <SvgLogo style={styles.logoImage} />
+      </Animated.View>
       <View>
         <Text style={styles.title}>{t('welcomeMessage')}</Text>
         <View style={styles.form}>
@@ -92,7 +91,6 @@ const LoginComponent: React.FC<Props> = ({
           <RegisterInfo onPress={goToRegister} />
         </View>
       </View>
-      {/* </AnimatedLayout> */}
     </Container>
   );
 };

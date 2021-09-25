@@ -4,7 +4,7 @@ import {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {StyleSheet, Text, View} from 'react-native';
 import {TextInput} from 'react-native-paper';
-// import Animated, {AnimatedLayout, StretchInX} from 'react-native-reanimated';
+import Animated, {StretchInX} from 'react-native-reanimated';
 import {RegisterForm} from 'src/models';
 import palette from 'src/styles/palette';
 import {
@@ -44,10 +44,9 @@ const RegisterComponent: React.FC<Props> = ({
   const handleHide = () => setHiddenPassword(!hiddenPassword);
   return (
     <Container withKeyboard padding="large" style={styles.wrapper}>
-      {/* <AnimatedLayout>
-        <Animated.View entering={StretchInX.springify()}> */}
-      <SvgLogo style={styles.logoImage} />
-      {/* </Animated.View> */}
+      <Animated.View entering={StretchInX.springify()}>
+        <SvgLogo style={styles.logoImage} />
+      </Animated.View>
       <View>
         <Text style={styles.title}>{t('welcomeMessage')}</Text>
         <View style={styles.form}>
@@ -90,7 +89,6 @@ const RegisterComponent: React.FC<Props> = ({
           {!!serverError && <Message label={serverError} />}
         </View>
       </View>
-      {/* </AnimatedLayout> */}
     </Container>
   );
 };
