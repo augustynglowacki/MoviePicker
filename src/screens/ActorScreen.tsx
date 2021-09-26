@@ -15,7 +15,15 @@ const ActorScreen: React.FC<Props> = React.memo(({route}) => {
   const dispatch = useDispatch();
 
   const {
-    actor: {name, placeOfBirth, homepage, birthday, biography, profilePath},
+    actor: {
+      name,
+      placeOfBirth,
+      homepage,
+      birthday,
+      biography,
+      profilePath,
+      deathday,
+    },
     loading,
     error,
   } = useSelector(actorSelector);
@@ -34,6 +42,7 @@ const ActorScreen: React.FC<Props> = React.memo(({route}) => {
           birthday={birthday}
           biography={biography}
           profilePath={profilePath}
+          deathday={deathday}
         />
       </ErrorWrapper>
     </Container>

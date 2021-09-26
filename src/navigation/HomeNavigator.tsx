@@ -7,6 +7,7 @@ import OnboardingScreen from 'src/screens/OnboardingScreen';
 import AuthNavigator from './AuthNavigator';
 import BottomTabsNavigator from './BottomTabs/BottomTabsNavigator';
 import SettingsNavigator from './SettingsNavigator';
+import Webview from 'src/components/webview/Webview';
 
 const Stack = createStackNavigator<RootStackParamList>();
 interface Props {
@@ -28,6 +29,7 @@ function HomeNavigator(props: Props) {
       <Stack.Screen name={Route.DETAILS} component={DetailsScreen} />
       <Stack.Screen name={Route.SETTINGS} component={SettingsNavigator} />
       <Stack.Screen name={Route.ACTOR} component={ActorScreen} />
+      <Stack.Screen name={Route.WEBVIEW} component={Webview} />
       <Stack.Screen
         name={Route.SETTINGS_NAVIGATOR}
         component={SettingsNavigator}
