@@ -25,7 +25,10 @@ function HomeNavigator(props: Props) {
       />
       <Stack.Screen name={Route.AUTH} component={AuthNavigator} />
       <Stack.Screen name={Route.DETAILS} component={DetailsScreen} />
-      <Stack.Screen name={Route.SETTINGS} component={SettingsNavigator} />
+      <Stack.Screen
+        name={Route.SETTINGS_NAVIGATOR}
+        component={SettingsNavigator}
+      />
     </Stack.Navigator>
   );
 }

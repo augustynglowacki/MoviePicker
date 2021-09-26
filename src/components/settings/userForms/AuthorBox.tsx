@@ -1,7 +1,8 @@
+import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {Linking, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Avatar, Icon} from 'src/components/common';
-import {IconTypes} from 'src/constants';
+import {IconTypes, Route, WebviewScreenProp} from 'src/constants';
 import palette from 'src/styles/palette';
 
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const AuthorBox: React.FC<Props> = ({source, name, mail, linkedin, github}) => {
+  const {navigate} = useNavigation<WebviewScreenProp>();
   return (
     <View style={styles.wrapper}>
       <Avatar
@@ -31,7 +33,8 @@ const AuthorBox: React.FC<Props> = ({source, name, mail, linkedin, github}) => {
             style={styles.icon}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => Linking.openURL(linkedin)}>
+        <TouchableOpacity
+          onPress={() => navigate(Route.WEBVIEW, {link: linkedin})}>
           <Icon
             type={IconTypes.IONICON}
             name="logo-linkedin"
@@ -40,7 +43,8 @@ const AuthorBox: React.FC<Props> = ({source, name, mail, linkedin, github}) => {
             style={styles.icon}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => Linking.openURL(github)}>
+        <TouchableOpacity
+          onPress={() => navigate(Route.WEBVIEW, {link: github})}>
           <Icon
             type={IconTypes.IONICON}
             name="logo-github"

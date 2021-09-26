@@ -43,7 +43,7 @@ const ProfileScreen: React.FC = () => {
   };
 
   const navigateTo = () => {
-    navigate(Route.SETTINGS);
+    navigate(Route.SETTINGS_NAVIGATOR);
   };
 
   const handleLogOut = () => {
