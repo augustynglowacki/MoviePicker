@@ -2,12 +2,12 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {View, StyleSheet, Text, Alert} from 'react-native';
-import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
+import Animated, {FlipInXDown} from 'react-native-reanimated';
 import {useDispatch, useSelector} from 'react-redux';
 import Actors from 'src/components/actors/Actors';
 import {Action} from 'src/components/common';
 import RatingBox from 'src/components/common/RatingBox';
-import {Route} from 'src/constants';
+import {DetailsScreenProp, Route} from 'src/constants';
 import {Actor, ButtonsState, MovieDetails, TvSeriesDetails} from 'src/models';
 import {
   setFavorite,
@@ -41,7 +41,7 @@ const Info: React.FC<Props> = ({data, actors, buttonsState}) => {
   const {
     user: {email},
   } = useSelector(userThunkSelector);
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<DetailsScreenProp>();
 
   const handleAddtoCollection = (
     action: 'favorite' | 'watchlist' | 'watched',
@@ -78,11 +78,9 @@ const Info: React.FC<Props> = ({data, actors, buttonsState}) => {
   }
   return (
     <View style={styles.bottomWrapper}>
-      <AnimatedLayout>
-        <Animated.View entering={FlipInXDown.springify().delay(300)}>
-          <Text style={styles.title}>{data.title}</Text>
-        </Animated.View>
-      </AnimatedLayout>
+      <Animated.View entering={FlipInXDown.springify().delay(300)}>
+        <Text style={styles.title}>{data.title}</Text>
+      </Animated.View>
       <InfoBox data={data} />
       {!!data.voteAverage && <RatingBox voteAverage={data.voteAverage} />}
       <View style={styles.actions}>

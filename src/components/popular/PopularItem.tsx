@@ -21,7 +21,12 @@ import {useTranslation} from 'react-i18next';
 import RatingBox from '../common/RatingBox';
 import Heart from '../common/Heart';
 import GenreBox from './GenreBox';
-import {Route, WINDOW_HEIGHT, BOTTOM_TABS_HEIGHT} from 'src/constants';
+import {
+  Route,
+  WINDOW_HEIGHT,
+  BOTTOM_TABS_HEIGHT,
+  PopularScreenProp,
+} from 'src/constants';
 import {Popular} from 'src/models';
 import {setFavorite} from 'src/redux/collections/CollectionsActions';
 import {
@@ -37,7 +42,7 @@ interface Props {
 const PopularItem: React.FC<Props> = React.memo(
   ({movie, loggedIn, loading}) => {
     const {t} = useTranslation('common');
-    const {navigate} = useNavigation();
+    const {navigate} = useNavigation<PopularScreenProp>();
     const dispatch = useDispatch();
     const {posterPath, title, id, voteAverage, genres, contentType} = movie;
     const [isLiked, setLiked] = useState<boolean>(false);
@@ -63,9 +68,10 @@ const PopularItem: React.FC<Props> = React.memo(
       }
     };
 
+    const phoneHeight = frame.height - BOTTOM_TABS_HEIGHT - bottom;
     const wrapperStyle: StyleProp<ViewStyle> = {
       width: '100%',
-      height: frame.height - BOTTOM_TABS_HEIGHT - bottom,
+      height: phoneHeight,
       justifyContent: 'center',
       alignItems: 'center',
     };
@@ -121,26 +127,31 @@ const PopularItem: React.FC<Props> = React.memo(
         </View>
         <Pressable testID="doubleTap" onPress={handleClick}>
           <View style={styles.movieContainer}>
-            {loading ? (
-              <>
-                <ActivityIndicator
-                  color={palette.primary}
-                  style={styles.loading}
-                  size={40}
-                />
-                <ImageBackground
-                  source={{uri: `${API_IMAGES}${posterPath}`}}
-                  style={styles.image}
-                  imageStyle={styles.image}
-                />
-              </>
-            ) : (
-              <ImageBackground
-                source={{uri: `${API_IMAGES}${posterPath}`}}
-                style={styles.image}
-                imageStyle={styles.image}
+            {loading && (
+              <ActivityIndicator
+                color={palette.primary}
+                style={styles.loading}
+                size={40}
               />
             )}
+            <ImageBackground
+              source={{uri: `${API_IMAGES}${posterPath}`}}
+              style={styles.image}
+              imageStyle={styles.image}
+            />
+            <LinearGradient
+              colors={[
+                'rgba(0,0,0,0.05)',
+                'rgba(0,0,0,0.1)',
+                'rgba(0,0,0,0.2)',
+                'rgba(0,0,0,0.4)',
+                'rgba(0,0,0,0.5)',
+                'rgba(0,0,0,0.65)',
+              ]}
+              start={{x: 0, y: 0}}
+              end={{x: 0, y: 1}}
+              style={styles.linearGradient}
+            />
 
             {isLiked && (
               <View testID="heart" style={styles.heart}>
@@ -165,9 +176,10 @@ const PopularItem: React.FC<Props> = React.memo(
 );
 
 export default PopularItem;
+
 const {width} = Dimensions.get('screen');
-const imageW = width * 0.69;
-const imageH = imageW * 1.52;
+const imageW = width * 0.71;
+const imageH = imageW * 1.57;
 
 const styles = StyleSheet.create({
   container: {
@@ -175,9 +187,6 @@ const styles = StyleSheet.create({
     height: WINDOW_HEIGHT - BOTTOM_TABS_HEIGHT,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  overflow: {
-    overflow: 'visible',
   },
   movieContainer: {
     width: imageW,
@@ -193,7 +202,10 @@ const styles = StyleSheet.create({
     elevation: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 16,
+    marginTop: 16,
+  },
+  overflow: {
+    overflow: 'visible',
   },
   icon: {
     justifyContent: 'center',

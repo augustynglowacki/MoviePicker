@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
-import {IconTypes, Route} from 'src/constants';
+import {IconTypes, RootStackParamList, Route} from 'src/constants';
 import {UserFormDataTemplate} from 'src/models';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
 import {
@@ -14,6 +14,7 @@ import {
 } from 'src/components/common';
 import {StyleSheet, View} from 'react-native';
 import palette from 'src/styles/palette';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 interface Props {
   onSubmit: () => void;
@@ -22,7 +23,8 @@ interface Props {
 }
 
 const UserFormTemplate: React.FC<Props> = ({headerText, data, onSubmit}) => {
-  const {navigate} = useNavigation();
+  const {navigate} =
+    useNavigation<StackNavigationProp<RootStackParamList, any>>();
   const {error, loading} = useSelector(userThunkSelector);
   const {t} = useTranslation('common');
   const redirectToSettings = () => navigate(Route.SETTINGS);

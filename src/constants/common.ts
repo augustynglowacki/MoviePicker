@@ -8,7 +8,7 @@ export const HEADER_HEIGHT = 300;
 export const SCREEN_OPTIONS = {
   headerShown: false,
   gestureEnabled: true,
-  gestureResponseDistance: {horizontal: 200},
+  gestureResponseDistance: 200,
 };
 export const DEFAULT_COVER =
   'https://firebasestorage.googleapis.com/v0/b/moviepicker-2405b.appspot.com/o/users%2Fdefault%2FdefaultCover.jpg?alt=media&token=b5744349-b6d7-4811-9ddb-dddacf2c2d29';

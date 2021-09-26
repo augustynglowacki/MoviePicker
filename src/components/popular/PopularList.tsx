@@ -10,7 +10,7 @@ import {
   useSafeAreaFrame,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
+import Animated, {FlipInXDown} from 'react-native-reanimated';
 import {useDispatch, useSelector} from 'react-redux';
 import {popularSelector} from 'src/redux/popular/PopularSlice';
 import {getPopular} from 'src/redux/popular/PopularActions';
@@ -54,11 +54,9 @@ const PopularList: React.FC<Props> = ({data, loggedIn, loading}) => {
     <View style={styles.container}>
       <View style={styles.heading}>
         <SafeAreaView>
-          <AnimatedLayout>
-            <Animated.View entering={FlipInXDown.springify().delay(300)}>
-              <Text style={styles.headingText}>{t('popular')}</Text>
-            </Animated.View>
-          </AnimatedLayout>
+          <Animated.View entering={FlipInXDown.springify().delay(300)}>
+            <Text style={styles.headingText}>{t('popular')}</Text>
+          </Animated.View>
         </SafeAreaView>
       </View>
       <FlatList<Popular>
@@ -72,7 +70,7 @@ const PopularList: React.FC<Props> = ({data, loggedIn, loading}) => {
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
         initialNumToRender={numToRender * 20}
-        removeClippedSubviews={true}
+        removeClippedSubviews={false}
         getItemLayout={(item, index) => ({
           length: frame.height - BOTTOM_TABS_HEIGHT - bottom,
           offset: frame.height - BOTTOM_TABS_HEIGHT - bottom * index,

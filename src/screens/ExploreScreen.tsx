@@ -7,7 +7,7 @@ import {useTranslation} from 'react-i18next';
 import {popularSelector} from 'src/redux/popular/PopularSlice';
 import {useSelector} from 'react-redux';
 import {CustomButton} from 'src/components/common';
-import {ExploreScreenParams, Route} from 'src/constants';
+import {ExploreScreenParams, ExploreScreenProp, Route} from 'src/constants';
 import ProfileComponent from 'src/components/profile/Profile';
 import LoadingScreen from 'src/components/common/Loading';
 import {userThunkSelector} from 'src/redux/user/UserSlice';
@@ -15,7 +15,7 @@ import Watchlist from 'src/components/watchlist/Watchlist';
 import {ActiveUser} from 'src/models';
 
 const ExploreScreen: React.FC<ExploreScreenParams> = ({isLiked}) => {
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<ExploreScreenProp>();
   const {t} = useTranslation('profile');
   const {loading} = useSelector(userThunkSelector);
 

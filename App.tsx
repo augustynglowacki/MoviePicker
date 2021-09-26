@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import HomeNavigator from './src/navigation/HomeNavigator';
 import {Provider as PaperProvider} from 'react-native-paper';
@@ -12,6 +12,8 @@ import {
   getWatched,
   getWatchlist,
 } from 'src/redux/collections/CollectionsActions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Loading} from 'src/components/common';
 import {popularSelector} from 'src/redux/popular/PopularSlice';
 //app background changed to black
 const MyTheme = {
@@ -35,10 +37,29 @@ const App = () => {
     });
     RNBootSplash.hide({fade: true});
   }, [dispatch, page]);
+
+  const [state, setState] = useState({isFirstLaunch: false, checked: false});
+  const check = async () => {
+    await AsyncStorage.getItem('hasLaunched').then(value => {
+      if (!value) {
+        AsyncStorage.setItem('hasLaunched', 'true');
+        setState({isFirstLaunch: true, checked: true});
+      } else {
+        setState({isFirstLaunch: false, checked: true});
+      }
+    });
+  };
+  useEffect(() => {
+    check();
+  }, []);
+
+  if (!state.checked) {
+    return <Loading />;
+  }
   return (
     <PaperProvider>
       <NavigationContainer theme={MyTheme}>
-        <HomeNavigator />
+        <HomeNavigator firstLaunch={state.isFirstLaunch} />
       </NavigationContainer>
     </PaperProvider>
   );

@@ -4,7 +4,7 @@ import {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {StyleSheet, Text, View} from 'react-native';
 import {TextInput} from 'react-native-paper';
-import Animated, {AnimatedLayout, StretchInX} from 'react-native-reanimated';
+import Animated, {StretchInX} from 'react-native-reanimated';
 import {RegisterForm} from 'src/models';
 import palette from 'src/styles/palette';
 import {
@@ -44,53 +44,51 @@ const RegisterComponent: React.FC<Props> = ({
   const handleHide = () => setHiddenPassword(!hiddenPassword);
   return (
     <Container withKeyboard padding="large" style={styles.wrapper}>
-      <AnimatedLayout>
-        <Animated.View entering={StretchInX.springify()}>
-          <SvgLogo style={styles.logoImage} />
-        </Animated.View>
-        <View>
-          <Text style={styles.title}>{t('welcomeMessage')}</Text>
-          <View style={styles.form}>
-            <Input
-              label={t('userName')}
-              value={form.username}
-              onChangeText={onChange('username')}
-              error={errors.username}
-              autoCapitalize="words"
-            />
-            <Input
-              label={t('email')}
-              value={form.email}
-              onChangeText={onChange('email')}
-              error={errors.email}
-              autoCompleteType="email"
-              keyboardType="email-address"
-            />
-            <Input
-              label={t('password')}
-              value={form.password}
-              onChangeText={onChange('password')}
-              secureTextEntry={hiddenPassword}
-              error={errors.password}
-              right={
-                <TextInput.Icon
-                  name="eye"
-                  color={palette.grey}
-                  onPress={handleHide}
-                />
-              }
-            />
-            <CustomButton
-              onPress={onSubmit}
-              label={t('register')}
-              width="small"
-              variant="primary"
-              loading={loading}
-            />
-            {!!serverError && <Message label={serverError} />}
-          </View>
+      <Animated.View entering={StretchInX.springify()}>
+        <SvgLogo style={styles.logoImage} />
+      </Animated.View>
+      <View>
+        <Text style={styles.title}>{t('welcomeMessage')}</Text>
+        <View style={styles.form}>
+          <Input
+            label={t('userName')}
+            value={form.username}
+            onChangeText={onChange('username')}
+            error={errors.username}
+            autoCapitalize="words"
+          />
+          <Input
+            label={t('email')}
+            value={form.email}
+            onChangeText={onChange('email')}
+            error={errors.email}
+            autoCompleteType="email"
+            keyboardType="email-address"
+          />
+          <Input
+            label={t('password')}
+            value={form.password}
+            onChangeText={onChange('password')}
+            secureTextEntry={hiddenPassword}
+            error={errors.password}
+            right={
+              <TextInput.Icon
+                name="eye"
+                color={palette.grey}
+                onPress={handleHide}
+              />
+            }
+          />
+          <CustomButton
+            onPress={onSubmit}
+            label={t('register')}
+            width="small"
+            variant="primary"
+            loading={loading}
+          />
+          {!!serverError && <Message label={serverError} />}
         </View>
-      </AnimatedLayout>
+      </View>
     </Container>
   );
 };

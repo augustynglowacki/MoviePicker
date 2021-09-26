@@ -4,7 +4,11 @@ import {useFormik} from 'formik';
 import auth from '@react-native-firebase/auth';
 import {useDispatch, useSelector} from 'react-redux';
 import {setErrorNull, userThunkSelector} from 'src/redux/user/UserSlice';
-import {Route, MIN_USERNAME_LENGTH} from 'src/constants';
+import {
+  Route,
+  MIN_USERNAME_LENGTH,
+  UserNameFormScreenProp,
+} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
 import {UserFormDataTemplate} from 'src/models';
 import Template from 'src/components/settings/userForms/Template';
@@ -13,7 +17,7 @@ import {updateUsername} from 'src/redux/user/UserAction';
 
 const Username: React.FC = () => {
   const dispatch = useDispatch();
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<UserNameFormScreenProp>();
   const {t} = useTranslation('common');
   const backToSettings = () => navigate(Route.SETTINGS);
 

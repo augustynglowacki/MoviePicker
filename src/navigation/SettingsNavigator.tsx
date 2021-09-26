@@ -4,11 +4,11 @@ import Settings from 'src/components/settings/Settings';
 import Email from 'src/components/settings/userForms/Email';
 import Username from 'src/components/settings/userForms/Username';
 import Password from 'src/components/settings/userForms/Password';
-import {Route, SCREEN_OPTIONS} from 'src/constants';
+import {RootStackParamList, Route, SCREEN_OPTIONS} from 'src/constants';
 import Contact from 'src/components/settings/userForms/Contact';
 import Info from 'src/components/settings/userForms/Info';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 const SettingsNavigator = () => {
   return (

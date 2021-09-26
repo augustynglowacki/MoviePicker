@@ -1,16 +1,24 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
-import {Route, SCREEN_OPTIONS} from 'src/constants';
+import {RootStackParamList, Route, SCREEN_OPTIONS} from 'src/constants';
 import DetailsScreen from 'src/screens/DetailsScreen';
+import OnboardingScreen from 'src/screens/OnboardingScreen';
 import AuthNavigator from './AuthNavigator';
 import BottomTabsNavigator from './BottomTabs/BottomTabsNavigator';
 import SettingsNavigator from './SettingsNavigator';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
+interface Props {
+  firstLaunch: boolean;
+}
+function HomeNavigator(props: Props) {
+  const {firstLaunch} = props;
 
-const HomeNavigator = () => {
   return (
     <Stack.Navigator screenOptions={SCREEN_OPTIONS}>
+      {firstLaunch && (
+        <Stack.Screen name={Route.ONBOARDING} component={OnboardingScreen} />
+      )}
       <Stack.Screen
         name={Route.HOME_NAVIGATOR}
         component={BottomTabsNavigator}
@@ -20,6 +28,6 @@ const HomeNavigator = () => {
       <Stack.Screen name={Route.SETTINGS} component={SettingsNavigator} />
     </Stack.Navigator>
   );
-};
+}
 
 export default HomeNavigator;

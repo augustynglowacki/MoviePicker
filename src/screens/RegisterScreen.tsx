@@ -10,7 +10,7 @@ import {useFormik} from 'formik';
 import {useTranslation} from 'react-i18next';
 import RegisterComponent from 'src/components/auth/Register';
 import * as Yup from 'yup';
-import {Route} from 'src/constants';
+import {RegisterScreenProp, Route} from 'src/constants';
 import {MIN_PASSWORD_LENGTH} from 'src/constants/formValues';
 
 const initialState = {username: '', email: '', password: ''};
@@ -18,7 +18,7 @@ const initialState = {username: '', email: '', password: ''};
 const RegisterScreen: React.FC = () => {
   const {error, loading} = useSelector(userThunkSelector);
   const dispatch = useDispatch();
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<RegisterScreenProp>();
   const {t} = useTranslation('form');
 
   useEffect(() => {

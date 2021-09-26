@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Container, CustomModal, Loading} from 'src/components/common';
-import {IconTypes, Route} from 'src/constants';
+import {IconTypes, Route, SettingScreenProp} from 'src/constants';
 import palette from 'src/styles/palette';
 import HeaderBar from 'src/components/common/HeaderBar';
 import {Avatar} from 'src/components/common';
@@ -15,7 +15,7 @@ import {Text} from 'react-native-paper';
 import {updateUserPhoto} from 'src/redux/user/UserAction';
 
 const Settings: React.FC = () => {
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<SettingScreenProp>();
   const {t} = useTranslation('settings');
   const redirectToProfile = () => navigate(Route.PROFILE);
   const [isModalVisible, setModalVisible] = useState(false);

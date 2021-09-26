@@ -2,10 +2,11 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import Container from './Container';
 import AnimatedLottieView from 'lottie-react-native';
+import palette from 'src/styles/palette';
 
 const Loading: React.FC = () => {
   return (
-    <Container>
+    <Container style={styles.wrapper}>
       <AnimatedLottieView
         testID="loading"
         source={require('../../assets/lottie/popcorn.json')}
@@ -22,6 +23,9 @@ const styles = StyleSheet.create({
     height: 200,
     alignSelf: 'center',
     marginBottom: '15%',
+  },
+  wrapper: {
+    backgroundColor: palette.strongBlack,
   },
 });
 
