@@ -13,11 +13,13 @@ export enum Route {
   HOME_NAVIGATOR = 'HomeNavigator',
   DETAILS = 'Details',
   SETTINGS = 'Settings',
+  SETTINGS_NAVIGATOR = 'SettingsNavigator',
   USER_EMAIL_FORM = 'UserEmailForm',
   USER_PASSWORD_FORM = 'UserPasswordForm',
   USERNAME_FORM = 'UserNameForm',
   CONTACT = 'Contact',
   INFO = 'Info',
+  WEBVIEW = 'Webview',
   ONBOARDING = 'Onboarding',
 }
 
@@ -29,15 +31,22 @@ type DetailsScreenParams = {
 export type ExploreScreenParams = {
   isLiked: boolean;
 };
+
+type WebviewScreenParams = {
+  link: string;
+};
+
 export type RootStackParamList = {
   Details: DetailsScreenParams;
   Explore: ExploreScreenParams;
+  Webview: WebviewScreenParams;
   Login: undefined;
   Register: undefined;
   Discover: undefined;
   Popular: undefined;
   Profile: undefined;
   Settings: undefined;
+  SettingsNavigator: undefined;
   Watchlist: undefined;
   Onboarding: undefined;
   Auth: undefined;
@@ -59,6 +68,19 @@ export type DetailsScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'Details'
 >;
+
+export type WebviewScreenRouteProp = RouteProp<RootStackParamList, 'Webview'>;
+
+export type WebviewScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Webview'
+>;
+
+export type WebviewScreenProp = StackNavigationProp<
+  RootStackParamList,
+  'Webview'
+>;
+
 export type ExploreRouteProp = RouteProp<RootStackParamList, 'Explore'>;
 
 export type LoginScreenProp = StackNavigationProp<RootStackParamList, 'Login'>;
@@ -101,6 +123,12 @@ export type HomeNavigatorScreenProp = StackNavigationProp<
   RootStackParamList,
   'HomeNavigator'
 >;
+
+export type SettingsNavigatorScreenProp = StackNavigationProp<
+  RootStackParamList,
+  'SettingsNavigator'
+>;
+
 export type UserEmailFormScreenProp = StackNavigationProp<
   RootStackParamList,
   'UserEmailForm'
