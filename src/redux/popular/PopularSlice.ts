@@ -7,7 +7,7 @@ const initialState: PopularState = {
   movies: [],
   loading: false,
   error: '',
-  page: Math.floor(Math.random() * 10) + 1,
+  page: Math.floor(Math.random() * 20) + 1,
 };
 const popularSlice = createSlice({
   name: 'popular',

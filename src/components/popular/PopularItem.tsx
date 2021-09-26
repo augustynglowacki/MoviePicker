@@ -10,7 +10,6 @@ import {
   ViewStyle,
   Pressable,
   ActivityIndicator,
-  ImageStyle,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {API_IMAGES} from '@env';
@@ -70,28 +69,11 @@ const PopularItem: React.FC<Props> = React.memo(
     };
 
     const phoneHeight = frame.height - BOTTOM_TABS_HEIGHT - bottom;
-    const phoneWidth = Dimensions.get('window').width;
-    const ratio = phoneWidth / phoneHeight;
     const wrapperStyle: StyleProp<ViewStyle> = {
       width: '100%',
       height: phoneHeight,
       justifyContent: 'center',
       alignItems: 'center',
-    };
-    const movieContainer: StyleProp<ImageStyle> = {
-      height: phoneHeight * 0.7,
-      aspectRatio: ratio,
-      borderRadius: 16,
-      shadowOpacity: 0.9,
-      shadowRadius: 60,
-      shadowColor: palette.strongBlack,
-      shadowOffset: {
-        width: 0,
-        height: 0,
-      },
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: 27,
     };
 
     const alert = () => {
@@ -144,7 +126,7 @@ const PopularItem: React.FC<Props> = React.memo(
           />
         </View>
         <Pressable testID="doubleTap" onPress={handleClick}>
-          <View style={movieContainer}>
+          <View style={styles.movieContainer}>
             {loading && (
               <ActivityIndicator
                 color={palette.primary}
@@ -195,12 +177,32 @@ const PopularItem: React.FC<Props> = React.memo(
 
 export default PopularItem;
 
+const {width} = Dimensions.get('screen');
+const imageW = width * 0.71;
+const imageH = imageW * 1.57;
+
 const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: WINDOW_HEIGHT - BOTTOM_TABS_HEIGHT,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  movieContainer: {
+    width: imageW,
+    height: imageH,
+    borderRadius: 16,
+    shadowOpacity: 0.9,
+    shadowRadius: 60,
+    shadowColor: palette.strongBlack,
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    elevation: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 16,
   },
   overflow: {
     overflow: 'visible',

@@ -67,7 +67,7 @@ const translations = {
       'We worked on this project while we took an apprenticeship in mDevelopers. Project started with a group of 4 people, after a month half of the team got their first jobs so they had to quit developing the app, while we decided to stay in the project, add more features, clean up the code, therefore increasing our overall React Native skills. In this project we learned how to properly work with version control (GitHub) by creating feature branches, pull requests, reviewing our code. We got to know good coding practices, thanks to tips and code reviews from an experienced member working at the Software House that we took our apprenticeship. Tech stack used in this project: Typescript, React Native, Firebase, Redux Thunk Toolkit, Jest, React Testing Library, Enzyme, Formik, i18next, react-native-reanimated 2',
     contact: 'Contact',
     contactSub: 'You can send us a message',
-    version: 'MoviePicker for Android v1.0.0 (077)',
+    version: 'MoviePicker for Android v1.0.0',
   },
   contact: {
     title: 'Contact us via mail:',
@@ -88,6 +88,16 @@ const translations = {
     mailAugustyn: 'augustyn1331@gmail.com',
     linkedinAugustyn: 'https://www.linkedin.com/in/augustyn1331/',
     githubAugustyn: 'https://github.com/augustyn1331',
+  },
+  onboarding: {
+    welcome:
+      "Don't have any ideas on what to watch? You've come to the right place! Get to know MoviePicker by swiping right!",
+    popular:
+      'Surf through popular movies around the world right now - all of them are on your home screen. Double tap the cover to favourite it!',
+    details:
+      'Tap once on the movie cover photo to get to know the details. You can pick a movie to watch later by adding it to your watchlist!',
+    profile:
+      'Customize your profile by adding avatar and background photo. Add movies to your collections - as many as you want!',
   },
 };
 export default translations;

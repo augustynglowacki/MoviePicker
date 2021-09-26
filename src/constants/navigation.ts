@@ -87,7 +87,7 @@ export type WatchlistScreenProp = StackNavigationProp<
   RootStackParamList,
   'Watchlist'
 >;
-export type OnbardingScreenProp = StackNavigationProp<
+export type OnboardingScreenProp = StackNavigationProp<
   RootStackParamList,
   'Onboarding'
 >;

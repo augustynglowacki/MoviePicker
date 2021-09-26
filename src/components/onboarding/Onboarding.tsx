@@ -15,11 +15,12 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import {CustomButton, Icon} from '../common';
-import {IconTypes, OnbardingScreenProp, Route} from 'src/constants';
+import {IconTypes, OnboardingScreenProp, Route} from 'src/constants';
 import Page, {PAGE_WIDTH} from './Page';
 import Dot from './Dot';
 import palette from 'src/styles/palette';
 import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 
 export interface PageInterface extends Pick<ImageProps, 'source'> {
   title: React.ReactNode;
@@ -28,9 +29,10 @@ export interface PageInterface extends Pick<ImageProps, 'source'> {
 }
 
 export default function Onboarding() {
-  const {navigate} = useNavigation<OnbardingScreenProp>();
-
+  const {navigate} = useNavigation<OnboardingScreenProp>();
+  const {t} = useTranslation('onboarding');
   const go = useCallback(() => navigate(Route.HOME_NAVIGATOR), [navigate]);
+  console.log(t('welcome'));
   const pages: PageInterface[] = [
     {
       title: (
@@ -39,8 +41,7 @@ export default function Onboarding() {
           <Text style={styles.markedText}>MoviePicker</Text>
         </Text>
       ),
-      description:
-        "Don't have any ideas on what to watch? You've come to the right place! Get to know MoviePicker by swiping right!",
+      description: t('welcome'),
       source: require('src/assets/onboarding/start.png'),
     },
     {
@@ -50,8 +51,7 @@ export default function Onboarding() {
           <Text style={styles.markedText}>Popular</Text>
         </Text>
       ),
-      description:
-        'Surf through popular movies around the world right now - all of them are on your home screen. Double tap the cover to favourite it!',
+      description: t('popular'),
       source: require('src/assets/onboarding/popular.png'),
     },
     {
@@ -61,8 +61,7 @@ export default function Onboarding() {
           <Text style={styles.markedText}>Details</Text>
         </Text>
       ),
-      description:
-        'Tap once on the movie cover photo to get to know the details. You can pick a movie to watch later by adding it to your watchlist!',
+      description: t('details'),
       source: require('src/assets/onboarding/details.png'),
     },
     {
@@ -72,8 +71,7 @@ export default function Onboarding() {
           <Text style={styles.markedText}>Profile</Text>
         </Text>
       ),
-      description:
-        'Customize your profile by adding avatar and background photo. Add movies to your collections - as many as you want!',
+      description: t('profile'),
       source: require('src/assets/onboarding/profile.png'),
       extra: <CustomButton onPress={go} label="Get started" />,
     },
