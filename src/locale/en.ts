@@ -90,13 +90,21 @@ const translations = {
     githubAugustyn: 'https://github.com/augustyn1331',
   },
   onboarding: {
-    welcome:
+    welcome: 'Welcome to\n',
+    welcomeTitle: 'MoviePicker',
+    welcomeDes:
       "Don't have any ideas on what to watch? You've come to the right place! Get to know MoviePicker by swiping right!",
-    popular:
-      'Surf through popular movies around the world right now - all of them are on your home screen. Double tap the cover to favourite it!',
-    details:
+    popular: 'Popular',
+    popularTitle: "See what's \n",
+    popularDes:
+      'Surf through popular movies around the world right now - all of them are on your home screen. Double tap the cover to favorite it!',
+    details: 'Details',
+    detailsTitle: 'Get into the\n',
+    detailsDes:
       'Tap once on the movie cover photo to get to know the details. You can pick a movie to watch later by adding it to your watchlist!',
-    profile:
+    profile: 'Profile',
+    profileTitle: 'Create your\n',
+    profileDes:
       'Customize your profile by adding avatar and background photo. Add movies to your collections - as many as you want!',
   },
 };

@@ -32,46 +32,45 @@ export default function Onboarding() {
   const {navigate} = useNavigation<OnboardingScreenProp>();
   const {t} = useTranslation('onboarding');
   const go = useCallback(() => navigate(Route.HOME_NAVIGATOR), [navigate]);
-  console.log(t('welcome'));
   const pages: PageInterface[] = [
     {
       title: (
         <Text>
-          Welcome to{'\n'}
-          <Text style={styles.markedText}>MoviePicker</Text>
+          {t('welcome')}
+          <Text style={styles.markedText}> {t('welcomeTitle')}</Text>
         </Text>
       ),
-      description: t('welcome'),
+      description: t('welcomeDes'),
       source: require('src/assets/onboarding/start.png'),
     },
     {
       title: (
         <Text>
-          See what's{'\n'}
-          <Text style={styles.markedText}>Popular</Text>
+          {t('popularTitle')}
+          <Text style={styles.markedText}>{t('popular')}</Text>
         </Text>
       ),
-      description: t('popular'),
+      description: t('popularDes'),
       source: require('src/assets/onboarding/popular.png'),
     },
     {
       title: (
         <Text>
-          Get into the{'\n'}
-          <Text style={styles.markedText}>Details</Text>
+          {t('detailsTitle')}
+          <Text style={styles.markedText}>{t('details')}</Text>
         </Text>
       ),
-      description: t('details'),
+      description: t('detailsDes'),
       source: require('src/assets/onboarding/details.png'),
     },
     {
       title: (
         <Text>
-          Create your{'\n'}
-          <Text style={styles.markedText}>Profile</Text>
+          {t('profileTitle')}
+          <Text style={styles.markedText}> {t('profile')}</Text>
         </Text>
       ),
-      description: t('profile'),
+      description: t('profileDes'),
       source: require('src/assets/onboarding/profile.png'),
       extra: <CustomButton onPress={go} label="Get started" />,
     },
@@ -155,7 +154,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     height: 50,
-    marginBottom: 0,
+    marginBottom: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
