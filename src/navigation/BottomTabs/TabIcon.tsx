@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 import {IconTypes} from 'src/constants';
 import palette from 'src/styles/palette';
 import {Icon} from 'src/components/common';
-import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
+import Animated, {FlipInXDown} from 'react-native-reanimated';
 
 const TabIcon = (
   focused: boolean,
@@ -27,11 +27,9 @@ const TabIcon = (
     );
   }
   return (
-    <AnimatedLayout>
-      <Animated.View entering={FlipInXDown.springify().delay(400)}>
-        <Icon type={type} color={palette.white} name={outline} size={size} />
-      </Animated.View>
-    </AnimatedLayout>
+    <Animated.View entering={FlipInXDown.springify().delay(400)}>
+      <Icon type={type} color={palette.white} name={outline} size={size} />
+    </Animated.View>
   );
 };
 

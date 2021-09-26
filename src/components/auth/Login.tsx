@@ -3,7 +3,7 @@ import React from 'react';
 import {useState} from 'react';
 import {GestureResponderEvent, StyleSheet, Text, View} from 'react-native';
 import {TextInput} from 'react-native-paper';
-import Animated, {AnimatedLayout, FlipInXDown} from 'react-native-reanimated';
+import Animated, {FlipInXDown} from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
 import {FormikErrors} from 'formik';
 import SocialBox from './SocialBox';
@@ -16,7 +16,7 @@ import {
   SvgLogo,
 } from 'src/components/common';
 import {LoginForm} from 'src/models';
-import {Route} from 'src/constants';
+import {LoginScreenProp, Route} from 'src/constants';
 import palette from 'src/styles/palette';
 
 interface Props {
@@ -45,54 +45,52 @@ const LoginComponent: React.FC<Props> = ({
   loading,
 }) => {
   const {t} = useTranslation('common');
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<LoginScreenProp>();
   const goToRegister = () => navigate(Route.REGISTER);
   const [hiddenPassword, setHiddenPassword] = useState(false);
   const handleHide = () => setHiddenPassword(!hiddenPassword);
   return (
     <Container withKeyboard padding="large" style={styles.wrapper}>
-      <AnimatedLayout>
-        <Animated.View entering={FlipInXDown.springify()}>
-          <SvgLogo style={styles.logoImage} />
-        </Animated.View>
-        <View>
-          <Text style={styles.title}>{t('welcomeMessage')}</Text>
-          <View style={styles.form}>
-            <Input
-              label={t('email')}
-              value={form.email}
-              onChangeText={onChange('email')}
-              error={errors.email}
-              autoCompleteType="email"
-              keyboardType="email-address"
-            />
-            <Input
-              label={t('password')}
-              value={form.password}
-              onChangeText={onChange('password')}
-              secureTextEntry={hiddenPassword}
-              error={errors.password}
-              right={
-                <TextInput.Icon
-                  name="eye"
-                  color={palette.grey}
-                  onPress={handleHide}
-                />
-              }
-            />
-            <CustomButton
-              label={t('login')}
-              width="small"
-              variant="primary"
-              onPress={onSubmit}
-              loading={loading}
-            />
-            {!!serverError && <Message label={serverError} />}
-            <SocialBox onPress={signUpWithGoogle} />
-            <RegisterInfo onPress={goToRegister} />
-          </View>
+      <Animated.View entering={FlipInXDown.springify()}>
+        <SvgLogo style={styles.logoImage} />
+      </Animated.View>
+      <View>
+        <Text style={styles.title}>{t('welcomeMessage')}</Text>
+        <View style={styles.form}>
+          <Input
+            label={t('email')}
+            value={form.email}
+            onChangeText={onChange('email')}
+            error={errors.email}
+            autoCompleteType="email"
+            keyboardType="email-address"
+          />
+          <Input
+            label={t('password')}
+            value={form.password}
+            onChangeText={onChange('password')}
+            secureTextEntry={hiddenPassword}
+            error={errors.password}
+            right={
+              <TextInput.Icon
+                name="eye"
+                color={palette.grey}
+                onPress={handleHide}
+              />
+            }
+          />
+          <CustomButton
+            label={t('login')}
+            width="small"
+            variant="primary"
+            onPress={onSubmit}
+            loading={loading}
+          />
+          {!!serverError && <Message label={serverError} />}
+          <SocialBox onPress={signUpWithGoogle} />
+          <RegisterInfo onPress={goToRegister} />
         </View>
-      </AnimatedLayout>
+      </View>
     </Container>
   );
 };

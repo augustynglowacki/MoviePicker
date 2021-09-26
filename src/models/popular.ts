@@ -18,4 +18,5 @@ export interface PopularState {
   movies: Popular[];
   loading: boolean;
   error: string;
+  page: number;
 }

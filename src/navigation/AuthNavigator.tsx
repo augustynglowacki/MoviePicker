@@ -1,11 +1,11 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
-import {Route, SCREEN_OPTIONS} from 'src/constants';
+import {RootStackParamList, Route, SCREEN_OPTIONS} from 'src/constants';
 import LoginScreen from 'src/screens/LoginScreen';
 import RegisterScreen from 'src/screens/RegisterScreen';
 
 const AuthNavigator = () => {
-  const AuthStack = createStackNavigator();
+  const AuthStack = createStackNavigator<RootStackParamList>();
 
   return (
     <AuthStack.Navigator screenOptions={SCREEN_OPTIONS}>

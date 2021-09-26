@@ -14,7 +14,7 @@ interface Props {
   label: string;
   loading?: boolean;
   variant?: 'primary' | 'secondary';
-  width?: 'small' | 'medium';
+  width?: 'small' | 'medium' | 'large';
   onPress: () => void;
 }
 
@@ -43,6 +43,9 @@ const CustomButton: React.FC<Props> = ({
       }
       case 'medium': {
         return {width: '60%'};
+      }
+      case 'large': {
+        return {width: '90%'};
       }
       default:
         return {width: '70%'};

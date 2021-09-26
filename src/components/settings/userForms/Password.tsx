@@ -2,7 +2,11 @@ import React from 'react';
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
 import {useDispatch, useSelector} from 'react-redux';
-import {Route, MIN_PASSWORD_LENGTH} from 'src/constants';
+import {
+  Route,
+  MIN_PASSWORD_LENGTH,
+  UserPasswordFormScreenProp,
+} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
 import {updateUserPassword} from 'src/redux/user/UserAction';
 import {useTranslation} from 'react-i18next';
@@ -18,7 +22,7 @@ interface PasswordForm {
 
 const Password: React.FC = () => {
   const dispatch = useDispatch();
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<UserPasswordFormScreenProp>();
   const {t} = useTranslation(['form', 'common']);
   const {
     user: {email},

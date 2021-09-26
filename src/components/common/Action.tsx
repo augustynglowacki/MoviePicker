@@ -20,7 +20,6 @@ const Action: React.FC<Props> = ({icon, label, isActive, onPress}) => {
     <TouchableOpacity onPress={onPress}>
       <View style={styles.wrapper}>
         <LinearGradient
-          testID="icon"
           colors={
             isActive ? ['#fab6366a', '#fab8561c'] : ['#ffffff1c', '#ffffff22']
           }

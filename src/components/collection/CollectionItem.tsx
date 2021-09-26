@@ -7,7 +7,8 @@ import palette from 'src/styles/palette';
 import LinearGradient from 'react-native-linear-gradient';
 import {Dimensions} from 'react-native';
 import {Movie} from 'src/models';
-import {Route} from 'src/constants';
+import {RootStackParamList, Route} from 'src/constants';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 interface Props {
   movie: Movie;
@@ -15,7 +16,8 @@ interface Props {
 
 const CollectionItem: React.FC<Props> = React.memo(({movie}) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
-  const {navigate} = useNavigation();
+  const {navigate} =
+    useNavigation<StackNavigationProp<RootStackParamList, any>>();
   const {posterPath, id, contentType} = movie;
   useEffect(() => {
     Animated.timing(fadeAnim, {
