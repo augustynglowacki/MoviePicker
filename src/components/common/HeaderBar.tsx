@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, 0.795)',
   },
   title: {
-    width: ' 100%',
+    width: '100%',
     alignItems: 'center',
     position: 'absolute',
   },

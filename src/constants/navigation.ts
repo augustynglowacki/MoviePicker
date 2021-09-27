@@ -19,6 +19,7 @@ export enum Route {
   USERNAME_FORM = 'UserNameForm',
   CONTACT = 'Contact',
   INFO = 'Info',
+  ACTOR = 'Actor',
   WEBVIEW = 'Webview',
   ONBOARDING = 'Onboarding',
 }
@@ -28,6 +29,11 @@ type DetailsScreenParams = {
   contentType: ContentType;
   id: number;
 };
+
+type ActorScreensParams = {
+  id: number;
+};
+
 export type ExploreScreenParams = {
   isLiked: boolean;
 };
@@ -39,6 +45,7 @@ type WebviewScreenParams = {
 export type RootStackParamList = {
   Details: DetailsScreenParams;
   Explore: ExploreScreenParams;
+  Actor: ActorScreensParams;
   Webview: WebviewScreenParams;
   Login: undefined;
   Register: undefined;
@@ -67,6 +74,13 @@ export type DetailsScreenProp = StackNavigationProp<
 export type DetailsScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'Details'
+>;
+
+export type ActorScreenRouteProp = RouteProp<RootStackParamList, 'Actor'>;
+
+export type ActorScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Actor'
 >;
 
 export type WebviewScreenRouteProp = RouteProp<RootStackParamList, 'Webview'>;

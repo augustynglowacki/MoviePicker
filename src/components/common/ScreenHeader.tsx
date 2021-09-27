@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 10,
     paddingBottom: 16,
+    maxWidth: '70%',
   },
   text: {
     color: palette.white,
