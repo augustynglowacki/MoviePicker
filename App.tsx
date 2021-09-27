@@ -1,115 +1,68 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
-import React from 'react';
+import React, {useState} from 'react';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import HomeNavigator from './src/navigation/HomeNavigator';
+import {Provider as PaperProvider} from 'react-native-paper';
+import {useEffect} from 'react';
+import RNBootSplash from 'react-native-bootsplash';
+import palette from 'src/styles/palette';
+import {batch, useDispatch, useSelector} from 'react-redux';
+import {getPopular} from 'src/redux/popular/PopularActions';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section: React.FC<{
-  title: string;
-}> = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
+  getFavorite,
+  getWatched,
+  getWatchlist,
+} from 'src/redux/collections/CollectionsActions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Loading} from 'src/components/common';
+import {popularSelector} from 'src/redux/popular/PopularSlice';
+//app background changed to black
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: palette.primary,
+    background: palette.strongBlack,
+  },
 };
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+  const dispatch = useDispatch();
+  const {page} = useSelector(popularSelector);
+  useEffect(() => {
+    batch(() => {
+      dispatch(getPopular(page));
+      dispatch(getFavorite());
+      dispatch(getWatchlist());
+      dispatch(getWatched());
+    });
+    RNBootSplash.hide({fade: true});
+  }, [dispatch, page]);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const [state, setState] = useState({isFirstLaunch: false, checked: false});
+  const check = async () => {
+    await AsyncStorage.getItem('hasLaunched').then(value => {
+      if (!value) {
+        AsyncStorage.setItem('hasLaunched', 'true');
+        setState({isFirstLaunch: true, checked: true});
+      } else {
+        setState({isFirstLaunch: false, checked: true});
+      }
+    });
   };
+  useEffect(() => {
+    check();
+  }, []);
 
+  if (!state.checked) {
+    return <Loading />;
+  }
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <PaperProvider>
+      <NavigationContainer theme={MyTheme}>
+        <HomeNavigator firstLaunch={state.isFirstLaunch} />
+      </NavigationContainer>
+    </PaperProvider>
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
