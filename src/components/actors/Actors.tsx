@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {FlatList, ListRenderItem, StyleSheet} from 'react-native';
-import {Route} from 'src/constants';
+import {Route, UseNavigation} from 'src/constants';
 import {Actor} from 'src/models';
 import palette from 'src/styles/palette';
 import {Container, ErrorWrapper, SectionHeader} from '../common';
@@ -15,7 +15,7 @@ interface Props {
 
 const Actors: React.FC<Props> = ({data, error}) => {
   const {t} = useTranslation('movies');
-  const {navigate} = useNavigation();
+  const {navigate} = useNavigation<UseNavigation>();
 
   const renderItem: ListRenderItem<Actor> = ({
     item: {id, name, profilePath},
@@ -53,7 +53,7 @@ const Actors: React.FC<Props> = ({data, error}) => {
         renderItem={renderItem}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        keyExtractor={({id}) => id.toString()}
+        keyExtractor={(item, index) => index.toString()}
       />
     </Container>
   );
