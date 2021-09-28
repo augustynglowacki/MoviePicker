@@ -41,6 +41,7 @@ export type ExploreScreenParams = {
 type WebviewScreenParams = {
   link: string;
 };
+export type UseNavigation = StackNavigationProp<RootStackParamList, any>;
 
 export type RootStackParamList = {
   Details: DetailsScreenParams;
