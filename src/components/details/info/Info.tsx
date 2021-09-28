@@ -2,7 +2,6 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {View, StyleSheet, Text, Alert} from 'react-native';
-import Animated, {FlipInXDown} from 'react-native-reanimated';
 import {useDispatch, useSelector} from 'react-redux';
 import Actors from 'src/components/actors/Actors';
 import {Action} from 'src/components/common';
@@ -78,9 +77,7 @@ const Info: React.FC<Props> = ({data, actors, buttonsState}) => {
   }
   return (
     <View style={styles.bottomWrapper}>
-      <Animated.View entering={FlipInXDown.springify().delay(300)}>
-        <Text style={styles.title}>{data.title}</Text>
-      </Animated.View>
+      <Text style={styles.title}>{data.title}</Text>
       <InfoBox data={data} />
       {!!data.voteAverage && <RatingBox voteAverage={data.voteAverage} />}
       <View style={styles.actions}>
@@ -114,11 +111,12 @@ const Info: React.FC<Props> = ({data, actors, buttonsState}) => {
 const styles = StyleSheet.create({
   title: {
     color: palette.white,
-    fontSize: 34,
+    fontSize: 26,
     textAlign: 'center',
     textShadowOffset: {width: 1, height: 1},
     textShadowRadius: 3,
     textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    marginHorizontal: 24,
   },
   descriptionWrapper: {
     paddingHorizontal: 14,
@@ -137,8 +135,8 @@ const styles = StyleSheet.create({
   actions: {
     flexDirection: 'row',
     alignSelf: 'center',
-    marginTop: 30,
-    marginBottom: 40,
+    marginTop: 25,
+    marginBottom: 35,
   },
 });
 
