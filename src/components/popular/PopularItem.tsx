@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useRef} from 'react';
 import {
   Text,
   View,
@@ -8,7 +8,6 @@ import {
   Image,
   StyleProp,
   ViewStyle,
-  Pressable,
   ActivityIndicator,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -19,7 +18,6 @@ import palette from 'src/styles/palette';
 import {useDispatch} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import RatingBox from '../common/RatingBox';
-import Heart from '../common/Heart';
 import GenreBox from './GenreBox';
 import {
   Route,
@@ -33,6 +31,14 @@ import {
   useSafeAreaFrame,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import {TapGestureHandler} from 'react-native-gesture-handler';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withSpring,
+} from 'react-native-reanimated';
+
 interface Props {
   movie: Popular;
   loggedIn: boolean;
@@ -45,28 +51,9 @@ const PopularItem: React.FC<Props> = React.memo(
     const {navigate} = useNavigation<PopularScreenProp>();
     const dispatch = useDispatch();
     const {posterPath, title, id, voteAverage, genres, contentType} = movie;
-    const [isLiked, setLiked] = useState<boolean>(false);
     //workaround for height on devices with notch
     const frame = useSafeAreaFrame();
     const {bottom} = useSafeAreaInsets();
-
-    let clickTimer: any = null;
-    const handleClick = () => {
-      if (!clickTimer) {
-        clickTimer = setTimeout(function () {
-          clickTimer = null;
-          navigate(Route.DETAILS, {
-            id,
-            posterPath,
-            contentType,
-          });
-        }, 300);
-      } else {
-        clearTimeout(clickTimer);
-        clickTimer = null;
-        handleDoubleClickFavorite();
-      }
-    };
 
     const phoneHeight = frame.height - BOTTOM_TABS_HEIGHT - bottom;
     const wrapperStyle: StyleProp<ViewStyle> = {
@@ -76,7 +63,7 @@ const PopularItem: React.FC<Props> = React.memo(
       alignItems: 'center',
     };
 
-    const alert = () => {
+    const alert = useCallback(() => {
       Alert.alert(t('login'), t('loginSuggestion'), [
         {
           text: t('cancel'),
@@ -87,21 +74,35 @@ const PopularItem: React.FC<Props> = React.memo(
           onPress: () => navigate(Route.AUTH),
         },
       ]);
-    };
+    }, [navigate, t]);
 
-    const handleDoubleClickFavorite = () => {
+    //heart animation, touch logic
+    const scale = useSharedValue(0);
+    const doubleTapRef = useRef();
+    const rStyle = useAnimatedStyle(() => ({
+      transform: [{scale: Math.max(scale.value, 0)}],
+    }));
+    const onDoubleTap = useCallback(() => {
       if (!loggedIn) {
         alert();
         return;
       }
       if (loggedIn) {
-        if (!isLiked) {
-          setLiked(true);
-          dispatch(setFavorite(movie));
-          setTimeout(() => setLiked(false), 1000);
-        }
+        scale.value = withSpring(1, undefined, isFinished => {
+          if (isFinished) {
+            scale.value = withDelay(500, withSpring(0));
+          }
+        });
+        dispatch(setFavorite(movie));
       }
-    };
+    }, [alert, dispatch, loggedIn, movie, scale]);
+    const onSingleTap = useCallback(() => {
+      navigate(Route.DETAILS, {
+        id,
+        posterPath,
+        contentType,
+      });
+    }, [contentType, id, navigate, posterPath]);
 
     return (
       <View style={wrapperStyle}>
@@ -125,51 +126,57 @@ const PopularItem: React.FC<Props> = React.memo(
             style={styles.linearBackground}
           />
         </View>
-        <Pressable testID="doubleTap" onPress={handleClick}>
-          <View style={styles.movieContainer}>
-            {loading && (
-              <ActivityIndicator
-                color={palette.primary}
-                style={styles.loading}
-                size={40}
-              />
-            )}
-            <ImageBackground
-              source={{uri: `${API_IMAGES}${posterPath}`}}
-              style={styles.image}
-              imageStyle={styles.image}
-            />
-            <LinearGradient
-              colors={[
-                'rgba(0,0,0,0.05)',
-                'rgba(0,0,0,0.1)',
-                'rgba(0,0,0,0.2)',
-                'rgba(0,0,0,0.4)',
-                'rgba(0,0,0,0.5)',
-                'rgba(0,0,0,0.65)',
-              ]}
-              start={{x: 0, y: 0}}
-              end={{x: 0, y: 1}}
-              style={styles.linearGradient}
-            />
-
-            {isLiked && (
-              <View testID="heart" style={styles.heart}>
-                <Heart />
+        <TapGestureHandler waitFor={doubleTapRef} onActivated={onSingleTap}>
+          <TapGestureHandler
+            maxDelayMs={250}
+            ref={doubleTapRef}
+            numberOfTaps={2}
+            onActivated={onDoubleTap}>
+            <Animated.View>
+              <View style={styles.movieContainer}>
+                {loading && (
+                  <ActivityIndicator
+                    color={palette.primary}
+                    style={styles.loading}
+                    size={40}
+                  />
+                )}
+                <ImageBackground
+                  source={{uri: `${API_IMAGES}${posterPath}`}}
+                  style={styles.image}
+                  imageStyle={styles.image}
+                />
+                <LinearGradient
+                  colors={[
+                    'rgba(0,0,0,0.05)',
+                    'rgba(0,0,0,0.1)',
+                    'rgba(0,0,0,0.2)',
+                    'rgba(0,0,0,0.4)',
+                    'rgba(0,0,0,0.5)',
+                    'rgba(0,0,0,0.65)',
+                  ]}
+                  start={{x: 0, y: 0}}
+                  end={{x: 0, y: 1}}
+                  style={styles.linearGradient}
+                />
+                <Animated.Image
+                  source={require('src/assets/images/like.png')}
+                  style={[styles.heart, rStyle]}
+                  resizeMode={'center'}
+                />
+                <View style={styles.movieInfo}>
+                  <Text style={styles.title}>{title}</Text>
+                  <View style={styles.genres}>
+                    {genres.slice(0, 2).map(genre => (
+                      <GenreBox key={genre} name={genre} />
+                    ))}
+                  </View>
+                  {!!voteAverage && <RatingBox voteAverage={voteAverage} />}
+                </View>
               </View>
-            )}
-
-            <View style={styles.movieInfo}>
-              <Text style={styles.title}>{title}</Text>
-              <View style={styles.genres}>
-                {genres.slice(0, 2).map(genre => (
-                  <GenreBox key={genre} name={genre} />
-                ))}
-              </View>
-              {!!voteAverage && <RatingBox voteAverage={voteAverage} />}
-            </View>
-          </View>
-        </Pressable>
+            </Animated.View>
+          </TapGestureHandler>
+        </TapGestureHandler>
       </View>
     );
   },
@@ -254,12 +261,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 14,
   },
-  heart: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 2,
-  },
   loading: {
     zIndex: 100,
+  },
+  heartContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  heart: {
+    width: width * 0.3,
+    height: width * 0.3,
+    zIndex: 10,
+    shadowOffset: {width: 0, height: 20},
+    shadowOpacity: 0.35,
+    shadowRadius: 35,
   },
 });

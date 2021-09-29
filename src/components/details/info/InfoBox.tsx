@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 8,
-    marginTop: 15,
+    marginBottom: 4,
+    marginTop: 10,
     flexWrap: 'wrap',
   },
   text: {

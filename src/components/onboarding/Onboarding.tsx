@@ -24,7 +24,7 @@ import {useTranslation} from 'react-i18next';
 
 export interface PageInterface extends Pick<ImageProps, 'source'> {
   title: React.ReactNode;
-  description: string;
+  description: React.ReactNode;
   extra?: React.ReactNode;
 }
 
@@ -40,7 +40,13 @@ export default function Onboarding() {
           <Text style={styles.markedText}> {t('welcomeTitle')}</Text>
         </Text>
       ),
-      description: t('welcomeDes'),
+      description: (
+        <Text>
+          Don't have any ideas on what to watch? You've come to the right place!
+          Get to know MoviePicker by&nbsp;
+          <Text style={styles.markedText}>swiping right!</Text>
+        </Text>
+      ),
       source: require('src/assets/onboarding/start.png'),
     },
     {
@@ -50,7 +56,14 @@ export default function Onboarding() {
           <Text style={styles.markedText}>{t('popular')}</Text>
         </Text>
       ),
-      description: t('popularDes'),
+      description: (
+        <Text>
+          Surf through popular movies around the world right now - all of them
+          are on your home screen.&nbsp;
+          <Text style={styles.markedText}>Double tap&nbsp;</Text>a movie cover
+          to like it!
+        </Text>
+      ),
       source: require('src/assets/onboarding/popular.png'),
     },
     {
@@ -60,7 +73,13 @@ export default function Onboarding() {
           <Text style={styles.markedText}>{t('details')}</Text>
         </Text>
       ),
-      description: t('detailsDes'),
+      description: (
+        <Text>
+          <Text style={styles.markedText}>Tap once&nbsp;</Text>
+          on the movie cover photo to get to know the details. You can pick a
+          movie to watch later by adding it to your watchlist!
+        </Text>
+      ),
       source: require('src/assets/onboarding/details.png'),
     },
     {
@@ -70,7 +89,13 @@ export default function Onboarding() {
           <Text style={styles.markedText}> {t('profile')}</Text>
         </Text>
       ),
-      description: t('profileDes'),
+      description: (
+        <Text>
+          Customize your profile by adding avatar and background photo!&nbsp;
+          <Text style={styles.markedText}>Add movies&nbsp;</Text>
+          to your collections - as many as you want.
+        </Text>
+      ),
       source: require('src/assets/onboarding/profile.png'),
       extra: <CustomButton onPress={go} label="Get started" />,
     },
