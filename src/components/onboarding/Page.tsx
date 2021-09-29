@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   description: {
     textAlign: 'center',
     fontSize: 14,
-    color: palette.lightGrey,
+    color: '#F8F8F8',
     marginBottom: 40,
   },
 });
