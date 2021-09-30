@@ -124,10 +124,10 @@ const Settings: React.FC = () => {
             icon={'information-circle-outline'}
           />
         </View>
-        <View style={styles.footer}>
-          <Text style={styles.text}>{t('version')}</Text>
-        </View>
       </Animated.View>
+      <View style={styles.footer}>
+        <Text style={styles.text}>{t('version')}</Text>
+      </View>
     </Container>
   );
 };

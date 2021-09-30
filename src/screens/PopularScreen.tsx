@@ -36,10 +36,10 @@ const PopularScreen: React.FC = () => {
 
   return (
     <PopularComponent
-      loading={loading}
-      error={error}
       movies={movies}
       loggedIn={!!email}
+      error={error}
+      loading={loading}
     />
   );
 };

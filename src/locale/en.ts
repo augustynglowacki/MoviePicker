@@ -38,7 +38,7 @@ const translations = {
     season: 'One season',
     episode: 'One episode',
     stats: 'YOUR STATS',
-    emptyWatchlist: 'Add some movies to your watchlist ;D ',
+    emptyWatchlist: 'Add some movies to your watchlist!',
   },
   form: {
     required: 'Required!',

@@ -1,6 +1,7 @@
 import {Movie, MovieApi} from './movie';
 
 export interface Popular extends Movie {
+  length: number;
   voteAverage: number;
   title: string;
   genres: string[];

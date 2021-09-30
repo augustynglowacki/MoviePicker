@@ -141,13 +141,13 @@ export const signInWithGoogle = createAsyncThunk<
     user: {uid, email, displayName, photoURL},
   } = await auth().signInWithCredential(googleCredential);
 
-  const coverURL = await fetchCover(uid);
+  // const coverURL = await fetchCover(uid);
 
   // if (!coverURL) {
   //   setCover(DEFAULT_COVER, uid);
   // }
 
-  if (!email || !displayName || !photoURL || !coverURL) {
+  if (!email || !displayName || !photoURL) {
     return rejectWithValue('Error');
   }
   return {
@@ -155,6 +155,6 @@ export const signInWithGoogle = createAsyncThunk<
     email,
     userName: displayName,
     avatar: photoURL,
-    coverPhoto: coverURL,
+    coverPhoto: DEFAULT_COVER,
   };
 });
