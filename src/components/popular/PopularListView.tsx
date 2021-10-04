@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Animated, {FlipInXDown} from 'react-native-reanimated';
 import {
   useSafeAreaFrame,
@@ -71,21 +71,25 @@ export const PopularListView: React.FC<Props> = ({
     }
     return <PopularItem movie={data} loggedIn={loggedIn} loading={loading} />;
   };
-
+  if (!movies.length && loading) {
+    return null;
+  }
   return (
     <View style={styles.container}>
       <View style={styles.heading}>
         <Container disableScroll>
-          <Animated.View entering={FlipInXDown.springify().delay(300)}>
-            <Text style={styles.headingText}>{t('popular')}</Text>
-          </Animated.View>
+          <Animated.Text
+            style={styles.headingText}
+            entering={FlipInXDown.springify().delay(300)}>
+            {t('popular')}
+          </Animated.Text>
         </Container>
       </View>
       <RecyclerListView
         layoutProvider={layoutProvider}
         dataProvider={dataProvider}
         rowRenderer={rowRenderer}
-        renderAheadOffset={2}
+        renderAheadOffset={5}
         snapToInterval={height}
         onEndReached={handleOnEnd}
         onEndReachedThreshold={1}
@@ -101,7 +105,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     alignSelf: 'center',
-    top: 10,
+    top: 15,
     position: 'absolute',
     zIndex: 10,
   },

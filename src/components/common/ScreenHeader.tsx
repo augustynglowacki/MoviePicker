@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+import Animated, {FlipInXDown} from 'react-native-reanimated';
 import palette from 'src/styles/palette';
 
 interface Props {
@@ -9,7 +10,11 @@ interface Props {
 const ScreenHeader: React.FC<Props> = ({label}) => {
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.text}>{label}</Text>
+      <Animated.Text
+        style={styles.text}
+        entering={FlipInXDown.springify().delay(300)}>
+        {label}
+      </Animated.Text>
     </View>
   );
 };
