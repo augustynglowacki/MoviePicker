@@ -6,7 +6,7 @@ export enum Route {
   LOGIN = 'Login',
   REGISTER = 'Register',
   HOME = 'Popular',
-  DISCOVER = 'Discover',
+  SEARCH = 'Search',
   WATCHLIST = 'Watchlist',
   PROFILE = 'Profile',
   AUTH = 'Auth',
@@ -50,7 +50,7 @@ export type RootStackParamList = {
   Webview: WebviewScreenParams;
   Login: undefined;
   Register: undefined;
-  Discover: undefined;
+  Search: undefined;
   Popular: undefined;
   Profile: undefined;
   Settings: undefined;
@@ -104,9 +104,9 @@ export type RegisterScreenProp = StackNavigationProp<
   RootStackParamList,
   'Register'
 >;
-export type DiscoverScreenProp = StackNavigationProp<
+export type SearchScreenProp = StackNavigationProp<
   RootStackParamList,
-  'Discover'
+  'Search'
 >;
 export type ProfileScreenProp = StackNavigationProp<
   RootStackParamList,
