@@ -13,6 +13,7 @@ import {pickImage} from 'src/helpers/pickImage';
 import {StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {updateUserPhoto} from 'src/redux/user/UserAction';
+import Animated, {Easing, SlideInRight} from 'react-native-reanimated';
 
 const Settings: React.FC = () => {
   const {navigate} = useNavigation<SettingScreenProp>();
@@ -67,58 +68,63 @@ const Settings: React.FC = () => {
   }
   return (
     <Container flexStart disableScroll>
-      <HeaderBar leftIcon={leftIcon} title={t('title')} />
-      <View style={styles.info}>
-        <Avatar source={avatar} onPress={toggleModal} />
-        <CustomModal
-          isModalVisible={isModalVisible}
-          toggleModal={toggleModal}
-          onPressTop={() => handleImageChange(true)}
-          onPressBottom={() => handleImageChange()}
-        />
-        <View style={styles.textBox}>
-          {userName && <Text style={styles.titleText}>{userName}</Text>}
-          <Text style={styles.subText}>{t('profile:premium')}</Text>
-        </View>
-      </View>
-      <View>
-        <Text style={[styles.subText, styles.padded]}>{t('account')}</Text>
-        {account.map(item => (
-          <SettingsOptionBox
-            title={item.title}
-            subtitle={item.subtext}
-            onPress={item.navigateTo}
-            key={item.subtext}
+      <Animated.View
+        entering={SlideInRight.delay(0)
+          .easing(Easing.bezier(0.42, 0, 1, 1))
+          .duration(350)}>
+        <HeaderBar leftIcon={leftIcon} title={t('title')} />
+        <View style={styles.info}>
+          <Avatar source={avatar} onPress={toggleModal} />
+          <CustomModal
+            isModalVisible={isModalVisible}
+            toggleModal={toggleModal}
+            onPressTop={() => handleImageChange(true)}
+            onPressBottom={() => handleImageChange()}
           />
-        ))}
-        <Text style={[styles.subText, styles.padded]}>{t('profile')}</Text>
-        <SettingsOptionBox
-          title={t('avatar')}
-          subtitle={t('avatarSub')}
-          onPress={toggleModal}
-          icon={'person-circle-outline'}
-        />
-        {/*  TODO: Add this when background action will be done
+          <View style={styles.textBox}>
+            {userName && <Text style={styles.titleText}>{userName}</Text>}
+            <Text style={styles.subText}>{t('profile:premium')}</Text>
+          </View>
+        </View>
+        <View>
+          <Text style={[styles.subText, styles.padded]}>{t('account')}</Text>
+          {account.map(item => (
+            <SettingsOptionBox
+              title={item.title}
+              subtitle={item.subtext}
+              onPress={item.navigateTo}
+              key={item.subtext}
+            />
+          ))}
+          <Text style={[styles.subText, styles.padded]}>{t('profile')}</Text>
+          <SettingsOptionBox
+            title={t('avatar')}
+            subtitle={t('avatarSub')}
+            onPress={toggleModal}
+            icon={'person-circle-outline'}
+          />
+          {/*  TODO: Add this when background action will be done
         <SettingsOptionBox
           title="Background"
           subtitle="You can add your costume cover photo"
           onPress={() => {}}
           icon={'image-outline'}
         /> */}
-        <Text style={[styles.subText, styles.padded]}>{t('help')}</Text>
-        <SettingsOptionBox
-          title={t('contact')}
-          subtitle={t('contactSub')}
-          onPress={() => navigate(Route.CONTACT)}
-          icon={'mail-outline'}
-        />
-        <SettingsOptionBox
-          title={t('about')}
-          subtitle={t('aboutSub')}
-          onPress={() => navigate(Route.INFO)}
-          icon={'information-circle-outline'}
-        />
-      </View>
+          <Text style={[styles.subText, styles.padded]}>{t('help')}</Text>
+          <SettingsOptionBox
+            title={t('contact')}
+            subtitle={t('contactSub')}
+            onPress={() => navigate(Route.CONTACT)}
+            icon={'mail-outline'}
+          />
+          <SettingsOptionBox
+            title={t('about')}
+            subtitle={t('aboutSub')}
+            onPress={() => navigate(Route.INFO)}
+            icon={'information-circle-outline'}
+          />
+        </View>
+      </Animated.View>
       <View style={styles.footer}>
         <Text style={styles.text}>{t('version')}</Text>
       </View>
