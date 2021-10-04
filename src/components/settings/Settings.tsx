@@ -13,7 +13,6 @@ import {pickImage} from 'src/helpers/pickImage';
 import {StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {updateUserPhoto} from 'src/redux/user/UserAction';
-import Animated, {Easing, SlideInRight} from 'react-native-reanimated';
 
 const Settings: React.FC = () => {
   const {navigate} = useNavigation<SettingScreenProp>();
@@ -68,10 +67,7 @@ const Settings: React.FC = () => {
   }
   return (
     <Container flexStart disableScroll>
-      <Animated.View
-        entering={SlideInRight.delay(0)
-          .easing(Easing.bezier(0.42, 0, 1, 1))
-          .duration(350)}>
+      <View>
         <HeaderBar leftIcon={leftIcon} title={t('title')} />
         <View style={styles.info}>
           <Avatar source={avatar} onPress={toggleModal} />
@@ -124,7 +120,7 @@ const Settings: React.FC = () => {
             icon={'information-circle-outline'}
           />
         </View>
-      </Animated.View>
+      </View>
       <View style={styles.footer}>
         <Text style={styles.text}>{t('version')}</Text>
       </View>

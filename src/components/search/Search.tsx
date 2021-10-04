@@ -11,9 +11,9 @@ import {SearchSelector} from 'src/redux/search/SearchSlice';
 import palette from 'src/styles/palette';
 import Actors from '../actors/Actors';
 import {Collection, Container} from '../common';
-import DiscoveryBox from './DiscoveryBox';
+import SearchBox from './SearchBox';
 
-const DiscoveryComponent: React.FC = () => {
+const SearchComponent: React.FC = () => {
   const MIN_QUERY_LENGTH = 2;
   const dispatch = useDispatch();
   const {t} = useTranslation('movies');
@@ -30,7 +30,7 @@ const DiscoveryComponent: React.FC = () => {
 
   return (
     <Container flexStart withKeyboard padding="small" style={styles.wrapper}>
-      <DiscoveryBox />
+      <SearchBox />
       <Collection
         title={t('movies')}
         data={foundMovies.movies}
@@ -48,7 +48,7 @@ const DiscoveryComponent: React.FC = () => {
   );
 };
 
-export default DiscoveryComponent;
+export default SearchComponent;
 
 const styles = StyleSheet.create({
   wrapper: {backgroundColor: palette.strongBlack},

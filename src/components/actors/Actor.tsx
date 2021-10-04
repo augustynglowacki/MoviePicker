@@ -45,9 +45,9 @@ const Actor: React.FC<Props> = ({
         posterPath={`${API_IMAGES}${profilePath}`}
       />
       <View style={styles.bottomWrapper}>
-        <Animated.View entering={FlipInXDown.springify().delay(300)}>
-          <Text style={styles.title}>{name}</Text>
-        </Animated.View>
+        <Animated.Text entering={FlipInXDown.springify()} style={styles.title}>
+          {name}
+        </Animated.Text>
         <View style={styles.movieInfo}>
           {!!placeOfBirth && (
             <>
