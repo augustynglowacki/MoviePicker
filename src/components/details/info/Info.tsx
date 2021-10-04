@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {View, StyleSheet, Text, Alert} from 'react-native';
-import Animated, {Easing, SlideInRight} from 'react-native-reanimated';
+import Animated, {FlipInXDown} from 'react-native-reanimated';
 import {useDispatch, useSelector} from 'react-redux';
 import Actors from 'src/components/actors/Actors';
 import {Action} from 'src/components/common';
@@ -78,12 +78,9 @@ const Info: React.FC<Props> = ({data, actors, buttonsState}) => {
   }
   return (
     <View style={styles.bottomWrapper}>
-      <Animated.View
-        entering={SlideInRight.delay(0)
-          .easing(Easing.bezier(0.42, 0, 1, 1))
-          .duration(350)}>
-        <Text style={styles.title}>{data.title}</Text>
-      </Animated.View>
+      <Animated.Text entering={FlipInXDown.springify()} style={styles.title}>
+        {data.title}
+      </Animated.Text>
       <InfoBox data={data} />
       {!!data.voteAverage && <RatingBox voteAverage={data.voteAverage} />}
       <View style={styles.actions}>

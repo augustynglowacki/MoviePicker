@@ -1,7 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import PopularScreen from 'src/screens/PopularScreen';
-import DiscoverScreen from 'src/screens/DiscoverScreen';
+import SearchScreen from 'src/screens/SearchScreen';
 import {StyleSheet} from 'react-native';
 import ProfileScreen from 'src/screens/ProfileScreen';
 import {useSelector} from 'react-redux';
@@ -34,8 +34,8 @@ const BottomTabsNavigator = () => {
         }}
       />
       <Tab.Screen
-        name={Route.DISCOVER}
-        component={DiscoverScreen}
+        name={Route.SEARCH}
+        component={SearchScreen}
         options={{
           tabBarIcon: ({focused}) =>
             TabIcon(focused, 'ios-search', IconTypes.IONICON),
