@@ -19,8 +19,8 @@ const Loading: React.FC = () => {
 
 const styles = StyleSheet.create({
   loading: {
-    width: 200,
-    height: 200,
+    width: 180,
+    height: 180,
     alignSelf: 'center',
     marginBottom: '15%',
   },
