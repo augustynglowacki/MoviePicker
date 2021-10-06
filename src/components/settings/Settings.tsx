@@ -34,17 +34,17 @@ const Settings: React.FC = () => {
   const account = [
     {
       title: userName,
-      subtext: 'Tap to change username',
+      subtext: 'Click to change username',
       navigateTo: () => navigate(Route.USERNAME_FORM),
     },
     {
       title: email,
-      subtext: 'Tap to change email',
+      subtext: 'Click to change email',
       navigateTo: () => navigate(Route.USER_EMAIL_FORM),
     },
     {
       title: 'Password',
-      subtext: 'Try to type strong password',
+      subtext: 'Click to change password',
       navigateTo: () => navigate(Route.USER_PASSWORD_FORM),
     },
   ];
@@ -102,7 +102,7 @@ const Settings: React.FC = () => {
           {/*  TODO: Add this when background action will be done
         <SettingsOptionBox
           title="Background"
-          subtitle="You can add your costume cover photo"
+          subtitle="You can add your custom cover photo"
           onPress={() => {}}
           icon={'image-outline'}
         /> */}
