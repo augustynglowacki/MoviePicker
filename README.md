@@ -1,12 +1,14 @@
 # MoviePicker
 
-MoviePicker is a React Native application where you can browse movies and tv series, see what is popular right now, create a watchlist, set up your user profile, etc.
+MoviePicker is a React Native application where you can browse movies and tv series, see what is popular right now, create a watchlist, set up your user profile and many more...
 
-[![Movie-Picker.png](https://i.postimg.cc/9fqRNvSM/Movie-Picker.png)](https://postimg.cc/VSmkJHzQ)
+[![Movie-Picker.png](https://i.postimg.cc/50PNpg3g/Movie-Picker.png)](https://postimg.cc/FdL4Hjwk)
 
-Demo (Android APK): [MoviePicker v1.0.1.apk](https://bit.ly/3dGdI7C)
+### App Demo:
 
-Tech stack used in this project:
+Android APK: [MoviePicker v1.0.1.apk](https://bit.ly/3dGdI7C)
+
+### Tech stack used in this project:
 - Typescript, React Native
 - Firebase
 - Redux Thunk + Toolkit
@@ -27,12 +29,12 @@ Tech stack used in this project:
 1. Clone the repo locally:
 
 ```sh
-git clone git@github.com:...........
+https://github.com/augustyn1331/MoviePicker.git
 ```
 
 2. Navigate into project
 ```sh
-cd app-name
+cd MoviePicker
 ```
 
 3. Install dependencies
@@ -56,8 +58,7 @@ cd ..
 ##### iOS #####
 1. Open application in xcode
 ```sh
-cd ios
-open <App-name>.xcworkspace
+npm run ios
 ```
 
 2. Configure signing on project target
